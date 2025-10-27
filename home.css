@@ -26,7 +26,7 @@ body{
 }
 
 /*---------------------- HEADER SECTION ----------------------*/
-nav .header{
+nav .header-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,11 +85,16 @@ nav .user-action .cart-btn:hover{
 
 nav .user-action .login-btn{
     background-color: black;
-    color: white;
+    color: var(--color-text);
     border-radius: 5px;
     cursor: pointer;
     padding: 10px;
     font-weight: bold;
+}
+
+nav .user-action .login-btn:hover{
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 /*---------------------- INTRODUCE SECTION ----------------------*/
@@ -98,8 +103,8 @@ nav .user-action .login-btn{
     padding: 80px 20px;
     display: flex;
     align-items: center;
-    margin: 0 auto;
     gap: 60px;
+    margin-top: 85px;
 }
 
 .introduce-section .introduce-container{
@@ -184,7 +189,7 @@ nav .user-action .login-btn{
 }
 
 .printer-product-section .product-container .product-grid{
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: 40px;
@@ -198,8 +203,9 @@ nav .user-action .login-btn{
     text-align: left;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 450px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .printer-product-section .product-container .product-grid .product-card:hover{
@@ -207,11 +213,42 @@ nav .user-action .login-btn{
     transform: translateY(-5px);
 }
 
+.product-image-placeholder {
+    width: 100%;
+    height: 180px;
+    background-color: white;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: block;
+    overflow: hidden;
+}
+
+.product-image-placeholder img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+}
+
 .product-name {
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 5px 0;
     min-height: 44px;
+}
+
+.product-details {
+    padding-left: 15px;
+    margin: 0 0 15px 0;
+    flex-grow: 1;
+}
+
+.product-details li {
+    font-size: 13px;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 10px;
 }
 
 .product-price {
@@ -266,7 +303,7 @@ nav .user-action .login-btn{
 }
 
 .stationery-section .product-container .product-grid{
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: 40px;
@@ -280,8 +317,9 @@ nav .user-action .login-btn{
     text-align: left;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 450px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .stationery-section .product-container .product-grid .product-card:hover{
@@ -293,7 +331,7 @@ nav .user-action .login-btn{
     font-size: 18px;
     font-weight: 600;
     margin: 0 0 5px 0;
-    min-height: 44px;
+    min-height: 50px;
 }
 
 .product-price {
@@ -518,4 +556,3 @@ nav .user-action .login-btn{
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
 }
-
