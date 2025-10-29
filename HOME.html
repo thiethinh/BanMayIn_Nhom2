@@ -4,33 +4,33 @@
     <meta charset="UTF-8">
     <title>PaperCraft - HOME</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="icon" href="image/logo.jpg"/>
-    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="images/logo.jpg"/>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 
 <div class="introduce-section">
     <div class="introduce-container">
         <h1 class="introduce-title">Giải Pháp Văn Phòng Hoàn Chỉnh Cho Doanh Nghiệp</h1>
-        <p class="introduce-description">Từ máy in chuyên nghiệp đến văn phòng phẩm thiết yếu - mọi thứ bạn cần cho không gian làm việc hiệu quả. Chất lượng cao, đáng tin cậy và giá cả phải chăng.</p>
+        <p class="introduce-description">Từ máy in chuyên nghiệp đến văn phòng phẩm thiết yếu - mọi thứ bạn cần cho
+            không gian làm việc hiệu quả. Chất lượng cao, đáng tin cậy và giá cả phải chăng</p>
         <div class="introduce-btn">
             <a href="#" class="btn btn-primary">Mua ngay</a>
             <a href="#" class="btn btn-secondary">Tìm hiểu thêm</a>
         </div>
     </div>
-    <div class="introduce-img">
-        <img src="image/introduce-img.jpg" height="385" width="612"/>
-    </div>
 </div>
 
-<div class="printer-product-section">
-    <div class="product-container">
-        <h2 class="section-title">Máy In Nổi Bật</h2>
-        <p class="section-subtitle">Giải pháp in ấn chuyên nghiệp cho mọi nhu cầu</p>
-        <div class="product-grid">
-            <div class="product-card">
+<div class="printer-section">
+    <h2 class="section-title">Máy In Nổi Bật</h2>
+    <p class="section-subtitle">Giải pháp in ấn chuyên nghiệp cho mọi nhu cầu</p>
+    <div class="printer-product-section swiper">
+
+        <div class="product-card-list swiper-wrapper">
+
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/Epson L3250.webp" height="300" width="300"/></div>
+                    <img src="images/Epson L3250.webp" height="300" width="300"/></div>
                 <h3 class="product-name">Máy in Epson L3250</h3>
                 <ul class="product-details">
                     <li>Tốc độ 50 trang/phút</li>
@@ -42,9 +42,9 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/Brother HL-B2180DW.webp" height="300" width="300"/></div>
+                    <img src="images/Brother HL-B2180DW.webp" height="300" width="300"/></div>
                 <h3 class="product-name">Máy in trắng đen đơn năng Brother HL-B2180DW</h3>
                 <ul class="product-details">
                     <li>Tốc độ 50 trang/phút</li>
@@ -56,9 +56,9 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/CANON LBP 6030.webp" height="300" width="300"/></div>
+                    <img src="images/CANON LBP 6030.webp" height="300" width="300"/></div>
                 <h3 class="product-name">Máy in laser trắng đen CANON LBP 6030</h3>
                 <ul class="product-details">
                     <li>Tốc độ 50 trang/phút</li>
@@ -70,9 +70,9 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/HP Laser 108a (4ZB79A).webp" height="300" width="300"/></div>
+                    <img src="images/HP Laser 108a (4ZB79A).webp" height="300" width="300"/></div>
                 <h3 class="product-name">Máy in HP Laser 108a (4ZB79A)</h3>
                 <ul class="product-details">
                     <li>Tốc độ 50 trang/phút</li>
@@ -83,22 +83,45 @@
                 <p class="product-price">2.590.000 VNĐ</p>
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
+
+            <div class="product-card swiper-slide">
+                <div class="product-image-placeholder">
+                    <img src="images/HP Laser 108a (4ZB79A).webp" height="300" width="300"/></div>
+                <h3 class="product-name">Máy in HP Laser 108a (4ZB79A)</h3>
+                <ul class="product-details">
+                    <li>Tốc độ 50 trang/phút</li>
+                    <li>Khay giấy 500 tờ</li>
+                    <li>Hỗ trợ in 2 mặt tự động</li>
+                    <li>Bảo hành 3 năm</li>
+                </ul>
+                <p class="product-price">2.590.000 VNĐ</p>
+                <button class="buy-button">Thêm vào giỏ</button>
+            </div>
+
         </div>
 
-        <div class="view-all-btn-container">
-            <a href="#" class="btn btn-secondary view-all-btn">Xem Tất Cả</a>
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
     </div>
+
+    <div class="view-all-btn-container">
+        <a href="#" class="btn view-all-btn">Xem Tất Cả</a>
+    </div>
+
 </div>
 
 <div class="stationery-section">
-    <div class="product-container">
-        <h2 class="section-title">Văn Phòng Phẩm</h2>
-        <p class="section-subtitle">Mọi thứ bạn cần cho không gian làm việc hiệu quả</p>
-        <div class="product-grid">
-            <div class="product-card">
+    <h2 class="section-title">Văn Phòng Phẩm</h2>
+    <p class="section-subtitle">Mọi thứ bạn cần cho không gian làm việc hiệu quả</p>
+    <div class="stationery-product-section swiper">
+
+        <div class="product-card-list swiper-wrapper">
+
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/BoSoTayCaoCap.jpg" height="400" width="400"/></div>
+                    <img src="images/BoSoTayCaoCap.jpg" height="400" width="400"/></div>
                 <h3 class="product-name">Bộ Sổ Tay Cao Cấp</h3>
                 <ul class="product-details">
                     <li>Bộ 3 cuốn</li>
@@ -109,10 +132,10 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/BoDoDungVanPhong.jpg" height="761" width="1080"/></div>
-                    <h3 class="product-name">Bộ Đồ Dùng Văn Phòng</h3>
+                    <img src="images/BoDoDungVanPhong.jpg" height="761" width="1080"/></div>
+                <h3 class="product-name">Bộ Đồ Dùng Văn Phòng</h3>
                 <ul class="product-details">
                     <li>Bộ văn phòng đầy đủ</li>
                     <li>Bút, bút chì, bút dạ</li>
@@ -122,9 +145,9 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/HopDungDoBangTre.jpg" height="608" width="1080"/></div>
+                    <img src="images/HopDungDoBangTre.jpg" height="608" width="1080"/></div>
                 <h3 class="product-name">Hộp Đựng Đồ Bằng Tre</h3>
                 <ul class="product-details">
                     <li>Nhiều ngăn</li>
@@ -135,9 +158,9 @@
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card swiper-slide">
                 <div class="product-image-placeholder">
-                    <img src="image/BoFolderHoSo(50Cai).jpg" height="500" width="500"/></div>
+                    <img src="images/BoFolderHoSo(50Cai).jpg" height="500" width="500"/></div>
                 <h3 class="product-name">Bộ Folder Hồ Sơ (50 Cái)</h3>
                 <ul class="product-details">
                     <li>50 folder/bộ</li>
@@ -147,12 +170,32 @@
                 <p class="product-price">2.590.000 VNĐ</p>
                 <button class="buy-button">Thêm vào giỏ</button>
             </div>
+
+            <div class="product-card swiper-slide">
+                <div class="product-image-placeholder">
+                    <img src="images/BoFolderHoSo(50Cai).jpg" height="500" width="500"/></div>
+                <h3 class="product-name">Bộ Folder Hồ Sơ (50 Cái)</h3>
+                <ul class="product-details">
+                    <li>50 folder/bộ</li>
+                    <li>Khổ A4</li>
+                    <li>Nhiều màu sắc</li>
+                </ul>
+                <p class="product-price">2.590.000 VNĐ</p>
+                <button class="buy-button">Thêm vào giỏ</button>
+            </div>
+
         </div>
 
-        <div class="view-all-btn-container">
-            <a href="#" class="btn btn-secondary view-all-btn">Xem Tất Cả</a>
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
     </div>
+
+    <div class="view-all-btn-container">
+        <a href="#" class="btn view-all-btn">Xem Tất Cả</a>
+    </div>
+
 </div>
 
 <div class="benefits-section">
@@ -189,7 +232,7 @@
                     <i class="fas fa-shipping-fast benefit-icon"></i>
                 </div>
                 <h3 class="benefit-title">Miễn Phí Vận Chuyển</h3>
-                <p class="benefit-description">Giao hàng miễn phí cho đơn hàng trên $500</p>
+                <p class="benefit-description">Giao hàng miễn phí cho đơn hàng trên 500.000 VNĐ</p>
             </div>
         </div>
     </div>
@@ -203,6 +246,5 @@
         <a href="#" class="cta-btn">Duyệt Tất Cả Sản Phẩm</a>
     </div>
 </div>
-
 </body>
 </html>
