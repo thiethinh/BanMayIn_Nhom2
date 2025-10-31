@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!mainContent) return console.error("Lỗi: Không tìm thấy phần tử .main.");
 
     const navMap = {
-        'HOME.html': 'nav-home'
+        'HOME.html': 'nav-home',
+        'LOGIN.html': 'nav-login'
     };
     const defaultPage = 'HOME.html';
 
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 1. Hàm làm nổi bật menu
     function updateActiveMenu(pageUrl) {
-        document.querySelectorAll('.menu').forEach(link => {
+        document.querySelectorAll('.menu, .login-btn').forEach(link => {
             link.classList.remove('active-menu');
         });
 
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     loadContent(getPageFromUrl(), false);
 
-    document.querySelectorAll('.menu').forEach(link => {
+    document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.addEventListener('click', function (event) {
             event.preventDefault();
             const pageToLoad = this.getAttribute('data-page') || this.getAttribute('href');
@@ -118,3 +119,36 @@ document.addEventListener('DOMContentLoaded', function () {
         loadContent(getPageFromUrl(), false);
     });
 });
+
+// login - register
+function login() {
+    // Chỉ tìm phần tử KHI HÀM ĐƯỢC GỌI
+    var a = document.getElementById('login');
+    var b = document.getElementById('register');
+
+    // Kiểm tra xem chúng có tồn tại không
+    if (a && b) {
+        a.style.left = "4px";
+        b.style.right = "-520px";
+        a.style.opacity = 1;
+        b.style.opacity = 0;
+    } else {
+        console.error("Lỗi: Không tìm thấy phần tử #login hoặc #register.");
+    }
+}
+
+function register() {
+    // Chỉ tìm phần tử KHI HÀM ĐƯỢC GỌI
+    var a = document.getElementById('login');
+    var b = document.getElementById('register');
+
+    // Kiểm tra xem chúng có tồn tại không
+    if (a && b) {
+        a.style.left = "-510px";
+        b.style.right = "5px";
+        a.style.opacity = 0;
+        b.style.opacity = 1;
+    } else {
+        console.error("Lỗi: Không tìm thấy phần tử #login hoặc #register.");
+    }
+}
