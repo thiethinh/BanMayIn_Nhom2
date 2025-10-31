@@ -6,6 +6,12 @@
     --color-text: #eee;
 }
 
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+}
+
 /*---------------------- HEADER SECTION ----------------------*/
 nav .header-container {
     display: flex;
@@ -55,6 +61,7 @@ nav .user-action {
 
 nav .user-action .cart-btn {
     padding: 12px;
+    font-size: 17px;
 }
 
 nav .user-action .cart-btn:hover {
@@ -69,8 +76,10 @@ nav .user-action .login-btn {
     color: var(--color-text);
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px;
+    padding: 12px;
+    font-size: 14px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 nav .user-action .login-btn:hover {
