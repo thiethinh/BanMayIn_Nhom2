@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart-fill</title>
+    <link rel="stylesheet" href="css/cart_fill.css">
+    <!--    //awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="cart-banner">
+                <div class="text-banner">🎉 Đơn hàng từ 5.000.000đ được FREESHIP toàn quốc 🚚</div>
+            </div>
+        <div class="container">
+            
+            <h1>GIỎ HÀNG CỦA BẠN</h1>
+            <P id="note">Các mặt hàng trong giỏ hàng của bạn không được bảo lưu — hãy kiểm tra ngay để đặt hàng.</P>
+            <section class="view">
+                <div class="product-list">
+                    <div class="product-detail">
+                        <img src="images/Epson-L6270.webp" alt="Máy-in-phun-màu-Epson-L6270">
+                        <div>
+                            <h2>Máy in phun màu Epson L6270</h2>
+                            <p>Phân loại: <span>máy in màu</span></p>
+                            <p>Số lượng:
+                                <select name="quantity" id="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </p>
+                            <button type="button" name="remove-item">XÓA SẢN PHẨM</button>
+                        </div>
+                        <p>Giá: <span class="price">16.990.000đ</span></p>
+                    </div>
+
+                    <div class="product-detail">
+                        <img src="images/HP Laser MFP 3303fdn.webp" alt="Máy-in-HP-Laser-MFP-3303fdn">
+                        <div>
+                            <h2>Máy in HP Laser MFP 3303fdn</h2>
+                            <p>Phân loại: <span>máy in đa năng</span></p>
+
+                            <p>Số lượng:
+                                <select name="quantity" id="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </p>
+                            <button type="button" name="remove-item">XÓA SẢN PHẨM</button>
+                        </div>
+                        <p>Giá: <span class="price">10.490.000đ</span></p>
+                    </div>
+
+                    <div class="product-detail">
+                        <img src="images\Laser DCP-L3560CDW.webp" alt="Máy-in-Laser-DCP-L3560CDW">
+                        <div>
+                            <h2>Máy in Laser DCP-L3560CDW</h2>
+                            <p>Phân loại: <span>máy in màu</span></p>
+
+                            <p>Số lượng:
+                                <select name="quantity" id="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </p>
+                            <button type="button" name="remove-item">XÓA SẢN PHẨM</button>
+                        </div>
+                        <p>Giá: <span class="price">11.790.000đ</span></p>
+                    </div>
+
+                </div>
+
+                <div class="bill">
+                    <h3>Tóm tắt đơn hàng : </h3>
+                    <p>Tạm tính: <span id="first-cost">$0</span> </p>
+                    <p>Phí vận chuyển: <span id="ship-cost">$0</span> </p>
+                    <p>Thuế(VAT): <span id="VAT"> $0</span></p>
+                    <div class="coupon">
+                        <i class="fa fa-ticket"></i>
+                        <label for="coupon">MÃ GIẢM GIÁ:</label>
+                        <input type="text" id="coupon" name="coupon" placeholder="Nhập mã giảm giá">
+                        <button type="button" name="apply-coupon">ÁP DỤNG</button>
+                    </div>
+
+                    <h2>Tổng cộng: <span id="total">$0</span></h2>
+                    <button id="bt-payment" type="button" name="payment">TIẾN HÀNH THANH TOÁN</button>
+                    <button id="bt-shop-continous" name="shopping-continous">Tiếp tục mua sắm</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
