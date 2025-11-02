@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const navMap = {
         'HOME.html': 'nav-home',
-        'LOGIN.html': 'nav-login'
+        'LOGIN.html': 'nav-login',
+        'BLOG.html' : 'nav-blog'
     };
     const defaultPage = 'HOME.html';
 
