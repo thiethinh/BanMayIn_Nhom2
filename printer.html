@@ -35,11 +35,10 @@
         .search-container {
             display: flex;
             gap: 2rem;
-            gap: 16px;
             border: 2px solid #ccc;
             padding: 16px;
             margin-bottom: 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             border-width: 0 1px 1px 0;
             background-color: #fff;
         }
@@ -49,37 +48,45 @@
             flex: 1;
         }
 
-        @media (max-width: 768px) {
-            .search-container {
-                flex-direction: column;
-
+        @media(max-width : 768px) {
+            .search-container{
+                display: block;
             }
+
         }
+
 
 
         /* css for search box */
         .search-box {
             border: none;
-            border-radius: 3px;
             background-color: #9fa4a9;
+            border-radius: 8px;
             padding: 0.4rem;
             font-size: 14px;
             display: flex;
             justify-content: center;
+            align-content: center;
         }
 
         .search-box #search {
+            display: flex;
             border: none;
-            width: 100%;
+            float:right;
+            width: 90%;
             background-color: #9fa4a9;
         }
 
         .search-box i {
-            padding-top: 0.1rem;
+            display: flex;
+            width: 10%;
+            font-size: 1.5rem;
+            justify-content: center;
+            align-items: center;
         }
 
 
-        /* for */
+        /* css for dropdown */
 
         .custom-dropdown {
             position: relative;
@@ -97,31 +104,26 @@
         }
 
         .arrow {
-            font-size: 12px;
+            font-size: 1rem;
             color: #888;
         }
 
         .option-value {
             position: absolute;
-
             top: 100%;
-            margin-top: 8px;
-
             left: 0;
+            margin-top: 8px;
             width: 100%;
-
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
             z-index: 100;
-
             display: none;
 
         }
 
-        .options-menu.open {
+        .option-value.open {
             display: block;
         }
 
@@ -150,124 +152,117 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="content">
+<div class="container">
+    <div class="content">
 
-            <div class="top-content">
-                <h1>Tất cả máy in</h1>
-                <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
+        <div class="top-content">
+            <h1>Tất cả máy in</h1>
+            <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box child">
+                <i class='bx bx-search icon'></i>
+                <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
             </div>
 
-            <div class="search-container">
-                <div class="search-box child">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+            <div class="custom-dropdown child">
+                <div class="select-trigger">
+                    <span class="selected-value">Tất Cả Danh Mục</span>
+                    <span class="arrow">▼</span>
                 </div>
 
-                <div class="custom-dropdown child">
-                    <div class="select-trigger">
-                        <span class="selected-value">Tất Cả Danh Mục</span>
-                        <span class="arrow">▼</span>
-                    </div>
-
-                    <div class="option-value">
-                        <div class="option-item" data-value="Tất Cả Danh Mục"> Tất Cả Danh Mục</div>
-                        <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
-                        <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
-                        <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
-                        <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
-                    </div>
-
-
-                </div>
-
-                <div class="custom-dropdown child">
-                    <div class="select-trigger">
-                        <span class="selected-value">Giá: Cao đến Thấp</span>
-                        <span class="arrow">▼</span>
-                    </div>
-
-                    <div class="option-value">
-                        <div class="option-item" data-value="Nổi bật">Nổi bật</div>
-                        <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
-                        <div class="option-item" data-value="Giá: Thấp đến Cao">Giá: Thấp đến Cao</div>
-                        <div class="option-item" data-value="Đánh giá cao nhất">Đánh giá cao nhất</div>
-
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class="product-grid">
-                <div class="card-product">
-                    <div class="product-image-placeholder">
-                        <img src="#" height="300" width="300" />
-                    </div>
-                    <h3 class="product-name">Máy in Epson L3250</h3>
-                    <ul class="product-details">
-                        <li>Tốc độ 50 trang/phút</li>
-                        <li>Khay giấy 500 tờ</li>
-                        <li>Hỗ trợ in 2 mặt tự động</li>
-                        <li>Bảo hành 3 năm</li>
-                    </ul>
-                    <p class="product-price">4.500.000 VNĐ</p>
-                    <button class="buy-button">Thêm vào giỏ</button>
+                <div class="option-value">
+                    <div class="option-item" data-value="Tất Cả Danh Mục"> Tất Cả Danh Mục</div>
+                    <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
+                    <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
+                    <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
+                    <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
                 </div>
             </div>
+
+            <div class="custom-dropdown child">
+                <div class="select-trigger">
+                    <span class="selected-value">Giá: Cao đến Thấp</span>
+                    <span class="arrow">▼</span>
+                </div>
+
+                <div class="option-value">
+                    <div class="option-item" data-value="Nổi bật">Nổi bật</div>
+                    <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
+                    <div class="option-item" data-value="Giá: Thấp đến Cao">Giá: Thấp đến Cao</div>
+                    <div class="option-item" data-value="Đánh giá cao nhất">Đánh giá cao nhất</div>
+
+                </div>
+            </div>
+
 
         </div>
-    </div>
+
+
+        <div class="product-grid">
+            <div class="card-product">
+                <div class="product-image-placeholder">
+                    <img src="#" height="300" width="300"/>
+                </div>
+                <h3 class="product-name">Máy in Epson L3250</h3>
+                <ul class="product-details">
+                    <li>Tốc độ 50 trang/phút</li>
+                    <li>Khay giấy 500 tờ</li>
+                    <li>Hỗ trợ in 2 mặt tự động</li>
+                    <li>Bảo hành 3 năm</li>
+                </ul>
+                <p class="product-price">4.500.000 VNĐ</p>
+                <button class="buy-button">Thêm vào giỏ</button>
+            </div>
+        </div>
 
     </div>
+</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Tìm component trong trang
-            const container = document.querySelector(".custom-dropdown");
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Lấy tất cả dropdown trên trang
+        const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+        dropdowns.forEach(container => {
             const trigger = container.querySelector(".select-trigger");
             const selectedValueEl = container.querySelector(".selected-value");
             const menu = container.querySelector(".option-value");
             const allOptions = container.querySelectorAll(".option-item");
 
-            // 1. Bấm vào trigger để Bật/Tắt menu
-            trigger.addEventListener("click", () => {
-                // 'toggle' sẽ tự động thêm/xóa class 'open'
+            // 1. Bấm vào trigger để bật/tắt menu
+            trigger.addEventListener("click", (e) => {
+                e.stopPropagation(); // tránh bị window click đóng ngay lập tức
                 menu.classList.toggle("open");
             });
 
-            // 2. Bấm vào một mục trong menu
+            // 2. Bấm vào option để đổi giá trị
             allOptions.forEach(option => {
                 option.addEventListener("click", () => {
-                    // Lấy giá trị từ thuộc tính 'data-value'
                     const newValue = option.getAttribute("data-value");
-
-                    // Cập nhật text trên trigger
                     selectedValueEl.textContent = newValue;
 
-                    // Xóa class 'selected' khỏi tất cả các mục
-                    allOptions.forEach(item => {
-                        item.classList.remove("selected");
-                    });
-
-                    // Thêm class 'selected' cho mục vừa bấm
+                    // Xóa selected ở tất cả item
+                    allOptions.forEach(item => item.classList.remove("selected"));
                     option.classList.add("selected");
 
-                    // Đóng menu lại
                     menu.classList.remove("open");
                 });
             });
-
-            // (Nâng cao) Bấm ra ngoài để đóng menu
-            window.addEventListener("click", (e) => {
-                if (!container.contains(e.target)) {
-                    menu.classList.remove("open");
-                }
-            });
         });
-    </script>
 
+        // 3. Bấm ra ngoài để đóng tất cả dropdown
+        window.addEventListener("click", () => {
+            document.querySelectorAll(".option-value.open")
+                .forEach(menu => menu.classList.remove("open"));
+        });
+    });
+</script>
 </body>
 
 </html>
+
+
