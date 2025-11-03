@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+
+}
+
+h1,h2,h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+h1{
+    font-size: 36px;
+    margin: 20px 0 0;
+}
+
+
+.container p{
+    margin-top: 5px;
+}
+#note{
+    color: #656060;
+    font-size: 14px;
+}
+
+
+body,p,span {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1230px;
+    width: 100%;
+    margin: 5px auto;
+    padding: 10px;
+    background-color: #f9fafb;
+
+}
+
+.cart-banner {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    width: 100%;
+     white-space: nowrap; /* không xuống dòng */
+    overflow: hidden; /* ẩn phần chữ tràn ra ngoài khung */
+    position: relative; 
+    
+}
+
+.text-banner {
+    display: inline-block;
+    padding-left: 100%;    /* bắt đầu bên ngoài khung */
+
+ /* thời gian và kiểu animation- [name]+[time]+ [speed(linear:chạy đều)]+ [Loop(infinite:lặp mãi mãi)] */
+    animation: moveText 12s linear infinite;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    
+}
+/* funtion animation */
+@keyframes moveText {
+    0% {
+        transform: translateX(0); /*bắt đầu từ vị trí 0 left*/
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.view {
+    margin-top: 40px;
+    display: flex;
+    gap: 40px;
+   
+
+
+}
+
+.product-list {
+    overflow-y: scroll;
+    height: 400px;
+    max-width: 800px;
+    width: 100%;
+}
+
+
+.product-detail {
+    display: flex;
+    border-radius: 6px;
+    background-color: #fff;
+    
+}
+
+.product-detail img {
+    width: 150px;
+    height: auto;
+    margin-right: 20px;
+    object-fit: fill;
+}
+.product-detail p{
+    padding: 12px 0 0 60px;
+}
+.bill{
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 6px;
+    height: 370px;
+    box-shadow: 3px 4px 5px #9e9e9e99;
+    font-size: 15px;
+}
+span{
+    float: right;
+}
+.coupon{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000000;
+    font-size: 13px;
+}
+.coupon button{
+    font-size: 11px;
+    cursor: pointer;
+}
+.coupon button:hover{
+    background-color: #cacdd1d4;
+}
+.coupon input{
+    padding: 2px 6px;
+    margin-left: 5px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;}
+.bill h3{
+    font-size: 20px;
+    text-decoration: underline;
+    margin: 0 0 10px;
+}
+.bill h2{
+    font-size: 15px;
+    margin-top: 10px;
+}
+.bill > button{
+    margin-top: 10px;
+    background-color: #155dfc;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#bt-shop-continous{
+    background-color: white;
+    color: #000000;
+    border: 1px solid #000000;
+    margin-top: 10px;
+    padding: 5px 0;
+    height: 30px;
+}
+#bt-shop-continous:hover{
+    background-color: #e2e8f0;
+}
+#bt-payment{
+    padding: 10px 0;
+    height: 38px;
+}
+#bt-payment:hover{
+    background-color: #0d47a1;
+}
+
+.bill p{
+    color: #4a5565;
+}
+.bill p span{
+    color: #000000;
+}
