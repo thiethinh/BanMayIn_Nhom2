@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- CÁC HÀM XỬ LÝ ---
 
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navWrapper = document.querySelector('.nav-wrapper');
+
     // 1. Hàm làm nổi bật menu
     function updateActiveMenu(pageUrl) {
         document.querySelectorAll('.menu, .login-btn').forEach(link => {
@@ -36,9 +39,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        // 1. Khởi tạo Swiper cho Máy In Nổi Bật
-        const printerSwiperElement = document.querySelector('.printer-product-section.swiper');
+        // 1.Khởi tạo Swiper
+        //Khởi tạo Swiper cho introduce-section
+        const heroSwiperElement = document.querySelector('.hero-slider.swiper');
+        if (typeof Swiper !== 'undefined' && heroSwiperElement) {
+            new Swiper(heroSwiperElement, {
+                effect: 'fade',
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.hero-slider, .swiper-pagination',
+                    clickable: true,
+                },
+            });
+        }
 
+        // Khởi tạo Swiper cho Máy In Nổi Bật
+        const printerSwiperElement = document.querySelector('.printer-product-section.swiper');
         if (typeof Swiper !== 'undefined' && printerSwiperElement) {
             new Swiper(printerSwiperElement, {
                 ...swiperConfig,
@@ -53,9 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // 2. Khởi tạo Swiper cho Văn Phòng Phẩm
+        // Khởi tạo Swiper cho Văn Phòng Phẩm
         const stationerySwiperElement = document.querySelector('.stationery-product-section.swiper');
-
         if (typeof Swiper !== 'undefined' && stationerySwiperElement) {
             new Swiper(stationerySwiperElement, {
                 ...swiperConfig,
@@ -74,26 +93,29 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. Hàm tải nội dung
     async function loadContent(pageUrl, pushState = true) {
         try {
+            mainContent.classList.add('page-is-loading');
+            await new Promise(resolve => setTimeout(resolve, 300));
             const response = await fetch(pageUrl);
 
             if (!response.ok) {
                 mainContent.innerHTML = `<h2>Lỗi ${response.status}: Không tìm thấy trang "${pageUrl}"</h2>`;
                 throw new Error(`Tải trang thất bại: ${response.status}`);
             }
-
             mainContent.innerHTML = await response.text();
 
             if (pushState) {
                 history.pushState({page: pageUrl}, null, `?page=${pageUrl}`);
             }
-
             updateActiveMenu(pageUrl);
             window.scrollTo(0, 0);
-
             initializeSwipers();
+
+            await new Promise(resolve => setTimeout(resolve, 10));
+            mainContent.classList.remove('page-is-loading');
 
         } catch (error) {
             console.error('Lỗi hệ thống khi tải nội dung:', error);
+            mainContent.classList.remove('page-is-loading');
         }
     }
 
@@ -102,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('page') || defaultPage;
     };
+    mainContent.classList.add('page-is-loading');
     loadContent(getPageFromUrl(), false);
 
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
@@ -110,6 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const pageToLoad = this.getAttribute('data-page') || this.getAttribute('href');
             if (pageToLoad && pageToLoad !== '#') {
                 loadContent(pageToLoad);
+
+                if (navWrapper && navWrapper.classList.contains('mobile-active')) {
+                    navWrapper.classList.remove('mobile-active');
+                    menuToggle.classList.remove('active');
+                }
             }
         });
     });
@@ -118,37 +146,30 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', function () {
         loadContent(getPageFromUrl(), false);
     });
+    if (menuToggle && navWrapper) {
+        menuToggle.addEventListener('click', function () {
+            navWrapper.classList.toggle('mobile-active');
+            menuToggle.classList.toggle('active');
+        });
+    }
 });
 
 // login - register
 function login() {
-    // Chỉ tìm phần tử KHI HÀM ĐƯỢC GỌI
     var a = document.getElementById('login');
     var b = document.getElementById('register');
 
-    // Kiểm tra xem chúng có tồn tại không
-    if (a && b) {
-        a.style.left = "4px";
-        b.style.right = "-520px";
+        a.style.left = "40px";
+        b.style.right = "-100%";
         a.style.opacity = 1;
         b.style.opacity = 0;
-    } else {
-        console.error("Lỗi: Không tìm thấy phần tử #login hoặc #register.");
-    }
 }
 
 function register() {
-    // Chỉ tìm phần tử KHI HÀM ĐƯỢC GỌI
     var a = document.getElementById('login');
     var b = document.getElementById('register');
-
-    // Kiểm tra xem chúng có tồn tại không
-    if (a && b) {
-        a.style.left = "-510px";
-        b.style.right = "5px";
+        a.style.left = "-100%";
+        b.style.right = "40px";
         a.style.opacity = 0;
         b.style.opacity = 1;
-    } else {
-        console.error("Lỗi: Không tìm thấy phần tử #login hoặc #register.");
-    }
 }

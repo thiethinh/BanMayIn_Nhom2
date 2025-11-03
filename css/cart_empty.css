@@ -2,14 +2,14 @@
     box-sizing: border-box;
     
 }
-h1,h2,h3{
+.container h1,h2,h3{
     font-family: 'Montserrat', sans-serif;
 }
-body, p, span {
+.container body, p, span {
   font-family: 'Roboto', sans-serif;
 }
 
-main {
+.container {
     margin: 160px auto 0;
     padding: 10px 0;
     display: flex;
@@ -24,24 +24,24 @@ main {
     padding: 10px 20px;
 }
 
-i {
+#icon {
     margin-bottom: 20px;
     font-size: 100px;
     color: #d1d5dc;
 }
 
-h1 {
+#title {
     font-size: 35px;
     margin: 10px 0;
 }
 
-main p {
+.container p {
     margin-top: 0;
     color: gray;
     font-size: 25px;
 }
 
-button {
+#bt-shop {
     padding: 5px;
     font-size: 25px;
     border: 2px cornflowerblue;
@@ -60,7 +60,7 @@ button {
     margin-left: 3px;
     font-size: 32px;
 }
-button:hover {
+#bt-shop:hover {
     background-color: #0e4dac;
     box-shadow: 2px 3px 0 #666;
     color: #999;
@@ -68,17 +68,17 @@ button:hover {
      transform: translateX(5px); 
 }
 @media(max-width: 768px){
-    main{
+    .container{
         margin: 100px auto 0;
         height: 280px;
     }
-    h1{
+    #title{
         font-size: 28px;
     }
-    main p{
+    .container p{
         font-size: 20px;
     }
-    button {
+    #bt-shop{ 
         font-size: 20px;
         height: 40px;
         max-width: 200px;
@@ -86,22 +86,22 @@ button:hover {
     #icon-right {
         font-size: 24px;
     }
-    i{
+    #icon {
         font-size: 80px;
     }
 }
 @media(max-width: 426px){
-    main{
+    .container{
         margin: 80px auto 0;
         height: 240px;
     }
-    h1{
+    #title{
         font-size: 24px;
     }
-    main p{
+    .container p{
         font-size: 18px;
     }
-    button {
+    #bt-shop {
         font-size: 15px;
         height: 35px;
         max-width: 150px;
@@ -109,7 +109,7 @@ button:hover {
     #icon-right {
         font-size: 15px;
     }
-    i{
+    #icon {
         font-size: 60px;
     }
 }
