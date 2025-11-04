@@ -1,3 +1,7 @@
+import {initializeLogin} from "./login.js";
+import {initializeSwipers} from "./swiper.js";
+import {initializeBlogNavigation} from "./blog.js";
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const mainContent = document.querySelector('.main');
@@ -5,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const navMap = {
         'HOME.html': 'nav-home',
-        'LOGIN.html': 'nav-login'
+        'LOGIN.html': 'nav-login',
+        'BLOG.html': 'nav-blog',
+        'CONTACT.html': 'nav-contact'
     };
     const defaultPage = 'HOME.html';
 
@@ -27,69 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // HÀM KHỞI TẠO SWIPER
-    function initializeSwipers() {
-        const swiperConfig = {
-            loop: true,
-            grabCursor: true,
-            breakpoints: {
-                992: {slidesPerView: 4, spaceBetween: 30},
-                768: {slidesPerView: 2, spaceBetween: 20},
-                0: {slidesPerView: 1, spaceBetween: 10}
-            }
-        };
-
-        // 1.Khởi tạo Swiper
-        //Khởi tạo Swiper cho introduce-section
-        const heroSwiperElement = document.querySelector('.hero-slider.swiper');
-        if (typeof Swiper !== 'undefined' && heroSwiperElement) {
-            new Swiper(heroSwiperElement, {
-                effect: 'fade',
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.hero-slider, .swiper-pagination',
-                    clickable: true,
-                },
-            });
-        }
-
-        // Khởi tạo Swiper cho Máy In Nổi Bật
-        const printerSwiperElement = document.querySelector('.printer-product-section.swiper');
-        if (typeof Swiper !== 'undefined' && printerSwiperElement) {
-            new Swiper(printerSwiperElement, {
-                ...swiperConfig,
-                navigation: {
-                    nextEl: '.printer-product-section .swiper-button-next',
-                    prevEl: '.printer-product-section .swiper-button-prev',
-                },
-                pagination: {
-                    el: '.printer-product-section .swiper-pagination',
-                    clickable: true,
-                },
-            });
-        }
-
-        // Khởi tạo Swiper cho Văn Phòng Phẩm
-        const stationerySwiperElement = document.querySelector('.stationery-product-section.swiper');
-        if (typeof Swiper !== 'undefined' && stationerySwiperElement) {
-            new Swiper(stationerySwiperElement, {
-                ...swiperConfig,
-                navigation: {
-                    nextEl: '.stationery-product-section .swiper-button-next',
-                    prevEl: '.stationery-product-section .swiper-button-prev',
-                },
-                pagination: {
-                    el: '.stationery-product-section .swiper-pagination',
-                    clickable: true,
-                },
-            });
-        }
-    }
-
     // 2. Hàm tải nội dung
     async function loadContent(pageUrl, pushState = true) {
         try {
@@ -108,7 +51,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             updateActiveMenu(pageUrl);
             window.scrollTo(0, 0);
-            initializeSwipers();
+
+            switch (pageUrl) {
+                case 'HOME.html':
+                    initializeSwipers();
+                    break;
+                case 'BLOG.html':
+                    initializeBlogNavigation();
+                    break;
+                case 'LOGIN.html':
+                    initializeLogin();
+                    break;
+            }
 
             await new Promise(resolve => setTimeout(resolve, 10));
             mainContent.classList.remove('page-is-loading');
@@ -153,23 +107,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
-// login - register
-function login() {
-    var a = document.getElementById('login');
-    var b = document.getElementById('register');
-
-        a.style.left = "40px";
-        b.style.right = "-100%";
-        a.style.opacity = 1;
-        b.style.opacity = 0;
-}
-
-function register() {
-    var a = document.getElementById('login');
-    var b = document.getElementById('register');
-        a.style.left = "-100%";
-        b.style.right = "40px";
-        a.style.opacity = 0;
-        b.style.opacity = 1;
-}

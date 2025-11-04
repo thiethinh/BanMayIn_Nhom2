@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
 <header class="main-header">
@@ -22,22 +24,23 @@
             <div class="nav-wrapper">
                 <div class="menu-bar">
                     <a class="menu" href="HOME.html" id="nav-home">Trang Chủ</a>
-                    <a class="menu" href="#">Máy In</a>
-                    <a class="menu" href="#">Văn Phòng Phẩm</a>
-                    <a class="menu" href="#">Giới Thiệu</a>
-                    <a class="menu" href="#">Liên Hệ</a>
+                    <a class="menu" href="#" id="nav-printer">Máy In</a>
+                    <a class="menu" href="#" id="nav-stationery">Văn Phòng Phẩm</a>
+                    <a class="menu" href="BLOG.html" id="nav-blog">Blog</a>
+                    <a class="menu" href="CONTACT.html" id="nav-contact">Liên Hệ</a>
                 </div>
             </div>
 
             <div class="header-right-side">
                 <div class="user-action">
-                    <i class="fa-solid fa-cart-shopping cart-btn"></i>
+                    <a href="#" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
                     <a class="login-btn" href="LOGIN.html" id="nav-login">Đăng Nhập</a>
                 </div>
 
-            <div class="menu-toggle">
-                <i class="fa-solid fa-bars" id="menu-open-icon"></i>
-                <i class="fa-solid fa-times" id="menu-close-icon"></i>
+                <div class="menu-toggle">
+                    <i class="fa-solid fa-bars" id="menu-open-icon"></i>
+                    <i class="fa-solid fa-times" id="menu-close-icon"></i>
+                </div>
             </div>
         </div>
     </nav>
@@ -92,6 +95,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-<script src="js/main.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
