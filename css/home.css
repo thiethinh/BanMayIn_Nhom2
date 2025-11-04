@@ -13,21 +13,21 @@
 
 /*---------------------- INTRODUCE SECTION ----------------------*/
 .introduce-section {
-    margin-top: 60px;
+    margin-top: 100px;
     position: relative;
     isolation: isolate;
     overflow: hidden;
     display: grid;
     color: white;
     border-radius: 3rem;
-    margin-inline: 1rem;
+    margin-inline: 20px;
 }
 
 .introduce-container {
     position: relative;
     z-index: 2;
     padding-block: 8rem;
-    max-width: 50%;
+    max-width: 80%;
     margin-left: 60px;
 }
 
@@ -134,59 +134,18 @@
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: 32px; /* Giảm cỡ chữ tiêu đề */
+        font-size: 32px;
     }
 
     .section-subtitle {
-        font-size: 18px; /* Giảm cỡ chữ phụ đề */
-        margin-bottom: 40px;
-    }
-}
-
-@media (max-width: 992px) {
-    .introduce-container {
-        max-width: 80%;
-        margin-left: 40px;
-    }
-
-    .introduce-section .introduce-container .introduce-title {
-        font-size: 44px;
-    }
-
-    .introduce-section .introduce-container .introduce-description {
         font-size: 18px;
-    }
-}
-
-@media (max-width: 576px) {
-    .introduce-section {
-        border-radius: 0;
-        margin-inline: 0;
-    }
-
-    .introduce-container {
-        max-width: 100%;
-        margin-left: 0;
-        padding: 60px 20px;
-        text-align: center;
-    }
-
-    .introduce-section .introduce-container .introduce-title {
-        font-size: 36px;
-    }
-
-    .introduce-section .introduce-container .introduce-description {
-        font-size: 16px;
-    }
-
-    .introduce-section .introduce-container .introduce-btn {
-        justify-content: center;
+        margin-bottom: 40px;
     }
 }
 
 /*---------------------- PRODUCT CARD ----------------------*/
 .swiper {
-    max-width: 1300px;
+    max-width: 1200px;
     overflow: hidden;
     padding: 20px 50px;
 }
@@ -195,7 +154,6 @@
     background-color: white;
     border: 1px solid var(--color-text);
     border-radius: 8px;
-    padding: 20px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -226,19 +184,18 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: center;
 }
 
 .product-name {
     font-size: 20px;
     font-weight: 600;
-    margin: 0 0 15px 0;
+    margin: 0 0 15px 20px;
     min-height: 44px;
 }
 
 .product-details {
     padding-left: 15px;
-    margin: 0 0 15px 0;
+    margin: 0 0 15px 20px;
     flex-grow: 1;
 }
 
@@ -253,7 +210,7 @@
     font-size: 16px;
     font-weight: 700;
     color: var(--primary-color);
-    margin: 0 0 15px 0;
+    margin: 0 0 15px 20px;
 }
 
 .buy-button {
@@ -265,7 +222,7 @@
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 7px;
     transition: background-color 0.3s ease;
 }
 
@@ -331,7 +288,7 @@
     content: "";
     top: 0;
     left: 0;
-    background-image: url('../images/benefit-img.jpg');
+    background-image: url('../images/benefit-img.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
