@@ -1,4 +1,5 @@
 export function initializeBlogNavigation() {
+    // Kiếm các phần để gắn chức năng
     const postContainer = document.querySelector('.post-container');
     const paginationContainer = document.querySelector('.pagination');
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -9,10 +10,13 @@ export function initializeBlogNavigation() {
 
     const postsPerPage = 9;
     let currentPage = 1;
+    // Lấy tất cả bài viết
     const allPosts = Array.from(document.querySelectorAll('.post-card'));
 
+    // Lọc bài viết
     function getFilteredPosts() {
         const activeFilter = document.querySelector('.filter-btn.active');
+        // Lấy loại để lọc
         const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
 
         if (filterValue === 'all') {
@@ -21,6 +25,7 @@ export function initializeBlogNavigation() {
         return allPosts.filter(post => post.getAttribute('data-category') === filterValue);
     }
 
+    // Hiển thị bài viết
     function displayPage(postsToShow, page) {
         allPosts.forEach(post => post.style.display = 'none');
 
@@ -33,6 +38,7 @@ export function initializeBlogNavigation() {
         });
     }
 
+    // Tính số lượng phân trang ở cuối trang
     function setupPagination(filteredPosts) {
         const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
         paginationContainer.innerHTML = '';
@@ -71,6 +77,7 @@ export function initializeBlogNavigation() {
         paginationContainer.appendChild(nextButton);
     }
 
+    // Khi bấm 1 nút trên thanh nav thì lọc lại trang và gọi lại các hàm
     function handleFilterClick(event) {
         event.preventDefault();
         const clickedButton = event.currentTarget;
@@ -85,6 +92,7 @@ export function initializeBlogNavigation() {
         setupPagination(filteredPosts);
     }
 
+    // Xử lý sự kiện khi bấm nút phân trang
     function handlePaginationClick(event) {
         event.preventDefault();
         const clickedLink = event.target.closest('.page-link');

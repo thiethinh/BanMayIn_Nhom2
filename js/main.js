@@ -1,10 +1,11 @@
 import { initializeSwipers } from './swiper.js';
 import { initializeLogin } from './login.js';
 import { initializeBlogNavigation } from './blog.js';
+import { initializeScrollAnimations } from './about.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* --- Khởi tạo Menu Mobile --- */
+    // Khởi tạo Menu Mobile
     const menuToggle = document.querySelector('.menu-toggle');
     const navWrapper = document.querySelector('.nav-wrapper');
     if (menuToggle && navWrapper) {
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- Làm nổi bật Menu Hiện tại --- */
+    // Làm nổi bật Menu Hiện tại
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
     const navMap = {
@@ -47,5 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('.blog-nav')) {
         initializeBlogNavigation();
+    }
+
+    if (document.querySelector('.stats-section') || document.querySelector('.values-section')) {
+        initializeScrollAnimations();
     }
 });

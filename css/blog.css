@@ -196,6 +196,11 @@
     color: var(--primary-color);
 }
 
+.post-content .post-title {
+    text-decoration: none;
+    color: black;
+}
+
 .post-content h3 {
     font-size: 20px;
     margin-top: 5px;
