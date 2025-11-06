@@ -1,0 +1,204 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F8FAFC;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+.container {
+    width: 80%;
+    height: auto;
+    float: left;
+}
+
+
+
+.content {
+    width: 100%;
+    display: grid;
+}
+
+.top-content h1 {
+    font-size: 2rem;
+}
+
+.top-content p {
+    font-size: 1.1rem;
+    color: #4A5565;
+}
+
+/* --------------------------------------------------*/
+/* css for search container */
+
+.search-container {
+    display: flex;
+    gap: 2rem;
+    border: 2px solid #ccc;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-width: 0 1px 1.5px 1px;
+    background-color: #fff;
+    box-shadow: 0.5px 3px 4px 3px #E3E5E7;
+}
+
+/* css for child */
+.child {
+    flex: 1;
+    background-color: #F3F3F5 !important;
+    border-radius: 5px;
+}
+
+@media(max-width : 768px) {
+    .search-container {
+        display: block;
+    }
+
+}
+
+/* css for search box */
+.search-box {
+    border: none;
+    background-color: inherit;
+    border-radius: 8px;
+    padding: 0.4rem;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.search-box #search {
+    display: flex;
+    border: none;
+    float: right;
+    width: 90%;
+    background-color: inherit;
+}
+
+.search-box #search:focus {
+    background-color: #fff;
+}
+
+.search-box i {
+    display: flex;
+    width: 10%;
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* css for dropdown */
+
+.custom-dropdown {
+    position: relative;
+}
+
+.select-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #F3F3F5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.arrow {
+    font-size: 1rem;
+    color: #888;
+}
+
+.option-value {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+
+}
+
+.option-value.open {
+    display: block;
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+.option-item:hover {
+    background-color: #f0f0f0;
+}
+
+.option-item.selected {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.option-item.selected::after {
+    content: '✓';
+    font-size: 16px;
+}
+
+/* card container */
+.product-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.card-product {
+    display: flex;
+    flex-direction: column !important;
+    background-color: #1e527c;
+    flex: 0 1 calc(25% - 16px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .card-product {
+        flex: 0 1 calc(50% - 16px);
+    }
+}
+
+@media (max-width: 480px) {
+    .card-product {
+        flex: 0 1 100%;
+        margin: auto;
+    }
+}
+
+.product-image {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem;
+}
+
+.action {
+    background-color: #1e527c;
+}
