@@ -24,9 +24,20 @@
             float: left;
         }
 
+
+
         .content {
             width: 100%;
             display: grid;
+        }
+
+        .top-content h1 {
+            font-size: 2rem;
+        }
+
+        .top-content p {
+            font-size: 1.1rem;
+            color: #4A5565;
         }
 
         /* --------------------------------------------------*/
@@ -39,28 +50,29 @@
             padding: 16px;
             margin-bottom: 20px;
             border-radius: 8px;
-            border-width: 0 1px 1px 0;
+            border-width: 0 1px 1.5px 1px;
             background-color: #fff;
+            box-shadow: 0.5px 3px 4px 3px #E3E5E7;
         }
 
         /* css for child */
         .child {
             flex: 1;
+            background-color: #F3F3F5 !important;
+            border-radius: 5px;
         }
 
         @media(max-width : 768px) {
-            .search-container{
+            .search-container {
                 display: block;
             }
 
         }
 
-
-
         /* css for search box */
         .search-box {
             border: none;
-            background-color: #9fa4a9;
+            background-color: inherit;
             border-radius: 8px;
             padding: 0.4rem;
             font-size: 14px;
@@ -72,15 +84,19 @@
         .search-box #search {
             display: flex;
             border: none;
-            float:right;
+            float: right;
             width: 90%;
-            background-color: #9fa4a9;
+            background-color: inherit;
+        }
+
+        .search-box #search:focus {
+            background-color: #fff;
         }
 
         .search-box i {
             display: flex;
             width: 10%;
-            font-size: 1.5rem;
+            font-size: 1rem;
             justify-content: center;
             align-items: center;
         }
@@ -97,8 +113,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
+            background-color: #F3F3F5;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
         }
@@ -148,121 +164,150 @@
             content: '✓';
             font-size: 16px;
         }
+
+        /* card container */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .card {
+            width: 20%;
+            height: 200px;
+            background-color: #888;
+
+            flex: 1 1 calc(25%-10px);
+            padding: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .card {
+                flex: 1 1 calc(50% - 16px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                flex: 1 1 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
-<div class="container">
-    <div class="content">
+    <div class="container">
+        <div class="content">
 
-        <div class="top-content">
-            <h1>Tất cả máy in</h1>
-            <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
+            <div class="top-content">
+                <h1>Tất Cả Máy In</h1>
+                <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box child">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+                </div>
+
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value">Tất Cả Danh Mục</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value">
+                        <div class="option-item" data-value="Tất Cả Danh Mục"> Tất Cả Danh Mục</div>
+                        <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
+                        <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
+                        <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
+                        <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
+                    </div>
+                </div>
+
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value">Giá: Cao đến Thấp</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value">
+                        <div class="option-item" data-value="Nổi bật">Nổi bật</div>
+                        <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
+                        <div class="option-item" data-value="Giá: Thấp đến Cao">Giá: Thấp đến Cao</div>
+                        <div class="option-item" data-value="Đánh giá cao nhất">Đánh giá cao nhất</div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="product-grid">
+                <div class="card-product">
+                    <div class="product-image">
+                        <img src="#" alt="img">
+                    </div>
+                    <p>Máy in s500</p>
+                    <ul>
+                        <li>.....</li>
+                        <li>.....</li>
+                        <li>.....</li>
+                    </ul>
+                    <p>2000d</p>
+                    <div class="action">
+                        <div class="add-cart">
+                            <span><i></i></span>
+                            <p>Them vao gio hang</p>
+                        </div>
+                        <button>xem</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="search-container">
-            <div class="search-box child">
-                <i class='bx bx-search icon'></i>
-                <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
-            </div>
-
-            <div class="custom-dropdown child">
-                <div class="select-trigger">
-                    <span class="selected-value">Tất Cả Danh Mục</span>
-                    <span class="arrow">▼</span>
-                </div>
-
-                <div class="option-value">
-                    <div class="option-item" data-value="Tất Cả Danh Mục"> Tất Cả Danh Mục</div>
-                    <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
-                    <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
-                    <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
-                    <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
-                </div>
-            </div>
-
-            <div class="custom-dropdown child">
-                <div class="select-trigger">
-                    <span class="selected-value">Giá: Cao đến Thấp</span>
-                    <span class="arrow">▼</span>
-                </div>
-
-                <div class="option-value">
-                    <div class="option-item" data-value="Nổi bật">Nổi bật</div>
-                    <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
-                    <div class="option-item" data-value="Giá: Thấp đến Cao">Giá: Thấp đến Cao</div>
-                    <div class="option-item" data-value="Đánh giá cao nhất">Đánh giá cao nhất</div>
-
-                </div>
-            </div>
-
-
-        </div>
-
-
-        <div class="product-grid">
-            <div class="card-product">
-                <div class="product-image-placeholder">
-                    <img src="#" height="300" width="300"/>
-                </div>
-                <h3 class="product-name">Máy in Epson L3250</h3>
-                <ul class="product-details">
-                    <li>Tốc độ 50 trang/phút</li>
-                    <li>Khay giấy 500 tờ</li>
-                    <li>Hỗ trợ in 2 mặt tự động</li>
-                    <li>Bảo hành 3 năm</li>
-                </ul>
-                <p class="product-price">4.500.000 VNĐ</p>
-                <button class="buy-button">Thêm vào giỏ</button>
-            </div>
-        </div>
+    </div>
 
     </div>
-</div>
 
-</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Lấy tất cả dropdown trên trang
+            const dropdowns = document.querySelectorAll(".custom-dropdown");
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // Lấy tất cả dropdown trên trang
-        const dropdowns = document.querySelectorAll(".custom-dropdown");
+            dropdowns.forEach(container => {
+                const trigger = container.querySelector(".select-trigger");
+                const selectedValueEl = container.querySelector(".selected-value");
+                const menu = container.querySelector(".option-value");
+                const allOptions = container.querySelectorAll(".option-item");
 
-        dropdowns.forEach(container => {
-            const trigger = container.querySelector(".select-trigger");
-            const selectedValueEl = container.querySelector(".selected-value");
-            const menu = container.querySelector(".option-value");
-            const allOptions = container.querySelectorAll(".option-item");
+                // 1. Bấm vào trigger để bật/tắt menu
+                trigger.addEventListener("click", (e) => {
+                    e.stopPropagation(); // tránh bị window click đóng ngay lập tức
+                    menu.classList.toggle("open");
+                });
 
-            // 1. Bấm vào trigger để bật/tắt menu
-            trigger.addEventListener("click", (e) => {
-                e.stopPropagation(); // tránh bị window click đóng ngay lập tức
-                menu.classList.toggle("open");
-            });
+                // 2. Bấm vào option để đổi giá trị
+                allOptions.forEach(option => {
+                    option.addEventListener("click", () => {
+                        const newValue = option.getAttribute("data-value");
+                        selectedValueEl.textContent = newValue;
 
-            // 2. Bấm vào option để đổi giá trị
-            allOptions.forEach(option => {
-                option.addEventListener("click", () => {
-                    const newValue = option.getAttribute("data-value");
-                    selectedValueEl.textContent = newValue;
+                        // Xóa selected ở tất cả item
+                        allOptions.forEach(item => item.classList.remove("selected"));
+                        option.classList.add("selected");
 
-                    // Xóa selected ở tất cả item
-                    allOptions.forEach(item => item.classList.remove("selected"));
-                    option.classList.add("selected");
-
-                    menu.classList.remove("open");
+                        menu.classList.remove("open");
+                    });
                 });
             });
-        });
 
-        // 3. Bấm ra ngoài để đóng tất cả dropdown
-        window.addEventListener("click", () => {
-            document.querySelectorAll(".option-value.open")
-                .forEach(menu => menu.classList.remove("open"));
+            // 3. Bấm ra ngoài để đóng tất cả dropdown
+            window.addEventListener("click", () => {
+                document.querySelectorAll(".option-value.open")
+                    .forEach(menu => menu.classList.remove("open"));
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>
-
-
