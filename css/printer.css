@@ -155,31 +155,35 @@ body {
     font-size: 16px;
 }
 
-/* card container */
 .product-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: flex-start;
+    justify-content: start;
     align-items: stretch;
+    margin: auto;
 }
 
 .card-product {
     display: flex;
     flex-direction: column !important;
-    background-color: #1e527c;
-    flex: 0 1 calc(25% - 16px);
+    background-color: #FFF;
+    box-shadow: 0 1px 20px #DFE1E2;
+    flex: 0 1 calc(25% - 12px);
     box-sizing: border-box;
+    border-radius: 25px;
+    padding: 1.5rem;
+    user-select: text;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1400px) {
     .card-product {
         flex: 0 1 calc(50% - 16px);
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .card-product {
         flex: 0 1 100%;
         margin: auto;
@@ -199,6 +203,75 @@ body {
     margin: 0.5rem;
 }
 
+.price {
+    color: #004C93;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
 .action {
-    background-color: #1e527c;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.add-cart {
+    width: 100%;
+    display: flex;
+    flex: 2;
+    align-items: center;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 15px;
+    height: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-cart:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-cart span {
+    display: flex;
+    justify-content: center;
+    padding: 0 8px 0 16px;
+    font-size: 22px;
+}
+
+.add-cart p {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 0 16px 0 0;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.bt-detail {
+    display: flex;
+    border: 0.5px solid #E9E9E9;
+    flex: 1;
+    margin-left: 16px;
+    font-size: 16px;
+    color: black;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    height: 100% !important;
+    width: 100%;
+    background-color: #fff;
+    padding: 16px 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bt-detail:hover {
+    background-color: #007BFF;
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
 }
