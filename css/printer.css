@@ -1,8 +1,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #F8FAFC;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
     user-select: none;
@@ -11,7 +11,7 @@ body {
 .container {
     width: 80%;
     height: auto;
-    float: left;
+    display: grid;
 }
 
 
@@ -50,6 +50,7 @@ body {
     flex: 1;
     background-color: #F3F3F5 !important;
     border-radius: 5px;
+    margin: 10px 0;
 }
 
 @media(max-width : 768px) {
@@ -110,9 +111,19 @@ body {
     cursor: pointer;
 }
 
+.title-dropdown {
+    background-color: #f0f0f0;
+}
+
 .arrow {
     font-size: 1rem;
     color: #888;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
 }
 
 .option-value {
@@ -318,4 +329,44 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-10px);
     border: 1px solid black;
+}
+
+/* -----------pagination----------------------- */
+.pagination {
+    width: 40%;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 4px;
+    background-color: #fff;
+    user-select: none;
+}
+
+.page-btn {
+    border: none;
+    background: none;
+    color: #007bff;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    background-color: #e9ecef;
+}
+
+.page-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.page-btn:disabled {
+    color: #ccc;
+    cursor: not-allowed;
 }

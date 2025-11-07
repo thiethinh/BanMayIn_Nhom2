@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="option-value">
-                        <div class="option-item" data-value="Tất Cả Danh Mục"> Tất Cả Danh Mục</div>
+                        <div class="option-item title-dropdown" data-value="Tất Cả Danh Mục">Tất Cả Danh Mục</div>
                         <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
                         <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
                         <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
@@ -41,15 +41,15 @@
 
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Giá: Cao đến Thấp</span>
+                        <span class="selected-value">Nổi bật</span>
                         <span class="arrow">▼</span>
                     </div>
 
                     <div class="option-value">
-                        <div class="option-item" data-value="Nổi bật">Nổi bật</div>
+                        <div class="option-item title-dropdown" data-value="Nổi bật"> Nổi bật</div>
                         <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
-                        <div class="option-item" data-value="Giá: Thấp đến Cao">Giá: Thấp đến Cao</div>
-                        <div class="option-item" data-value="Đánh giá cao nhất">Đánh giá cao nhất</div>
+                        <div class="option-item" data-value="Giá: Thấp đến Cao"> Giá: Thấp đến Cao</div>
+                        <div class="option-item" data-value="Đánh giá cao nhất"> Đánh giá cao nhất</div>
 
                     </div>
                 </div>
@@ -225,14 +225,24 @@
 
             </div>
 
+
+
+        </div>
+        <div class="pagination">
+            <button class="page-btn" id="prev">Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn" id="next">Next</button>
         </div>
     </div>
+
+
 
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Lấy tất cả dropdown trên trang
             const dropdowns = document.querySelectorAll(".custom-dropdown");
 
             dropdowns.forEach(container => {
@@ -240,35 +250,83 @@
                 const selectedValueEl = container.querySelector(".selected-value");
                 const menu = container.querySelector(".option-value");
                 const allOptions = container.querySelectorAll(".option-item");
+                const arrow = container.querySelector(".arrow");
 
-                // 1. Bấm vào trigger để bật/tắt menu
+                //nhấn vào trigger để bật tắt menu
                 trigger.addEventListener("click", (e) => {
-                    e.stopPropagation(); // tránh bị window click đóng ngay lập tức
-                    menu.classList.toggle("open");
+                    e.stopPropagation();
+                    const isOpen = menu.classList.toggle("open");
+                    arrow.classList.toggle("open", isOpen);
                 });
 
-                // 2. Bấm vào option để đổi giá trị
-                allOptions.forEach(option => {
+                //nhấn vào option để đổi giá trị (trừ option đầu tiên)
+                allOptions.forEach((option, index) => {
                     option.addEventListener("click", () => {
                         const newValue = option.getAttribute("data-value");
                         selectedValueEl.textContent = newValue;
 
-                        // Xóa selected ở tất cả item
                         allOptions.forEach(item => item.classList.remove("selected"));
                         option.classList.add("selected");
 
                         menu.classList.remove("open");
+                        arrow.classList.remove("open");
                     });
+                });
+
+                //chuột rời hover khỏi menu thì đóng dropdown
+                menu.addEventListener("mouseleave", () => {
+                    menu.classList.remove("open");
+                    arrow.classList.remove("open");
                 });
             });
 
-            // 3. Bấm ra ngoài để đóng tất cả dropdown
+            //click ra ngoài để đóng tất cả dropdown
             window.addEventListener("click", () => {
-                document.querySelectorAll(".option-value.open")
-                    .forEach(menu => menu.classList.remove("open"));
+                document.querySelectorAll(".option-value.open").forEach(menu => menu.classList.remove("open"));
+                document.querySelectorAll(".arrow.open").forEach(arrow => arrow.classList.remove("open"));
             });
         });
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = document.querySelectorAll(".page-btn:not(#prev):not(#next)");
+            const prevBtn = document.getElementById("prev");
+            const nextBtn = document.getElementById("next");
+            let currentPage = 1;
+
+            function updatePagination() {
+                buttons.forEach(btn => btn.classList.remove("active"));
+                buttons[currentPage - 1].classList.add("active");
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === buttons.length;
+            }
+
+            buttons.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                    currentPage = index + 1;
+                    updatePagination();
+                });
+            });
+
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                }
+            });
+
+            nextBtn.addEventListener("click", () => {
+                if (currentPage < buttons.length) {
+                    currentPage++;
+                    updatePagination();
+                }
+            });
+
+            updatePagination();
+        });
     </script>
+
 </body>
 
 </html>
