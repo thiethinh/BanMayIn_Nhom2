@@ -1,64 +1,70 @@
-* {
+.contact-page-wrapper {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 80px;
+}
+
+.contact-page-wrapper * {
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-
 }
 
-body {
-    margin: 5% 10%;
-    display: flex;
-    flex-direction: column;
-
-}
-
-main {
-    background-color: rgb(215 235 255 / 80%);
-    max-width: 825px;
+.contact-page-wrapper .bg {
+    top: 0;
+    left: 0;
     width: 100%;
-    margin: auto;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.contact-page-wrapper main {
+    background-color: rgb(215 235 255 / 80%);
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
     z-index: 1;
     border-radius: 10px;
-    /* cho block main nằm trên background*/
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 15px;
+    position: relative;
+    padding-bottom: 5px;
 }
 
 
-form {
-    flex: 1 1 60%;
+.contact-page-wrapper form {
+    flex: 1 1 55%;
     background-color: #fdfdfd;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 2px 6px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 6px;
-    margin-left: 5px;
-    width: 60%;
-    padding: 0px 20px;
-    max-width: 450570px;
-    height: 430px;
+    border-radius: 10px;
+    margin-left: 0;
+    padding: 0 20px;
 }
 
-
-.title {
+.contact-page-wrapper .title {
     text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
-
-
+    padding-top: 5px;
 }
 
-.title h1 {
-    font-size: 32px;
-    color: #111;
+.contact-page-wrapper .title h1 {
+    color: black;
+    font-size: 40px;
+    font-weight: 550;
+    margin-top: 20px;
 }
 
-.title p {
-    font-size: 16px;
-    color: #666;
-    margin-top: 8px;
+.contact-page-wrapper .title p {
+    font-size: 20px;
+    color: gray;
+    margin-top: -25px;
+    margin-bottom: 35px;
 }
 
-.information {
+.contact-page-wrapper .information {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -66,45 +72,51 @@ form {
     max-width: 1026px;
     margin: 0 auto 60px;
     gap: 20px;
+    padding: 0 60px;
 }
 
 
-#form-title {
+.contact-page-wrapper #form-title {
     margin-bottom: 20px;
     font-size: 20px;
     text-align: left;
     color: #111;
 }
 
-.name-email {
+.contact-page-wrapper .name-email {
     display: flex;
     gap: 15px;
 }
 
 
-.name-block,
-.email-block,
-.subject-block,
-.message-block {
+.contact-page-wrapper .name-block,
+.contact-page-wrapper .email-block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.contact-page-wrapper .subject-block,
+.contact-page-wrapper .message-block {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
     width: 100%;
 }
-
-label {
+.contact-page-wrapper label {
     font-weight: 600;
     font-size: 14px;
     margin-bottom: 5px;
     color: #333;
 }
 
-label span {
+.contact-page-wrapper label span {
     color: red;
 }
 
-input,
-textarea {
+.contact-page-wrapper input,
+.contact-page-wrapper textarea {
     padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -114,18 +126,18 @@ textarea {
     background-color: #eaeaef;
 }
 
-input:focus,
-textarea:focus {
+.contact-page-wrapper input:focus,
+.contact-page-wrapper textarea:focus {
     border-color: #007bff;
 }
 
-textarea {
+.contact-page-wrapper textarea {
     resize: none;
     height: 90px;
 }
 
-button {
-    background-color: #007bff;
+.contact-page-wrapper button {
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 5px 20px;
@@ -137,116 +149,97 @@ button {
     transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #005ecf;
+.contact-page-wrapper button:hover {
+    background-color: blue;
 }
 
-/*  THÔNG TIN LIÊN HỆ  */
-.info-detail {
+.contact-page-wrapper .info-detail {
     flex: 1 1 25%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.info-detail>div {
-    background-color: rgb(255, 255, 255);
-    border-radius: 35px;
-    padding: 15px;
+.contact-page-wrapper .info-box {
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px 25px;
     display: flex;
     align-items: center;
-    gap: 15px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px;
-    height: 95px;
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 2px 6px;
 }
 
-.info-detail i {
+.contact-page-wrapper .info-icon {
     font-size: 20px;
-    color: #007bff;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    align-items: center;
-    border-radius: 50% 50%;
-    padding: 10px;
+    color: var(--primary-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     background-color: #007bff3b;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
 }
 
-.info-detail h3 {
+.contact-page-wrapper .info-text {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.contact-page-wrapper .info-title {
     font-size: 16px;
     font-weight: 600;
     color: #111;
-    padding-bottom: 5px;
+    margin: 0 0 4px 0;
 }
 
-.info-detail a {
+.contact-page-wrapper .info-link {
     color: #555;
     text-decoration: none;
     font-size: 14px;
-    padding-top: 5px;
+    margin: 0;
+    word-break: break-word;
 }
 
-.info-detail a:hover {
-    color: #007bff;
+.contact-page-wrapper .info-link:hover {
+    color: var(--primary-color);
 }
 
-/*  Tablet */
 @media (max-width: 768px) {
-    .information {
+    .contact-page-wrapper .information {
         flex-direction: column;
     }
 
-    .name-email {
+    .contact-page-wrapper .name-email {
         flex-direction: column;
         gap: 9px;
     }
 
-    form, .info-detail {
+    .contact-page-wrapper form,
+    .contact-page-wrapper .info-detail {
         max-width: 600px;
         width: 100%;
         margin: auto;
-
     }
 
-    button {
+    .contact-page-wrapper button {
         margin-bottom: 10px;
     }
 
-    .info-detail>div {
+    .contact-page-wrapper .info-detail>div {
         height: 70px;
         gap: 20px;
     }
 
-    .info-detail h3 {
+    .contact-page-wrapper .info-detail h3 {
         padding-bottom: 0;
         margin: auto;
     }
 
-    .info-detail a {
+    .contact-page-wrapper .info-detail a {
         padding-top: 0;
     }
-    
-}
-
-/* Mobile */
-@media (max-width: 426px) {
-    form, .info-detail {
-        max-width: 320px;
-        width: 100%;
-    }
-}
-
-.bg {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    object-fit: cover;
-    z-index: 0;
-    /*Cho background nằm dưới form*/
-    opacity: 0.8;
-    /* lớp phủ mờ background*/
 
 }
