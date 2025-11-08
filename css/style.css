@@ -10,6 +10,8 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     color: #333;
+    font-display: flex;
+    flex-direction: column;
 }
 
 .section-title {
@@ -318,7 +320,7 @@ nav .user-action .login-btn:hover {
         text-align: center;
     }
 
-    .footer-col-info{
+    .footer-col-info {
         grid-column: 1 / -1;
         text-align: center;
         max-width: 500px;

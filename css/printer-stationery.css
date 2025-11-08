@@ -12,6 +12,7 @@ body {
     width: 80%;
     height: auto;
     display: grid;
+    margin: 85px auto 0 auto;
 }
 
 
@@ -344,6 +345,14 @@ body {
     padding: 4px;
     background-color: #fff;
     user-select: none;
+    flex-wrap: nowrap;
+}
+
+@media(max-width : 600px) {
+    .pagination {
+        width: 70%;
+        overflow-x: auto;
+    }
 }
 
 .page-btn {
