@@ -53,6 +53,20 @@
 <!-- ==============MAIN ===================== -->
     <body>
         <main class="product-details-main">
+            <section class="block-title">
+                <h1>Chi Tiết Sản Phẩm</h1>
+                <div class="breadcrumb-menu">
+                    <nav>
+                        <ul>
+                            <li><span><a href="index.html">Home</a></span></li>
+                            <i class="fa-solid fa-circle"></i>
+                            <li><span><a href="product.html">Sản Phẩm</a></span></li>
+                            <i class="fa-solid fa-circle"></i>
+                            <li><span><a href="#">Chi Tiết Sản Phẩm</a></span></li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
             <section class="product-details">
                 <nav class="block-select-img">
 
@@ -88,7 +102,7 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-regular fa-star"></i>
-                            <span>(100 đánh giá)</span>
+                            <span><a href="review">(3 đánh giá)</a></span>
                         </div>
                     </div>
                     <h1 class="product-name">Máy In Phun Màu Đa Năng Epson_L6270</h1>
@@ -129,13 +143,16 @@
 
             <section class="block-description">
                 <div class="tag-title">
-                    <h2>Mô Tả Sản Phẩm</h2>
-                    <h2>Thông Tin Chi Tiết</h2>
-                    <h2>Đánh Giá</h2>
+                    <button class="tag-btn active" onclick="showTab('tag-title-display-description',this)"><h2>Mô Tả Sản Phẩm</h2></button>
+                    <button class="tag-btn " onclick="showTab('tag-title-display-info',this)"><h2>Thông Tin Chi Tiết</h2></button>
+                    <button class="tag-btn" onclick="showTab('review',this)"><h2>Đánh Giá</h2></button>
+                    
+                    
+                    
                 </div>
                 <div class="tag-title-display">
                     <!-- ========================tag decription======================== -->
-                    <div class="tag-title-display-description">
+                    <div id="tag-title-display-description" class="tag-display active">
                         <h1>Mô tả sản phẩm</h1>
                         <p>
                             <a href="#">Máy in phun</a> màu Epson L6270 một sản phẩm với khả năng in ra chất lượng
@@ -145,7 +162,7 @@
                             thiết kế nhỏ gọn nhưng cũng không kém phần hiện đại phù hợp với nhiều môi trường làm
                             việc.
                         </p>
-                        <p><strong>Thiết kế hiện đại, kích thước gọn nhẹ, khay chứa giấy lớn</strong> <br />
+                        <p><strong id="first-line">- Thiết kế hiện đại, kích thước gọn nhẹ, khay chứa giấy lớn</strong> <br />
                             <a href="#">Máy in</a> phun màu Epson L6270 sở hữu khả năng hoạt động mạnh mẽ nhưng lại có <strong>một thiết kế
                             khá
                             nhỏ
@@ -164,7 +181,7 @@
                             mặt
                             một cách nhanh chóng, dễ dàng.
                         </p>
-                        <p><strong>Chất lượng hình ảnh sắc nét, tốc độ làm việc ấn tượng</strong> <br />
+                        <p><strong id="first-line">- Chất lượng hình ảnh sắc nét, tốc độ làm việc ấn tượng</strong> <br />
                             Máy in phun màu Epson L6270 có <strong>độ phân giải lên đến 4800 x 1200 dpi</strong>, cho ra hình ảnh in
                             sắc
                             nét với độ chi tiết cao. Bản in được cho ra có độ bền cao chống nước, chống nhòe, máy
@@ -177,7 +194,7 @@
                             bản in một cách nhanh chóng. Máy in phun màu Epson L6270 còn có khả năng in hai mặt giúp
                             tiết kiệm đáng kể chi phí giấy in.
                         </p>
-                        <p><strong>Màu mực đa dạng, khả năng kết nối toàn diện</strong> <br />
+                        <p><strong id="first-line">- Màu mực đa dạng, khả năng kết nối toàn diện</strong> <br />
                             Máy in phun màu Epson L6270 sử dụng <strong>mực in kèm máy C13T03Y100 (140ml)</strong>. Các mực thay thế
                             màu
                             của máy, bao gồm <strong>mực đen C13T03Y100</strong> với khả năng <strong>in lên đến 7.500 trang, mực xanh lam
@@ -196,7 +213,7 @@
                         </p>
                     </div>
                     <!-- =============tag info=========================== -->
-                    <div class="tag-title-display-info">
+                    <div id="tag-title-display-info" class="tag-display">
                         <h1>Thông tin chi tiết</h1>
                         <ul>
                             <li><strong>Loại máy in:</strong> Máy in phun màu đa chức năng</li>
@@ -211,9 +228,9 @@
                             <li><strong>Kích thước:</strong> 375 x 347 x 179 mm</li>
                             <li><strong>Trọng lượng:</strong> 6.5 kg</li>
                         </ul>
-                    </div>
+                    </div>                                                                              
                     <!-- =====================tag review====================== -->
-                    <div class="review">
+                    <div id="review" class="tag-display">
                         <h1>Đánh giá sản phẩm</h1>
                         <div class="block-User-feedback">
                             <div class="block-User">
@@ -276,23 +293,25 @@
                         <div class="your-review">
                             <form action="#">
                                 <h2>HÃY VIẾT ĐÁNH GIÁ CỦA BẠN</h2>
-                                <p>Địa chỉ email của bạn sẽ không được công bố. Các trường bắt buộc được đánh dấu *</p>
-                                <div class="your-rate">
-                                    <span>Đánh giá của bạn:</span>
+                                <p>Địa chỉ email của bạn sẽ không được công bố. Các trường bắt buộc được đánh dấu <span>*</span></p>
+                                <div class="your-rate" >
+                                    <span>Đánh giá của bạn: </span>
                                     <i class="fa-regular fa-star"></i>
                                     <i class="fa-regular fa-star"></i>
                                     <i class="fa-regular fa-star"></i>
                                     <i class="fa-regular fa-star"></i>
                                     <i class="fa-regular fa-star"></i>
                                 </div>
-                                <textarea name="your-write" id="your-write" maxlength=50 placeholder="Hãy nhập đánh giá của bạn..."></textarea>
+                                <textarea name="your-write" id="your-write" placeholder="Hãy nhập đánh giá của bạn..."></textarea>
                                 <div class="block-username-email">
                                     <input type="text" name="your-name" id="your-name" placeholder="Tên của bạn *" required>
                                     <input type="email" name="your-email" id="your-email" placeholder="Email của bạn *" required>
                                 </div>
-                                <input type="checkbox" name="save-info" id="save-info" />
-                                <label for="save-info">Lưu thông tin của tôi cho lần bình luận tiếp theo.</label>
-                                <button type="submit" class="bt-submit-review">Gửi Đánh Giá</button>
+                                <div class="block-save-info">
+                                    <input type="checkbox" name="save-info" id="save-info" />
+                                    <label for="save-info">Lưu thông tin của tôi cho lần bình luận tiếp theo.</label>
+                                </div>
+                                <button type="submit" class="bt-submit-review">Gửi</button>
                             </form>
 
                         </div>
@@ -352,6 +371,20 @@
             <p>&copy; 2025 PaperCraft. All rights reserved.</p>
         </div>
     </footer>
+
+   <script>
+    function showTab(tabId, button) {
+    // Ẩn tất cả nội dung
+    document.querySelectorAll('.tag-display').forEach(el => el.classList.remove('active'));
+
+    // Bỏ active khỏi tất cả nút
+    document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+
+    // Hiện phần được chọn và tô đậm nút
+    document.getElementById(tabId).classList.add('active');
+    button.classList.add('active');
+}
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script type="module" src="js/main.js"></script>
