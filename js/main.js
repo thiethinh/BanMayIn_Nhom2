@@ -2,6 +2,7 @@ import { initializeSwipers } from './swiper.js';
 import { initializeLogin } from './login.js';
 import { initializeBlogNavigation } from './blog.js';
 import { initializeScrollAnimations } from './about.js';
+import { initilizePrinterStationery } from './printer-stationery.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -23,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'home.html': 'nav-home',
         'login.html': 'nav-login',
         'blog.html': 'nav-blog',
-        'contact.html': 'nav-contact'
+        'contact.html': 'nav-contact',
+        'printer.html' : 'nav-printer',
+        'stationery.html' : 'nav-stationery'
     };
 
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
@@ -53,4 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.stats-section') || document.querySelector('.values-section')) {
         initializeScrollAnimations();
     }
+
+    if(document.querySelector('.product-container')) {
+        initilizePrinterStationery();
+    }
+    
 });
