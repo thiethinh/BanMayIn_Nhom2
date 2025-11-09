@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initDropDown() {
     const dropdowns = document.querySelectorAll(".custom-dropdown");
 
     dropdowns.forEach(container => {
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".option-value.open").forEach(menu => menu.classList.remove("open"));
         document.querySelectorAll(".arrow.open").forEach(arrow => arrow.classList.remove("open"));
     });
-});
+}
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
+function initPagination() {
     const buttons = document.querySelectorAll(".page-btn:not(#prev):not(#next)");
     const prevBtn = document.getElementById("prev");
     const nextBtn = document.getElementById("next");
@@ -80,4 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     updatePagination();
-});
+}
+
+export function initilizePrinterStationery() {
+        initDropDown();
+        initPagination();
+}
