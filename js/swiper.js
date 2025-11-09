@@ -15,6 +15,7 @@ export function initializeSwipers() {
         new Swiper(heroSwiperElement, {
             effect: 'fade',
             loop: true,
+            speed: 1000,
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,

@@ -10,6 +10,21 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     color: #333;
+    font-display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 550;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    font-size: 23px;
+    font-weight: 400;
+    color: gray;
+    margin-bottom: 60px;
 }
 
 /*---------------------- HEADER SECTION ----------------------*/
@@ -305,7 +320,7 @@ nav .user-action .login-btn:hover {
         text-align: center;
     }
 
-    .footer-col-info{
+    .footer-col-info {
         grid-column: 1 / -1;
         text-align: center;
         max-width: 500px;
@@ -325,4 +340,5 @@ nav .user-action .login-btn:hover {
 
 .main.page-is-loading {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }

@@ -1,33 +1,20 @@
-.section-title {
-    font-size: 40px;
-    font-weight: 550;
-    margin-bottom: 15px;
-}
-
-.section-subtitle {
-    font-size: 23px;
-    font-weight: 200;
-    color: gray;
-    margin-bottom: 60px;
-}
-
 /*---------------------- INTRODUCE SECTION ----------------------*/
 .introduce-section {
-    margin-top: 60px;
+    margin-top: 100px;
     position: relative;
     isolation: isolate;
     overflow: hidden;
     display: grid;
     color: white;
     border-radius: 3rem;
-    margin-inline: 1rem;
+    margin-inline: 20px;
 }
 
 .introduce-container {
     position: relative;
     z-index: 2;
     padding-block: 8rem;
-    max-width: 50%;
+    max-width: 80%;
     margin-left: 60px;
 }
 
@@ -84,6 +71,7 @@
     margin-top: 0;
     margin-bottom: 20px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    max-width: 850px;
 }
 
 .introduce-section .introduce-container .introduce-description {
@@ -92,6 +80,7 @@
     line-height: 1.5;
     margin-bottom: 40px;
     color: white;
+    max-width: 750px;
 }
 
 .introduce-section .introduce-container .introduce-btn {
@@ -134,59 +123,36 @@
 
 @media (max-width: 768px) {
     .section-title {
-        font-size: 32px; /* Giảm cỡ chữ tiêu đề */
+        font-size: 32px;
     }
 
     .section-subtitle {
-        font-size: 18px; /* Giảm cỡ chữ phụ đề */
+        font-size: 18px;
         margin-bottom: 40px;
     }
-}
-
-@media (max-width: 992px) {
-    .introduce-container {
-        max-width: 80%;
-        margin-left: 40px;
-    }
-
-    .introduce-section .introduce-container .introduce-title {
-        font-size: 44px;
-    }
-
-    .introduce-section .introduce-container .introduce-description {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 576px) {
-    .introduce-section {
-        border-radius: 0;
-        margin-inline: 0;
-    }
 
     .introduce-container {
-        max-width: 100%;
-        margin-left: 0;
-        padding: 60px 20px;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-block: 4rem;
         text-align: center;
     }
 
     .introduce-section .introduce-container .introduce-title {
         font-size: 36px;
+        width: 100%;
     }
 
     .introduce-section .introduce-container .introduce-description {
         font-size: 16px;
-    }
-
-    .introduce-section .introduce-container .introduce-btn {
-        justify-content: center;
+        width: 100%;
     }
 }
 
 /*---------------------- PRODUCT CARD ----------------------*/
 .swiper {
-    max-width: 1300px;
+    max-width: 1200px;
     overflow: hidden;
     padding: 20px 50px;
 }
@@ -296,6 +262,14 @@
     margin-top: 30px;
 }
 
+.swiper-button-prev {
+    left: 10px;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
 /*---------------------- PRINTER SECTION ----------------------*/
 .printer-section {
     padding: 70px 20px;
@@ -329,7 +303,7 @@
     content: "";
     top: 0;
     left: 0;
-    background-image: url('../images/benefit-img.jpg');
+    background-image: url('../images/benefit-img.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;

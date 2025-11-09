@@ -1,17 +1,23 @@
 .form-wrapper {
-    background-image: url("../images/login-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-
+    position: relative;
     width: 100%;
     min-height: calc(100vh - 100px);
     padding: 100px;
     box-sizing: border-box;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+}
+
+.login-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
 .form-box {
