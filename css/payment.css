@@ -1,0 +1,20 @@
+.payment{
+    margin: 40px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.payment .title{
+    font-size: 20px;
+    background: #8ab1f175;
+    justify-items: center;
+}
+.payment .title h1{
+    margin: 10px;
+}
+
+.payment .block-paymentDetails-finalBill{
+    display: flex;
+    gap: 10px;
+}
