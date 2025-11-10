@@ -194,7 +194,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1300px) {
     .card-product {
         flex: 0 1 calc(50% - 16px);
     }
