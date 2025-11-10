@@ -13,7 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap"
         rel="stylesheet">
-    <link rel="icon" href="images/logo.jpg" />
+    <link rel="icon" href="images/logo.webp" />
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
@@ -28,22 +28,22 @@
         <nav>
             <div class="header-container">
                 <div class="logo">
-                    <img src="images/logo.jpg" height="80" width="80" />
+                    <img src="images/logo.webp" height="80" width="80" />
                 </div>
 
                 <div class="nav-wrapper">
                     <div class="menu-bar">
                         <a class="menu" href="HOME.html" id="nav-home">Trang Chủ</a>
-                        <a class="menu" href="#" id="nav-printer">Máy In</a>
-                        <a class="menu" href="#" id="nav-stationery">Văn Phòng Phẩm</a>
+                        <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
+                        <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
                         <a class="menu" href="BLOG.html" id="nav-blog">Blog</a>
-                        <a class="menu" href="CONTACT.html" id="nav-contact">Liên Hệ</a>
+                        <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
                     </div>
                 </div>
 
                 <div class="header-right-side">
                     <div class="user-action">
-                        <a href="#" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
+                        <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
                         <a class="login-btn" href="LOGIN.html" id="nav-login">Đăng Nhập</a>
                     </div>
 
@@ -71,7 +71,8 @@
      <!-- ============CART FILL================= -->
     <main class="cart-fill-main">
         <div class="cart-banner">
-            <div class="text-banner">🎉 Đơn hàng từ 5.000.000đ được FREESHIP toàn quốc 🚚</div>
+            <!-- banner tốc độ 8px/cuộn -->
+             <marquee behavior="scroll" direction="left" scrollamount="8">🎉 Đơn hàng từ 5.000.000đ được FREESHIP toàn quốc 🚚</marquee>
         </div>
         <div class="container">
 
@@ -159,8 +160,12 @@
                     </div>
 
                     <h2>Tổng cộng: <span id="total">41.233.500đ</span></h2>
-                    <button id="bt-payment" type="button" name="payment">TIẾN HÀNH THANH TOÁN <i class="fa-solid fa-money-check-dollar"></i></button>
-                    <button id="bt-shop-continous" name="shopping-continous">Tiếp tục mua sắm <i class="fa-solid fa-cart-plus"></i></button>
+                    <div class="block-bt-payment">
+                        <a href="payment.html" id="bt-payment">TIẾN HÀNH THANH TOÁN <i class="fa-solid fa-money-check-dollar"></i></a>
+                    </div>
+                    <div class="block-bt-shop-continous">
+                        <a href="printer.html" id="bt-shop-continous">Tiếp tục mua sắm <i class="fa-solid fa-cart-plus"></i></a>
+                    </div>
                 </div>                                                                          
             </section>
 
@@ -175,7 +180,7 @@
 
             <div class="footer-col footer-col-info">
                 <div class="footer-logo">
-                    <img src="images/logo.jpg" height="80" width="80" />
+                    <img src="images/logo.webp" height="80" width="80" />
                 </div>
                 <p class="footer-description">
                     Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
@@ -185,8 +190,8 @@
             <div class="footer-col">
                 <h4 class="footer-heading">Sản Phẩm</h4>
                 <ul>
-                    <li><a href="#">Máy In</a></li>
-                    <li><a href="#">Văn Phòng Phẩm</a></li>
+                    <li><a href="printer.html">Máy In</a></li>
+                    <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
                     <li><a href="#">Phụ Kiện</a></li>
                     <li><a href="#">Giấy & Mực In</a></li>
                 </ul>

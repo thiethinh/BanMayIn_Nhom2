@@ -356,41 +356,51 @@ span {
 }
 
 .cart-fill-main .bill h2 {
-    font-size: 15px;
+    font-size: 17px;
     margin-top: 10px;
 }
 
-.cart-fill-main .bill>button {
+.cart-fill-main .bill .block-bt-payment{
     margin-top: 10px;
     background-color: #155dfc;
-    color: white;
     font-size: 16px;
     border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    height: 40px;
+    padding: 10px 26px;
+}
+.cart-fill-main #bt-payment {
+    text-decoration: none;
+    color: #fff;
+}
+.cart-fill-main .block-bt-payment:hover {
+    background-color: #0d47a1;
+}
+
+ .cart-fill-main .block-bt-shop-continous{
+    margin-top: 15px;
+    padding: 4px 55px;
+    background: #fff;
+    font-size: 16px;
+    border: 2px solid;
+    height: 30px;
     border-radius: 6px;
     cursor: pointer;
 }
 
 .cart-fill-main #bt-shop-continous {
-    background-color: white;
-    color: #000000;
-    border: 1px solid #000000;
-    margin-top: 10px;
-    padding: 5px 0;
-    height: 30px;
+    color: #000;
+    text-decoration: none;
 }
 
-.cart-fill-main #bt-shop-continous:hover {
+.cart-fill-main .block-bt-shop-continous:hover {
     background-color: #e2e8f0;
 }
 
-.cart-fill-main #bt-payment {
-    padding: 10px 0;
-    height: 38px;
-}
 
-.cart-fill-main #bt-payment:hover {
-    background-color: #0d47a1;
-}
+
+
 
 .cart-fill-main #total {
     float: right;

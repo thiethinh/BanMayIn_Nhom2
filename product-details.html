@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     
-    <link rel="icon" href="images/logo.jpg" />
+    <link rel="icon" href="images/logo.webp" />
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
@@ -23,22 +23,22 @@
         <nav>
             <div class="header-container">
                 <div class="logo">
-                    <img src="images/logo.jpg" height="80" width="80" />
+                    <img src="images/logo.webp" height="80" width="80" />
                 </div>
 
                 <div class="nav-wrapper">
                     <div class="menu-bar">
                         <a class="menu" href="HOME.html" id="nav-home">Trang Chủ</a>
-                        <a class="menu" href="#" id="nav-printer">Máy In</a>
-                        <a class="menu" href="#" id="nav-stationery">Văn Phòng Phẩm</a>
+                        <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
+                        <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
                         <a class="menu" href="BLOG.html" id="nav-blog">Blog</a>
-                        <a class="menu" href="CONTACT.html" id="nav-contact">Liên Hệ</a>
+                        <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
                     </div>
                 </div>
 
                 <div class="header-right-side">
                     <div class="user-action">
-                        <a href="#" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
+                        <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
                         <a class="login-btn" href="LOGIN.html" id="nav-login">Đăng Nhập</a>
                     </div>
 
@@ -53,20 +53,7 @@
 <!-- ==============MAIN ===================== -->
     <body>
         <main class="product-details-main">
-            <section class="block-title">
-                <h1>Chi Tiết Sản Phẩm</h1>
-                <div class="breadcrumb-menu">
-                    <nav>
-                        <ul>
-                            <li><span><a href="index.html">Home</a></span></li>
-                            <i class="fa-solid fa-circle"></i>
-                            <li><span><a href="product.html">Sản Phẩm</a></span></li>
-                            <i class="fa-solid fa-circle"></i>
-                            <li><span><a href="#">Chi Tiết Sản Phẩm</a></span></li>
-                        </ul>
-                    </nav>
-                </div>
-            </section>
+                
             <section class="product-details">
                 <nav class="block-select-img">
 
@@ -102,7 +89,7 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-regular fa-star"></i>
-                            <span><a href="review">(3 đánh giá)</a></span>
+                            <span><a href="#review" onclick="showTab('review', document.querySelector('.tag-btn:nth-child(3)'))">(3 đánh giá)</a></span>
                         </div>
                     </div>
                     <h1 class="product-name">Máy In Phun Màu Đa Năng Epson_L6270</h1>
@@ -128,8 +115,8 @@
                             <button id="bt-up" class="qty-btn plus">+</button>
 
                         </div>
-                        <button class="bt-add-cart">Thêm Vào Giỏ Hàng <i
-                                class="fa-solid fa-basket-shopping"></i></button>
+                        <button class="bt-add-cart">Thêm Vào Giỏ Hàng 
+                            <i class="fa-solid fa-basket-shopping"></i></button>
                     </div>
                     <div class="product-share">
                         <span>Chia sẻ:</span>
@@ -231,7 +218,7 @@
                     </div>                                                                              
                     <!-- =====================tag review====================== -->
                     <div id="review" class="tag-display">
-                        <h1>Đánh giá sản phẩm</h1>
+                        <h1 >Đánh giá sản phẩm</h1>
                         <div class="block-User-feedback">
                             <div class="block-User">
                                 <img src="images/user-02.png" alt="user-1">
@@ -330,7 +317,7 @@
 
             <div class="footer-col footer-col-info">
                 <div class="footer-logo">
-                    <img src="images/logo.jpg" height="80" width="80" />
+                    <img src="images/logo.webp" height="80" width="80" />
                 </div>
                 <p class="footer-description">
                     Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
