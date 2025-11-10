@@ -26,19 +26,19 @@
                     <img src="images/logo.webp" height="80" width="80" />
                 </div>
 
-                <!-- <div class="nav-wrapper">
-                <div class="menu-bar">
-                    <a class="menu" href="HOME.html" id="nav-home">Trang Chủ</a>
-                    <a class="menu" href="#" id="nav-printer">Máy In</a>
-                    <a class="menu" href="#" id="nav-stationery">Văn Phòng Phẩm</a>
-                    <a class="menu" href="BLOG.html" id="nav-blog">Blog</a>
-                    <a class="menu" href="CONTACT.html" id="nav-contact">Liên Hệ</a>
+                <div class="nav-wrapper">
+                    <div class="menu-bar">
+                        <a class="menu" href="HOME.html" id="nav-home">Trang Chủ</a>
+                        <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
+                        <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
+                        <a class="menu" href="BLOG.html" id="nav-blog">Blog</a>
+                        <a class="menu" href="CONTACT.html" id="nav-contact">Liên Hệ</a>
+                    </div>
                 </div>
-            </div> -->
 
                 <div class="header-right-side">
                     <div class="user-action">
-                        <a href="#" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
+                        <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
                         <a class="login-btn" href="LOGIN.html" id="nav-login">Đăng Nhập</a>
                     </div>
 
@@ -60,8 +60,8 @@
 
             <!-- ===========BLOCK PAYMENT-DETAILS -->
             <section class="payment-details">
+                <h2>Chi tiết đơn hàng</h2>
                 <form action="#">
-                    <h2>Chi tiết đơn hàng</h2>
                     <!-- ==========NATION=========== -->
                     <div class="block-nation">
                         <label for="nation">Quốc Gia <span>*</span></label>
@@ -94,30 +94,33 @@
                     <div class="block-firstname-lastname">
                         <div class="block-firstname">
                             <label for="firstname">Tên <span>*</span></label>
-                            <input id="firstname" type="text" placeholder="vd: Thai" required>
+                            <input id="firstname" name="firstname" type="text" placeholder="vd: Thai" required>
                         </div>
                         <div class="block-lastname">
                             <label for="lastname">Họ <span>*</span></label>
-                            <input id="lastname" type="text" placeholder="vd: Nguyen Hoang" required>
+                            <input id="lastname" name="lastname" type="text" placeholder="vd: Nguyen Hoang" required>
                         </div>
                     </div>
 
                     <!-- ============SUB-ADDRESS============= -->
                     <div class="block-address">
                         <label for="address">Địa chỉ <span>*</span></label>
-                        <input id="address" type="text" placeholder="vd: phường Đông Hoà, Dĩ An" required>
+                        <input id="address" name="address" type="text" placeholder="vd: 123 Lê Lợi, phường Đông Hoà"
+                            required>
                     </div>
 
                     <!--===============ADDRESS + POSTCODE==============  -->
                     <div class="block-addressCity-postCode">
                         <div class="block-addressCity">
                             <label for="addressCity">Thị trấn/ Thành phố <span>*</span></label>
-                            <input id="addressCity" type="text" placeholder="vd: phường Đông Hoà, Dĩ An" required>
+                            <input id="addressCity" name="addressCity" type="text"
+                                placeholder="vd: Dĩ An, TP. Hồ Chí MInh" required>
                         </div>
 
                         <div class="block-postCode">
                             <label for="postCode">Mã bưu chính <span>*</span></label>
-                            <input id="postCode" type="number" placeholder="vd: 710000" maxlength="7" required>
+                            <input id="postCode" name="postCode" type="number" placeholder="vd: 710000" min="0" maxlength="7"
+                                required>
                         </div>
                     </div>
 
@@ -126,12 +129,18 @@
                     <div class="block-phone-email">
                         <div class="block-phone">
                             <label for="phone">Số điện thoại <span>*</span></label>
-                            <input id="phone" type="number" placeholder="vd: 0327618372" maxlength="11" required>
+                            <input id="phone" name="phone" type="tel"
+                                title="Nhập số điện thoại hợp lệ (10-11 số) bắt đầu bằng 0" placeholder="vd: 0327618372"
+                                maxlength="11" required>
                         </div>
                         <div class="block-email">
                             <label for="email">Email <span>*</span></label>
-                            <input id="eamil" type="email" placeholder="vd: nguyenvana@gmail.com" required>
+                            <input id="eamil" name="phone" type="email" placeholder="vd: nguyenvana@gmail.com" required>
                         </div>
+                    </div>
+                    <div class="block-save-info">
+                        <input type="checkbox" id="saveInfo" name="saveInfo">
+                        <label for="saveInfo">Lưu thông tin cho lần mua sau</label>
                     </div>
 
                     <!-- ===========NOTE============== -->
@@ -171,59 +180,109 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Vận chuyển</th>
-                            <th class="Shiping">
-                                <label for="flast-ship">Giao hàng hỏa tốc</label>
-                                <input id="flast-ship" type="radio">
+                            <th>Vận chuyển: </th>
+                            <th class="shiping">
+                                <div class="flast-ship">
+                                    <input id="flast-ship" type="radio" name="ship">
+                                    <label for="flast-ship">Giao hàng hỏa tốc</label>
+                                </div>
 
-                                <label for="free-ship">Miễn phí vận chuyển</label>
-                                <input id="free-ship" type="radio">
+                                <div class="free-ship">
+                                    <input id="free-ship" type="radio" name="ship">
+                                    <label for="free-ship">Miễn phí vận chuyển</label>
+                                </div>
                             </th>
                         </tr>
-                        <tr>
+                        <tr id="total">
                             <th>Tổng Đơn Hàng: </th>
                             <th>41.233.500đ</th>
                         </tr>
                     </tfoot>
                 </table>
-                <div class="pay-menthod">
-                    <div class="select-method">
-                        <div class="method1">
-                            <h3>Thanh toán khi nhận hàng</h3>
-                            <button id="by-cash" type="button"> <i class="fa-solid fa-plus"></i></button>
-                            <div class="by-cash-hidden">
-                                <p>Vui lòng thanh toán trực tiếp với người giao khi nhận được hàng.</p>
-                            </div>
+                <div class="pay-method">
+                    <!-- =========CASH========= -->
+                    <div class="method">
+                        <input type="radio" name="paymentMethod" id="cod" value="COD" hidden>
+                        <h3>Thanh toán khi nhận hàng</h3>
+                        <button type="button"><i class="fa-solid fa-plus"></i></button>
+                        <div class="hidden">
+                            <p>Vui lòng thanh toán trực tiếp với người giao khi nhận được hàng.</p>
                         </div>
-                        <div class="method2">
-                            <h3>Chuyển khoản qua ngân hàng</h3>
-                            <button id="by-bank" type="button"> <i class="fa-solid fa-plus"></i></button>
-                            <div class="by-bank-hidden">
-                                <p>Vui lòng thanh toán trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã
-                                đơn hàng của bạn làm tham chiếu thanh toán. Đơn hàng của bạn sẽ không được giao cho đến
-                                khi tiền được chuyển vào tài khoản của chúng tôi.</p>
-                            </div>
-                        </div>
-                        <div class="method3">
-                            <h3>Thanh toán qua momo</h3>
-                            <button id="by-momo" type="button"> <i class="fa-solid fa-plus"></i></button>
-                            <div class="by-momo-hidden">
-                                <p>Vui lòng quét mã QR để thanh toán bằng momo.</p>
+                    </div>
 
-                            </div>
-                        </div>
-                        <div class="method4">
-                            <h3>Thanh toán qua thẻ ngân hàng</h3>
-                            <button id="by-cart-bank" type="button"> <i class="fa-solid fa-plus"></i></button>
-                            <div class="by-cart-hidden">
-                                <p>Vui lòng nhập mã thẻ tín dụng của bạn.</p>
-                                <input type="number" required>
+
+
+                    <!-- =============BANK======= -->
+
+                    <div class="method bank-method">
+                        <input type="radio" name="paymentMethod" id="bankCard" value="BANK" hidden>
+                        <h3>Thanh toán qua thẻ ngân hàng</h3>
+                        <button type="button"><i class="fa-solid fa-plus"></i></button>
+
+                        <div class="hidden">
+                            <p>Vui lòng nhập thông tin thẻ tín dụng hoặc thẻ ghi nợ của bạn.</p>
+
+                            <form action="#">
+                            <div class="bank-info-container">
+                                <!-- Ngân hàng   -->
+                                <div class="block-bank-name">
+                                    <label for="bank-name">Ngân hàng <span>*</span></label>
+                                    <select name="bank-name" id="bank-name" required>
+                                        <option value="">--Chọn Ngân Hàng--</option>
+                                        <option value="VCB">Vietcombank</option>
+                                        <option value="BIDV">BIDV</option>
+                                        <option value="ACB">ACB</option>
+                                        <option value="SCB">Sacombank</option>
+                                        <option value="MB">MBBank</option>
+                                        <option value="VTB">VietinBank</option>
+                                    </select>
+                                </div>
+
+                                <!-- Thông tin thẻ   -->
+                                
+                                    <div class="card-info">
+                                        <div class="block-card-number">
+                                            <label for="card-number">Số thẻ <span>*</span></label>
+                                            <input type="text" id="card-number" maxlength="16"
+                                                placeholder="1234 5678 9012 3456" required>
+                                        </div>
+
+                                        <div class="block-card-holder">
+                                            <label for="card-holder">Tên chủ thẻ <span>*</span></label>
+                                            <input type="text" id="card-holder" placeholder="NGUYEN VAN A" required>
+                                        </div>
+
+                                        <div class="block-enddate-cvv">
+                                            <div class="block-card-enddate">
+                                                <label for="enddate-date">Ngày hết hạn <span>*</span></label>
+                                                <input type="text" id="enddate-date" maxlength="5" placeholder="MM/YY"
+                                                    required>
+                                            </div>
+
+                                            <div class="block-card-cvv">
+                                                <label for="cvv">CVV <span>*</span></label>
+                                                <input type="password" id="cvv" maxlength="3" placeholder="***"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <button type="submit">ĐẶT HÀNG</button>
+                    <!-- ========Momo -->
+                    <div class="method">
+                        <input type="radio" name="paymentMethod" id="momo" value="Momo" hidden>
+                        <h3>Thanh toán qua momo</h3>
+                        <button type="button"><i class="fa-solid fa-plus"></i></button>
+                        <div class="hidden">
+                            <p>Vui lòng quét mã QR để thanh toán bằng momo.</p>
+                        </div>
+                    </div>
 
+                    <button class="order-btn" type="submit">ĐẶT HÀNG</button>
                 </div>
+
             </section>
         </div>
 
@@ -236,7 +295,7 @@
 
             <div class="footer-col footer-col-info">
                 <div class="footer-logo">
-                    <img src="images/logo.jpg" height="80" width="80" />
+                    <img src="images/logo.webp" height="80" width="80" />
                 </div>
                 <p class="footer-description">
                     Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
@@ -246,8 +305,8 @@
             <div class="footer-col">
                 <h4 class="footer-heading">Sản Phẩm</h4>
                 <ul>
-                    <li><a href="#">Máy In</a></li>
-                    <li><a href="#">Văn Phòng Phẩm</a></li>
+                    <li><a href="printer.html">Máy In</a></li>
+                    <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
                     <li><a href="#">Phụ Kiện</a></li>
                     <li><a href="#">Giấy & Mực In</a></li>
                 </ul>
@@ -278,6 +337,7 @@
         </div>
     </footer>
 
+    <script src="js\payment.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
