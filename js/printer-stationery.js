@@ -46,43 +46,103 @@ function initDropDown() {
 
 
 function initPagination() {
-    const buttons = document.querySelectorAll(".page-btn:not(#prev):not(#next)");
-    const prevBtn = document.getElementById("prev");
-    const nextBtn = document.getElementById("next");
-    let currentPage = 1;
-
-    function updatePagination() {
-        buttons.forEach(btn => btn.classList.remove("active"));
-        buttons[currentPage - 1].classList.add("active");
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === buttons.length;
+    const paginationContainer = document.querySelector('.pagination');
+    // không tìm thấy div pagination hoặc không có sản phẩm nào thì dừng lại
+    if (!paginationContainer || document.querySelectorAll('.card-product').length === 0) {
+        return;
     }
 
-    buttons.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            currentPage = index + 1;
-            updatePagination();
+    // CÀI ĐẶT
+    const productsPerPage = 8;
+    let currentPage = 1;
+    const allProducts = Array.from(document.querySelectorAll('.card-product'));
+
+    // Tính tổng số trang làm tròn lên
+    const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+    // Nếu chỉ 1 trang ẩn luôn pagination cho gọn
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        // Đảm bảo tất cả sản phẩm đều hiển thị
+        allProducts.forEach(product => product.style.display = 'block');
+        return;
+    } else {
+        // Nếu trước đó bị ẩn thì hiện lại
+        paginationContainer.style.display = 'flex';
+    }
+
+    // hàm hiển thị sản phẩm đúng theo số trang
+    function showPage(page) {
+        const startIndex = (page - 1) * productsPerPage;
+        const endIndex = startIndex + productsPerPage;
+
+        allProducts.forEach((product, index) => {
+            if (index >= startIndex && index < endIndex) {
+                product.style.display = 'block'; // Hiển thị sản phẩm trong trang này
+            } else {
+                product.style.display = 'none';  // Ẩn các sản phẩm khác
+            }
         });
-    });
+    }
 
-    prevBtn.addEventListener("click", () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updatePagination();
+    // Hàm khởi tạo giao diện theo số lượng trang và vị trí trang hiện tại
+    function createPagination(totalPages, currentPage) {
+        paginationContainer.innerHTML = '';
+
+        // nút previous
+        const prevLink = document.createElement('a');
+        prevLink.href = '#';
+        prevLink.innerText = 'Trước';
+        prevLink.classList.add('page-link', 'prev');
+        if (currentPage === 1) prevLink.classList.add('disabled');
+        prevLink.dataset.page = currentPage - 1;
+        paginationContainer.appendChild(prevLink);
+
+        // tạo số trang
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.href = '#';
+            pageLink.innerText = i;
+            pageLink.classList.add('page-link');
+            if (i === currentPage) pageLink.classList.add('active-page');
+            pageLink.dataset.page = i;
+            paginationContainer.appendChild(pageLink);
+        }
+
+        // tạo nút next
+        const nextLink = document.createElement('a');
+        nextLink.href = '#';
+        nextLink.innerText = 'Sau';
+        nextLink.classList.add('page-link', 'next');
+        if (currentPage === totalPages) nextLink.classList.add('disabled');
+        nextLink.dataset.page = currentPage + 1;
+        paginationContainer.appendChild(nextLink);
+    }
+
+    // khi click
+    paginationContainer.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = e.target;
+
+        // Kiểm tra nếu click vào nút hợp lệ và không bị disabled
+        if (target.classList.contains('page-link') && !target.classList.contains('disabled')) {
+            const newPage = parseInt(target.dataset.page);
+            if (newPage && newPage !== currentPage) {
+                currentPage = newPage;
+                // Cập nhật giao diện
+                createPagination(totalPages, currentPage);
+                showPage(currentPage);
+
+            }
         }
     });
 
-    nextBtn.addEventListener("click", () => {
-        if (currentPage < buttons.length) {
-            currentPage++;
-            updatePagination();
-        }
-    });
-
-    updatePagination();
+    // --- KHỞI TẠO LẦN ĐẦU ---
+    createPagination(totalPages, currentPage);
+    showPage(currentPage); // Hiển thị trang 1 ngay lúc đầu
 }
 
 export function initilizePrinterStationery() {
-        initDropDown();
-        initPagination();
+    initDropDown();
+    initPagination();
 }
