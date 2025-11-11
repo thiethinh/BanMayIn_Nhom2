@@ -1,0 +1,94 @@
+.searchbox button {
+    padding: 8px 12px;
+    color: black
+}
+
+.searchbox select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    min-width: 200px;
+    user-select: none !important;
+}
+
+
+.feedback-table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: auto;
+    margin: 25px auto;
+}
+
+
+.feedback-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+.feedback-table th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.feedback-table thead tr {
+    border-bottom: 2px solid #f0f0f0;
+}
+
+
+
+/* css body table */
+.feedback-table td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    color: #555;
+    font-size: 14px;
+}
+
+
+.feedback-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+.feedback-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+
+/* css cột check box  */
+.feedback-table .status-col {
+    text-align: center;
+}
+
+/* 9. Checkbox */
+.feedback-table .status-col input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #007bff;
+}
+
+/* độ rộng cột */
+.feedback-table th:nth-child(1),
+.feedback-table td:nth-child(1) {
+    width: 5%;
+}
+
+.feedback-table th:nth-child(5),
+.feedback-table td:nth-child(5) {
+    width: 35%;
+}
+
+.feedback-table th:nth-child(6),
+.feedback-table td:nth-child(6) {
+    width: 10%;
+}
