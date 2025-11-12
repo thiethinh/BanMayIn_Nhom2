@@ -10,7 +10,6 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     color: #333;
-    font-display: flex;
     flex-direction: column;
 }
 
@@ -341,4 +340,41 @@ nav .user-action .login-btn:hover {
 .main.page-is-loading {
     opacity: 0;
     transition: opacity 0.3s ease;
+}
+
+/*---------------------- LOGGED IN ----------------------*/
+.user-action .user-profile-btn,
+.user-action .logout-btn {
+    font-size: 17px;
+    padding: 12px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-left: 5px;
+}
+
+.user-action .user-profile-btn {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+.user-action .user-profile-btn:hover {
+    background-color: #dbe8ff;
+}
+
+.user-action .logout-btn {
+    background-color: transparent;
+    color: #333;
+}
+.user-action .logout-btn:hover {
+    background-color: #eee;
+}
+
+/*---------------------- MENU ACTIVE ----------------------*/
+.menu-bar .menu.active-menu {
+    color: var(--primary-color);
+    font-weight: 700;
 }

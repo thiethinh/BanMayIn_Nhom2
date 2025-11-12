@@ -125,17 +125,20 @@
 }
 
 .searchbox button {
-    padding: 8px 16px;
-    margin-right: 10px;
-    color: white;
     background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
     border-radius: 5px;
-    border: 1px solid transparent;
-    transition: transform 0.8 ease-in-out;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .searchbox button:hover {
-    transform: scale(1.1, 1.1);
+    background-color: blue;
 }
 
 .searchbox select {
