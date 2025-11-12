@@ -376,5 +376,5 @@ nav .user-action .login-btn:hover {
 /*---------------------- MENU ACTIVE ----------------------*/
 .menu-bar .menu.active-menu {
     color: var(--primary-color);
-    font-weight: 700; /* Làm chữ đậm hơn */
+    font-weight: 700;
 }

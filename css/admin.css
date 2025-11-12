@@ -92,10 +92,12 @@
     transition: all 0.3s ease;
     gap: 15px;
 }
+
 .btn-logout i {
     text-align: center;
     width: 20px;
 }
+
 .btn-logout:hover {
     background-color: #d9534f;
     color: white;
@@ -103,6 +105,7 @@
 
 /* ----- MAIN CONTENT ----- */
 .admin-main-content {
+    user-select: text;
     padding: 30px 40px;
     background-color: var(--third-color);
 }
@@ -218,14 +221,17 @@
     font-size: 13px;
     font-weight: 600;
 }
+
 .status-badge.pending {
     background-color: #fef4e6;
     color: #f5a623;
 }
+
 .status-badge.shipped {
     background-color: #eaf1ff;
     color: #165FF2;
 }
+
 .status-badge.completed {
     background-color: #e6f7f0;
     color: #2e7d32;
@@ -237,6 +243,7 @@
     text-decoration: none;
     color: var(--primary-color);
 }
+
 .btn-action:hover {
     text-decoration: underline;
 }
@@ -246,6 +253,7 @@
     text-align: right;
     border-top: 1px solid #eee;
 }
+
 .table-footer a {
     text-decoration: none;
     color: var(--primary-color);

@@ -43,15 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPage = window.location.pathname.split('/').pop() || 'home.html';
     const navMap = {
-        'index.html': 'nav-home',
         'home.html': 'nav-home',
         'login.html': 'nav-login',
         'blog.html': 'nav-blog',
         'contact.html': 'nav-contact',
-        'printer.html' : 'nav-printer',
-        'stationery.html' : 'nav-stationery'
+        'printer.html': 'nav-printer',
+        'stationery.html': 'nav-stationery'
     };
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.classList.remove('active-menu');
@@ -98,4 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
     }
 
+    if (document.querySelector('.product-container')) {
+        import('./printer-stationery.js')
+            .then(module => {
+                module.initilizePrinterStationery();
+            })
+    }
 });
