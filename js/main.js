@@ -1,15 +1,9 @@
-import { initializeSwipers } from './swiper.js';
-import { initializeLogin } from './login.js';
-import { initializeBlogNavigation } from './blog.js';
-import { initializeScrollAnimations } from './about.js';
-import { initilizePrinterStationery } from './printer-stationery.js';
-
-// Xử lý đăng nhập - đăng xuất
+// Xử lý trạng thái đăng nhập của trang
 function logOut(button) {
     button.addEventListener('click', (e) => {
-       e.preventDefault();
-       localStorage.removeItem('loggedIn');
-       window.location.reload();
+        e.preventDefault();
+        localStorage.removeItem('loggedIn');
+        window.location.reload();
     });
 }
 
@@ -36,10 +30,10 @@ function checkLoginStatus() {
     }
 }
 
-// HÀM CHÍNH: CHẠY KHI TẢI TRANG
+// --- HÀM CHÍNH ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Khởi tạo Menu Mobile
+    // Khởi tạo Menu Mobile (Giữ nguyên)
     const menuToggle = document.querySelector('.menu-toggle');
     const navWrapper = document.querySelector('.nav-wrapper');
     if (menuToggle && navWrapper) {
@@ -49,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Làm nổi bật Menu Hiện tại
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
     const navMap = {
         'index.html': 'nav-home',
         'home.html': 'nav-home',
@@ -61,11 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'printer.html' : 'nav-printer',
         'stationery.html' : 'nav-stationery'
     };
-
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.classList.remove('active-menu');
     });
-
     const activeId = navMap[currentPage];
     if (activeId) {
         const activeLink = document.getElementById(activeId);
@@ -81,23 +71,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (document.querySelector('.hero-slider.swiper')) {
-        initializeSwipers();
+        import('./swiper.js')
+            .then(module => {
+                module.initializeSwipers();
+            })
     }
 
     if (document.querySelector('.form-box')) {
-        initializeLogin();
+        import('./login.js')
+            .then(module => {
+                module.initializeLogin();
+            })
     }
 
     if (document.querySelector('.blog-nav')) {
-        initializeBlogNavigation();
+        import('./blog.js')
+            .then(module => {
+                module.initializeBlogNavigation();
+            })
     }
 
     if (document.querySelector('.stats-section') || document.querySelector('.values-section')) {
-        initializeScrollAnimations();
+        import('./about.js')
+            .then(module => {
+                module.initializeScrollAnimations();
+            })
     }
 
-    if(document.querySelector('.product-container')) {
-        initilizePrinterStationery();
-    }
-    
 });

@@ -10,7 +10,6 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     color: #333;
-    font-display: flex;
     flex-direction: column;
 }
 
@@ -372,4 +371,10 @@ nav .user-action .login-btn:hover {
 }
 .user-action .logout-btn:hover {
     background-color: #eee;
+}
+
+/*---------------------- MENU ACTIVE ----------------------*/
+.menu-bar .menu.active-menu {
+    color: var(--primary-color);
+    font-weight: 700; /* Làm chữ đậm hơn */
 }
