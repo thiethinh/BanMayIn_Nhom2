@@ -236,7 +236,10 @@
     background-color: #e6f7f0;
     color: #2e7d32;
 }
-
+.status-badge.canceled{
+    background-color: #f8d7da;
+    color: #842029;
+}
 .btn-action {
     font-size: 14px;
     font-weight: 500;
