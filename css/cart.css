@@ -5,18 +5,6 @@
 }
 
 
-.cart-empty-main .container h1,
-h2,
-h3 {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.cart-empty-main .container body,
-p,
-span {
-    font-family: 'Roboto', sans-serif;
-}
-
 .cart-empty-main .container {
     margin: 160px auto 0;
     padding: 10px 0;

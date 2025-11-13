@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaperCraft - Admin Bảng Điều Khiển</title>
-    <link rel="icon" href="images/logo.webp"/>
+    <link rel="icon" href="images/logo.webp" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin.css">
 </head>
+
 <body>
 
-<div class="admin-container">
+    <div class="admin-container">
 
+<<<<<<< HEAD
     <aside class="admin-sidebar">
         <div class="sidebar-header">
             <img src="images/logo.webp" height="60" width="60" alt="Logo">
@@ -82,42 +85,109 @@
                     <span class="stat-number">125.000.000đ</span>
                     <span class="stat-label">Tổng Doanh Thu</span>
                 </div>
+=======
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.webp" height="60" width="60" alt="Logo">
+                <h2>PaperCraft Admin</h2>
+>>>>>>> c037ac17430a1064835d44b4303aa129756cec21
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #fef4e6;">
-                    <i class="fa-solid fa-receipt" style="color: #f5a623;"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-number">32</span>
-                    <span class="stat-label">Đơn Hàng Mới</span>
-                </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li>
+                        <a href="admin.html" class="active">
+                            <i class="fa-solid fa-gauge"></i> Bảng Điều Khiển
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-products.html">
+                            <i class="fa-solid fa-box-archive"></i> Quản Lý Sản Phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-review.html">
+                            <i class="fa-solid fa-file-lines"></i> Quản Lý Bài Viết
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-receipt"></i> Quản Lý Đơn Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-contacts.html">
+                            <i class="fa-solid fa-message"></i> Tin Nhắn Liên Hệ
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="home.html" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Xem Website
+                </a>
             </div>
+        </aside>
 
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #e6f7f0;">
-                    <i class="fa-solid fa-message" style="color: #2e7d32;"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-number">15</span>
-                    <span class="stat-label">Tin Nhắn Mới</span>
-                </div>
-            </div>
+        <main class="admin-main-content">
 
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #fdeeee;">
-                    <i class="fa-solid fa-users" style="color: #d9534f;"></i>
+            <header class="admin-header">
+                <h1>Bảng Điều Khiển</h1>
+                <div class="admin-user-info">
+                    <span>Xin chào, ADMIN</span>
+                    <a href="#" class="btn-logout">Đăng Xuất</a>
                 </div>
-                <div class="stat-info">
-                    <span class="stat-number">1,250</span>
-                    <span class="stat-label">Tổng Khách Hàng</span>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #eaf1ff;">
+                        <i class="fa-solid fa-dollar-sign" style="color: #165FF2;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">125.000.000đ</span>
+                        <span class="stat-label">Tổng Doanh Thu</span>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="content-table-card">
-            <h2>Đơn Hàng Mới Gần Đây</h2>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #fef4e6;">
+                        <i class="fa-solid fa-receipt" style="color: #f5a623;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">32</span>
+                        <span class="stat-label">Đơn Hàng Mới</span>
+                    </div>
+                </div>
 
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #e6f7f0;">
+                        <i class="fa-solid fa-message" style="color: #2e7d32;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Tin Nhắn Mới</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #fdeeee;">
+                        <i class="fa-solid fa-users" style="color: #d9534f;"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">1,250</span>
+                        <span class="stat-label">Tổng Khách Hàng</span>
+                    </div>
+                </div>
+            </section>
+
+<<<<<<< HEAD
             <table class="content-table">
                 <thead>
                 <tr>
@@ -169,9 +239,66 @@
                 <a href="admin-order-manage.html">Xem tất cả đơn hàng &rarr;</a>
             </div>
         </section>
+=======
+            <section class="content-table-card">
+                <h2>Đơn Hàng Mới Gần Đây</h2>
 
-    </main>
-</div>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1256</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>07/11/2025</td>
+                            <td>4.500.000đ</td>
+                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
+                            <td><a href="#" class="btn-action view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1255</td>
+                            <td>Trần Thị Bình</td>
+                            <td>06/11/2025</td>
+                            <td>2.690.000đ</td>
+                            <td><span class="status-badge shipped">Đã Gửi</span></td>
+                            <td><a href="#" class="btn-action view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1254</td>
+                            <td>Lê Minh Cường</td>
+                            <td>06/11/2025</td>
+                            <td>450.000đ</td>
+                            <td><span class="status-badge completed">Hoàn Thành</span></td>
+                            <td><a href="#" class="btn-action view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1253</td>
+                            <td>Phạm Thị Dung</td>
+                            <td>05/11/2025</td>
+                            <td>12.800.000đ</td>
+                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
+                            <td><a href="#" class="btn-action view">Xem</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+>>>>>>> c037ac17430a1064835d44b4303aa129756cec21
+
+                <div class="table-footer">
+                    <a href="#">Xem tất cả đơn hàng &rarr;</a>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
 </body>
+
 </html>

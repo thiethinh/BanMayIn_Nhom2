@@ -115,19 +115,36 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    user-select: text;
 }
 
 .admin-header h1 {
     margin: 0;
     font-size: 28px;
     font-weight: 600;
+    user-select: text;
 }
 
-.user-review-searchbox select {
+.searchbox button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.searchbox button:hover {
+    background-color: blue;
+}
+
+.searchbox select {
     padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 14px;
     outline: none;
     cursor: pointer;
@@ -135,88 +152,84 @@
     user-select: none !important;
 }
 
-.user-review-searchbox select:focus {
-    border-color: var(--primary-color);
-}
-
-
-
-
-
-
-.product-review {
+/* css for table  */
+.feedback-table {
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: auto;
     margin: 25px auto;
-    width: 95%;
 }
 
-.product-review table {
+
+.feedback-table table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
 
-.product-review th {
+.feedback-table th {
     padding: 16px 20px;
+    user-select: text;
     text-align: left;
     font-weight: 600;
     color: #333;
     background-color: #f9f9f9;
-    user-select: text;
 }
 
-.product-review thead tr {
+.feedback-table thead tr {
     border-bottom: 2px solid #f0f0f0;
-    user-select: text;
 }
 
-.product-review td {
+
+
+/* css body table */
+.feedback-table td {
+    user-select: text;
     padding: 16px 20px;
     vertical-align: middle;
     color: #555;
-    user-select: text;
+    font-size: 14px;
 }
 
 
-.product-review tbody tr {
+.feedback-table tbody tr {
     border-bottom: 1px solid #f0f0f0;
-    user-select: text;
 }
 
-.product-review tbody tr:last-child {
+
+.feedback-table tbody tr:last-child {
     border-bottom: none;
 }
 
-.product-review .actions {
+
+/* css cột check box  */
+.feedback-table .status-col {
+    text-align: center;
     user-select: none;
 }
 
-
-.product-review .stars {
-    font-weight: bold;
-    color: #f39c12;
+/* 9. Checkbox */
+.feedback-table .status-col input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #007bff;
 }
 
-.product-review .actions a {
-    text-decoration: none;
-    font-weight: 500;
-    margin-right: 15px;
-    transition: opacity 0.2s;
+/* độ rộng cột */
+.feedback-table th:nth-child(1),
+.feedback-table td:nth-child(1) {
+    width: 5%;
 }
 
-.product-review .actions a:hover {
-    opacity: 0.7;
-    text-decoration: underline;
+.feedback-table th:nth-child(5),
+.feedback-table td:nth-child(5) {
+    width: 35%;
 }
 
-.product-review .actions .edit {
-    color: #007bff;
-
-}
-
-.product-review .actions .delete {
-    color: #dc3545;
+.feedback-table th:nth-child(6),
+.feedback-table td:nth-child(6) {
+    width: 10%;
 }
