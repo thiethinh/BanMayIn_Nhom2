@@ -16,12 +16,16 @@
     .admin-main-content .content-table-view .filter {
         float: right;
         padding: 0 5px 20px;
+        border-radius: 8px;
     }
+    
     .admin-main-content .content-table-view .filter select{
         padding: 4px 6px;
         cursor: pointer;
+        border-radius: 6px;
     }
     .admin-main-content .content-table-view .filter select:focus{
+        outline: none;
         border-color: #2477BF;
         box-shadow: 0 0 4px rgba(36, 119, 191, 0.4);
     }
