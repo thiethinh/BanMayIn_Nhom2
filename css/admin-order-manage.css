@@ -11,6 +11,7 @@
     .admin-main-content #title-table {
         font-size: 28px;
         margin-bottom: 10px;
+        margin-top: 0;
     }
     .admin-main-content .content-table-view .filter {
         float: right;

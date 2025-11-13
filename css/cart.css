@@ -177,7 +177,7 @@ span {
     height: fit-content;
     margin: 10px auto;
     padding: 10px 20px 20px;
-    background-color: #cbe2fa;
+    background-color: #EAF1FF;
 
 }
 
@@ -350,7 +350,7 @@ span {
 
 .cart-fill-main .bill .block-bt-payment{
     margin-top: 10px;
-    background-color: #155dfc;
+    background-color: #165FF2;
     font-size: 16px;
     border: none;
     border-radius: 6px;
@@ -385,9 +385,6 @@ span {
 .cart-fill-main .block-bt-shop-continous:hover {
     background-color: #e2e8f0;
 }
-
-
-
 
 
 .cart-fill-main #total {
