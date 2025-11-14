@@ -248,13 +248,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    --webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
 }
 
-.card-product > ul {
-    min-height: 100px;
+.card-product>ul {
+    min-height: 120px;
 }
 
 .card-product li {
