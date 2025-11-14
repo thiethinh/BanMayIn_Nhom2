@@ -184,20 +184,23 @@
     .payment .view-table th {
       text-align: left;
       padding: 12px 15px;
-      color: #000;
-    }
-
-    .payment .view-table thead {
-      background-color: #83c1d9;
       color: #fff;
     }
 
-    .payment .view-table tbody tr:nth-child(odd) {
-      background-color: #EAF6FB;
+    .payment .view-table thead {
+          background: #165FF2;
     }
 
+    /* .payment .view-table tbody tr:nth-child(odd) {
+      background-color: #EAF1FF;
+    } */
+     .payment .view-table tbody tr{
+      border-top: 1px solid darkgray;
+     }
+    
+
     .payment .view-table tbody tr:hover {
-      background-color: #D3ECF8;
+      background-color: #EAF6FB;
     }
 
     .payment .view-table tfoot #total {
@@ -248,14 +251,14 @@
       font-size: 16px;
       margin: 0;
       font-weight: 600;
-      color: #2477BF;
+      color: #1E293B;
     }
 
     .payment .method.active {
-      background-color: #EAF6FB;
-      border-left: 5px solid #2477BF;
+      background-color: #f9fafb;
+      border-left: 5px solid #165ff2;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-left-color: #2477BF;
+      
     }
 
     .payment .method.active h3 {
@@ -378,7 +381,7 @@
     /* =========Nút ĐẶT HÀNG====== */
     .payment .order-btn {
       width: 100%;
-      background: #2477BF;
+      background: #165FF2;
       color: white;
       border: none;
       border-radius: 30px;
@@ -392,7 +395,7 @@
     }
 
     .payment .order-btn:hover {
-      background:  #0E4F88;
+      background:  #0D4AD9;
       transform: translateY(-2px); /* btn nhảy lên*/
     }
 

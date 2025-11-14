@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperCraft - Admin Chỉnh Sửa Sản Phẩm</title>
+    <link rel="icon" href="images/logo.webp" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin-product-edit.css">
+    <link rel="stylesheet" href="css/admin-order-manage.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.webp" height="60" width="60" alt="Logo">
+                <h2>PaperCraft Admin</h2>
+            </div>
+
+            <nav class="admin-nav">
+                <ul>
+                    <li>
+                        <a href="admin.html">
+                            <i class="fa-solid fa-gauge"></i> Bảng Điều Khiển
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-products.html">
+                            <i class="fa-solid fa-box-archive"></i> Quản Lý Sản Phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-review.html">
+                            <i class="fa-solid fa-file-lines"></i> Quản Lý Bài Viết
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-order-manage.html" class="active">
+                            <i class="fa-solid fa-receipt"></i> Quản Lý Đơn Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-customer-manage.html">
+                            <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-message"></i> Tin Nhắn Liên Hệ
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="home.html" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Xem Website
+                </a>
+            </div>
+        </aside>
+        <!-- ===========main========= -->
+        <main class="admin-main-content">
+            <div class="admin-order-manage-view">
+            <h1 id="title-table">Quản Lý Đơn Hàng</h1>
+            </div>
+            <section class="content-table-view">
+                <div class="filter">
+                    <label for="statusFilter"><i class="fa fa-filter"></i> Lọc theo trạng thái:</label>
+                    <select id="statusFilter">
+                        <option value="all">Tất cả</option>
+                        <option value="pending">Chờ Xử Lý</option>
+                        <option value="shipped">Đã Gửi</option>
+                        <option value="completed">Hoàn Thành</option>
+                        <option value="canceled">Đã Hủy</option>
+                    </select>
+                </div>
+
+
+                <table class="table-view">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1256</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>07/11/2025</td>
+                            <td>4.500.000đ</td>
+                            <td><span class="status pending">Chờ Xử Lý</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1255</td>
+                            <td>Trần Thị Bình</td>
+                            <td>06/11/2025</td>
+                            <td>2.690.000đ</td>
+                            <td><span class="status shipped">Đã Gửi</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1254</td>
+                            <td>Lê Minh Cường</td>
+                            <td>06/11/2025</td>
+                            <td>450.000đ</td>
+                            <td><span class="status completed">Hoàn Thành</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1253</td>
+                            <td>Phạm Thị Dung</td>
+                            <td>05/11/2025</td>
+                            <td>12.800.000đ</td>
+                            <td><span class="status pending">Chờ Xử Lý</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <!--  -->
+                        <tr>
+                            <td>#1252</td>
+                            <td>Ngô Văn Hùng</td>
+                            <td>04/11/2025</td>
+                            <td>1.250.000đ</td>
+                            <td><span class="status canceled">Đã Hủy</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1251</td>
+                            <td>Đặng Thị Hòa</td>
+                            <td>04/11/2025</td>
+                            <td>3.200.000đ</td>
+                            <td><span class="status shipped">Đã Gửi</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1250</td>
+                            <td>Phan Anh Tuấn</td>
+                            <td>03/11/2025</td>
+                            <td>6.750.000đ</td>
+                            <td><span class="status completed">Hoàn Thành</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1249</td>
+                            <td>Vũ Thị Lan</td>
+                            <td>02/11/2025</td>
+                            <td>980.000đ</td>
+                            <td><span class="status canceled">Đã Hủy</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1248</td>
+                            <td>Nguyễn Hữu Tín</td>
+                            <td>01/11/2025</td>
+                            <td>7.300.000đ</td>
+                            <td><span class="status shipped">Đã Gửi</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+                        <tr>
+                            <td>#1247</td>
+                            <td>Trần Mỹ Linh</td>
+                            <td>31/10/2025</td>
+                            <td>2.150.000đ</td>
+                            <td><span class="status completed">Hoàn Thành</span></td>
+                            <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+                <div class="footer">
+                    <nav>
+                        <ul class="nav-change-page">
+                            <li><a href="#"><span>«</span> Trang trước</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">Trang tiếp theo <span>»</span></a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+
+
+            </section>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

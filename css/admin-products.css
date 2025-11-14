@@ -40,10 +40,10 @@
 }
 
 .btn-action.edit {
-    color: #f5a623;
+    color: #007bff;
 }
 .btn-action.delete {
-    color: #d9534f;
+    color: #dc3545;
 }
 .btn-action + .btn-action {
     margin-left: 15px;
