@@ -26,6 +26,7 @@
 
     /* ===========Payment-details=========== */
 
+
     .payment .payment-details{
         flex: 1;
     }
@@ -35,10 +36,9 @@
     /* ====CHI TIẾT ĐƠN HÀNG TITLE =========*/
     .payment .payment-details h2 {
         margin-bottom: 15px;
-        color: #2477BF;
-        border-bottom: 2px solid #2477BF;
+        color: #165FF2;
+        border-bottom: 2px solid #165FF2;
         display: inline-block;
-        padding-bottom: 2px;
     }
 
     .payment .payment-details form{
@@ -184,7 +184,7 @@
     .payment .view-table th {
       text-align: left;
       padding: 12px 15px;
-      color: #fff;
+      color: #000;
     }
 
     .payment .view-table thead {

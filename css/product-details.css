@@ -226,16 +226,17 @@
     border: none;
     padding: 12px 20px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     border-radius: 7px;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 .product-details-main .product-details .info-product .bt-add-cart:hover{
     background-color: blue;
+    transform: translateY(-5px);
 }
 .product-details-main .product-details .product-share {
     margin-top: 30px;
