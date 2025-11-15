@@ -38,21 +38,6 @@
     margin-bottom: 8px;
 }
 
-.form-group .side-image {
-    padding: 5px;
-    border-bottom: 1px solid #555;
-}
-
-.form-group .side-image button {
-    padding: 5px 8px;
-    border: 1px solid #777;
-    border-radius: 4px;
-}
-
-.form-group .side-image:last-of-type {
-    margin-bottom: 16px;
-}
-
 .form-input {
     width: 100%;
     padding: 12px 15px;
@@ -131,6 +116,7 @@ textarea.form-input {
 }
 
 .image-preview-image {
+    display: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
