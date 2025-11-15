@@ -190,6 +190,9 @@
     .payment .view-table thead {
           background: #165FF2;
     }
+     .payment .view-table #block-header-final-bill{
+      color: #fff;
+     }
 
     /* .payment .view-table tbody tr:nth-child(odd) {
       background-color: #EAF1FF;
