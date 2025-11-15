@@ -65,34 +65,56 @@
 }
 
 /* ====== Table ========== */
+.block-table{
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 .customer-view table {
-    padding: 5px;
-    line-height: 2.5;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-collapse: collapse; /* --- fit giữa các td ----*/
+    width: 100%;
+    border-collapse: separate;/*--tách mỗi td,tr có một đường viền riêng*/
+    border-spacing: 0 10px; /* tạo khoảng cách giữa các row */
 }
 
 .customer-view table thead {
-    color: #000;
-    background-color: #ddd;
-    border-bottom: #ccc;
-    font-size: 16px;
-    font-weight: 600;
+    background: #f1f3f5;
+    border-radius: 12px;
 }
+
+
 
 .customer-view table thead td {
-    padding: 5px;
+    padding: 14px 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
 }
-
-.customer-view table tbody {
+/* ---BODY------- */
+/* .customer-view table tbody {
     padding-left: 5px;
 
+} */
+.customer-view table tbody tr{
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: 0.2s ease;
 }
 .customer-view table tbody tr:hover{
-    background-color: #EAF1FF;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+.customer-view table tbody td{
+    padding: 14px 18px;
+    color: #444;
+    vertical-align: middle;
+    background: #fff;
+    border-top: 1px solid #f1f1f1;
+}
+
+
 .block-action{
     padding-left: 10px;
     text-align: left;
@@ -113,8 +135,8 @@
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-    margin: 3px 10px 2px;
-    padding: 2px 5px;
+    margin: 15px 10px;
+    padding: 12px 5px;
     cursor: context-menu;
 
 }

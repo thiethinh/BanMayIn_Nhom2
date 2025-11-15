@@ -10,7 +10,7 @@
 /*------- Header bảng -----*/
 .content-table-view .table-view {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: separate;/*--tách mỗi td,tr có một đường viền riêng*/
     border-spacing: 0 10px; /* tạo khoảng cách giữa các row */
 }
 
@@ -42,7 +42,7 @@
 .content-table-view .table-view tbody td {
     padding: 14px 18px;
     color: #444;
-    vertical-align: middle;
+    vertical-align: middle; /*--căn chỉnh content vảo giữa ô*/
     background: #fff;
     border-top: 1px solid #f1f1f1;
 }
