@@ -105,7 +105,10 @@
     transform: translateY(-2px);
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
+.block-action{
+    padding: 5px;
+    text-align: left;
+}
 .customer-view table tbody td{
     padding: 14px 18px;
     color: #444;
@@ -115,10 +118,7 @@
 }
 
 
-.block-action{
-    padding-left: 10px;
-    text-align: left;
-}
+
 .block-action a{
     margin-right: 6px;
     text-decoration: none;
