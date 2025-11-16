@@ -57,7 +57,7 @@
             <h1 id="title">Giỏ Hàng Trống</h1>
             <p>Thêm một sản phẩm để bắt đầu!</p>
             <a href="printer.html"><button id="bt-shop" type="button" name="shopping">MUA SẮM NGAY <i id="icon-right"
-                    class="fa fa-long-arrow-right"></i></button></a>
+                        class="fa fa-long-arrow-right"></i></button></a>
         </div>
     </main>
     <!-- ============CART FILL================= -->
@@ -81,13 +81,8 @@
                             <p id="type-pro">Phân loại: <span>Máy In Màu</span></p>
 
                             <p id="quantity">Số lượng:
-                                <select name="quantity" id="quantity-select">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
+
                             </p>
 
                             <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
@@ -105,13 +100,7 @@
                             <p id="type-pro">Phân loại: <span>Máy In Đa Năng</span></p>
 
                             <p id="quantity">Số lượng:
-                                <select name="quantity" id="quantity-select">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
                             </p>
                             <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
                                 <span>Xoá sản
@@ -128,14 +117,7 @@
                             <p id="type-pro">Phân loại: <span>Máy In Màu</span></p>
 
                             <p id="quantity">Số lượng:
-                                <select name="quantity" id="quantity-select">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-
-                                </select>
+                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
                             </p>
                             <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
                                 <span>Xoá sản
@@ -151,12 +133,12 @@
                     <p>Tạm tính: <span id="first-cost">39.270.000đ</span> </p>
                     <p>Phí vận chuyển: <span id="ship-cost">Miễn phí</span> </p>
                     <p>Thuế(VAT): <span id="VAT"> 1.963.500đ</span></p>
-                    <div class="coupon">
+                    <!-- <div class="coupon">
                         <i class="fa fa-ticket"></i>
                         <label id="coupon-tag" for="coupon">MÃ GIẢM GIÁ:</label>
                         <input type="text" id="coupon" name="coupon" placeholder="Nhập mã giảm giá">
                         <button type="button" name="apply-coupon">ÁP DỤNG</button>
-                    </div>
+                    </div> -->
 
                     <h2>Tổng cộng: <span id="total">41.233.500đ</span></h2>
                     <div class="block-bt-payment">

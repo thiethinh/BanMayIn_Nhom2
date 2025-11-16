@@ -65,6 +65,7 @@
     .customer-update-view input[type="email"],
     .customer-update-view input[type="date"],
     .customer-update-view select,
+    .customer-update-view input[type="password"],
     .customer-update-view textarea {
         width: 100%;
         padding: 8px 12px;
@@ -79,6 +80,7 @@
     .customer-update-view input[type="email"]:focus,
     .customer-update-view input[type="date"]:focus,
     .customer-update-view select:focus,
+    .customer-update-view input[type="password"],
     .customer-update-view textarea:focus {
         border-color: #2477BF;
         box-shadow: 0 0 4px rgba(36, 119, 191, 0.4);

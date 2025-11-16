@@ -152,38 +152,66 @@
     margin: 25px auto;
     width: 95%;
 }
+.product-review{
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
 .product-review table {
     width: 100%;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
+    border-collapse: separate;/*--tách mỗi td,tr có một đường viền riêng*/
+    border-spacing: 0 10px; /* tạo khoảng cách giữa các row */
 }
 
 
 .product-review th {
-    padding: 16px 20px;
+    /* padding: 16px 20px;
     text-align: left;
     font-weight: 600;
     color: #333;
     background-color: #f9f9f9;
-    user-select: text;
+    user-select: text; */
+    padding: 14px 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+
 }
 
 .product-review thead tr {
-    border-bottom: 2px solid #f0f0f0;
-    user-select: text;
+    /* border-bottom: 2px solid #f0f0f0;
+    user-select: text; */
+     background: #f1f3f5;
+    border-radius: 12px;
 }
 
 .product-review td {
-    padding: 16px 20px;
+    /* padding: 16px 20px;
     vertical-align: middle;
     color: #555;
-    user-select: text;
+    user-select: text; */
+    padding: 14px 18px;
+    color: #444;
+    vertical-align: middle; /*--căn chỉnh content vảo giữa ô*/
+    background: #fff;
+    border-top: 1px solid #f1f1f1;
 }
 
 
 .product-review tbody tr {
-    border-bottom: 1px solid #f0f0f0;
-    user-select: text;
+    /* border-bottom: 1px solid #f0f0f0;
+    user-select: text; */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: 0.2s ease;
+}
+.product-review tbody tr:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .product-review tbody tr:last-child {
