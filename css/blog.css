@@ -380,3 +380,29 @@
         grid-template-columns: repeat(2, 1fr) ;
     }
 }
+
+/* ------------ CREATE BLOG BUTTON ------------*/
+
+.fab-create-post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.fab-create-post:hover {
+    background-color: blue;
+    transform: scale(1.1);
+}

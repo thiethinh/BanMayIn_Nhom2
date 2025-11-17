@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
+    min-height: 100vh;
 }
 
 .login-background-image {
@@ -31,6 +32,7 @@
     background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     box-sizing: border-box;
+    transition: height .5s ease-in-out;
 }
 
 /*---------------- LOGIN ----------------*/

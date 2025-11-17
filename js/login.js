@@ -1,3 +1,5 @@
+const formBox = document.querySelector('.form-box');
+
 function login() {
     var a = document.getElementById('login');
     var b = document.getElementById('register');
@@ -7,6 +9,8 @@ function login() {
     b.style.right = "-100%";
     a.style.opacity = 1;
     b.style.opacity = 0;
+
+    if(formBox) formBox.style.height = '520px';
 }
 
 function register() {
@@ -18,6 +22,8 @@ function register() {
     b.style.right = "40px";
     a.style.opacity = 0;
     b.style.opacity = 1;
+
+    if(formBox) formBox.style.height = '670px';
 }
 
 export function initializeLogin() {
