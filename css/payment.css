@@ -1,49 +1,53 @@
-    .payment{
-        margin: 40px 50px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .payment .title{
-        background: #f2f2f2;
-    }
-    
-    .payment .title h1{
-        font-weight: 700;
-        font-size: 32px;
-        text-align: center;
-        margin-bottom: 30px;
-        letter-spacing: 0.5px;
+    .payment {
+      margin: 40px 50px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .payment .block-paymentDetails-finalBill{
-        display: flex;
-        gap: 30px;
-        font-size: 18px;
-        margin: 15px 40px;
+    .payment .title {
+      background: #f2f2f2;
+    }
+
+    .payment .title h1 {
+      font-weight: 700;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .payment .block-paymentDetails-finalBill {
+      display: flex;
+      gap: 30px;
+      font-size: 18px;
+      margin: 15px 40px;
     }
 
     /* ===========Payment-details=========== */
 
 
-    .payment .payment-details{
-        flex: 1;
-    }
-    .payment .payment-details span{
-        color: rgba(232, 5, 5, 0.818);
-    }
-    /* ====CHI TIẾT ĐƠN HÀNG TITLE =========*/
-    .payment .payment-details h2 {
-        margin-bottom: 15px;
-        color: #165FF2;
-        border-bottom: 2px solid #165FF2;
-        display: inline-block;
+    .payment .payment-details {
+      flex: 1;
     }
 
-    .payment .payment-details form{
-        padding: 0 30px;
+    .payment .payment-details span {
+      color: rgba(232, 5, 5, 0.818);
     }
+
+    /* ====CHI TIẾT ĐƠN HÀNG TITLE =========*/
+    .payment .payment-details h2 {
+      margin-bottom: 15px;
+      color: #165FF2;
+      border-bottom: 2px solid #165FF2;
+      display: inline-block;
+    }
+
+    .payment .payment-details form {
+      padding: 0 30px;
+    }
+
     .payment .payment-details .block-nation,
     .payment .payment-details .block-firstname,
     .payment .payment-details .block-lastname,
@@ -52,99 +56,108 @@
     .payment .payment-details .block-postCode,
     .payment .payment-details .block-phone,
     .payment .payment-details .block-email,
-    .payment .payment-details .block-note{
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+    .payment .payment-details .block-note {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
 
     }
+
     .payment .payment-details label {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 4px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
     }
 
     .payment .payment-details input,
     .payment .payment-details select,
     .payment .payment-details textarea {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .payment .payment-details input:focus,
     .payment .payment-details select:focus,
     .payment .payment-details textarea:focus {
-        border-color: #2477BF;
-        box-shadow: 0 0 4px rgba(36, 119, 191, 0.4);
+      border-color: #2477BF;
+      box-shadow: 0 0 4px rgba(36, 119, 191, 0.4);
     }
 
     .payment .block-nation #nation,
-    .payment .block-address #address{
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-    /* ========#nation========== */
-    .payment .payment-details select {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #fff;
-        cursor: pointer;
-    }
-    .payment .payment-details select:focus {
-        border-color: #2477BF;
+    .payment .block-address #address {
+      font-size: 16px;
+      padding: 10px 20px;
     }
 
-    .payment .payment-details .block-address{
-        margin-top: 15px;
+    /* ========#nation========== */
+    .payment .payment-details select {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    .payment .payment-details select:focus {
+      border-color: #2477BF;
+    }
+
+    .payment .payment-details .block-address {
+      margin-top: 15px;
     }
 
 
     .payment .block-firstname-lastname,
     .payment .block-addressCity-postCode,
-    .payment .block-phone-email{
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
+    .payment .block-phone-email {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
     }
+
     .payment .block-firstname,
     .payment .block-lastname,
     .payment .block-addressCity,
     .payment .block-postCode,
     .payment .block-phone,
-    .payment .block-email{
-        max-width: 290px;
-        width: 100%;
+    .payment .block-email {
+      max-width: 290px;
+      width: 100%;
     }
+
     .payment .block-firstname input,
     .payment .block-lastname input,
     .payment .block-addressCity input,
     .payment .block-postCode input,
     .payment .block-phone input,
-    .payment .block-email input{
-        padding: 10px 20px;
-        font-size: 16px;
+    .payment .block-email input {
+      padding: 10px 20px;
+      font-size: 16px;
 
     }
-    .payment .block-save-info{
-        font-size: 15px;
-        margin-top: 6px;
-    }
-    .payment .payment-details .block-note{
-        margin-top: 15px;
-    }
-    .payment .block-note #note{
 
-        font-size: 16px;
-        padding: 10px 20px;
-        height: 70px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
+    .payment .block-save-info {
+      font-size: 15px;
+      margin-top: 6px;
     }
-    .payment textarea::placeholder{
+
+    .payment .payment-details .block-note {
+      margin-top: 15px;
+    }
+
+    .payment .block-note #note {
+
+      font-size: 16px;
+      padding: 10px 20px;
+      height: 70px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .payment textarea::placeholder {
       font-family: 'Montserrat', sans-serif;
 
     }
@@ -165,7 +178,7 @@
     .payment .final-bill h2 {
       text-align: center;
       margin-bottom: 20px;
-      border-bottom: 3px solid ;
+      border-bottom: 3px solid;
       padding-bottom: 10px;
     }
 
@@ -177,10 +190,12 @@
       border-radius: 10px;
       overflow: hidden;
     }
-    .payment .view-table tbody th{
-        color: #4a4848;
-        padding: 12px 25px;
+
+    .payment .view-table tbody th {
+      color: #4a4848;
+      padding: 12px 25px;
     }
+
     .payment .view-table th {
       text-align: left;
       padding: 12px 15px;
@@ -188,19 +203,20 @@
     }
 
     .payment .view-table thead {
-          background: #165FF2;
+      background: #165FF2;
     }
-     .payment .view-table #block-header-final-bill{
+
+    .payment .view-table #block-header-final-bill {
       color: #fff;
-     }
+    }
 
     /* .payment .view-table tbody tr:nth-child(odd) {
       background-color: #EAF1FF;
     } */
-     .payment .view-table tbody tr{
+    .payment .view-table tbody tr {
       border-top: 1px solid darkgray;
-     }
-    
+    }
+
 
     .payment .view-table tbody tr:hover {
       background-color: #EAF6FB;
@@ -225,7 +241,8 @@
     }
 
     .payment .shiping input[type="radio"] {
-      accent-color: #2477BF; /*màu nút radio,checkbox,...*/
+      accent-color: #2477BF;
+      /*màu nút radio,checkbox,...*/
     }
 
     /* =============Phương thức thanh toán ======= */
@@ -235,7 +252,7 @@
       background: #fff;
       border-radius: 10px;
       border: 1px solid #A3D3D9;
-      
+
     }
 
     .payment .method {
@@ -247,7 +264,8 @@
       background: #fff;
       transition: all 0.3s ease;
       cursor: pointer;
-      border-left: 5px solid transparent; /* giữ sẵn không gian---*/
+      border-left: 5px solid transparent;
+      /* giữ sẵn không gian---*/
     }
 
     .payment .method h3 {
@@ -261,7 +279,7 @@
       background-color: #f9fafb;
       border-left: 5px solid #165ff2;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      
+
     }
 
     .payment .method.active h3 {
@@ -282,7 +300,8 @@
 
     .payment .method.active button i {
       color: #2477BF;
-      transform: rotate(45deg); /* chuyển + => X*/
+      transform: rotate(45deg);
+      /* chuyển + => X*/
     }
 
     /* Ẩn/hiện chi tiết thanh toán */
@@ -297,8 +316,9 @@
     .payment .method.active .hidden {
       max-height: 330px;
       margin-top: 10px;
-      
+
     }
+
     /* ============BANK=========== */
     .payment .bank-method .bank-info-container {
       margin-top: 15px;
@@ -306,7 +326,7 @@
       background: #f8fcff;
       border: 1px solid #a3d3d9;
       border-radius: 10px;
-      
+
     }
 
     .payment .bank-method .block-bank-name {
@@ -327,41 +347,50 @@
       outline: none;
       font-size: 15px;
     }
+
     .payment .bank-method #bank-name:focus {
       border-color: #2477BF;
       box-shadow: 0 0 5px rgba(36, 119, 191, 0.3);
     }
+
     /* =======layout ========== */
 
 
-    .payment .bank-info-container form{
+    .payment .bank-info-container form {
       display: flex;
       flex-direction: column;
     }
-    .payment .bank-info-container .block-enddate-cvv{
+
+    .payment .bank-info-container .block-enddate-cvv {
       display: flex;
       justify-content: space-between;
     }
+
     .payment .bank-info-container .block-card-number,
     .payment .bank-info-container .block-card-holder,
     .payment .bank-info-container .block-card-enddate,
-    .payment .bank-info-container .block-card-cvv{
+    .payment .bank-info-container .block-card-cvv {
       display: flex;
       flex-direction: column;
       margin-top: 5px;
     }
+
     .payment .bank-info-container .block-card-number input:focus,
     .payment .bank-info-container .block-card-holder input:focus,
     .payment .bank-info-container .block-card-enddate input:focus,
-    .payment .bank-info-container .block-card-cvv input:focus{
+    .payment .bank-info-container .block-card-cvv input:focus {
+      outline: none;
       border-color: #2477BF;
-      box-shadow: 0 0 5px rgba(36, 119, 191, 0.3);
+      box-shadow: 0 0 4px rgba(36, 119, 191, 0.4);
     }
+
     .payment .bank-info-container .block-card-number input,
     .payment .bank-info-container .block-card-holder input,
     .payment .bank-info-container .block-card-enddate input,
-    .payment .bank-info-container .block-card-cvv input{
+    .payment .bank-info-container .block-card-cvv input {
       padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
 
     /* =======END layout ========== */
@@ -371,7 +400,7 @@
 
     /* =========MOMO============= */
 
-    .payment #momo_qr{
+    .payment #momo_qr {
       object-fit: cover;
       height: 277px;
       max-width: 200px;
@@ -398,8 +427,9 @@
     }
 
     .payment .order-btn:hover {
-      background:  #0D4AD9;
-      transform: translateY(-2px); /* btn nhảy lên*/
+      background: #0D4AD9;
+      transform: translateY(-2px);
+      /* btn nhảy lên*/
     }
 
 
@@ -409,19 +439,20 @@
 
     /* ===========Reponsive====== */
     @media (max-width: 768px) {
-        .payment .block-firstname-lastname,
-        .payment .block-addressCity-postCode,
-        .payment .block-phone-email {
-            flex-direction: column;
-            gap: 10px;
-        }
 
-        .payment .block-firstname,
-        .payment .block-lastname,
-        .payment .block-addressCity,
-        .payment .block-postCode,
-        .payment .block-phone,
-        .payment .block-email {
-            max-width: 100%;
-        }
+      .payment .block-firstname-lastname,
+      .payment .block-addressCity-postCode,
+      .payment .block-phone-email {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .payment .block-firstname,
+      .payment .block-lastname,
+      .payment .block-addressCity,
+      .payment .block-postCode,
+      .payment .block-phone,
+      .payment .block-email {
+        max-width: 100%;
+      }
     }
