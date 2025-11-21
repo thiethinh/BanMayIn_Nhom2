@@ -97,13 +97,45 @@
 }
 
 .account-form input[type="text"],
-.account-form input[type="email"] {
+.account-form input[type="email"],
+.account-form input[type="password"]{
     width: 100%;
     padding: 12px;
     font-size: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+.account-form select {
+    cursor: pointer;
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.divider {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.account-form .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-form .checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
 
 .btn {

@@ -23,7 +23,7 @@ function register() {
     a.style.opacity = 0;
     b.style.opacity = 1;
 
-    if(formBox) formBox.style.height = '670px';
+    if(formBox) formBox.style.height = '750px';
 }
 
 export function initializeLogin() {
