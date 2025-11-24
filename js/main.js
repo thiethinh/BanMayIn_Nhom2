@@ -3,7 +3,7 @@ function logOut(button) {
     button.addEventListener('click', (e) => {
         e.preventDefault();
         localStorage.removeItem('loggedIn');
-        window.location.reload();
+        window.location.href = 'home.html';
     });
 }
 

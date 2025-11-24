@@ -389,12 +389,7 @@
     margin-bottom: 0;
     color: #000;
 }
-.product-details-main .your-review p{
-    margin-top: 0;
-}
-.product-details-main .your-review p span{
-    color: #ce210e;
-}
+
 .product-details-main .your-rate span{
     font-weight: 600;
 }
@@ -415,32 +410,24 @@
     font-size: 16px;
     font-weight: normal;
 }
-.product-details-main .your-review .block-username-email{
-    display: flex;
-    justify-content: space-between;
-}
-.product-details-main .your-review .block-username-email input{
-    margin-top: 8px;
-    height: 30px;
-    max-width: 350px;
-    width: 100%;
-    font-size: 16px;
-    padding: 3px 20px;
-}
-.product-details-main .your-review .block-save-info{
-    margin: 10px 0;
-}
+
 .product-details-main .your-review button{
     font-size: 18px;
     font-weight: bold;
     width: fit-content;
-    padding: 5px 20px;
-    border-radius: 10px;
-    background: #0c971a;
+    padding: 12px 30px;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: white;
     outline: none;
     border: none;
-    box-shadow: 5px 5px 5px darkgrey;
+    transition: background-color 0.3s ease;
     cursor: pointer;
+    margin-top: 10px;
+}
+
+.product-details-main .your-review button:hover{
+    background-color: blue;
 }
 /* ===========END FEEDBACK============= */
 

@@ -141,15 +141,13 @@
     background-color: blue;
 }
 
-.searchbox select {
+.searchbox input {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
-    cursor: pointer;
     min-width: 200px;
-    user-select: none !important;
 }
 
 /* css for table  */

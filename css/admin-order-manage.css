@@ -77,9 +77,8 @@
 
 /*------- Button xem -----*/
 .content-table-view .table-view .btn.view {
-    color: var(--primary-color);
+    color: #007bff;
     text-decoration: none;
-    font-weight: 600;
 }
 
 .content-table-view .table-view .btn.view:hover {
