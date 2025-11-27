@@ -4,233 +4,235 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Tài Khoản</title>
-    <link rel="icon" href="images/logo.webp"/>
+    <link rel="icon" href="images/logo.webp" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/account.css">
 </head>
 
 <body>
-<header class="main-header">
-    <nav>
-        <div class="header-container">
-            <a href="home.html" class="logo">
-                <img src="images/logo.webp" height="80" width="80"/>
-            </a>
+    <header class="main-header">
+        <nav>
+            <div class="header-container">
+                <a href="home.html" class="logo">
+                    <img src="images/logo.webp" height="80" width="80" />
+                </a>
 
-            <div class="nav-wrapper">
-                <div class="menu-bar">
-                    <a class="menu" href="home.html" id="nav-home">Trang Chủ</a>
-                    <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
-                    <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
-                    <a class="menu" href="blog.html" id="nav-blog">Blog</a>
-                    <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
+                <div class="nav-wrapper">
+                    <div class="menu-bar">
+                        <a class="menu" href="home.html" id="nav-home">Trang Chủ</a>
+                        <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
+                        <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
+                        <a class="menu" href="blog.html" id="nav-blog">Blog</a>
+                        <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
+                    </div>
+                </div>
+
+                <div class="header-right-side">
+                    <div class="user-action">
+                        <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
+                        <a class="login-btn" href="login.html" id="nav-login">Đăng Nhập</a>
+                    </div>
+
+                    <div class="menu-toggle">
+                        <i class="fa-solid fa-bars" id="menu-open-icon"></i>
+                        <i class="fa-solid fa-times" id="menu-close-icon"></i>
+                    </div>
                 </div>
             </div>
+        </nav>
+    </header>
 
-            <div class="header-right-side">
-                <div class="user-action">
-                    <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
-                    <a class="login-btn" href="login.html" id="nav-login">Đăng Nhập</a>
-                </div>
+    <div class="main">
+        <div class="account-wrapper">
+            <h1 class="account-title">Tài Khoản Của Bạn</h1>
 
-                <div class="menu-toggle">
-                    <i class="fa-solid fa-bars" id="menu-open-icon"></i>
-                    <i class="fa-solid fa-times" id="menu-close-icon"></i>
-                </div>
+            <div class="account-container">
+                <aside class="account-sidebar">
+                    <ul>
+                        <li>
+                            <a href="account.html" class="active">
+                                <i class="fa-solid fa-user-edit"></i>
+                                Thông tin cá nhân
+                            </a>
+                        </li>
+                        <li>
+                            <a href="order_history.html">
+                                <i class="fa-solid fa-file-invoice"></i>
+                                Lịch sử đơn hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a href="home.html" id="account-logout" class="logout-link">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <section class="account-content">
+                    <h2>Thông tin cá nhân</h2>
+                    <p>Quản lý thông tin cá nhân của bạn để bảo mật tài khoản.</p>
+
+                    <form class="account-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">Họ</label>
+                                <input type="text" id="first-name" placeholder="Nguyễn">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Tên</label>
+                                <input type="text" id="last-name" placeholder="Văn An">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="email@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" id="phone" placeholder="0987035821">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender-select">Giới tính</label>
+                            <select id="gender-select" required>
+                                <option value="male">Nam</option>
+                                <option value="female">Nữ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" id="password" placeholder="123456Az!">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    </form>
+
+                    </form>
+
+                    <hr class="divider">
+                    <h2>Sổ Địa Chỉ (Giao Hàng)</h2>
+                    <p>Thông tin địa chỉ để chúng tôi giao hàng cho bạn.</p>
+
+                    <form class="account-form address-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="addr-firstname">Họ người nhận</label>
+                                <input type="text" id="addr-firstname" placeholder="Nguyễn">
+                            </div>
+                            <div class="form-group">
+                                <label for="addr-lastname">Tên người nhận</label>
+                                <input type="text" id="addr-lastname" placeholder="Văn An">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="addr-phone">Số điện thoại nhận hàng</label>
+                                <input type="text" id="addr-phone" placeholder="0987...">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="addr-nation">Quốc Gia</label>
+                                <select name="nation" id="addr-nation" required>
+                                    <option value="">--Chọn Quốc Gia--</option>
+                                    <option value="VN">Việt Nam</option>
+                                    <option value="US">Hoa Kỳ</option>
+                                    <option value="UK">Vương quốc Anh</option>
+                                    <option value="JP">Nhật Bản</option>
+                                    <option value="KR">Hàn Quốc</option>
+                                    <option value="CN">Trung Quốc</option>
+                                    <option value="FR">Pháp</option>
+                                    <option value="DE">Đức</option>
+                                    <option value="RU">Nga</option>
+                                    <option value="IN">Ấn Độ</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Úc</option>
+                                    <option value="BR">Brazil</option>
+                                    <option value="TH">Thái Lan</option>
+                                    <option value="MY">Malaysia</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="ID">Indonesia</option>
+                                    <option value="PH">Philippines</option>
+                                    <option value="IT">Ý</option>
+                                    <option value="ES">Tây Ban Nha</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="addr-city">Tỉnh / Thành phố</label>
+                                <select id="addr-city">
+                                    <option value="">-- Chọn Tỉnh/Thành --</option>
+                                    <option value="hcm">TP. Hồ Chí Minh</option>
+                                    <option value="hn">Hà Nội</option>
+                                    <option value="dn">Đà Nẵng</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addr-postcode">Mã bưu chính (Postcode)</label>
+                            <input type="text" id="addr-postcode" placeholder="Ví dụ: 700000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addr-detail">Địa chỉ chi tiết</label>
+                            <input type="text" id="addr-detail"
+                                placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Lưu Địa Chỉ Mới</button>
+                    </form>
+                </section>
             </div>
         </div>
-    </nav>
-</header>
+    </div>
 
-<div class="main">
-    <div class="account-wrapper">
-        <h1 class="account-title">Tài Khoản Của Bạn</h1>
-
-        <div class="account-container">
-            <aside class="account-sidebar">
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col footer-col-info">
+                <div class="footer-logo"><img src="images/logo.webp" height="80" width="80" /></div>
+                <p class="footer-description">Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Sản Phẩm</h4>
                 <ul>
-                    <li>
-                        <a href="#" class="active">
-                            <i class="fa-solid fa-user-edit"></i>
-                            Thông tin cá nhân
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            Lịch sử đơn hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="home.html" id="account-logout" class="logout-link">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Đăng xuất
-                        </a>
-                    </li>
+                    <li><a href="printer.html">Máy In</a></li>
+                    <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
                 </ul>
-            </aside>
-
-            <section class="account-content">
-                <h2>Thông tin cá nhân</h2>
-                <p>Quản lý thông tin cá nhân của bạn để bảo mật tài khoản.</p>
-
-                <form class="account-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="first-name">Họ</label>
-                            <input type="text" id="first-name" placeholder="Nguyễn">
-                        </div>
-                        <div class="form-group">
-                            <label for="last-name">Tên</label>
-                            <input type="text" id="last-name" placeholder="Văn An">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="email@example.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
-                        <input type="text" id="phone" placeholder="0987035821">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gender-select">Giới tính</label>
-                        <select id="gender-select" required>
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Mật khẩu</label>
-                        <input type="password" id="password" placeholder="123456Az!">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                </form>
-
-                </form>
-
-                <hr class="divider"> <h2>Sổ Địa Chỉ (Giao Hàng)</h2>
-                <p>Thông tin địa chỉ để chúng tôi giao hàng cho bạn.</p>
-
-                <form class="account-form address-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="addr-firstname">Họ người nhận</label>
-                            <input type="text" id="addr-firstname" placeholder="Nguyễn">
-                        </div>
-                        <div class="form-group">
-                            <label for="addr-lastname">Tên người nhận</label>
-                            <input type="text" id="addr-lastname" placeholder="Văn An">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="addr-phone">Số điện thoại nhận hàng</label>
-                            <input type="text" id="addr-phone" placeholder="0987...">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="addr-nation">Quốc Gia</label>
-                            <select name="nation" id="addr-nation" required>
-                                <option value="">--Chọn Quốc Gia--</option>
-                                <option value="VN">Việt Nam</option>
-                                <option value="US">Hoa Kỳ</option>
-                                <option value="UK">Vương quốc Anh</option>
-                                <option value="JP">Nhật Bản</option>
-                                <option value="KR">Hàn Quốc</option>
-                                <option value="CN">Trung Quốc</option>
-                                <option value="FR">Pháp</option>
-                                <option value="DE">Đức</option>
-                                <option value="RU">Nga</option>
-                                <option value="IN">Ấn Độ</option>
-                                <option value="CA">Canada</option>
-                                <option value="AU">Úc</option>
-                                <option value="BR">Brazil</option>
-                                <option value="TH">Thái Lan</option>
-                                <option value="MY">Malaysia</option>
-                                <option value="SG">Singapore</option>
-                                <option value="ID">Indonesia</option>
-                                <option value="PH">Philippines</option>
-                                <option value="IT">Ý</option>
-                                <option value="ES">Tây Ban Nha</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="addr-city">Tỉnh / Thành phố</label>
-                            <select id="addr-city">
-                                <option value="">-- Chọn Tỉnh/Thành --</option>
-                                <option value="hcm">TP. Hồ Chí Minh</option>
-                                <option value="hn">Hà Nội</option>
-                                <option value="dn">Đà Nẵng</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="addr-postcode">Mã bưu chính (Postcode)</label>
-                        <input type="text" id="addr-postcode" placeholder="Ví dụ: 700000">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="addr-detail">Địa chỉ chi tiết</label>
-                        <input type="text" id="addr-detail" placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Lưu Địa Chỉ Mới</button>
-                </form>
-            </section>
-        </div>
-    </div>
-</div>
-
-<footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-col footer-col-info">
-            <div class="footer-logo"><img src="images/logo.webp" height="80" width="80"/></div>
-            <p class="footer-description">Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.</p>
-        </div>
-        <div class="footer-col">
-            <h4 class="footer-heading">Sản Phẩm</h4>
-            <ul>
-                <li><a href="printer.html">Máy In</a></li>
-                <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4 class="footer-heading">Pháp Lý</h4>
-            <ul>
-                <li><a href="privacy-policy.html">Chính Sách Bảo Mật</a></li>
-                <li><a href="policies-and-services.html">Điều Khoản & Dịch Vụ</a></li>
-                <li><a href="return-policy.html">Đổi Trả</a></li>
-                <li><a href="guarantee.html">Bảo Hành</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4 class="footer-heading">Theo Dõi</h4>
-            <div class="social-icons">
-                <i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Pháp Lý</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Chính Sách Bảo Mật</a></li>
+                    <li><a href="policies-and-services.html">Điều Khoản & Dịch Vụ</a></li>
+                    <li><a href="return-policy.html">Đổi Trả</a></li>
+                    <li><a href="guarantee.html">Bảo Hành</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Theo Dõi</h4>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-instagram"></i>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2025 PaperCraft. All rights reserved.</p>
-    </div>
-</footer>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PaperCraft. All rights reserved.</p>
+        </div>
+    </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-<script type="module" src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
