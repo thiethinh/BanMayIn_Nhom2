@@ -124,20 +124,6 @@
     border-top: 1px solid #eee;
 }
 
-.account-form .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.account-form .checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin-bottom: 10px;
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-}
-
 .btn {
     padding: 12px 25px;
     text-decoration: none;

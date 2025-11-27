@@ -142,8 +142,30 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="addr-nation">Quốc gia</label>
-                            <input type="text" id="addr-nation" value="Việt Nam">
+                            <label for="addr-nation">Quốc Gia</label>
+                            <select name="nation" id="addr-nation" required>
+                                <option value="">--Chọn Quốc Gia--</option>
+                                <option value="VN">Việt Nam</option>
+                                <option value="US">Hoa Kỳ</option>
+                                <option value="UK">Vương quốc Anh</option>
+                                <option value="JP">Nhật Bản</option>
+                                <option value="KR">Hàn Quốc</option>
+                                <option value="CN">Trung Quốc</option>
+                                <option value="FR">Pháp</option>
+                                <option value="DE">Đức</option>
+                                <option value="RU">Nga</option>
+                                <option value="IN">Ấn Độ</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Úc</option>
+                                <option value="BR">Brazil</option>
+                                <option value="TH">Thái Lan</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="SG">Singapore</option>
+                                <option value="ID">Indonesia</option>
+                                <option value="PH">Philippines</option>
+                                <option value="IT">Ý</option>
+                                <option value="ES">Tây Ban Nha</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="addr-city">Tỉnh / Thành phố</label>
@@ -164,11 +186,6 @@
                     <div class="form-group">
                         <label for="addr-detail">Địa chỉ chi tiết</label>
                         <input type="text" id="addr-detail" placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="addr-default">
-                        <label for="addr-default">Đặt làm địa chỉ mặc định</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Lưu Địa Chỉ Mới</button>

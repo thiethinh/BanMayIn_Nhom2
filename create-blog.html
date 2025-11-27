@@ -69,6 +69,24 @@
                 <input type="text" id="blog-title" placeholder="Nhập tiêu đề...">
             </div>
 
+            <!-- Thumbnail Upload -->
+            <div class="form-group">
+                <label>Ảnh Thumbnail</label>
+
+                <div class="upload-box">
+                    <label for="thumbnail-input" class="upload-label">Chọn ảnh...</label>
+                    <input type="file" id="thumbnail-input" accept="image/*" hidden>
+                </div>
+
+                <img id="thumbnail-preview" class="thumb-preview" alt="Preview" />
+            </div>
+
+            <!-- Short Description -->
+            <div class="form-group">
+                <label>Mô tả ngắn</label>
+                <textarea id="blog-desc" placeholder="Nhập mô tả ..."></textarea>
+            </div>
+
             <!-- Tags -->
             <div class="form-group">
                 <label>Tags</label>
