@@ -133,10 +133,10 @@
                             <input id="eamil" name="phone" type="email" placeholder="vd: nguyenvana@gmail.com" required>
                         </div>
                     </div>
-                    <div class="block-save-info">
+                    <!-- <div class="block-save-info">
                         <input type="checkbox" id="saveInfo" name="saveInfo">
                         <label for="saveInfo">Lưu thông tin cho lần mua sau</label>
-                    </div>
+                    </div> -->
 
                     <!-- ===========NOTE============== -->
                     <div class="block-note">
@@ -175,19 +175,30 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Vận chuyển: </th>
+                            <th class="shiping">Vận chuyển: </th>
                             <th class="shiping">
-                                <div class="flast-ship">
+                                <!-- <div class="flast-ship">
                                     <input id="flast-ship" type="radio" name="ship">
                                     <label for="flast-ship">Giao hàng hỏa tốc</label>
-                                </div>
+                                </div> -->
 
                                 <div class="free-ship">
-                                    <input id="free-ship" type="radio" name="ship">
-                                    <label for="free-ship">Miễn phí vận chuyển</label>
+                                    <!-- <input id="free-ship" type="radio" name="ship">
+                                    <label for="free-ship">Miễn phí vận chuyển</label> -->
+                                    <p>Miễn phí</p>
                                 </div>
                             </th>
                         </tr>
+                        <tr>
+                            <th>Thuế(VAT): </th>
+                            <th class="VAT">
+                                <div class="vat">
+                                    
+                                    <p>1.963.500đ</p>
+                                </div>
+                            </th>
+                        </tr>
+
                         <tr id="total">
                             <th>Tổng Đơn Hàng: </th>
                             <th>41.233.500đ</th>

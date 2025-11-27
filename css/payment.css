@@ -227,9 +227,19 @@
     }
 
     .payment .view-table tfoot th {
+      border-bottom: 1px solid;
       padding: 15px;
     }
+    .shiping{
+      border-top: 1px solid;
+    }
+    .free-ship p,.vat p{
+      text-align: center;
+    }
+    .total th{
+      text-align: center;
 
+    }
 
     /* Radio vận chuyển */
     .payment .shiping label {
