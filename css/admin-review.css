@@ -117,6 +117,20 @@
     margin-bottom: 30px;
     user-select: text;
 }
+.admin-main-content #bt-search {
+    flex: 1 10%;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: none;
+    background: #165ff2;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    
+}
+.admin-main-content #bt-search:hover {
+    background-color: #024ce1;
+}
 
 .admin-header h1 {
     margin: 0;
