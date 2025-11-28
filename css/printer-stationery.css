@@ -48,6 +48,14 @@
     margin: 10px 0;
 }
 
+.child .bt-search {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
 @media(max-width : 768px) {
     .search-container {
         display: block;
@@ -86,7 +94,6 @@
     font-size: 1rem;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid #888;
 }
 
 
@@ -207,7 +214,7 @@
     }
 }
 
-.hot-show {
+/* .hot-show {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -220,7 +227,7 @@
     border-radius: 12px;
     letter-spacing: 0.5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .product-image {
     width: 100%;
