@@ -6,9 +6,11 @@ target/
 
 ### IntelliJ IDEA ###
 .idea/
-*.iws
 *.iml
-*.ipr
+target/
+.mvn/
+mvnw
+mvnw.cmd
 
 ### Eclipse ###
 .apt_generated
