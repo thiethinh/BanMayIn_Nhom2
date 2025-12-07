@@ -1,7 +1,5 @@
-<<<<<<<< HEAD:index.html
-========
+
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
->>>>>>>> 0b8e00b70e4c371c72fde24e7faf0be6dc666e57:src/main/webapp/home.jsp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,41 +20,26 @@
     <header class="main-header">
         <nav>
             <div class="header-container">
-<<<<<<<< HEAD:index.html
-                <a href="home.html" class="logo">
-========
+
                 <a href="/home.jsp" class="logo">
->>>>>>>> 0b8e00b70e4c371c72fde24e7faf0be6dc666e57:src/main/webapp/home.jsp
                     <img src="images/logo.webp" height="80" width="80" />
                 </a>
 
                 <div class="nav-wrapper">
                     <div class="menu-bar">
-<<<<<<<< HEAD:index.html
-                        <a class="menu" href="home.html" id="nav-home">Trang Chủ</a>
-                        <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
-                        <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
-                        <a class="menu" href="blog.html" id="nav-blog">Blog</a>
-                        <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
-========
+
                         <a class="menu" href="home.jsp" id="nav-home">Trang Chủ</a>
                         <a class="menu" href="/jsp/printer.jsp" id="nav-printer">Máy In</a>
                         <a class="menu" href="/jsp/stationery.jsp" id="nav-stationery">Văn Phòng Phẩm</a>
                         <a class="menu" href="/jsp/blog.jsp" id="nav-blog">Blog</a>
                         <a class="menu" href="/jsp/contact.jsp" id="nav-contact">Liên Hệ</a>
->>>>>>>> 0b8e00b70e4c371c72fde24e7faf0be6dc666e57:src/main/webapp/home.jsp
                     </div>
                 </div>
 
                 <div class="header-right-side">
                     <div class="user-action">
-<<<<<<<< HEAD:index.html
-                        <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
-                        <a class="login-btn" href="login.html" id="nav-login">Đăng Nhập</a>
-========
                         <a href="/jsp/cart.jsp" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
                         <a class="login-btn" href="/jsp/login.jsp" id="nav-login">Đăng Nhập</a>
->>>>>>>> 0b8e00b70e4c371c72fde24e7faf0be6dc666e57:src/main/webapp/home.jsp
                     </div>
 
                     <div class="menu-toggle">
