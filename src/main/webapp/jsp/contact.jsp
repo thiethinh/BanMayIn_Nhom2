@@ -1,0 +1,178 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PaperCraft - Liên Hệ</title>
+    <link rel="icon" href="images/logo.webp"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+<header class="main-header">
+    <nav>
+        <div class="header-container">
+            <a href="home.html" class="logo">
+                <img src="./images/logo.webp" height="80" width="80"/>
+            </a>
+
+            <div class="nav-wrapper">
+                <div class="menu-bar">
+                    <a class="menu" href="home.html" id="nav-home">Trang Chủ</a>
+                    <a class="menu" href="printer.html" id="nav-printer">Máy In</a>
+                    <a class="menu" href="stationery.html" id="nav-stationery">Văn Phòng Phẩm</a>
+                    <a class="menu" href="blog.html" id="nav-blog">Blog</a>
+                    <a class="menu" href="contact.html" id="nav-contact">Liên Hệ</a>
+                </div>
+            </div>
+
+            <div class="header-right-side">
+                <div class="user-action">
+                    <a href="cart.html" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
+                    <a class="login-btn" href="login.html" id="nav-login">Đăng Nhập</a>
+                </div>
+
+                <div class="menu-toggle">
+                    <i class="fa-solid fa-bars" id="menu-open-icon"></i>
+                    <i class="fa-solid fa-times" id="menu-close-icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- ====================================================================================================================== -->
+<body >
+
+<div class="contact-page-wrapper">
+
+    <img class="bg" src="images/background-contact.jpg" alt="bg">
+    <main>
+
+        <section class="title">
+            <h1>Liên hệ</h1>
+            <p>Nếu có câu hỏi, chúng tôi ở đây để giúp bạn! </p>
+        </section>
+        <section class="information">
+            <form action="#">
+                <h3 id="form-title">Hãy gửi lời nhắn cho chúng tôi!</h3>
+                <div class="name-email">
+                    <div class="name-block">
+                        <label for="name"> Họ và tên <span>*</span></label>
+                        <input id="name" type="text" placeholder="Tên bạn là gì?" required>
+                    </div>
+                    <div class="email-block">
+                        <label for="email">Email <span>*</span></label>
+                        <input id="email" type="email" placeholder="Hoten@gmail.com" required>
+                    </div>
+                </div>
+                <div class="subject-block">
+                    <label for="subject">Chủ đề <span>*</span></label>
+                    <input id="subject" placeholder="Chủ đề của bạn là gì?" required>
+                </div>
+                <div class="message-block">
+                    <label for="message"> Nội dung </label>
+                    <textarea id="message" placeholder="hãy nhập lời nhắn của bạn..."></textarea>
+                </div>
+                <button type="submit"> Gửi</button>
+            </form>
+            <div class="info-detail">
+
+                <div class="info-box">
+                    <div class="info-icon">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="info-text">
+                        <h3 class="info-title">Email</h3>
+                        <a href="#" class="info-link">hotro@papercraft.com</a>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="info-text">
+                        <h3 class="info-title">Số điện thoại</h3>
+                        <a href="#" class="info-link">(+84) 123 456 789</a>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon">
+                        <i class="fa fa-map-pin"></i>
+                    </div>
+                    <div class="info-text">
+                        <h3 class="info-title">Địa chỉ</h3>
+                        <a href="#" class="info-link">159 QL1K, P.Đông Hòa,Dĩ An, TP.HCM</a>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-icon">
+                        <i class="fa fa-clock"></i>
+                    </div>
+                    <div class="info-text">
+                        <h3 class="info-title">Giờ làm việc</h3>
+                        <a href="#" class="info-link">Từ thứ 2- thứ 6: 9h-18h</a>
+                    </div>
+                </div>
+
+                
+            </div>
+        </section>
+    </main>
+
+</div>
+
+</body>
+
+<footer class="main-footer">
+    <div class="footer-container">
+
+        <div class="footer-col footer-col-info">
+            <div class="footer-logo">
+                <img src="images/logo.webp" height="80" width="80"/></div>
+            <p class="footer-description">
+                Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-heading">Sản Phẩm</h4>
+            <ul>
+                <li><a href="printer.html">Máy In</a></li>
+                <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-heading">Pháp Lý</h4>
+            <ul>
+                <li><a href="privacy-policy.html">Chính Sách Bảo Mật</a></li>
+                    <li><a href="policies-and-services.html">Điều Khoản & Dịch Vụ</a></li>
+                    <li><a href="return-policy.html">Đổi Trả</a></li>
+                    <li><a href="guarantee.html">Bảo Hành</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-heading">Theo Dõi Chúng Tôi</h4>
+            <div class="social-icons">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 PaperCraft. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
