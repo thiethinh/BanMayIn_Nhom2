@@ -6,59 +6,27 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Trang Chủ</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="images/logo.webp"/>
 
-    <link rel="preload" href="./images/introduce-img.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="${pageContext.request.contextPath}/images/introduce-img.webp" as="image" fetchpriority="high">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
 </head>
 
 <body>
-    <header class="main-header">
-        <nav>
-            <div class="header-container">
-
-                <a href="/home.jsp" class="logo">
-                    <img src="images/logo.webp" height="80" width="80" />
-                </a>
-
-                <div class="nav-wrapper">
-                    <div class="menu-bar">
-
-                        <a class="menu" href="home.jsp" id="nav-home">Trang Chủ</a>
-                        <a class="menu" href="/jsp/printer.jsp" id="nav-printer">Máy In</a>
-                        <a class="menu" href="/jsp/stationery.jsp" id="nav-stationery">Văn Phòng Phẩm</a>
-                        <a class="menu" href="/jsp/blog.jsp" id="nav-blog">Blog</a>
-                        <a class="menu" href="/jsp/contact.jsp" id="nav-contact">Liên Hệ</a>
-                    </div>
-                </div>
-
-                <div class="header-right-side">
-                    <div class="user-action">
-                        <a href="/jsp/cart.jsp" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
-                        <a class="login-btn" href="/jsp/login.jsp" id="nav-login">Đăng Nhập</a>
-                    </div>
-
-                    <div class="menu-toggle">
-                        <i class="fa-solid fa-bars" id="menu-open-icon"></i>
-                        <i class="fa-solid fa-times" id="menu-close-icon"></i>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <jsp:include page="includes/header.jsp" />
 
     <div class="main">
         <div class="introduce-section">
 
             <div class="hero-slider swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" style="background-image: url('./images/introduce-img.webp');"></div>
-                    <div class="swiper-slide" style="background-image: url('./images/benefit-img.webp');"></div>
-                    <div class="swiper-slide" style="background-image: url('./images/login-bg.webp');"></div>
+                    <div class="swiper-slide" style="background-image: url('${pageContext.request.contextPath}/images/introduce-img.webp');"></div>
+                    <div class="swiper-slide" style="background-image: url('${pageContext.request.contextPath}/images/benefit-img.webp');"></div>
+                    <div class="swiper-slide" style="background-image: url('${pageContext.request.contextPath}/images/login-bg.webp');"></div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -69,8 +37,8 @@
                     cho
                     không gian làm việc hiệu quả. Chất lượng cao, đáng tin cậy và giá cả phải chăng</p>
                 <div class="introduce-btn">
-                    <a href="printer.html" class="btn btn-primary">Mua ngay</a>
-                    <a href="about.html" class="btn btn-secondary">Tìm hiểu thêm</a>
+                    <a href="printer.jsp" class="btn btn-primary">Mua ngay</a>
+                    <a href="about.jsp" class="btn btn-secondary">Tìm hiểu thêm</a>
                 </div>
             </div>
         </div>
@@ -428,52 +396,10 @@
         </div>
     </div>
 
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-col footer-col-info">
-                <div class="footer-logo">
-                    <img src="images/logo.webp" height="80" width="80" />
-                </div>
-                <p class="footer-description">
-                    Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
-                </p>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-heading">Sản Phẩm</h4>
-                <ul>
-                    <li><a href="printer.html">Máy In</a></li>
-                    <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-heading">Pháp Lý</h4>
-                <ul>
-                    <li><a href="privacy-policy.html">Chính Sách Bảo Mật</a></li>
-                    <li><a href="policies-and-services.html">Điều Khoản & Dịch Vụ</a></li>
-                    <li><a href="return-policy.html">Đổi Trả</a></li>
-                    <li><a href="guarantee.html">Bảo Hành</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 class="footer-heading">Theo Dõi Chúng Tôi</h4>
-                <div class="social-icons">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 PaperCraft. All rights reserved.</p>
-        </div>
-    </footer>
+    <jsp:include page="includes/footer.jsp" />
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

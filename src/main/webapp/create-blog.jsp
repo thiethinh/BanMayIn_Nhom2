@@ -21,37 +21,7 @@
 <body>
 
 <!-- ===================== HEADER ===================== -->
-<header class="main-header">
-    <nav>
-        <div class="header-container">
-            <div class="logo">
-                <img src="images/logo.webp" height="80" width="80" />
-            </div>
-
-            <div class="nav-wrapper">
-                <div class="menu-bar">
-                    <a class="menu" href="home.html">Trang Chủ</a>
-                    <a class="menu" href="printer.html">Máy In</a>
-                    <a class="menu" href="stationery.html">Văn Phòng Phẩm</a>
-                    <a class="menu" href="blog.html">Blog</a>
-                    <a class="menu" href="contact.html">Liên Hệ</a>
-                </div>
-            </div>
-
-            <div class="header-right-side">
-                <div class="user-action">
-                    <a href="cart.html" class="fa-solid fa-cart-shopping cart-btn"></a>
-                    <a class="login-btn" href="login.html">Đăng Nhập</a>
-                </div>
-
-                <div class="menu-toggle">
-                    <i class="fa-solid fa-bars" id="menu-open-icon"></i>
-                    <i class="fa-solid fa-times" id="menu-close-icon"></i>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+<jsp:include page="includes/header.jsp"/>
 
 <!-- ===================== CREATE BLOG FORM ===================== -->
 <div class="blog-create-wrapper">
@@ -115,49 +85,7 @@
 </div>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-col footer-col-info">
-            <div class="footer-logo">
-                <img src="images/logo.webp" height="80" width="80" />
-            </div>
-            <p class="footer-description">
-                Đối tác tin cậy cho máy in và văn phòng phẩm từ năm 2010.
-            </p>
-        </div>
-
-        <div class="footer-col">
-            <h4 class="footer-heading">Sản Phẩm</h4>
-            <ul>
-                <li><a href="printer.html">Máy In</a></li>
-                <li><a href="stationery.html">Văn Phòng Phẩm</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
-            <h4 class="footer-heading">Pháp Lý</h4>
-            <ul>
-                <li><a href="privacy-policy.html">Chính Sách Bảo Mật</a></li>
-                <li><a href="policies-and-services.html">Điều Khoản & Dịch Vụ</a></li>
-                <li><a href="return-policy.html">Đổi Trả</a></li>
-                <li><a href="guarantee.html">Bảo Hành</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
-            <h4 class="footer-heading">Theo Dõi Chúng Tôi</h4>
-            <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-instagram"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy; 2025 PaperCraft. All rights reserved.</p>
-    </div>
-</footer>
+<jsp:include page="includes/footer.jsp"/>
 
 <!--Dùng QuillJS để tạo trinhg soạn thảo-->
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
