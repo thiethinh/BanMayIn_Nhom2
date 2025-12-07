@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Về chúng tôi</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </noscript>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css">
 </head>
 
 <body>
@@ -99,7 +99,7 @@
 
     <jsp:include page="includes/footer.jsp" />
 
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

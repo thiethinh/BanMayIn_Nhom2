@@ -37,8 +37,8 @@
                     cho
                     không gian làm việc hiệu quả. Chất lượng cao, đáng tin cậy và giá cả phải chăng</p>
                 <div class="introduce-btn">
-                    <a href="printer.jsp" class="btn btn-primary">Mua ngay</a>
-                    <a href="about.jsp" class="btn btn-secondary">Tìm hiểu thêm</a>
+                    <a href="${pageContext.request.contextPath}/printer.jsp" class="btn btn-primary">Mua ngay</a>
+                    <a href="${pageContext.request.contextPath}/about.jsp" class="btn btn-secondary">Tìm hiểu thêm</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                                 <span><i class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
                             </div>
-                            <a style="text-decoration: none;" href="product-details.html">
+                            <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
@@ -174,7 +174,7 @@
             </div>
 
             <div class="view-all-btn-container">
-                <a href="printer.html" class="btn view-all-btn">Xem Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/printer.jsp" class="btn view-all-btn">Xem Tất Cả</a>
             </div>
 
         </div>
@@ -224,7 +224,7 @@
                                 <span><i class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
                             </div>
-                            <a style="text-decoration: none;" href="product-details.html">
+                            <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
@@ -305,7 +305,7 @@
             </div>
 
             <div class="view-all-btn-container">
-                <a href="stationery.html" class="btn view-all-btn">Xem Tất Cả</a>
+                <a href="${pageContext.request.contextPath}/stationery.jsp" class="btn view-all-btn">Xem Tất Cả</a>
             </div>
 
         </div>
@@ -379,7 +379,7 @@
                             <li>Nhận báo giá & chiết khấu tốt nhất</li>
                         </ul>
 
-                        <a href="contact.html" class="btn btn-dark-new">Nhận Tư Vấn Miễn Phí</a>
+                        <a href="${pageContext.request.contextPath}/contact.jsp" class="btn btn-dark-new">Nhận Tư Vấn Miễn Phí</a>
                     </div>
 
                 </div>
@@ -391,7 +391,7 @@
                 <h2 class="section-title">Sẵn Sàng Nâng Cấp Văn Phòng?</h2>
                 <p class="section-subtitle">Mua sắm toàn bộ sản phẩm máy in và văn phòng phẩm ngay hôm nay</p>
 
-                <a href="printer.html" class="cta-btn">Mua Ngay</a>
+                <a href="${pageContext.request.contextPath}/printer.jsp" class="cta-btn">Mua Ngay</a>
             </div>
         </div>
     </div>

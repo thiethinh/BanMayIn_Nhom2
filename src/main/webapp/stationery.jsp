@@ -5,15 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Trang Chủ</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
-    <link rel="preload" href="./images/introduce-img.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="${pageContext.request.contextPath}/images/introduce-img.webp" as="image" fetchpriority="high">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/printer-stationery.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css">
 </head>
 
 <body>
@@ -80,7 +80,7 @@
                             <span><i class='bx bx-cart'></i></span>
                             <p>Thêm Vào Giỏ</p>
                         </div>
-                        <a style="text-decoration: none;" href="product-details.html">
+                        <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
                             <button class="bt-detail">Xem</button>
                         </a>
                     </div>
@@ -102,7 +102,7 @@
                             <span><i class='bx bx-cart'></i></span>
                             <p>Thêm Vào Giỏ</p>
                         </div>
-                        <a style="text-decoration: none;" href="product-details.html">
+                        <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
                             <button class="bt-detail">Xem</button>
                         </a>
                     </div>
@@ -278,7 +278,7 @@
     <jsp:include page="includes/footer.jsp"/>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

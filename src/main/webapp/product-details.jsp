@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <link rel="icon" href="images/logo.webp" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/product-details.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product-details.css">
 </head>
 
 <body>
@@ -307,7 +307,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

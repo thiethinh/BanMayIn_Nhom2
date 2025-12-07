@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Liên Hệ</title>
-    <link rel="icon" href="images/logo.webp"/>
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
 </head>
 <body>
 <jsp:include page="includes/header.jsp" />
@@ -17,7 +17,7 @@
 
 <div class="contact-page-wrapper">
 
-    <img class="bg" src="images/background-contact.jpg" alt="bg">
+    <img class="bg" src="${pageContext.request.contextPath}/images/background-contact.jpg" alt="bg">
     <main>
 
         <section class="title">
@@ -101,6 +101,6 @@
 <jsp:include page="includes/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>

@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Đăng Nhập</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="two">
-                            <label><a href="forgot-password.html">Quên mật khẩu?</a></label>
+                            <label><a href="${pageContext.request.contextPath}/forgot-password.jsp">Quên mật khẩu?</a></label>
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                         </div>
 
                         <div class="two">
-                            <label><a href="policies-and-services.html">Điều khoản & Dịch vụ</a></label>
+                            <label><a href="${pageContext.request.contextPath}/policies-and-services.jsp">Điều khoản & Dịch vụ</a></label>
                         </div>
                     </div>
 
@@ -131,6 +131,6 @@
 
     <jsp:include page="includes/footer.jsp"/>
 </body>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </html>

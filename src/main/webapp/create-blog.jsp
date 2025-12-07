@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tạo Bài Viết Mới | PaperCraft Blog</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -13,9 +13,8 @@
     <!-- QuillJS Rich Text -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet" href="css/create-blog.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/create-blog.css">
 </head>
 
 <body>
@@ -91,6 +90,6 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 <!-- JS -->
-<script type="module" src="js/create-blog.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/create-blog.js"></script>
 </body>
 </html>

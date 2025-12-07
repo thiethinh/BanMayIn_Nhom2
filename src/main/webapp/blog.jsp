@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Blog</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
             <div class="post-container">
 
                 <article class="post-card" data-category="baotri">
-                    <a href="blog-post.html">
+                    <a href="${pageContext.request.contextPath}/blog-post.jsp">
                         <div class="post-img">
                             <img src="images/about-img-large.webp" height="600" width="400" loading="lazy" />
                         </div>
@@ -58,7 +58,7 @@
                             <span class="category">Bảo Trì</span>
                         </div>
                         <h3>
-                            <a href="blog-post.html" class="post-title">
+                            <a href="${pageContext.request.contextPath}/blog-post.jsp" class="post-title">
                                 Bảo Trì Máy In: 7 Bước Đơn Giản Kéo Dài Tuổi Thọ Thiết Bị
                             </a>
                         </h3>
@@ -70,7 +70,7 @@
                                 <span>Hoàng Văn Em</span>
                             </div>
                             <div class="read-more">
-                                <a href="blog-post.html" class="read-more-btn">Đọc</a>
+                                <a href="${pageContext.request.contextPath}/blog-post.jsp" class="read-more-btn">Đọc</a>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </div>
                         </div>
@@ -393,12 +393,12 @@
 
     <jsp:include page="includes/footer.jsp" />
 
-    <a href="create-blog.html" id="fab-create-post" class="fab-create-post" title="Tạo bài viết mới"
+    <a href="${pageContext.request.contextPath}/create-blog.jsp" id="fab-create-post" class="fab-create-post" title="Tạo bài viết mới"
         aria-label="Tạo bài viết mới">
         <i class="fa-solid fa-plus"></i>
     </a>
 
 </body>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </html>

@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/blog-post.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog-post.css">
 </head>
 
 <body>
@@ -262,23 +262,11 @@
             </div>
         </div>
 
-        <div class="newsletter-section">
-            <div class="newsletter-content">
-                <h2>Đăng Ký Nhận Bài Viết Mới</h2>
-                <p>Nhận những bài viết mới nhất về in ấn, văn phòng phẩm và mẹo kinh doanh ngay trong hộp thư của bạn
-                </p>
-                <div class="subscribe-form">
-                    <input type="email" placeholder="Nhập email của bạn">
-                    <button class="subscribe-btn">Đăng Ký</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <jsp:include page="includes/footer.jsp" />
 
 </body>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </html>

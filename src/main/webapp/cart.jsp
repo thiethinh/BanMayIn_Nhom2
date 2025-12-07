@@ -9,15 +9,15 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 
 </head>
 
 <body>
-    <jsp:include page="includes/header.jsp" />
+    <jsp:include page="includes/header.jsp"/>
 
     <!-- =================MAIN===================== -->
 
@@ -27,7 +27,7 @@
             <i id="icon" class="fa fa-shopping-basket"></i>
             <h1 id="title">Giỏ Hàng Trống</h1>
             <p>Thêm một sản phẩm để bắt đầu!</p>
-            <a href="printer.html"><button id="bt-shop" type="button" name="shopping">MUA SẮM NGAY <i id="icon-right"
+            <a href="${pageContext.request.contextPath}/printer.jsp"><button id="bt-shop" type="button" name="shopping">MUA SẮM NGAY <i id="icon-right"
                         class="fa fa-long-arrow-right"></i></button></a>
         </div>
     </main>
@@ -113,11 +113,11 @@
 
                     <h2>Tổng cộng: <span id="total">41.233.500đ</span></h2>
                     <div class="block-bt-payment">
-                        <a href="payment.html" id="bt-payment">TIẾN HÀNH THANH TOÁN <i
+                        <a href="${pageContext.request.contextPath}/payment.jsp" id="bt-payment">TIẾN HÀNH THANH TOÁN <i
                                 class="fa-solid fa-money-check-dollar"></i></a>
                     </div>
                     <div class="block-bt-shop-continous">
-                        <a href="printer.html" id="bt-shop-continous">Tiếp tục mua sắm <i
+                        <a href="${pageContext.request.contextPath}/printer.jsp" id="bt-shop-continous">Tiếp tục mua sắm <i
                                 class="fa-solid fa-cart-plus"></i></a>
                     </div>
                 </div>
@@ -125,14 +125,14 @@
 
         </div>
     </main>
-    <script src="js/cart.js"></script>
+    <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 
     <!-- ================= END MAIN===================== -->
 
     <jsp:include page="includes/footer.jsp"/>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

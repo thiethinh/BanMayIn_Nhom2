@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="icon" href="images/logo.webp" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/payment.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
 </head>
 
 <body>
@@ -243,7 +243,7 @@
                     <button type="button"><i class="fa-solid fa-plus"></i></button>
                     <div class="hidden">
                         <p>Vui lòng quét mã QR để thanh toán bằng momo.</p>
-                        <img id="momo_qr" src="images\momo_qr.jpg" alt="momo_qr">
+                        <img id="momo_qr" src="${pageContext.request.contextPath}/images\momo_qr.jpg" alt="momo_qr">
                         
                     </div>
                 </div>
@@ -262,7 +262,7 @@
 
     <script src="js\payment.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>

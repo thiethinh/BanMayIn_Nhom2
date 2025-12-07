@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Tài Khoản</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/account.css">
 </head>
 
 <body>
@@ -25,25 +25,25 @@
                 <aside class="account-sidebar">
                     <ul>
                         <li>
-                            <a href="account.html">
+                            <a href="${pageContext.request.contextPath}/account.jsp">
                                 <i class="fa-solid fa-user-edit"></i>
                                 Thông tin cá nhân
                             </a>
                         </li>
                         <li>
-                            <a href="order-history.html" class="active">
+                            <a href="${pageContext.request.contextPath}/order-history.jsp" class="active">
                                 <i class="fa-solid fa-file-invoice"></i>
                                 Lịch sử đơn hàng
                             </a>
                         </li>
                         <li>
-                            <a href="Password-change.html">
+                            <a href="${pageContext.request.contextPath}/password-change.jsp">
                                 <i class="fa-solid fa-key"></i> 
                                 Đổi mật khẩu
                             </a>
                         </li>
                         <li>
-                            <a href="home.html" id="account-logout" class="logout-link">
+                            <a href="${pageContext.request.contextPath}/home.jsp" id="account-logout" class="logout-link">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Đăng xuất
                             </a>
@@ -61,7 +61,7 @@
     <jsp:include page="includes/footer.jsp"/>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 
 </html>
