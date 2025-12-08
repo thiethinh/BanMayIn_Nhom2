@@ -41,10 +41,12 @@
 
                     <div class="option-value">
                         <div class="option-item title-dropdown" data-value="Tất Cả Danh Mục">Tất Cả Danh Mục</div>
-                        <div class="option-item" data-value="Máy In Laser">Giấy in</div>
-                        <div class="option-item" data-value="Máy In Phun">Bút viết các loại</div>
-                        <div class="option-item" data-value="Máy Đa Năng">Sổ tay & Tập vở</div>
-                        <div class="option-item" data-value="Máy In Di Động">File & Bìa hồ sơ</div>
+                        <div class="option-item" data-value="Giấy & Bìa">Giấy & Bìa</div>
+                        <div class="option-item" data-value="Bút & Dụng cụ viết">Bút & Dụng cụ viết</div>
+                        <div class="option-item" data-value="Sổ tay & Tập vở">Sổ tay & Tập vở</div>
+                        <div class="option-item" data-value="File & Bìa hồ sơ">File & Bìa hồ sơ</div>
+                        <div class="option-item" data-value="Dụng cụ văn phòng">Dụng cụ văn phòng</div>
+                        <div class="option-item" data-value="Thiết bị văn phòng nhỏ">Thiết bị văn phòng nhỏ</div>
                     </div>
                 </div>
 
