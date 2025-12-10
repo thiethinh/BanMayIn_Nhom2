@@ -104,7 +104,7 @@
 
                                 <div class="form-group">
                                     <label>Thương hiệu</label>
-                                    <input type="text" class="form-input" placeholder="Ví dụ: Epson, Canon...">
+                                    <input type="text" classgi="form-input" placeholder="Ví dụ: Epson, Canon...">
                                 </div>
 
                                 <div class="form-group">
