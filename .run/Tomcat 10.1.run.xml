@@ -4,7 +4,7 @@
     <deployment>
       <artifact name="BanMayIn_Nhom2:war exploded">
         <settings>
-          <option name="CONTEXT_PATH" value="/" />
+          <option name="CONTEXT_PATH" value="/papercraft" />
         </settings>
       </artifact>
     </deployment>
