@@ -45,6 +45,31 @@ public class ProductDao {
         return list;
     }
 
+    public List<List<String>> getAllImageOfProduct(int id){
+        List<List<String>> images = new ArrayList<>();
+        String sql = """
+                SELECT image_name, is_thumbnail
+                FROM product p
+                JOIN image i ON i.entity_id =p.id
+                WHERE p.id =?;
+                """;
+       try(Connection conn = DBConnect.getConnection();
+           PreparedStatement ps = conn.prepareStatement(sql);){
+           ps.setInt(1,id);
+           try(ResultSet rs = ps.executeQuery();) {
+               while (rs.next()) {
+                   List<String> image = new ArrayList<>();
+                   image.add(rs.getString("image_name"));
+                   image.add(String.valueOf(rs.getBoolean("is_thumbnail")));
+                   images.add(image);
+               }
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+        return images;
+    }
+
     public List<Product> getFeaturedProductsByCategory(int categoryId) {
         List<Product> list = new ArrayList<>();
         String sql ="SELECT p.*, i.img_url " +
@@ -63,8 +88,8 @@ public class ProductDao {
 
             while (rs.next()) {
                 Product p = new Product();
-
-                p.setId(rs.getInt("id"));
+                int id = rs.getInt("id");
+                p.setId(id);
                 p.setCategoryId(rs.getInt("category_id"));
                 p.setProductName(rs.getString("product_name"));
                 p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
@@ -77,8 +102,7 @@ public class ProductDao {
                 p.setStockQuantity(rs.getInt("stock_quantity"));
                 p.setCreatedAt(rs.getTimestamp("created_at"));
 
-                p.setImageURL(rs.getString("img_url"));
-
+                p.setImageURLs(getAllImageOfProduct(id));
                 list.add(p);
             }
             conn.close();

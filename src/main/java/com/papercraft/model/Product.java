@@ -1,6 +1,8 @@
 package com.papercraft.model;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
 
 public class Product {
     private int id;
@@ -16,7 +18,7 @@ public class Product {
     private int stockQuantity;
     private Timestamp createdAt;
 
-    private String imageURL;
+    private List<List<String>> imageURLs;
 
     public Product() {
     }
@@ -132,12 +134,12 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public List<List<String>> getImageURLs() {
+        return imageURLs;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURLs(List<List<String>> imageURLs) {
+        this.imageURLs = imageURLs;
     }
 
     @Override
