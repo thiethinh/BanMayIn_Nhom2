@@ -54,7 +54,7 @@
                         <span class="arrow">▼</span>
                     </div>
 
-                    <div class="option-value">
+                    <div class="option-value" name="sortBy">
                         <div class="option-item title-dropdown" data-value="Đánh giá cao nhất"> Đánh giá cao nhất</div>
                         <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
                         <div class="option-item" data-value="Giá: Thấp đến Cao"> Giá: Thấp đến Cao</div>
