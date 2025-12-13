@@ -1,0 +1,215 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperCraft - Admin Bảng Điều Khiển</title>
+    <link rel="icon" href="images/logo.webp" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/admin-contacts.css">
+
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.webp" height="60" width="60" alt="Logo">
+                <h2>PaperCraft Admin</h2>
+            </div>
+
+            <nav class="admin-nav">
+                <ul>
+                    <li>
+                        <a href="admin.html">
+                            <i class="fa-solid fa-gauge"></i> Bảng Điều Khiển
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-products.html">
+                            <i class="fa-solid fa-box-archive"></i> Quản Lý Sản Phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-review.html">
+                            <i class="fa-solid fa-file-lines"></i> Quản Lý Đánh Giá
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-order-manage.html">
+                            <i class="fa-solid fa-receipt"></i> Quản Lý Đơn Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-customer-manage.html">
+                            <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-blog.html">
+                            <i class="fa-solid fa-blog"></i> Quản Lí Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-contacts.html" class="active">
+                            <i class="fa-solid fa-message"></i> Tin Nhắn Liên Hệ
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="home.html" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Xem Website
+                </a>
+            </div>
+        </aside>
+
+        <main class="admin-main-content">
+            <div class="admin-header">
+                <h1>Quản Lý Tin Nhắn Liên Hệ</h1>
+                
+                <div class="searchbox">
+                    
+                    <input type="text" id="search-input" placeholder="Nhập Tên người dùng để tìm..." class="search-control">
+                    <button>Tìm</button>
+                    <button>Chưa Phản Hồi</button>
+
+                </div>
+            </div>
+
+
+            <section class="feedback-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Chủ đề</th>
+                            <th>Nội dung</th>
+                            <th class="status-col">Phản hồi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CT101</td>
+                            <td>Nguyễn Văn Nam</td>
+                            <td>nam.nguyen@cty-abc.com</td>
+                            <td>Tư vấn máy in</td>
+                            <td>Tôi cần thông tin hơn nữa và việc giao nhận máy in HP LaserJet M209DW như thế nào?</td>
+                            <td class="status-col">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT102</td>
+                            <td>Trần Thị Lan</td>
+                            <td>lan.tran@example.com</td>
+                            <td>Hỏi giá giấy A4 sll</td>
+                            <td>Báo giá cho 50 thùng giấy A4 Double A (500 tờ). Công ty có chiết khấu không?</td>
+                            <td class="status-col">
+                                <input type="checkbox" checked>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT103</td>
+                            <td>Lê Hùng Dũng</td>
+                            <td>dunghl@doitac.vn</td>
+                            <td>Lỗi máy in Epson L3250</td>
+                            <td>Mua 5 máy L3250 tuần trước, có 1 máy báo lỗi mực. Cần hỗ trợ gấp.</td>
+                            <td class="status-col">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT104</td>
+                            <td>Phạm Thu Hà</td>
+                            <td>ha.pham@vanphong.com</td>
+                            <td>Đặt hộp mực 12A</td>
+                            <td>Tôi muốn đặt 20 hộp mực 12A (Cartridge) cho văn phòng. Giao hàng trong tuần này được
+                                không?</td>
+                            <td class="status-col">
+                                <input type="checkbox" checked>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT105</td>
+                            <td>Bùi Minh Tuấn</td>
+                            <td>tuan.bui@logistics.com</td>
+                            <td>Báo giá thiết bị VPP</td>
+                            <td>Chúng tôi sắp mở văn phòng mới, cần báo giá trọn gói (10 máy in, giấy, 500 sổ tay, bút).
+                            </td>
+                            <td class="status-col">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT106</td>
+                            <td>Hoàng Thị Kim Anh</td>
+                            <td>kim.anh@fpt.com</td>
+                            <td>Giao hàng chậm</td>
+                            <td>Đơn hàng #S201 (100 Bộ Sổ Tay Cao Cấp) đặt 3 ngày rồi mà vẫn chưa thấy giao.</td>
+                            <td class="status-col">
+                                <input type="checkbox" checked>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT107</td>
+                            <td>Võ Thanh Sơn</td>
+                            <td>son.vo@nhamay.vn</td>
+                            <td>Tư vấn mua sỉ máy in</td>
+                            <td>Công ty cần mua 10 máy in laser trắng đen CANON LBP 2900. Bên bạn có hỗ trợ lắp đặt
+                                không?</td>
+                            <td class="status-col">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT108</td>
+                            <td>Đặng Mai Linh</td>
+                            <td>linh.dang@bank.com</td>
+                            <td>Yêu cầu gửi catalog</td>
+                            <td>Vui lòng gửi catalog và bảng giá sỉ các mặt hàng VPP (bút, kẹp ghim, file hồ sơ).</td>
+                            <td class="status-col">
+                                <input type="checkbox" checked>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT109</td>
+                            <td>Nguyễn Trung Kiên</td>
+                            <td>kien.nt@xaydung.com</td>
+                            <td>Hỗ trợ kỹ thuật LBP 8030</td>
+                            <td>Máy in Canon LBP 8030 mua đợt trước (3 máy) giờ kẹt giấy liên tục.</td>
+                            <td class="status-col">
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CT110</td>
+                            <td>Huỳnh Bảo Ngọc</td>
+                            <td>ngoc.huynh@design.vn</td>
+                            <td>Xác nhận đơn hàng</td>
+                            <td>Tôi đã đặt 15 Bộ Đồ Dùng Văn Phòng (#S202) hôm qua, chưa thấy email xác nhận.</td>
+                            <td class="status-col">
+                                <input type="checkbox" checked>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+
+
+    </div>
+</body>
+
+</html>

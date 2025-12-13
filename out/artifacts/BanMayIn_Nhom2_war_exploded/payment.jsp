@@ -1,0 +1,268 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PaperCraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
+</head>
+
+<body>
+    <jsp:include page="includes/header.jsp"/>
+    <!-- ===============Main================== -->
+    <section class="payment">
+        <div class="title">
+            <h1>Thanh Toán</h1>
+        </div>
+        <!-- ==========BLOCK VIEW -->
+        <div class="block-paymentDetails-finalBill">
+
+            <!-- ===========BLOCK PAYMENT-DETAILS -->
+            <section class="payment-details">
+                <h2>Chi tiết đơn hàng</h2>
+                <form action="#">
+                    <!-- ==========NATION=========== -->
+                    <div class="block-nation">
+                        <label for="nation">Quốc Gia <span>*</span></label>
+                        <select name="nation" id="nation" required>
+                            <option value="">--Chọn Quốc Gia--</option>
+                            <option value="VN">Việt Nam</option>
+                            <option value="US">Hoa Kỳ</option>
+                            <option value="UK">Vương quốc Anh</option>
+                            <option value="JP">Nhật Bản</option>
+                            <option value="KR">Hàn Quốc</option>
+                            <option value="CN">Trung Quốc</option>
+                            <option value="FR">Pháp</option>
+                            <option value="DE">Đức</option>
+                            <option value="RU">Nga</option>
+                            <option value="IN">Ấn Độ</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Úc</option>
+                            <option value="BR">Brazil</option>
+                            <option value="TH">Thái Lan</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="SG">Singapore</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="PH">Philippines</option>
+                            <option value="IT">Ý</option>
+                            <option value="ES">Tây Ban Nha</option>
+                        </select>
+                    </div>
+
+                    <!-- ============block-firstname-lastname============== -->
+                    <div class="block-firstname-lastname">
+                        <div class="block-firstname">
+                            <label for="firstname">Tên <span>*</span></label>
+                            <input id="firstname" name="firstname" type="text" placeholder="vd: Thai" required>
+                        </div>
+                        <div class="block-lastname">
+                            <label for="lastname">Họ <span>*</span></label>
+                            <input id="lastname" name="lastname" type="text" placeholder="vd: Nguyen Hoang" required>
+                        </div>
+                    </div>
+
+                    <!-- ============SUB-ADDRESS============= -->
+                    <div class="block-address">
+                        <label for="address">Địa chỉ <span>*</span></label>
+                        <input id="address" name="address" type="text" placeholder="vd: 123 Lê Lợi, phường Đông Hoà"
+                            required>
+                    </div>
+
+                    <!--===============ADDRESS + POSTCODE==============  -->
+                    <div class="block-addressCity-postCode">
+                        <div class="block-addressCity">
+                            <label for="addressCity">Thị trấn/ Thành phố <span>*</span></label>
+                            <input id="addressCity" name="addressCity" type="text"
+                                placeholder="vd: TP. Hồ Chí Minh" required>
+                        </div>
+
+                        <div class="block-postCode">
+                            <label for="postCode">Mã bưu chính <span>*</span></label>
+                            <input id="postCode" name="postCode" type="number" placeholder="vd: 710000" min="0"
+                                maxlength="7" required>
+                        </div>
+                    </div>
+
+
+                    <!--==============EMAIL + PHONE============  -->
+                    <div class="block-phone-email">
+                        <div class="block-phone">
+                            <label for="phone">Số điện thoại <span>*</span></label>
+                            <input id="phone" name="phone" type="tel"
+                                title="Nhập số điện thoại hợp lệ (10-11 số) bắt đầu bằng 0" placeholder="vd: 0327618372"
+                                maxlength="11" min="0" required>
+                        </div>
+                        <div class="block-email">
+                            <label for="email">Email <span>*</span></label>
+                            <input id="eamil" name="phone" type="email" placeholder="vd: nguyenvana@gmail.com" required>
+                        </div>
+                    </div>
+                    <!-- <div class="block-save-info">
+                        <input type="checkbox" id="saveInfo" name="saveInfo">
+                        <label for="saveInfo">Lưu thông tin cho lần mua sau</label>
+                    </div> -->
+
+                    <!-- ===========NOTE============== -->
+                    <div class="block-note">
+                        <label for="note">Ghi chú đơn hàng</label>
+                        <textarea name="note" id="note" style="resize: none;"
+                            placeholder="Hãy viết ghi chú cho đơn hàng của bạn..."></textarea>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- ==============BLOCK FINAL-BILL -->
+            <section class="final-bill">
+                <h2>Đơn hàng của bạn</h2>
+                <table class="view-table">
+                    <thead>
+                        <tr class="row-title">
+                            <th id="block-header-final-bill">Sản Phẩm</th>
+                            <th id="block-header-final-bill">Tổng cộng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="product1">
+                            <th>Máy in phun màu Epson L6270 <strong>x1</strong> </th>
+                            <th>16.990.000đ</th>
+                        </tr>
+                        <tr class="product2">
+                            <th>Máy in HP Laser MFP 3303fdn <strong>x1</strong> </th>
+                            <th>10.490.000đ</th>
+                        </tr>
+                        <tr class="product3">
+                            <th>Máy in Laser DCP-L3560CDW <strong>x1</strong> </th>
+                            <th>11.790.000đ</th>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="shiping">Vận chuyển: </th>
+                            <th class="shiping">
+                                <!-- <div class="flast-ship">
+                                    <input id="flast-ship" type="radio" name="ship">
+                                    <label for="flast-ship">Giao hàng hỏa tốc</label>
+                                </div> -->
+
+                                <div class="free-ship">
+                                    <!-- <input id="free-ship" type="radio" name="ship">
+                                    <label for="free-ship">Miễn phí vận chuyển</label> -->
+                                    <p>Miễn phí</p>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Thuế(VAT): </th>
+                            <th class="VAT">
+                                <div class="vat">
+                                    
+                                    <p>1.963.500đ</p>
+                                </div>
+                            </th>
+                        </tr>
+
+                        <tr id="total">
+                            <th>Tổng Đơn Hàng: </th>
+                            <th>41.233.500đ</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="pay-method">
+                    <!-- =============BANK======= -->
+
+                    <div class="method bank-method">
+                        <input type="radio" name="paymentMethod" id="bankCard" value="BANK" hidden>
+                        <h3>Thanh toán qua thẻ ngân hàng</h3>
+                        <button type="button"><i class="fa-solid fa-plus"></i></button>
+
+                        <div class="hidden">
+                            <p>Vui lòng nhập thông tin thẻ tín dụng hoặc thẻ ghi nợ của bạn.</p>
+
+                            <form action="#">
+                                <div class="bank-info-container">
+                                    <!-- Ngân hàng   -->
+                                    <div class="block-bank-name">
+                                        <label for="bank-name">Ngân hàng <span>*</span></label>
+                                        <select name="bank-name" id="bank-name" required>
+                                            <option value="">--Chọn Ngân Hàng--</option>
+                                            <option value="VCB">Vietcombank</option>
+                                            <option value="BIDV">BIDV</option>
+                                            <option value="ACB">ACB</option>
+                                            <option value="SCB">Sacombank</option>
+                                            <option value="MB">MBBank</option>
+                                            <option value="VTB">VietinBank</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Thông tin thẻ   -->
+
+                                    <div class="card-info">
+                                        <div class="block-card-number">
+                                            <label for="card-number">Số thẻ <span>*</span></label>
+                                            <input type="text" id="card-number" maxlength="16"
+                                                placeholder="1234 5678 9012 3456" required>
+                                        </div>
+
+                                        <div class="block-card-holder">
+                                            <label for="card-holder">Tên chủ thẻ <span>*</span></label>
+                                            <input type="text" id="card-holder" placeholder="NGUYEN VAN A" required>
+                                        </div>
+
+                                        <div class="block-enddate-cvv">
+                                            <div class="block-card-enddate">
+                                                <label for="enddate-date">Ngày hết hạn <span>*</span></label>
+                                                <input type="text" id="enddate-date" maxlength="5" placeholder="MM/YY"
+                                                    required>
+                                            </div>
+
+                                            <div class="block-card-cvv">
+                                                <label for="cvv">CVV <span>*</span></label>
+                                                <input type="password" id="cvv" maxlength="3" placeholder="***"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ========Momo -->
+                <div class="method">
+                    <input type="radio" name="paymentMethod" id="momo" value="Momo" hidden>
+                    <h3>Thanh toán qua momo</h3>
+                    
+                    <button type="button"><i class="fa-solid fa-plus"></i></button>
+                    <div class="hidden">
+                        <p>Vui lòng quét mã QR để thanh toán bằng momo.</p>
+                        <img id="momo_qr" src="${pageContext.request.contextPath}/images\momo_qr.jpg" alt="momo_qr">
+                        
+                    </div>
+                </div>
+
+                <button class="order-btn" type="submit">ĐẶT HÀNG</button>
+        </div>
+
+    </section>
+    </div>
+
+    </section>
+
+
+    <!-- ================Main================= -->
+    <jsp:include page="includes/footer.jsp"/>
+
+    <script src="js\payment.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+</body>
+
+</html>
