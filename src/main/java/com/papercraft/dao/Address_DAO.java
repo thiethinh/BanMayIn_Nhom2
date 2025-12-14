@@ -33,7 +33,7 @@ public class Address_DAO {
 
             int rowsAffected = ps.executeUpdate();
 
-            // ID tự tăng gán ngược lại cho đối tượng Address
+            // ID tự tăng -> gán ngược lại cho đối tượng Address
             if (rowsAffected > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
