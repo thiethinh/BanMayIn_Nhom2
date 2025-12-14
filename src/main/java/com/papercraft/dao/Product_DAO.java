@@ -10,36 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product_DAO {
+    private static final String ROOT_PATH ="/images/upload";
 
-    // getAllProducts
-    public List<Product> getAllProducts() {
+    // get all product just for present product card in main page
+    public List<Product> getAllProducts(String type) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product";
+        String sql = """
+            SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.image_name
+            FROM product p 
+            JOIN category c ON p.category_id = c.id
+            JOIN image i ON p.id = i.entiry_id
+            WHERE c.type=? AND i.is_thumbnail =1
+            """;
 
         //  try-with-resources cho Connection và PreparedStatement
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
+            ps.setString(1,type);
             // try-with-resources cho ResultSet
             try (ResultSet rs = ps.executeQuery()) {
 
                 while (rs.next()) {
                     Product p = new Product();
-
                     // Gán
                     p.setId(rs.getInt("id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
-                    p.setProductDescription(rs.getString("product_description"));
-                    p.setProductDetail(rs.getString("product_detail"));
                     p.setBrand(rs.getString("brand"));
                     p.setPrice(rs.getDouble("price"));
-                    p.setOriginPrice(rs.getDouble("origin_price"));
-                    p.setDiscount(rs.getDouble("discount"));
-                    p.setStockQuantity(rs.getInt("stock_quantity"));
-                    p.setCreatedAt(rs.getTimestamp("created_at"));
-
+                    p.setThumbnail(ROOT_PATH+ rs.getString("img_name"));
                     list.add(p);
                 }
             }
@@ -55,7 +55,7 @@ public class Product_DAO {
     public List<List<String>> getAllImageOfProduct(int id) {
         List<List<String>> images = new ArrayList<>();
         String sql = """
-                SELECT img_name, is_thumbnail
+                SELECT i.img_name, i.is_thumbnail
                 FROM product p
                 JOIN image i ON i.entity_id =p.id
                 WHERE p.id =?;
@@ -77,11 +77,12 @@ public class Product_DAO {
         return images;
     }
 
+    // get top 10 product with the biggest discounts
     public List<Product> getFeaturedProductsByType(String type) {
         List<Product> list = new ArrayList<>();
 
         String sql = """
-                    SELECT p.*, i.img_name
+                     SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.image_name
                     FROM product p
                     JOIN category c ON p.category_id = c.id
                     LEFT JOIN image i ON i.entity_id = p.id
@@ -107,20 +108,13 @@ public class Product_DAO {
 
                     //  Gán dữ liệu từ ResultSet vào Product
                     p.setId(id);
+                    p.setId(rs.getInt("id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
-                    p.setProductDescription(rs.getString("product_description"));
-                    p.setProductDetail(rs.getString("product_detail"));
                     p.setBrand(rs.getString("brand"));
                     p.setPrice(rs.getDouble("price"));
-                    p.setOriginPrice(rs.getDouble("origin_price"));
-                    p.setDiscount(rs.getDouble("discount"));
-                    p.setStockQuantity(rs.getInt("stock_quantity"));
-                    p.setCreatedAt(rs.getTimestamp("created_at"));
-
-                    //lấy ảnh thumbnail
-                    p.setThumbnail("images/upload/" + rs.getString("img_name"));
+                    p.setThumbnail(ROOT_PATH+rs.getString("img_name"));
 
                     list.add(p);
                 }
