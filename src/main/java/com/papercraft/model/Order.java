@@ -30,6 +30,10 @@ public class Order implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public Order() {
+
+    }
+
     public Integer getId() {
         return id;
     }

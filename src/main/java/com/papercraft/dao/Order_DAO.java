@@ -86,6 +86,8 @@ public class Order_DAO {
 
             // Ném lại RuntimeException để tầng Service xử lý lỗi hệ thống
             throw new RuntimeException("Database error occurred while updating order status.", e);
-        }
+        } catch (Exception e) {
+             throw new RuntimeException(e);
+         }
     }
 }

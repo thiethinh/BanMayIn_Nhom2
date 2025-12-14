@@ -264,6 +264,8 @@ public Product getProductById(int id) {
         System.err.println("SQL Error : " + e.getMessage());
         e.printStackTrace();
         throw new RuntimeException("Database error occurred while fetching product ID " + id, e);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
     }
 
     return product;
