@@ -18,8 +18,8 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product_DAO dao = new Product_DAO();
 
-        List<Product> featuredPrinter = dao.getFeaturedProductsByCategory(1);
-        List<Product> featuredStationery = dao.getFeaturedProductsByCategory(2);
+        List<Product> featuredPrinter = dao.getFeaturedProductsByType("Printer");
+        List<Product> featuredStationery = dao.getFeaturedProductsByType("Stationery");
 
         request.setAttribute("printers", featuredPrinter);
         request.setAttribute("stationery", featuredStationery);

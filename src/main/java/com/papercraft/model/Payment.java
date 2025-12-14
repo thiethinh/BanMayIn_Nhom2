@@ -14,6 +14,8 @@ public class Payment implements Serializable {
     public String transactionCode;
     public Timestamp paidAt;
 
+    public Payment() {}
+
     public Payment(Integer id, Integer orderId, String paymentMethod, BigDecimal paymentAmount, Boolean status, String transactionCode, Timestamp paidAt) {
         this.id = id;
         this.orderId = orderId;

@@ -11,6 +11,8 @@ public class Image implements Serializable {
     public Boolean isThumbnail;
     public Timestamp createdAt;
 
+    public Image() {}
+
     public Image(Integer id, Integer entityId, String entityType, String imgName, Boolean isThumbnail, Timestamp createdAt) {
         this.id = id;
         this.entityId = entityId;

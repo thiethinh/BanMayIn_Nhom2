@@ -10,6 +10,8 @@ public class OrderItem implements Serializable {
     public Integer quantity;
     public BigDecimal price;
 
+    public OrderItem() {}
+
     public OrderItem(Integer id, Integer orderId, Integer productId, Integer quantity, BigDecimal price) {
         this.id = id;
         this.orderId = orderId;

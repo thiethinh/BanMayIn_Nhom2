@@ -11,6 +11,8 @@ public class Review implements Serializable {
     public String comment;
     public Timestamp createdAt;
 
+    public Review() {}
+
     public Review(Integer id, Integer userId, Integer productId, Integer rating, String comment, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;

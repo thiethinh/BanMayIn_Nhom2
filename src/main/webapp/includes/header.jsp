@@ -11,7 +11,7 @@
             <div class="nav-wrapper">
                 <div class="menu-bar">
 
-                    <a class="menu" href="${pageContext.request.contextPath}/home.jsp" id="nav-home">Trang Chủ</a>
+                    <a class="menu" href="${pageContext.request.contextPath}/home" id="nav-home">Trang Chủ</a>
                     <a class="menu" href="${pageContext.request.contextPath}/printer.jsp" id="nav-printer">Máy In</a>
                     <a class="menu" href="${pageContext.request.contextPath}/stationery.jsp" id="nav-stationery">Văn Phòng Phẩm</a>
                     <a class="menu" href="${pageContext.request.contextPath}/blog.jsp" id="nav-blog">Blog</a>

@@ -11,6 +11,8 @@ public class Blog implements Serializable {
     public String blogContent;
     public Timestamp createdAt;
 
+    public Blog() {}
+
     public Blog(Integer id, Integer userId, String blogTitle, String typeBlog, String blogContent, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;

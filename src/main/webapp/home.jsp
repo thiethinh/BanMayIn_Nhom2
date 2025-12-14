@@ -57,32 +57,38 @@
 
                 <c:forEach items="${printers}" var="p">
                     <div class="product-card swiper-slide">
-                        <div class="product-image-placeholder">
-                            <c:if test="${p.discount > 0}">
-                                <span class="badge-discount">-${p.discount}%</span>
-                            </c:if>
 
-                            <img src="${pageContext.request.contextPath}/${p.imageURL}" height="300" width="300" loading="lazy"
-                                 alt="${p.productName}"/>
-                        </div>
-                        <h3 class="product-name">${p.productName}</h3>
+                        <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" class="product-image-placeholder">
+                            <c:if test="${p.discount > 0}">
+                    <span class="badge-discount">
+                        -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+                    </span>
+                            </c:if>
+                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300" loading="lazy" alt="${p.productName}"/>
+                        </a>
+
+                        <h3 class="product-name">
+                            <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" style="text-decoration: none; color: inherit;">
+                                    ${p.productName}
+                            </a>
+                        </h3>
 
                         <ul class="product-details">
-                            <li>${p.descriptionThumbnail}</li>
+                            <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                                <li>${feature.trim()}</li>
+                            </c:forTokens>
                         </ul>
 
                         <p class="product-price">
-                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ"
-                                              maxFractionDigits="0"/>
+                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>
                         </p>
 
                         <div class="action">
-                            <div class="add-cart">
-                                <span><i class='bx bx-cart'></i></span>
+                            <div class="add-cart" onclick="addToCart(${p.id})"> <span><i class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
                             </div>
-                            <a style="text-decoration: none;"
-                               href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}">
+
+                            <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" style="text-decoration: none;">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
@@ -114,16 +120,18 @@
                     <div class="product-card swiper-slide">
                         <div class="product-image-placeholder">
                             <c:if test="${p.discount > 0}">
-                                <span class="badge-discount">-${p.discount}%</span>
+                                <span class="badge-discount">-${p.discount * 100}%</span>
                             </c:if>
 
-                            <img src="${pageContext.request.contextPath}/${p.imageURL}" height="400" width="400" loading="lazy"
+                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="400" width="400" loading="lazy"
                                  alt="${p.productName}"/>
                         </div>
                         <h3 class="product-name">${p.productName}</h3>
 
                         <ul class="product-details">
-                            <li>${p.descriptionThumbnail}</li>
+                            <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                            <li>${feature.trim()}</li>
+                            </c:forTokens>
                         </ul>
 
                         <p class="product-price">

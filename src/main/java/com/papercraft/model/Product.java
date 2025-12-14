@@ -18,10 +18,10 @@ public class Product {
     private int stockQuantity;
     private Timestamp createdAt;
 
-    private List<List<String>> imageURLs;
+    private String thumbnail;
+    private List<String> imageList;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(int id, int categoryId, String productName, String descriptionThumbnail, String productDescription, String productDetail, String brand, double price, double originPrice, double discount, int stockQuantity, Timestamp createdAt) {
         this.id = id;
@@ -134,12 +134,14 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public List<List<String>> getImageURLs() {
-        return imageURLs;
-    }
+    public String getThumbnail() { return thumbnail; }
+    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
 
-    public void setImageURLs(List<List<String>> imageURLs) {
-        this.imageURLs = imageURLs;
+    public List<String> getImageList() {
+        return imageList;
+    }
+    public void setImageList(List<String> imageList) {
+        this.imageList = imageList;
     }
 
     @Override

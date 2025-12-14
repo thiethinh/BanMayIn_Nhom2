@@ -98,13 +98,13 @@
                                         <option value="laser-bw">Máy In Laser</option>
                                         <option value="inkjet">Máy In Phun</option>
                                         <option value="multifunction">Máy In Đa Năng</option>
-                                        <option value="dot-matrix">Máy In Di Động</option>
+                                        <option value="dot-matrix">Máy In Kim</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Thương hiệu</label>
-                                    <input type="text" classgi="form-input" placeholder="Ví dụ: Epson, Canon...">
+                                    <input type="text" class="form-input" placeholder="Ví dụ: Epson, Canon...">
                                 </div>
 
                                 <div class="form-group">
@@ -166,7 +166,8 @@
                                         <option label="Sổ tay & Tập vở"></option>
                                         <option label="File & Bìa Hồ sơ"></option>
                                         <option label="Dụng cụ văn phòng"></option>
-                                        <option label="Thiết bị văn phòng nhỏ"></option>
+                                        <option label="Máy Photocopy"></option>
+                                        <option label="Máy Hủy Giấy"></option>
                                     </select>
                                 </div>
 

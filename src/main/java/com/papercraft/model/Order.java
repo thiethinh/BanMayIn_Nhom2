@@ -17,6 +17,8 @@ public class Order implements Serializable {
     public String shippingAddress;
     public Timestamp createdAt;
 
+    public Order() {}
+
     public Order(Integer id, Integer userId, String status, BigDecimal totalPrice, String note, BigDecimal shippingFee, String shippingName, String shippingPhone, String shippingAddress, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;
