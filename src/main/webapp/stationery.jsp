@@ -46,7 +46,7 @@
                         <div class="option-item" data-value="Sổ tay & Tập vở">Sổ tay & Tập vở</div>
                         <div class="option-item" data-value="File & Bìa hồ sơ">File & Bìa hồ sơ</div>
                         <div class="option-item" data-value="Dụng cụ văn phòng">Dụng cụ văn phòng</div>
-                        <div class="option-item" data-value="Thiết bị văn phòng nhỏ">Thiết bị văn phòng nhỏ</div>
+                        <div class="option-item" data-value="Máy Pho">Thiết bị văn phòng nhỏ</div>
                     </div>
                 </div>
 

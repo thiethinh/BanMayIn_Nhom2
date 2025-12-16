@@ -16,6 +16,8 @@ public class Address implements Serializable {
     public String phone;
     public Boolean isDefault;
 
+    public Address() {}
+
     public Address(Integer id, Integer userId, String fname, String lname, String nation, String city, String detailAddress, String postcode, String email, String phone, Boolean isDefault) {
         this.id = id;
         this.userId = userId;

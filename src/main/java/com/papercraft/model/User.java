@@ -16,6 +16,8 @@ public class User implements Serializable {
     public Timestamp createdAt;
     public String fullname;
 
+    public User() {}
+
     public User(Integer id, String fname, String lname, String email, String passwordHash, String phoneNumber, String role, String gender, Boolean status, Timestamp createdAt, String fullname) {
         this.id = id;
         this.fname = fname;

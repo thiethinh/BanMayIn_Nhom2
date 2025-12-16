@@ -26,7 +26,7 @@ public List<Review> getReviewsByProductId(int productId) {
     try (Connection conn = DBConnect.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        // Gán tham số: product_id
+        // Gán tham số cho product_id
         ps.setInt(1, productId);
 
         try (ResultSet rs = ps.executeQuery()) {

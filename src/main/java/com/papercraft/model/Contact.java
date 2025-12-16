@@ -10,6 +10,8 @@ public class Contact implements Serializable {
     public String content;
     public Boolean rely;
 
+    public Contact() {}
+
     public Contact(Integer id, Integer userId, String userFullname, String contactTitle, String content, Boolean rely) {
         this.id = id;
         this.userId = userId;

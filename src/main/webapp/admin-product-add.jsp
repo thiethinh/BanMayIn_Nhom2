@@ -26,7 +26,7 @@
 
         <header class="admin-content-header">
             <h1>Thêm Sản Phẩm</h1>
-            <a href="admin-products.html" class="btn btn-secondary">
+            <a href="${pageContext.request.contextPath}/admin-products.jsp" class="btn btn-secondary">
                 <i class="fa-solid fa-arrow-left"></i> Quay Lại Danh Sách
             </a>
         </header>
@@ -49,13 +49,6 @@
                             <option value="1">Máy In</option>
                             <option value="2">Văn Phòng Phẩm</option>
                         </select>
-                        <div class="form-group">
-                            <label for="product-sub-category">Loại Sản Phẩm</label>
-                            <select id="product-sub-category" class="form-input" disabled>
-                                <option value="">-- Chọn loại sản phẩm --</option>
-                            </select>
-                        </div>
-
                     </div>
                     <div class="form-group">
                         <label for="product-price">Giá (VNĐ)</label>
@@ -99,9 +92,19 @@
                         <div id="specs-printer" class="specs-group">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Loại máy in</label>
-                                    <input type="text" class="form-input"
-                                           placeholder="Ví dụ: Máy in phun màu đa chức năng">
+                                    <label for="printer-type">Loại máy in</label>
+                                    <select id="printer-type" class="form-input">
+                                        <option value="">-- Chọn loại máy --</option>
+                                        <option value="laser-bw">Máy In Laser</option>
+                                        <option value="inkjet">Máy In Phun</option>
+                                        <option value="multifunction">Máy In Đa Năng</option>
+                                        <option value="dot-matrix">Máy In Di Động</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Thương hiệu</label>
+                                    <input type="text" classgi="form-input" placeholder="Ví dụ: Epson, Canon...">
                                 </div>
 
                                 <div class="form-group">
@@ -155,15 +158,27 @@
                         <div id="specs-stationery" class="specs-group">
                             <div class="form-row" style="grid-template-columns: 1fr 1fr;">
                                 <div class="form-group">
-                                    <label>Loại sản phẩm</label>
-                                    <input type="text" class="form-input"
-                                           placeholder="Ví dụ: Bút bi, Bìa hồ sơ, Giấy A4">
+                                    <label for="stationery-type">Loại sản phẩm (Type)</label>
+                                    <select id="stationery-type" class="form-input">
+                                        <option value="">-- Chọn nhóm sản phẩm --</option>
+                                        <option label="Giấy & Bìa"></option>
+                                        <option label="Bút & Dụng cụ viết"></option>
+                                        <option label="Sổ tay & Tập vở"></option>
+                                        <option label="File & Bìa Hồ sơ"></option>
+                                        <option label="Dụng cụ văn phòng"></option>
+                                        <option label="Thiết bị văn phòng nhỏ"></option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Thương hiệu</label>
+                                    <input type="text" class="form-input" placeholder="Ví dụ: Thiên Long, Double A, Casio...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Đơn vị tính</label>
                                     <input type="text" class="form-input"
-                                           placeholder="Ví dụ: Thiên Long, Parker">
+                                           placeholder="Ví dụ: Cái, Hộp, Ram (500 tờ)">
                                 </div>
 
                                 <div class="form-group">
@@ -172,59 +187,16 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Trọng lượng</label>
-                                    <input type="text" class="form-input" placeholder="Ví dụ: 280 gram, 120 gram">
+                                    <label>Màu sắc</label>
+                                    <input type="text" class="form-input" placeholder="Ví dụ: Xanh, Đen, Trắng">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Xuất xứ</label>
                                     <input type="text" class="form-input" placeholder="Ví dụ: Việt Nam, Nhật Bản">
                                 </div>
-                                <div class="form-group">
-                                    <label>Khuyến cáo</label>
-                                    <input type="text" class="form-input" placeholder="Ví dụ: Tránh hóa chất. Không thích hợp cho trẻ dưới 3 tuổi.">
-                                </div>
                             </div>
                         </div>
-                        <div id="specs-office-machine" class="specs-group">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Độ phân giải</label>
-                                    <input type="text" class="form-input" placeholder="Ví dụ: 600 x 600 dpi">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Tốc độ</label>
-                                    <input type="text" class="form-input" placeholder="Ví dụ: 25 trang/phút">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Tính năng</label>
-                                    <input type="text" class="form-input" placeholder="Scan, Copy, Fax...">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Màu sắc</label>
-                                    <input type="text" class="form-input" placeholder="Đen trắng / Màu">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Kiểu máy</label>
-                                    <input type="text" class="form-input" placeholder="Để bàn / Công nghiệp">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Kết nối</label>
-                                    <input type="text" class="form-input" placeholder="USB, LAN, Wifi">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Hệ điều hành hỗ trợ</label>
-                                    <input type="text" class="form-input" placeholder="Windows, MacOS, Linux">
-                                </div>
-                            </div>
-                        </div>
-
 
                         <textarea id="product-specs-hidden" name="product_specs" style="display: none;"></textarea>
 

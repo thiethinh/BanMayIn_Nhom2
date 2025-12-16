@@ -49,7 +49,7 @@ public class Review_DAO {
             }
 
         } catch (SQLException e) {
-            // Xử lý lỗi SQL
+
             System.err.println("SQL Error in getReviewsByProductId for product ID " + productId + ": " + e.getMessage());
             e.printStackTrace();
             // Ném lại RuntimeException để tầng trên xử lý

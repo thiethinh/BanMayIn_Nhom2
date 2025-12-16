@@ -7,6 +7,8 @@ public class Category implements Serializable {
     public String categoryName;
     public String type;
 
+    public Category() {}
+
     public Category(Integer id, String categoryName, String type) {
         this.id = id;
         this.categoryName = categoryName;
