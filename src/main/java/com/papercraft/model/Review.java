@@ -22,6 +22,8 @@ public class Review implements Serializable {
         this.createdAt = createdAt;
     }
 
+
+
     public Integer getId() {
         return id;
     }

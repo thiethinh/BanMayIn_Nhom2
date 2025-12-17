@@ -18,6 +18,7 @@ public class Product {
     private int stockQuantity;
     private Timestamp createdAt;
 
+    private String type;
     private String thumbnail;
     private List<String> imageList;
 
@@ -143,6 +144,9 @@ public class Product {
     public void setImageList(List<String> imageList) {
         this.imageList = imageList;
     }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
     @Override
     public String toString() {
