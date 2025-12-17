@@ -58,7 +58,7 @@
                 <c:forEach items="${printers}" var="p">
                     <div class="product-card swiper-slide">
 
-                        <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" class="product-image-placeholder">
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" class="product-image-placeholder">
                             <c:if test="${p.discount > 0}">
                     <span class="badge-discount">
                         -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
@@ -68,7 +68,7 @@
                         </a>
 
                         <h3 class="product-name">
-                            <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" style="text-decoration: none; color: inherit;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none; color: inherit;">
                                     ${p.productName}
                             </a>
                         </h3>
@@ -88,7 +88,7 @@
                                 <p>Thêm Vào Giỏ</p>
                             </div>
 
-                            <a href="${pageContext.request.contextPath}/product-details.jsp?id=${p.id}" style="text-decoration: none;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none;">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
