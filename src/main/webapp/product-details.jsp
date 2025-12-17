@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -54,7 +55,7 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-regular fa-star"></i>
-                    <span><a href="#review" onclick="showTab('review', document.querySelectorAll('.tag-btn')[2])">(3 đánh giá)</a></span>
+                    <span><a href="#review" onclick="showTab('review', document.querySelectorAll('.tag-btn')[2])">(${countReview} đánh giá)</a></span>
                 </div>
             </div>
 
@@ -64,10 +65,10 @@
                     <span class="original-price">
                         <fmt:formatNumber value="${p.originPrice}" type="number" groupingUsed="true"/>₫
                     </span>
-                    <span id="discount">
+                <span id="discount">
                         -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
                     </span>
-                    <br/>
+                <br/>
             </div>
 
             <p class="info-description">
@@ -82,16 +83,20 @@
                 <div class="block-quatity-cart">
                     <div class="quantity">
                         <button type="button" id="bt-down" class="qty-btn minus" onclick="updateQty(-1)">-</button>
-                        <input type="text" name="quantity" class="qty-input" id="qty-input" value="1" min="1" max="${p.stockQuantity > 0 ? p.stockQuantity : 1}"/>
+                        <input type="text" name="quantity" class="qty-input" id="qty-input" value="1" min="1"
+                               max="${p.stockQuantity > 0 ? p.stockQuantity : 1}"/>
                         <button type="button" id="bt-up" class="qty-btn plus" onclick="updateQty(1)">+</button>
                     </div>
 
                     <c:choose>
                         <c:when test="${p.stockQuantity > 0}">
-                            <button type="submit" class="bt-add-cart">Thêm Vào Giỏ Hàng <i class="fa-solid fa-basket-shopping"></i></button>
+                            <button type="submit" class="bt-add-cart">Thêm Vào Giỏ Hàng <i
+                                    class="fa-solid fa-basket-shopping"></i></button>
                         </c:when>
                         <c:otherwise>
-                            <button type="button" class="bt-add-cart" disabled style="opacity: 0.6; cursor: not-allowed; background-color: #888;">Hết Hàng</button>
+                            <button type="button" class="bt-add-cart" disabled
+                                    style="opacity: 0.6; cursor: not-allowed; background-color: #888;">Hết Hàng
+                            </button>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -135,58 +140,67 @@
 
             <div id="review" class="tag-display">
                 <h1>Đánh giá sản phẩm</h1>
-                <div class="block-User-feedback">
-                    <div class="block-User">
-                        <img src="${pageContext.request.contextPath}/images/user-02.png" alt="user-1">
-                        <div class="user">
-                            <h2 class="user-name">Thái Nguyễn</h2>
-                            <span>Ngày 27 tháng 3 năm 2020 9:51 AM</span>
+
+                <c:forEach items="${reviewList}" var="r">
+                    <div class="block-User-feedback">
+                        <div class="block-User">
+                            <div class="user-avatar-placeholder">
+                                    ${fn:substring(r.authorName, 0, 1)}
+                            </div>
+                            <div class="user">
+                                <h2 class="user-name">${r.authorName}</h2>
+                                <span><fmt:formatDate value="${r.createdAt}"
+                                                      pattern="dd 'tháng' MM 'năm' yyyy, HH:mm"/></span>
+                            </div>
+                            <div class="user-rate">
+                                <c:forEach begin="1" end="5" var="i">
+                                    <c:choose>
+                                        <c:when test="${r.rating >= i}">
+                                            <i class="fa-solid fa-star"></i>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <i class="fa-regular fa-star"></i>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </div>
                         </div>
-                        <div class="user-rate">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
+                        <p class="user-write">${r.comment}</p>
                     </div>
-                    <p class="user-write">
-                        Sản phẩm rất tốt, in ấn nhanh chóng, màu sắc đẹp. Rất hài lòng với chất lượng máy in này.
-                    </p>
-                </div>
-                <div class="block-User-feedback">
-                    <div class="block-User">
-                        <img src="${pageContext.request.contextPath}/images/user-01.png" alt="user-2">
-                        <div class="user">
-                            <h2 class="user-name">Duy Tân </h2>
-                            <span>Ngày 10 tháng 12 năm 2025 12:05 PM</span>
-                        </div>
-                        <div class="user-rate">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <p class="user-write">
-                        Màu in rất đẹp, tốc độ in nhanh, rất hài lòng với sản phẩm này.
-                    </p>
-                </div>
+                </c:forEach>
+
+                <c:if test="${empty reviewList}">
+                    <p>Chưa có đánh giá nào bạn là người đầu tiên</p>
+                </c:if>
 
                 <div class="your-review">
-                    <form action="#">
+                    <form action="add-review" method="post" id="review-form">
+                        <input type="hidden" name="productId" value="${p.id}">
+
                         <h2>HÃY VIẾT ĐÁNH GIÁ CỦA BẠN</h2>
                         <div class="your-rate">
                             <span>Đánh giá của bạn: </span>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
+                            <input type="hidden" name="rating" value="5" id="rating-input">
+
+                            <div class="star-selection">
+                                <i class="fa-regular fa-star star-item" data-value="1"></i>
+                                <i class="fa-regular fa-star star-item" data-value="2"></i>
+                                <i class="fa-regular fa-star star-item" data-value="3"></i>
+                                <i class="fa-regular fa-star star-item" data-value="4"></i>
+                                <i class="fa-regular fa-star star-item" data-value="5"></i>
+                            </div>
                         </div>
-                        <textarea name="your-write" id="your-write" placeholder="Hãy nhập đánh giá của bạn..."></textarea>
-                        <button type="submit" class="bt-submit-review">Gửi</button>
+                        <textarea name="comment" id="your-write"
+                                  placeholder="Hãy nhập đánh giá của bạn..."></textarea>
+
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.user}">
+                                <button type="submit" class="bt-submit-review">Gửi</button>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login.jsp" class="bt-submit-review">Đăng nhập để đánh giá</a>
+                            </c:otherwise>
+                        </c:choose>
                     </form>
                 </div>
             </div>
@@ -202,13 +216,13 @@
         document.querySelectorAll('.tag-display').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        if(button) button.classList.add('active');
+        if (button) button.classList.add('active');
     }
 
     function changeMainImage(src, btn) {
         document.getElementById('main-image-display').src = src;
         document.querySelectorAll('.img-select button').forEach(b => b.classList.remove('selected'));
-        if(btn) btn.classList.add('selected');
+        if (btn) btn.classList.add('selected');
     }
 
     function updateQty(val) {
@@ -221,6 +235,34 @@
             input.value = newVal;
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star-item');
+        const ratingInput = document.getElementById('rating-input');
+
+        function highlightStar(count){
+            stars.forEach(star => {
+               const value = parseInt(star.getAttribute('data-value'))
+               if(value <= count) {
+                   star.classList.remove('fa-regular');
+                   star.classList.add('fa-solid');
+               } else {
+                   star.classList.remove('fa-solid');
+                   star.classList.add('fa-regular');
+               }
+            });
+        }
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+                if (ratingInput) {
+                    ratingInput.value = value;
+                }
+                highlightStar(value);
+            });
+        });
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
