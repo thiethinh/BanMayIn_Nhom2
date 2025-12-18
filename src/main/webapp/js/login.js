@@ -29,7 +29,6 @@ function register() {
 export function initializeLogin() {
     const loginTrigger = document.getElementById('login-trigger');
     const registerTrigger = document.getElementById('register-trigger');
-    const loginSubmitButton = document.querySelector('#login .submit');
 
     if (!loginTrigger || !registerTrigger) {
         return;
@@ -44,12 +43,4 @@ export function initializeLogin() {
         e.preventDefault();
         register();
     });
-
-    if (loginSubmitButton) {
-        loginSubmitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.setItem('loggedIn', 'true');
-            window.location.href = 'home.html';
-        });
-    }
 }
