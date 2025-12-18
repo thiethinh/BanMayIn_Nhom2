@@ -50,12 +50,22 @@
             <div class="block-rate-product">
                 <h3 id="type-tag">${p.type}</h3>
                 <div class="rate">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                    <span><a href="#review" onclick="showTab('review', document.querySelectorAll('.tag-btn')[2])">(${countReview} đánh giá)</a></span>
+                    <c:forEach begin="1" end="5" var="i">
+                        <c:choose>
+                            <c:when test="${p.avgRating >= i}">
+                                <i class="fa-solid fa-star"></i>
+                            </c:when>
+                            <c:when test="${p.avgRating >= i-0.5}">
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </c:when>
+                            <c:otherwise>
+                                <i class="fa-regular fa-star"></i>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <span><a href="#review"
+                             onclick="showTab('review', document.querySelectorAll('.tag-btn')[2])">(${countReview} đánh giá)</a></span>
                 </div>
             </div>
 
@@ -240,16 +250,16 @@
         const stars = document.querySelectorAll('.star-item');
         const ratingInput = document.getElementById('rating-input');
 
-        function highlightStar(count){
+        function highlightStar(count) {
             stars.forEach(star => {
-               const value = parseInt(star.getAttribute('data-value'))
-               if(value <= count) {
-                   star.classList.remove('fa-regular');
-                   star.classList.add('fa-solid');
-               } else {
-                   star.classList.remove('fa-solid');
-                   star.classList.add('fa-regular');
-               }
+                const value = parseInt(star.getAttribute('data-value'))
+                if (value <= count) {
+                    star.classList.remove('fa-regular');
+                    star.classList.add('fa-solid');
+                } else {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                }
             });
         }
 

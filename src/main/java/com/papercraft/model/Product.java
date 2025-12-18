@@ -1,10 +1,11 @@
 package com.papercraft.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
-public class Product {
+public class Product implements Serializable {
     private int id;
     private int categoryId;
     private String productName;
@@ -21,8 +22,10 @@ public class Product {
     private String type;
     private String thumbnail;
     private List<String> imageList;
+    private double avgRating;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(int id, int categoryId, String productName, String descriptionThumbnail, String productDescription, String productDetail, String brand, double price, double originPrice, double discount, int stockQuantity, Timestamp createdAt) {
         this.id = id;
@@ -135,18 +138,37 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public String getThumbnail() { return thumbnail; }
-    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public List<String> getImageList() {
         return imageList;
     }
+
     public void setImageList(List<String> imageList) {
         this.imageList = imageList;
     }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
+    }
 
     @Override
     public String toString() {

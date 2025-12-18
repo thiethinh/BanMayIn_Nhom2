@@ -43,7 +43,7 @@ public class ReviewServlet extends HttpServlet {
             response.sendRedirect("product-detail?productId=" + productId + "#review");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("home");
         }
     }
 }
