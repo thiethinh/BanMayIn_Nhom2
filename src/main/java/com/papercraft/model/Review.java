@@ -11,7 +11,10 @@ public class Review implements Serializable {
     public String comment;
     public Timestamp createdAt;
 
-    public Review() {}
+    private String authorName;
+
+    public Review() {
+    }
 
     public Review(Integer id, Integer userId, Integer productId, Integer rating, String comment, Timestamp createdAt) {
         this.id = id;
@@ -21,6 +24,7 @@ public class Review implements Serializable {
         this.comment = comment;
         this.createdAt = createdAt;
     }
+
 
     public Integer getId() {
         return id;
@@ -70,5 +74,12 @@ public class Review implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
 }

@@ -1,35 +1,3 @@
-// Xử lý trạng thái đăng nhập của trang
-function logOut(button) {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('loggedIn');
-        window.location.href = 'home.html';
-    });
-}
-
-function changeHeaderWherLoggedIn() {
-    const userActionDiv = document.querySelector('.user-action');
-    const loginBtn = document.getElementById('nav-login');
-
-    if (!userActionDiv || !loginBtn) return;
-
-    loginBtn.remove();
-
-    const accountLink = document.createElement('a');
-    accountLink.href = 'account.html';
-    accountLink.className = 'user-profile-btn';
-    accountLink.innerHTML = '<i class="fa-solid fa-user"></i>';
-
-    userActionDiv.appendChild(accountLink);
-}
-
-function checkLoginStatus() {
-    const loggedIn = localStorage.getItem('loggedIn');
-    if (loggedIn === 'true') {
-        changeHeaderWherLoggedIn();
-    }
-}
-
 // --- HÀM CHÍNH ---
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -45,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentPage = window.location.pathname.split('/').pop() || 'home.html';
     const navMap = {
-        'home.html': 'nav-home',
-        'login.html': 'nav-login',
-        'blog.html': 'nav-blog',
-        'contact.html': 'nav-contact',
-        'printer.html': 'nav-printer',
-        'stationery.html': 'nav-stationery'
+        'home': 'nav-home',
+        'login.jsp': 'nav-login',
+        'blog.jsp': 'nav-blog',
+        'contact.jsp': 'nav-contact',
+        'printer.jsp': 'nav-printer',
+        'stationery.jsp': 'nav-stationery'
     };
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.classList.remove('active-menu');
@@ -61,12 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeLink) {
             activeLink.classList.add('active-menu');
         }
-    }
-
-    checkLoginStatus();
-    const accountLogoutBtn = document.getElementById('account-logout');
-    if (accountLogoutBtn) {
-        logOut(accountLogoutBtn);
     }
 
     if (document.querySelector('.hero-slider.swiper')) {

@@ -6,30 +6,46 @@ import com.papercraft.model.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Category_DAO {
-    public List<Category> selectAllCategoryName(String type) {
-        List<Category> list = new ArrayList<>();
-        String sql = """
-                SELECT category_name FROM category
-                WHERE type =?
-                """;
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
-            ps.setString(1, type);
-            try (ResultSet rs = ps.executeQuery()) {
-                List<String> categories = new ArrayList<>();
-                while (rs.next()) {
-                    categories.add(rs.getString("category_name"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+     // Lấy danh sách tất cả các danh mục từ cơ sở dữ liệu.
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+
+
+        String sql = "SELECT id, category_name, type FROM category";
+
+
+        try (
+                Connection conn = DBConnect.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+        ) {
+
+            while (rs.next()) {
+                Category category = new Category();
+
+
+                category.setId(rs.getInt("id"));
+                category.setCategoryName(rs.getString("category_name"));
+                category.setType(rs.getString("type"));
+
+                categories.add(category);
             }
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
+
+            System.err.println("SQL Error in getAllCategories: " + e.getMessage());
             e.printStackTrace();
+            throw new RuntimeException("Database error occurred while fetching all categories.", e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return list;
+
+        return categories;
     }
 }
