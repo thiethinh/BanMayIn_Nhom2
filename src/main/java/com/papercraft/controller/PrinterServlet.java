@@ -14,8 +14,8 @@ public class PrinterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product_DAO dao = new Product_DAO();
-        List<Product>  products = dao.getAllProducts("Printer");
-        request.setAttribute("products",products);
+        List<Product>  printers = dao.getAllProducts("Printer");
+        request.setAttribute("printers",printers);
         request.getRequestDispatcher("printer.jsp").forward(request, response);
     }
 

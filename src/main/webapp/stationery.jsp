@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,27 +69,32 @@
 
             <div class="product-container">
 
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/giấy a4.webp" alt="img">
-                    </div>
-                    <p class="name-product">Giấy in A4 Double A 70gsm</p>
-                    <ul>
-                        <li>Giấy dày, cho phép in 2 mặt mà không bị lem</li>
-                        <li>Độ trắng rất cao</li>
-                        <li>Số lượng 500 tờ/ream</li>
-                    </ul>
-                    <p class="price">120.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
+                <c:forEach items="${stationery} " var="s">
+                    <div class="card-product">
+                        <div class="product-image">
+                            <img src="${s.thumbnail}" alt="${s.productName}">
                         </div>
-                        <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
-                            <button class="bt-detail">Xem</button>
-                        </a>
+                        <p class="name-product">{s.productName}</p>
+                        <ul>
+                            <c:forEach items="${fn:split(s.descriptionThumbnail,'#')}" var="description">
+                                <li>description</li>
+                            </c:forEach>
+                        </ul>
+                        <p class="price">${p.price} VNĐ</p>
+                        <div class="action">
+                            <div class="add-cart">
+                                <span><i class='bx bx-cart'></i></span>
+                                <p>Thêm Vào Giỏ</p>
+                            </div>
+                            <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-detail?id=${p.id}">
+                                <button class="bt-detail">Xem </button>
+                            </a>
+                        </div>
                     </div>
-                </div>
+
+                </c:forEach>
+
+
 
                 <div class="card-product">
                     <div class="product-image">
@@ -110,171 +118,9 @@
                     </div>
                 </div>
 
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Giấy in A3 IK Plus 70gsm.webp" alt="img">
-                    </div>
-                    <p class="name-product">Giấy in A3 IK Plus (Indonesia), Định lượng 70 gsm</p>
-                    <ul>
-                        <li>Tốt, phổ thông</li>
-                        <li>Độ trắng và độ mịn tốt</li>
-                        <li>Số lượng 500 tờ/ream</li>
-                    </ul>
-                    <p class="price">160.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Sổ lò xo Klong B5.webp" alt="img">
-                    </div>
-                    <p class="name-product">Sổ gáy lò xo Klong khổ B5</p>
-                    <ul>
-                        <li>Rất cao cấp, giấy dày</li>
-                        <li>Viết êm, không lem, không thấm mực</li>
-                        <li>1 quyển 200 trang</li>
-                    </ul>
-                    <p class="price">60.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Vở Campus B5 (Kẻ ngang).webp" alt="img">
-                    </div>
-                    <p class="name-product">Vở học sinh/sinh viên Campus (Kokuyo Việt Nam) khổ B5</p>
-                    <ul>
-                        <li>Phổ biến nhất trong trường học</li>
-                        <li>Viết êm, trắng sáng, không bị nhòe</li>
-                        <li>1 quyển 200 trang</li>
-                    </ul>
-                    <p class="price">30.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Sổ bìa da PU A5 (Khóa nam châm).webp" alt="img">
-                    </div>
-                    <p class="name-product">Sổ tay bìa da PU cao cấp khổ A5, loại có khóa cài nam châm</p>
-                    <ul>
-                        <li>Tốt, kiểu dáng lịch sự, chuyên nghiệp</li>
-                        <li>Độ trắng và độ mịn tốt</li>
-                        <li>1 quyển 300 trang</li>
-                    </ul>
-                    <p class="price">150.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Bút gel Pentel EnerGel BLN105 (Nét 0.5mm).webp" alt="img">
-                    </div>
-                    <p class="name-product">Bút gel Pentel EnerGel BLN105 (hoặc BLN75/BLN77)</p>
-                    <ul>
-                        <li>Mực khô cực nhanh, không bị nhòe</li>
-                        <li>Màu mực rất rực rỡ và đậm</li>
-                        <li>Số lượng: 12 cây/hộp.</li>
-                    </ul>
-                    <p class="price">280.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Bút dạ quang Stabilo BOSS Original.webp" alt="img">
-                    </div>
-                    <p class="name-product">Bút đánh dấu (highlight) Stabilo BOSS Original</p>
-                    <ul>
-                        <li>Mở nắp 4 tiếng không bị khô mực</li>
-                        <li>Rất tươi, không làm mờ chữ.</li>
-                        <li>Vỉ 6 màu </li>
-                    </ul>
-                    <p class="price">150.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Bút dạ quang Stabilo BOSS Original.webp" alt="img">
-                    </div>
-                    <p class="name-product">Bút đánh dấu (highlight) Stabilo BOSS Original</p>
-                    <ul>
-                        <li>Mở nắp 4 tiếng không bị khô mực</li>
-                        <li>Rất tươi, không làm mờ chữ.</li>
-                        <li>Vỉ 6 màu </li>
-                    </ul>
-                    <p class="price">150.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
             </div>
-
             <div class="pagination"></div>
-
         </div>
-
     </div>
 
     <jsp:include page="includes/footer.jsp"/>

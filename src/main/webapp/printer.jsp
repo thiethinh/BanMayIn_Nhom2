@@ -1,4 +1,11 @@
+<%@ page import="com.papercraft.model.Product" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html lang="vn">
 
@@ -16,7 +23,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css">
 </head>
 
-<body>
+<body
     <jsp:include page="includes/header.jsp"/>
 
     <div class="container">
@@ -64,209 +71,29 @@
 
             </div>
             <div class="product-container">
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Epson-L6270.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy In Phun Màu Đa Năng Epson_L6270</p>
-                    <ul>
-                        <li>Tính năng: Đa chức năng Print, Scan, Copy</li>
-                        <li>Tốc độ/Khổ giấy: 33 trang/phút. A4, B5, A5, A6</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">8.500.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
+                <c:forEach items="${printers}" var="p">
+                    <div class="card-product">
+                        <div class="product-image">
+                            <img src="${p.thumbnail}" alt="${p.productName}" loading="lazy">
                         </div>
-                        <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Copystar 300ix.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng laser đơn sắc Copystar CS 300ix</p>
-                    <ul>
-                        <li>Tốc độ 30 trang/phút</li>
-                        <li>In 2 mặt tự động</li>
-                        <li>Bảo hành 3 năm</li>
-                    </ul>
-                    <p class="price">12.000.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
+                        <p class="name-product">${p.productName}</p>
+                        <ul>
+                            <c:forEach items="${fn:split(p.descriptionThumbnails,'#')}" var="description">
+                                <li>description</li>
+                            </c:forEach>
+                        </ul>
+                        <p class="price">${p.price} VNĐ</p>
+                        <div class="action">
+                            <div class="add-cart">
+                                <span><i class='bx bx-cart'></i></span>
+                                <p>Thêm Vào Giỏ</p>
+                            </div>
+                            <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-detail?id=${p.id}">
+                                <button class="bt-detail">Xem</button>
+                            </a>
                         </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
                     </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng HP MFP 135w Printer 4ZB83A.webp " alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng HP MFP 135w Printer 4ZB83A</p>
-                    <ul>
-                        <li>Lên đến 20 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.500.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng HP Neverstop Laser MFP 4RY26A.webp" alt="img"
-                            loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng HP Neverstop Laser MFP 4RY26A</p>
-                    <ul>
-                        <li>Lên đến 20 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">4.900.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in phun màu HP Ink Tank 315 Z4B04A.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in phun màu HP Ink Tank 315 Z4B04A</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>In phun màu</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.500.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in laser Canon LBP 2900.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in laser Canon LASER SHOT LBP 2900</p>
-                    <ul>
-                        <li>Tốc độ 12 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">4.000.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng Canon E410.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in phun màu đa chức năng Canon PIXMA E410</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>Bản mới nhất</li>
-                        <li>Bảo hành 1 năm</li>
-                    </ul>
-                    <p class="price">1.600.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in laser HP 107a (4ZB77A).webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in laser đơn sắc đen trắng HP 107a (4ZB77A)</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 1 năm</li>
-                    </ul>
-                    <p class="price">1.300.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <sapn class="hot-show">Mới</sapn>
-                    <div class="product-image">
-                        <img src="images/HP LaserJet M209DW Wireless Compact Mono Laser Jet Printer.webp" alt="img"
-                            loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in Laser Đơn sắc Không dây HP LaserJet M209DW</p>
-                    <ul>
-                        <li>Tốc độ 30 trang/phút</li>
-                        <li>In 2 mặt tự động</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.999.999 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
+                </c:forEach>
 
             </div>
         </div>

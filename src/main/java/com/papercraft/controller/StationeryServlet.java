@@ -14,8 +14,8 @@ public class StationeryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product_DAO dao = new Product_DAO();
-        List<Product> products = dao.getAllProducts("Stationery");
-        request.setAttribute("products",products);
+        List<Product> stationery = dao.getAllProducts("Stationery");
+        request.setAttribute("stationery",stationery);
         request.getRequestDispatcher("stationery.jsp").forward(request, response);
     }
 
