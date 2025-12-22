@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "StationeryServlet", value = "/stationery")
@@ -15,8 +16,13 @@ public class StationeryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Product_DAO dao = new Product_DAO();
         List<Product> stationery = dao.getAllProducts("Stationery");
+        if(stationery ==null){
+            System.out.println("List null");
+            stationery = new ArrayList<>();
+        }
+
         request.setAttribute("stationery",stationery);
-        request.getRequestDispatcher("stationery.jsp").forward(request, response);
+        request.getRequestDispatcher("/stationery.jsp").forward(request, response);
     }
 
     @Override

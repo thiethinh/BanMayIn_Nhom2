@@ -14,8 +14,8 @@
         <div class="footer-col">
             <h4 class="footer-heading">Sản Phẩm</h4>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/printer.jsp">Máy In</a></li>
-                <li><a href="${pageContext.request.contextPath}/stationery.jsp">Văn Phòng Phẩm</a></li>
+                <li><a href="${pageContext.request.contextPath}/printer">Máy In</a></li>
+                <li><a href="${pageContext.request.contextPath}/stationery">Văn Phòng Phẩm</a></li>
             </ul>
         </div>
 

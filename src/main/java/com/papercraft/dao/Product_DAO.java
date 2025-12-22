@@ -8,23 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product_DAO {
-    private static final String ROOT_PATH ="/images/upload";
+    private static final String ROOT_PATH ="images/upload/";
 
     // get all product just for present product card in main page
     public List<Product> getAllProducts(String type) {
         List<Product> list = new ArrayList<>();
         String sql = """
-            SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.image_name
-            FROM product p 
-            JOIN category c ON p.category_id = c.id
-            JOIN image i ON p.id = i.entiry_id
-            WHERE c.type=? AND i.is_thumbnail =1
-            """;
+                    SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.img_name
+                    FROM product p
+                    JOIN category c ON p.category_id = c.id
+                    JOIN image i ON p.id = i.entity_id
+                    WHERE c.type=? AND i.is_thumbnail =1;
+                """;
 
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1,type);
             try (ResultSet rs = ps.executeQuery()) {
-
                 while (rs.next()) {
                     Product p = new Product();
                     // Gán
@@ -70,7 +70,7 @@ public class Product_DAO {
         List<Product> list = new ArrayList<>();
 
         String sql = """
-                     SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.image_name
+                     SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.img_name
                     FROM product p
                     JOIN category c ON p.category_id = c.id
                     LEFT JOIN image i ON i.entity_id = p.id

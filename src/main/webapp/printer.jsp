@@ -48,10 +48,9 @@
 
                     <div class="option-value">
                         <div class="option-item title-dropdown" data-value="Tất Cả Danh Mục">Tất Cả Danh Mục</div>
-                        <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
-                        <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
-                        <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
-                        <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
+                        <c:forEach items="${categories}" var="category">
+                            <div class="option-item" data-value="${categories}">${categories}</div>
+                        </c:forEach>
                     </div>
                 </div>
 
@@ -67,19 +66,19 @@
                         <div class="option-item" data-value="Giá: Thấp đến Cao"> Giá: Thấp đến Cao</div>
                     </div>
                 </div>
-
-
             </div>
+
             <div class="product-container">
+
                 <c:forEach items="${printers}" var="p">
                     <div class="card-product">
                         <div class="product-image">
-                            <img src="${p.thumbnail}" alt="${p.productName}" loading="lazy">
+                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" alt="${p.productName}" loading="lazy">
                         </div>
                         <p class="name-product">${p.productName}</p>
                         <ul>
-                            <c:forEach items="${fn:split(p.descriptionThumbnails,'#')}" var="description">
-                                <li>description</li>
+                            <c:forEach items="${fn:split(p.descriptionThumbnail,'#')}" var="description">
+                                <li>${description}</li>
                             </c:forEach>
                         </ul>
                         <p class="price">${p.price} VNĐ</p>

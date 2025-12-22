@@ -4,7 +4,7 @@
     <nav>
         <div class="header-container">
 
-            <a href="${pageContext.request.contextPath}/home.jsp" class="logo">
+            <a href="${pageContext.request.contextPath}/home" class="logo">
                 <img src="${pageContext.request.contextPath}/images/logo.webp" height="80" width="80" />
             </a>
 
@@ -12,8 +12,8 @@
                 <div class="menu-bar">
 
                     <a class="menu" href="${pageContext.request.contextPath}/home" id="nav-home">Trang Chủ</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/printer.jsp" id="nav-printer">Máy In</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/stationery.jsp" id="nav-stationery">Văn Phòng Phẩm</a>
+                    <a class="menu" href="${pageContext.request.contextPath}/printer" id="nav-printer">Máy In</a>
+                    <a class="menu" href="${pageContext.request.contextPath}/stationery" id="nav-stationery">Văn Phòng Phẩm</a>
                     <a class="menu" href="${pageContext.request.contextPath}/blog.jsp" id="nav-blog">Blog</a>
                     <a class="menu" href="${pageContext.request.contextPath}/contact.jsp" id="nav-contact">Liên Hệ</a>
                 </div>
