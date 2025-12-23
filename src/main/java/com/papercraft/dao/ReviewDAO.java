@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Review_DAO {
+public class ReviewDAO {
 
     // Lấy danh sách đanh giá của một sản phẩm
     public List<Review> getReviewsByProductId(int productId) {

@@ -1,6 +1,6 @@
 package com.papercraft.controller;
 
-import com.papercraft.dao.Product_DAO;
+import com.papercraft.dao.ProductDAO;
 import com.papercraft.model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product_DAO dao = new Product_DAO();
+        ProductDAO dao = new ProductDAO();
 
         List<Product> featuredPrinter = dao.getFeaturedProductsByType("Printer");
         List<Product> featuredStationery = dao.getFeaturedProductsByType("Stationery");

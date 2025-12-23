@@ -5,7 +5,7 @@ import com.papercraft.model.Address;
 
 import java.sql.*;
 
-public class Address_DAO {
+public class AddressDAO {
 
 //   insertAddress
     public boolean insertAddress(Address address) {

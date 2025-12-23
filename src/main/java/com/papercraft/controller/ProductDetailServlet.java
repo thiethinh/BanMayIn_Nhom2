@@ -1,7 +1,7 @@
 package com.papercraft.controller;
 
-import com.papercraft.dao.Product_DAO;
-import com.papercraft.dao.Review_DAO;
+import com.papercraft.dao.ProductDAO;
+import com.papercraft.dao.ReviewDAO;
 import com.papercraft.model.Product;
 import com.papercraft.model.Review;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,12 +26,12 @@ public class ProductDetailServlet extends HttpServlet {
             int id = Integer.parseInt(productId);
 
             // Lấy thông tin sản phẩm
-            Product_DAO dao = new Product_DAO();
+            ProductDAO dao = new ProductDAO();
             Product product = dao.getProductById(id);
             List<String> listImages = dao.getAllImageOfProduct(id);
 
             // Lấy đánh giá
-            Review_DAO reviewDao = new Review_DAO();
+            ReviewDAO reviewDao = new ReviewDAO();
             List<Review> reviewList = reviewDao.getReviewsByProductId(id);
 
             double avgRating = 0.0;

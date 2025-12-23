@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product_DAO {
+public class ProductDAO {
     private static final String ROOT_PATH ="images/upload/";
 
     // get all product just for present product card in main page

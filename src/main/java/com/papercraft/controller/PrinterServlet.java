@@ -1,6 +1,8 @@
 package com.papercraft.controller;
 
-import com.papercraft.dao.Product_DAO;
+import com.papercraft.dao.CategoryDAO;
+import com.papercraft.dao.ProductDAO;
+import com.papercraft.model.Category;
 import com.papercraft.model.Product;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -14,17 +16,20 @@ import java.util.List;
 public class PrinterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product_DAO dao = new Product_DAO();
-        List<Product>  printers = dao.getAllProducts("Printer");
+        ProductDAO productDAO = new ProductDAO();
+        List<Product>  printers = productDAO.getAllProducts("Printer");
         if(printers ==null){
             printers = new ArrayList<>();
         }
+        CategoryDAO  categoryDAO = new CategoryDAO();
+        List<Category> categories = categoryDAO.getAllCategories("Printer");
+        if(categories == null){
+            categories = new ArrayList<>();
+        }
+
         request.setAttribute("printers",printers);
+        request.setAttribute("categories",categories);
         request.getRequestDispatcher("/printer.jsp").forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

@@ -31,40 +31,45 @@
             <p>Mọi thứ bạn cần cho môi trường văn phòng hiệu quả</p>
         </div>
 
-        <div class="search-container">
-            <div class="search-box child">
-                <button class="bt-search"><i class='bx bx-search icon'></i></button>
-                <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+        <form action="${pageContext.request.contextPath}/stationery" method="get">
+
+            <div class="search-container">
+                <div class="search-box child">
+                    <button type="submit" class="bt-search"><i class='bx bx-search icon'></i></button>
+                    <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+                </div>
+
+                <input type="hidden" name="category" id="categoryInput">
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value">Tất Cả Danh Mục</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value">
+
+                        <div class="option-item title-dropdown" data-id="0">Tất Cả Danh Mục</div>
+                        <c:forEach items="${categories}" var="category">
+                            <div class="option-item" data-id="${category.id}">${category.categoryName}</div>
+                        </c:forEach>
+                    </div>
+                </div>
+
+                <input type="hidden" name="sort" id="sortInput">
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value">Đánh giá cao nhất</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value">
+                        <div class="option-item title-dropdown" data-value="rating"> Đánh giá cao nhất</div>
+                        <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
+                        <div class="option-item" data-value="priceDesc"> Giá: Cao đến Thấp</div>
+                    </div>
+                </div>
             </div>
-
-            <div class="custom-dropdown child">
-                <div class="select-trigger">
-                    <span class="selected-value">Tất Cả Danh Mục</span>
-                    <span class="arrow">▼</span>
-                </div>
-
-                <div class="option-value">
-
-                    <div class="option-item title-dropdown" data-value="Tất Cả Danh Mục">Tất Cả Danh Mục</div>
-                    <c:forEach items="${categories}" var="category">
-                        <div class="option-item" data-value="${categories}">${categories}</div>
-                    </c:forEach>
-                </div>
-            </div>
-
-            <div class="custom-dropdown child">
-                <div class="select-trigger">
-                    <span class="selected-value">Đánh giá cao nhất</span>
-                    <span class="arrow">▼</span>
-                </div>
-
-                <div class="option-value">
-                    <div class="option-item title-dropdown" data-value="Đánh giá cao nhất"> Đánh giá cao nhất</div>
-                    <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
-                    <div class="option-item" data-value="Giá: Thấp đến Cao"> Giá: Thấp đến Cao</div>
-                </div>
-            </div>
-        </div>
+        </form>
 
         <div class="product-container">
             <c:if test="${not empty stationery}">

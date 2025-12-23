@@ -1,6 +1,6 @@
 package com.papercraft.controller;
 
-import com.papercraft.dao.Review_DAO;
+import com.papercraft.dao.ReviewDAO;
 import com.papercraft.model.Review;
 import com.papercraft.model.User;
 import jakarta.servlet.ServletException;
@@ -37,7 +37,7 @@ public class ReviewServlet extends HttpServlet {
             review.setRating(rating);
             review.setComment(comment);
 
-            Review_DAO dao = new Review_DAO();
+            ReviewDAO dao = new ReviewDAO();
             dao.addReview(review);
 
             response.sendRedirect("product-detail?productId=" + productId + "#review");

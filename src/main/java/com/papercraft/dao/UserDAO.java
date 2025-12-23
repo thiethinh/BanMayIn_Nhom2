@@ -2,7 +2,6 @@ package com.papercraft.dao;
 
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Review;
-import com.papercraft.model.User;
 
 
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User_DAO {
+public class UserDAO {
 
 //getReviewsByProductId
 public List<Review> getReviewsByProductId(int productId) {
