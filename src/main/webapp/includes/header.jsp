@@ -1,19 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header class="main-header">
     <nav>
         <div class="header-container">
 
             <a href="${pageContext.request.contextPath}/home" class="logo">
-                <img src="${pageContext.request.contextPath}/images/logo.webp" height="80" width="80" />
+                <img src="${pageContext.request.contextPath}/images/logo.webp" height="80" width="80"/>
             </a>
 
             <div class="nav-wrapper">
                 <div class="menu-bar">
-
                     <a class="menu" href="${pageContext.request.contextPath}/home" id="nav-home">Trang Chủ</a>
                     <a class="menu" href="${pageContext.request.contextPath}/printer" id="nav-printer">Máy In</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/stationery" id="nav-stationery">Văn Phòng Phẩm</a>
+                    <a class="menu" href="${pageContext.request.contextPath}/stationery" id="nav-stationery">Văn Phòng
+                        Phẩm</a>
                     <a class="menu" href="${pageContext.request.contextPath}/blog.jsp" id="nav-blog">Blog</a>
                     <a class="menu" href="${pageContext.request.contextPath}/contact.jsp" id="nav-contact">Liên Hệ</a>
                 </div>
@@ -21,8 +22,29 @@
 
             <div class="header-right-side">
                 <div class="user-action">
-                    <a href="${pageContext.request.contextPath}/cart.jsp" id="nav-cart" class="fa-solid fa-cart-shopping cart-btn"></a>
-                    <a class="login-btn" href="${pageContext.request.contextPath}/login.jsp" id="nav-login">Đăng Nhập</a>
+                    <a href="${pageContext.request.contextPath}/cart.jsp" id="nav-cart"
+                       class="fa-solid fa-cart-shopping cart-btn"></a>
+
+                    <c:if test="${empty sessionScope.acc}">
+                        <a class="login-btn" href="${pageContext.request.contextPath}/login" id="nav-login">Đăng
+                            Nhập</a>
+                    </c:if>
+
+                    <c:if test="${not empty sessionScope.acc}">
+                        <div class="logged-in-user">
+
+                            <a href="${pageContext.request.contextPath}/account.jsp" class="user-name-link">
+                                <i class="fa-solid fa-circle-user"></i>
+                                <span>Chào, ${sessionScope.acc.lname}</span>
+                            </a>
+
+                            <span class="separator"></span>
+
+                            <a href="${pageContext.request.contextPath}/logout" class="logout-icon-btn" title="Đăng xuất">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        </div>
+                    </c:if>
                 </div>
 
                 <div class="menu-toggle">

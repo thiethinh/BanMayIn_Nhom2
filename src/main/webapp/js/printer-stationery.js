@@ -8,97 +8,111 @@ function initDropDown() {
         const allOptions = container.querySelectorAll(".option-item");
         const arrow = container.querySelector(".arrow");
 
-        //nhấn vào trigger để bật tắt menu
+        // Lấy input ẩn dựa trên attribute data-target đã thêm ở JSP
+        const targetInputId = container.getAttribute("data-target");
+        const hiddenInput = document.getElementById(targetInputId);
+
+        // Toggle menu
         trigger.addEventListener("click", (e) => {
             e.stopPropagation();
+            // Đóng các dropdown khác trước khi mở cái này
+            document.querySelectorAll(".option-value.open").forEach(openedMenu => {
+                if (openedMenu !== menu) openedMenu.classList.remove("open");
+            });
+            document.querySelectorAll(".arrow.open").forEach(openedArrow => {
+                if (openedArrow !== arrow) openedArrow.classList.remove("open");
+            });
+
             const isOpen = menu.classList.toggle("open");
             arrow.classList.toggle("open", isOpen);
         });
 
-        //nhấn vào option để đổi giá trị (trừ option đầu tiên)
-        allOptions.forEach((option, index) => {
+        // Xử lý chọn option
+        allOptions.forEach((option) => {
             option.addEventListener("click", () => {
                 const newValue = option.getAttribute("data-value");
-                selectedValueEl.textContent = newValue;
+                const newText = option.textContent;
 
+                // 1. Cập nhật giao diện text
+                selectedValueEl.textContent = newText;
+
+                // 2. Highlight option được chọn
                 allOptions.forEach(item => item.classList.remove("selected"));
                 option.classList.add("selected");
 
+                // 3. QUAN TRỌNG: Cập nhật giá trị vào thẻ input hidden để gửi về server
+                if (hiddenInput) {
+                    hiddenInput.value = newValue;
+                    console.log(`Updated ${targetInputId} to: ${newValue}`); // Debug
+                }
+
+                // 4. Đóng menu
                 menu.classList.remove("open");
                 arrow.classList.remove("open");
             });
         });
 
-        //chuột rời hover khỏi menu thì đóng dropdown
         menu.addEventListener("mouseleave", () => {
             menu.classList.remove("open");
             arrow.classList.remove("open");
         });
     });
 
-    //click ra ngoài để đóng tất cả dropdown
+    // Click outside closing logic
     window.addEventListener("click", () => {
         document.querySelectorAll(".option-value.open").forEach(menu => menu.classList.remove("open"));
         document.querySelectorAll(".arrow.open").forEach(arrow => arrow.classList.remove("open"));
     });
 }
 
-
-
 function initPagination() {
     const paginationContainer = document.querySelector('.pagination');
-    // không tìm thấy div pagination hoặc không có sản phẩm nào thì dừng lại
-    if (!paginationContainer || document.querySelectorAll('.card-product').length === 0) {
+    const productSelector = '.product-card';
+    const allProducts = Array.from(document.querySelectorAll(productSelector));
+
+    if (!paginationContainer || allProducts.length === 0) {
+        if(paginationContainer) paginationContainer.style.display = 'none';
         return;
     }
 
-    // CÀI ĐẶT
     const productsPerPage = 8;
     let currentPage = 1;
-    const allProducts = Array.from(document.querySelectorAll('.card-product'));
-
-    // Tính tổng số trang làm tròn lên
     const totalPages = Math.ceil(allProducts.length / productsPerPage);
 
-    // Nếu chỉ 1 trang ẩn luôn pagination cho gọn
     if (totalPages <= 1) {
         paginationContainer.style.display = 'none';
-        // Đảm bảo tất cả sản phẩm đều hiển thị
-        allProducts.forEach(product => product.style.display = 'block');
+        allProducts.forEach(product => product.style.display = 'flex');
         return;
     } else {
-        // Nếu trước đó bị ẩn thì hiện lại
         paginationContainer.style.display = 'flex';
     }
 
-    // hàm hiển thị sản phẩm đúng theo số trang
     function showPage(page) {
         const startIndex = (page - 1) * productsPerPage;
         const endIndex = startIndex + productsPerPage;
 
         allProducts.forEach((product, index) => {
             if (index >= startIndex && index < endIndex) {
-                product.style.display = 'block'; // Hiển thị sản phẩm trong trang này
+                product.style.display = 'flex';
             } else {
-                product.style.display = 'none';  // Ẩn các sản phẩm khác
+                product.style.display = 'none';
             }
         });
     }
 
-    // Hàm khởi tạo giao diện theo số lượng trang và vị trí trang hiện tại
     function createPagination(totalPages, currentPage) {
         paginationContainer.innerHTML = '';
 
-        // nút previous
+        // Nút Prev
         const prevLink = document.createElement('a');
         prevLink.href = '#';
-        prevLink.innerText = 'Trước';
+        prevLink.innerHTML = "<i class='bx bx-chevron-left'></i>"; // Thêm icon cho đẹp
         prevLink.classList.add('page-link', 'prev');
         if (currentPage === 1) prevLink.classList.add('disabled');
         prevLink.dataset.page = currentPage - 1;
         paginationContainer.appendChild(prevLink);
 
-        // tạo số trang
+        // Các số trang
         for (let i = 1; i <= totalPages; i++) {
             const pageLink = document.createElement('a');
             pageLink.href = '#';
@@ -109,37 +123,41 @@ function initPagination() {
             paginationContainer.appendChild(pageLink);
         }
 
-        // tạo nút next
+        // Nút Next
         const nextLink = document.createElement('a');
         nextLink.href = '#';
-        nextLink.innerText = 'Sau';
+        nextLink.innerHTML = "<i class='bx bx-chevron-right'></i>";
         nextLink.classList.add('page-link', 'next');
         if (currentPage === totalPages) nextLink.classList.add('disabled');
         nextLink.dataset.page = currentPage + 1;
         paginationContainer.appendChild(nextLink);
     }
 
-    // khi click
     paginationContainer.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = e.target;
+        const target = e.target.closest('.page-link');
 
-        // Kiểm tra nếu click vào nút hợp lệ và không bị disabled
-        if (target.classList.contains('page-link') && !target.classList.contains('disabled')) {
+        if (target && !target.classList.contains('disabled')) {
             const newPage = parseInt(target.dataset.page);
             if (newPage && newPage !== currentPage) {
                 currentPage = newPage;
-                // Cập nhật giao diện
                 createPagination(totalPages, currentPage);
                 showPage(currentPage);
 
+                document.querySelector('.product-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
     });
 
-    // --- KHỞI TẠO LẦN ĐẦU ---
     createPagination(totalPages, currentPage);
-    showPage(currentPage); // Hiển thị trang 1 ngay lúc đầu
+    showPage(currentPage);
+}
+
+// Thêm hàm addToCart dummy để không bị lỗi console
+window.addToCart = function(id) {
+    console.log("Add to cart product id: " + id);
+    // Logic gọi API hoặc thêm vào localstorage ở đây
+    alert("Đã thêm sản phẩm " + id + " vào giỏ hàng!");
 }
 
 export function initilizePrinterStationery() {

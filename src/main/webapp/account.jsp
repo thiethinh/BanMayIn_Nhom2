@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/home.jsp" id="account-logout" class="logout-link">
+                            <a href="${pageContext.request.contextPath}/logout" id="account-logout" class="logout-link">
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Đăng xuất
                             </a>

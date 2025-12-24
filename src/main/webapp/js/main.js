@@ -1,7 +1,7 @@
 // --- HÀM CHÍNH ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Khởi tạo Menu Mobile (Giữ nguyên)
+    // Khởi tạo Menu Mobile
     const menuToggle = document.querySelector('.menu-toggle');
     const navWrapper = document.querySelector('.nav-wrapper');
     if (menuToggle && navWrapper) {
@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPage = window.location.pathname.split('/').pop() || 'home.html';
     const navMap = {
         'home': 'nav-home',
-        'login.jsp': 'nav-login',
+        'login': 'nav-login',
         'blog.jsp': 'nav-blog',
         'contact.jsp': 'nav-contact',
-        'printer.jsp': 'nav-printer',
-        'stationery.jsp': 'nav-stationery'
+        'printer': 'nav-printer',
+        'stationery': 'nav-stationery'
     };
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.classList.remove('active-menu');
