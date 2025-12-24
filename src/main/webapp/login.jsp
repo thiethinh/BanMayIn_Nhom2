@@ -28,11 +28,11 @@
 
             <form action="login" method="post" class="two-forms">
                 <c:if test="${not empty msg}">
-                    <p style="color: green; text-align: center; margin-bottom: 10px;">${msg}</p>
+                    <p style="color: red; text-align: center; margin-bottom: 10px;">${msg}</p>
                 </c:if>
 
                 <div class="input-box">
-                    <input type="text" name="email" class="input-field" placeholder="Email" required>
+                    <input type="text" name="email" class="input-field" placeholder="Email" required value="${email}">
                     <i class="bx bx-user"></i>
                 </div>
 
@@ -43,7 +43,7 @@
 
                 <div class="two-col">
                     <div class="one">
-                        <input type="checkbox" id="login-check">
+                        <input type="checkbox" name="remember" id="login-check">
                         <label for="login-check">Ghi nhớ mật khẩu</label>
                     </div>
 

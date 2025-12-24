@@ -104,7 +104,7 @@
         </div>
 
         <div class="view-all-btn-container">
-            <a href="${pageContext.request.contextPath}/printer.jsp" class="btn view-all-btn">Xem Tất Cả</a>
+            <a href="${pageContext.request.contextPath}/printer" class="btn view-all-btn">Xem Tất Cả</a>
         </div>
 
     </div>
@@ -161,7 +161,7 @@
         </div>
 
         <div class="view-all-btn-container">
-            <a href="${pageContext.request.contextPath}/stationery.jsp" class="btn view-all-btn">Xem Tất Cả</a>
+            <a href="${pageContext.request.contextPath}/stationery" class="btn view-all-btn">Xem Tất Cả</a>
         </div>
 
     </div>

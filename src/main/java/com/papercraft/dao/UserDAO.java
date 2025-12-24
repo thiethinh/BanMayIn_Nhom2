@@ -16,9 +16,9 @@ public class UserDAO {
     public List<Review> getReviewsByProductId(int productId) {
         List<Review> reviews = new ArrayList<>();
 
-        String sql = "SELECT r.*, u.full_name " +
+        String sql = "SELECT r.*, u.fullname " +
                 "FROM review r " +
-                "JOIN user u ON r.user_id = u.id " +
+                "JOIN users u ON r.user_id = u.id " +
                 "WHERE r.product_id = ? " +
                 "ORDER BY r.created_at DESC";
 
@@ -50,7 +50,7 @@ public class UserDAO {
     }
 
     public boolean checkEmailExists(String email) {
-        String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -66,7 +66,7 @@ public class UserDAO {
     }
 
     public void signup(User user) {
-        String sql = "INSERT INTO user (fname, lname, email, phone_number, gender, password, role) VALUES (?, ?, ?, ?, ?, ?, 0)";
+        String sql = "INSERT INTO users (fname, lname, email, phone_number, gender, password_hash, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -76,9 +76,37 @@ public class UserDAO {
             ps.setString(4, user.getPhoneNumber());
             ps.setString(5, user.getGender());
             ps.setString(6, user.getPasswordHash());
+            ps.setString(7, "user");
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public User login(String email, String passwordHash) {
+        String sql = "SELECT * FROM users WHERE email = ? AND password_hash = ?";
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, email);
+            ps.setString(2, passwordHash);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setFname(rs.getString("fname"));
+                user.setLname(rs.getString("lname"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNumber(rs.getString("phone_number"));
+                user.setGender(rs.getString("gender"));
+                user.setRole(rs.getString("role"));
+
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -204,7 +204,7 @@
                                   placeholder="Hãy nhập đánh giá của bạn..."></textarea>
 
                         <c:choose>
-                            <c:when test="${not empty sessionScope.user}">
+                            <c:when test="${not empty sessionScope.acc}">
                                 <button type="submit" class="bt-submit-review">Gửi</button>
                             </c:when>
                             <c:otherwise>

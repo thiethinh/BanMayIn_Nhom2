@@ -1,7 +1,7 @@
 // --- HÀM CHÍNH ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Khởi tạo Menu Mobile (Giữ nguyên)
+    // Khởi tạo Menu Mobile
     const menuToggle = document.querySelector('.menu-toggle');
     const navWrapper = document.querySelector('.nav-wrapper');
     if (menuToggle && navWrapper) {
