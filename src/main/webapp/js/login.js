@@ -43,4 +43,9 @@ export function initializeLogin() {
         e.preventDefault();
         register();
     });
+
+    const activeTab = document.getElementById('data-active-tab');
+    if (activeTab === 'register') {
+        register();
+    }
 }

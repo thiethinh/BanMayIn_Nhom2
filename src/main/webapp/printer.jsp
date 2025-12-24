@@ -78,32 +78,54 @@
         <div class="product-container">
 
             <c:forEach items="${printers}" var="p">
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="${pageContext.request.contextPath}/${p.thumbnail}" alt="${p.productName}"
-                             loading="lazy">
-                    </div>
-                    <p class="name-product">${p.productName}</p>
-                    <ul>
-                        <c:forEach items="${fn:split(p.descriptionThumbnail,'#')}" var="description">
-                            <li>${description}</li>
-                        </c:forEach>
+                <div class="product-card swiper-slide">
+
+                    <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                       class="product-image-placeholder">
+                        <c:if test="${p.discount > 0}">
+                    <span class="badge-discount">
+                        -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+                    </span>
+                        </c:if>
+                        <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
+                             loading="lazy" alt="${p.productName}"/>
+                    </a>
+
+                    <h3 class="product-name">
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           style="text-decoration: none; color: inherit;">
+                                ${p.productName}
+                        </a>
+                    </h3>
+
+                    <ul class="product-details">
+                        <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                            <li>${feature.trim()}</li>
+                        </c:forTokens>
                     </ul>
-                    <p class="price">${p.price} VNĐ</p>
+
+                    <p class="product-price">
+                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ"
+                                          maxFractionDigits="0"/>
+                    </p>
+
                     <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
+                        <div class="add-cart" onclick="addToCart(${p.id})"><span><i class='bx bx-cart'></i></span>
                             <p>Thêm Vào Giỏ</p>
                         </div>
-                        <a style="text-decoration: none;"
-                           href="${pageContext.request.contextPath}/product-detail?id=${p.id}">
+
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           style="text-decoration: none;">
                             <button class="bt-detail">Xem</button>
                         </a>
                     </div>
                 </div>
-            </c:forEach>
 
+            </c:forEach>
         </div>
+
+        <div class="swiper-pagination"></div>
+
     </div>
 
     <div class="pagination"></div>
