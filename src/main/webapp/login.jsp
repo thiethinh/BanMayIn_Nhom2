@@ -104,6 +104,7 @@
                         <option value="" disabled selected>Giới tính</option>
                         <option value="male">Nam</option>
                         <option value="female">Nữ</option>
+                        <option value="other">Khác</option>
                     </select>
                     <i class="bx bx-user-check"></i>
                 </div>
