@@ -66,6 +66,11 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("tempUser", newUser);
                 session.setMaxInactiveInterval(300);
 
+                String redirectUrl = request.getParameter("redirect");
+                if(redirectUrl != null && !redirectUrl.isEmpty()){
+                    session.setAttribute("redirectAfterRegister", redirectUrl);
+                }
+
                 request.setAttribute("showVerifyModal", true);
                 request.setAttribute("activeTab", "register");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

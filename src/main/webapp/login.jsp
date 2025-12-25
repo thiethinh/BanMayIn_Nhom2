@@ -31,8 +31,10 @@
                     <p style="color: red; text-align: center; margin-bottom: 10px;">${msg}</p>
                 </c:if>
 
+                <input type="hidden" name="redirect" value="${param.redirect}">
+
                 <div class="input-box">
-                    <input type="text" name="email" class="input-field" placeholder="Email" required value="${email}">
+                    <input type="email" name="email" class="input-field" placeholder="Email" required value="${email}">
                     <i class="bx bx-user"></i>
                 </div>
 
@@ -72,6 +74,8 @@
                 <c:if test="${not empty errorRegister}">
                     <p style="color: red; text-align: center; margin-bottom: 5px;">${errorRegister}</p>
                 </c:if>
+
+                <input type="hidden" name="redirect" value="${param.redirect}">
 
                 <div class="two-row">
                     <div class="input-box">
