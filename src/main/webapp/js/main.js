@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // IMPORT MODULE
     if (document.querySelector('.hero-slider.swiper')) {
         import('./swiper.js')
             .then(module => {
@@ -64,5 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(module => {
                 module.initilizePrinterStationery();
             })
+    }
+
+    if (document.getElementById('review-form')) {
+        import('./review.js').then(module => {
+            module.initializeReview();
+        });
     }
 });

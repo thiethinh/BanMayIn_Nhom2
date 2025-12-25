@@ -151,47 +151,48 @@
             <div id="review" class="tag-display">
                 <h1>Đánh giá sản phẩm</h1>
 
-                <c:forEach items="${reviewList}" var="r">
-                    <div class="block-User-feedback">
-                        <div class="block-User">
-                            <div class="user-avatar-placeholder">
-                                    ${fn:substring(r.authorName, 0, 1)}
+                <div id="review-container">
+                    <c:forEach items="${reviewList}" var="r">
+                        <div class="block-User-feedback">
+                            <div class="block-User">
+                                <div class="user-avatar-placeholder">
+                                        ${fn:substring(r.authorName, 0, 1)}
+                                </div>
+                                <div class="user">
+                                    <h2 class="user-name">${r.authorName}</h2>
+                                    <span><fmt:formatDate value="${r.createdAt}"
+                                                          pattern="dd 'tháng' MM 'năm' yyyy, HH:mm"/></span>
+                                </div>
+                                <div class="user-rate">
+                                    <c:forEach begin="1" end="5" var="i">
+                                        <c:choose>
+                                            <c:when test="${r.rating >= i}">
+                                                <i class="fa-solid fa-star"></i>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <i class="fa-regular fa-star"></i>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </div>
                             </div>
-                            <div class="user">
-                                <h2 class="user-name">${r.authorName}</h2>
-                                <span><fmt:formatDate value="${r.createdAt}"
-                                                      pattern="dd 'tháng' MM 'năm' yyyy, HH:mm"/></span>
-                            </div>
-                            <div class="user-rate">
-                                <c:forEach begin="1" end="5" var="i">
-                                    <c:choose>
-                                        <c:when test="${r.rating >= i}">
-                                            <i class="fa-solid fa-star"></i>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <i class="fa-regular fa-star"></i>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </div>
+                            <p class="user-write">${r.comment}</p>
                         </div>
-                        <p class="user-write">${r.comment}</p>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
 
-                <c:if test="${empty reviewList}">
-                    <p>Chưa có đánh giá nào bạn là người đầu tiên</p>
-                </c:if>
+                    <c:if test="${empty reviewList}">
+                        <p>Chưa có đánh giá nào</p>
+                    </c:if>
+                </div>
 
                 <div class="your-review">
                     <form action="add-review" method="post" id="review-form">
                         <input type="hidden" name="productId" value="${p.id}">
+                        <input type="hidden" name="rating" value="0" id="rating-input">
 
                         <h2>HÃY VIẾT ĐÁNH GIÁ CỦA BẠN</h2>
                         <div class="your-rate">
                             <span>Đánh giá của bạn: </span>
-                            <input type="hidden" name="rating" value="5" id="rating-input">
-
                             <div class="star-selection">
                                 <i class="fa-regular fa-star star-item" data-value="1"></i>
                                 <i class="fa-regular fa-star star-item" data-value="2"></i>
@@ -200,7 +201,7 @@
                                 <i class="fa-regular fa-star star-item" data-value="5"></i>
                             </div>
                         </div>
-                        <textarea name="comment" id="your-write"
+                        <textarea name="comment" id="your-write" required
                                   placeholder="Hãy nhập đánh giá của bạn..."></textarea>
 
                         <c:choose>
@@ -208,7 +209,9 @@
                                 <button type="submit" class="bt-submit-review">Gửi</button>
                             </c:when>
                             <c:otherwise>
-                                <a href="login.jsp" class="bt-submit-review">Đăng nhập để đánh giá</a>
+                                <a href="javascript:void(0)" class="bt-submit-review"
+                                   onclick="window.location.href='login.jsp?redirect='+encodeURIComponent(window.location.href)">Đăng
+                                    nhập để đánh giá</a>
                             </c:otherwise>
                         </c:choose>
                     </form>
@@ -222,11 +225,10 @@
 <jsp:include page="includes/footer.jsp"/>
 
 <script>
-    function showTab(tabId, button) {
-        document.querySelectorAll('.tag-display').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+    function showTab(tabId, btn) {
+        document.querySelectorAll('.tag-display, .tag-btn').forEach(el => el.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        if (button) button.classList.add('active');
+        if (btn) btn.classList.add('active');
     }
 
     function changeMainImage(src, btn) {
@@ -237,42 +239,9 @@
 
     function updateQty(val) {
         const input = document.getElementById('qty-input');
-        let current = parseInt(input.value);
-        let max = parseInt(input.getAttribute('max'));
-        let newVal = current + val;
-
-        if (newVal >= 1 && newVal <= max) {
-            input.value = newVal;
-        }
+        const newVal = parseInt(input.value) + val;
+        if (newVal >= 1 && newVal <= parseInt(input.getAttribute('max'))) input.value = newVal;
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const stars = document.querySelectorAll('.star-item');
-        const ratingInput = document.getElementById('rating-input');
-
-        function highlightStar(count) {
-            stars.forEach(star => {
-                const value = parseInt(star.getAttribute('data-value'))
-                if (value <= count) {
-                    star.classList.remove('fa-regular');
-                    star.classList.add('fa-solid');
-                } else {
-                    star.classList.remove('fa-solid');
-                    star.classList.add('fa-regular');
-                }
-            });
-        }
-
-        stars.forEach(star => {
-            star.addEventListener('click', function () {
-                const value = this.getAttribute('data-value');
-                if (ratingInput) {
-                    ratingInput.value = value;
-                }
-                highlightStar(value);
-            });
-        });
-    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>

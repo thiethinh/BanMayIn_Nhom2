@@ -43,7 +43,13 @@ public class LoginServlet extends HttpServlet {
 
             response.addCookie(uEmail);
             response.addCookie(uPassword);
-            response.sendRedirect("home");
+
+            String redirectUrl = request.getParameter("redirect");
+            if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
+                response.sendRedirect(redirectUrl);
+            } else {
+                response.sendRedirect("home");
+            }
         } else {
             request.setAttribute("msg", "Tài khoản hoặc mật khẩu không đúng");
             request.setAttribute("email", email);

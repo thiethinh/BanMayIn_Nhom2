@@ -101,6 +101,7 @@ public class UserDAO {
                 user.setPhoneNumber(rs.getString("phone_number"));
                 user.setGender(rs.getString("gender"));
                 user.setRole(rs.getString("role"));
+                user.setPasswordHash(rs.getString("password_hash"));
 
                 return user;
             }
@@ -108,5 +109,40 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean updateProfile(User user) {
+        String sql = "UPDATE users SET fname = ?, lname = ?, phone_number = ?, gender = ? WHERE id = ?";
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, user.getFname());
+            ps.setString(2, user.getLname());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setString(4, user.getGender());
+            ps.setInt(5, user.getId());
+
+            int rowAffected = ps.executeUpdate();
+            return rowAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean changePassword(int id, String newPasswordHash) {
+        String sql = "UPDATE users SET password_hash = ? WHERE id = ?";
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, newPasswordHash);
+            ps.setInt(2, id);
+
+            int rowAffected = ps.executeUpdate();
+            return rowAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -33,8 +33,16 @@ public class VerifyCodeServlet extends HttpServlet {
 
             session.removeAttribute("authCode");
             session.removeAttribute("tempUser");
+            session.setAttribute("acc",  tempUser);
             request.setAttribute("msg", "Đăng ký thành công! Bạn có thể đăng nhập");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            String redirectUrl = (String) session.getAttribute("redirectAfterRegister");
+            session.removeAttribute("redirectAfterRegister");
+            if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
+                response.sendRedirect(redirectUrl);
+            } else {
+                response.sendRedirect("home");
+            }
         } else {
             request.setAttribute("errorVerify", "Mã OTP không đúng");
             request.setAttribute("showVerifyModal", true);
