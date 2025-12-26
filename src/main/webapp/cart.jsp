@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,109 +24,89 @@
     <!-- =================MAIN===================== -->
 
     <!-- ============CART EMPTY================ -->
-    <main class="cart-empty-main">
-        <div class="container">
-            <i id="icon" class="fa fa-shopping-basket"></i>
-            <h1 id="title">Giỏ Hàng Trống</h1>
-            <p>Thêm một sản phẩm để bắt đầu!</p>
-            <a href="${pageContext.request.contextPath}/printer.jsp"><button id="bt-shop" type="button" name="shopping">MUA SẮM NGAY <i id="icon-right"
-                        class="fa fa-long-arrow-right"></i></button></a>
-        </div>
-    </main>
+    <c:if test="${empty items}">
+        <main class="cart-empty-main">
+            <div class="container">
+                <i id="icon" class="fa fa-shopping-basket"></i>
+                <h1>Giỏ Hàng Trống</h1>
+                <p>Thêm một sản phẩm để bắt đầu!</p>
+                <a href="${pageContext.request.contextPath}/printer.jsp">
+                    <button>MUA SẮM NGAY</button>
+                </a>
+            </div>
+        </main>
+    </c:if>
+
     <!-- ============CART FILL================= -->
-    <main class="cart-fill-main">
-        <div class="cart-banner">
-            <!-- banner tốc độ 8px/cuộn -->
-            <marquee behavior="scroll" direction="left" scrollamount="8">🎉 Đơn hàng từ 5.000.000đ được FREESHIP toàn
-                quốc 🚚</marquee>
-        </div>
-        <div class="container">
+    <c:if test="${not empty items}">
+        <main class="cart-fill-main">
+            <div class="cart-banner">
+                <marquee scrollamount="8">🎉 Đơn hàng từ 5.000.000đ được FREESHIP</marquee>
+            </div>
 
-            <h1>GIỎ HÀNG CỦA BẠN</h1>
-            <P id="note">Các mặt hàng trong giỏ hàng của bạn không được bảo lưu — hãy kiểm tra ngay để đặt hàng.</P>
-            <section class="view">
-                <div class="product-list">
-                    <div class="product-detail">
-                        <img src="images/Epson-L6270.webp" alt="Máy-in-phun-màu-Epson-L6270"
-                            title="Máy-in-phun-màu-Epson-L6270">
-                        <div id="info">
-                            <h2>Máy in phun màu Epson L6270</h2>
-                            <p id="type-pro">Phân loại: <span>Máy In Màu</span></p>
+            <div class="container">
+                <h1>GIỎ HÀNG CỦA BẠN</h1>
 
-                            <p id="quantity">Số lượng:
-                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
+                <section class="view">
+                    <div class="product-list">
 
-                            </p>
+                        <c:forEach items="${items}" var="item">
+                            <div class="product-detail">
+                                <img src="${item.product.thumbnail}" />
 
-                            <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
-                                <span>Xoá sản
-                                    phẩm</span></button>
-                        </div>
-                        <p id="cost">Giá: <span class="price">16.990.000đ</span></p>
+                                <div id="info">
+                                    <h2>${item.product.productName}</h2>
+
+                                    <p>Số lượng:
+                                        <input type="number"
+                                               value="${item.quantity}"
+                                               min="1"
+                                               readonly>
+                                    </p>
+
+                                    <a href="remove-cart?id=${item.product.id}">
+                                        <button id="bt-remove">
+                                            <i class="fa fa-trash-can"></i> Xoá
+                                        </button>
+                                    </a>
+                                </div>
+
+                                <p id="cost">
+                                    Giá:
+                                    <span class="price">
+                                ${item.total} đ
+                            </span>
+                                </p>
+                            </div>
+                        </c:forEach>
+
                     </div>
 
-                    <div class="product-detail">
-                        <img src="images/HP Laser MFP 3303fdn.webp" alt="Máy-in-HP-Laser-MFP-3303fdn"
-                            title="Máy-in-HP-Laser-MFP-3303fdn">
-                        <div id="info">
-                            <h2>Máy in HP Laser MFP 3303fdn</h2>
-                            <p id="type-pro">Phân loại: <span>Máy In Đa Năng</span></p>
+                    <!-- BILL -->
+                    <div class="bill">
+                        <h3>Tóm tắt đơn hàng</h3>
 
-                            <p id="quantity">Số lượng:
-                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
-                            </p>
-                            <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
-                                <span>Xoá sản
-                                    phẩm</span></button>
-                        </div>
-                        <p id="cost">Giá: <span class="price">10.490.000đ</span></p>
+                        <p>Tạm tính:
+                            <span>${subTotal} đ</span>
+                        </p>
+
+                        <p>VAT (5%):
+                            <span>${vat} đ</span>
+                        </p>
+
+                        <h2>Tổng cộng:
+                            <span>${grandTotal} đ</span>
+                        </h2>
+
+                        <a href="payment.jsp" id="bt-payment">
+                            TIẾN HÀNH THANH TOÁN
+                        </a>
                     </div>
+                </section>
+            </div>
+        </main>
+    </c:if>
 
-                    <div class="product-detail">
-                        <img src="images\Laser DCP-L3560CDW.webp" alt="Máy-in-Laser-DCP-L3560CDW"
-                            title="Máy in Laser DCP-L3560CDW">
-                        <div id="info">
-                            <h2>Máy in Laser DCP-L3560CDW</h2>
-                            <p id="type-pro">Phân loại: <span>Máy In Màu</span></p>
-
-                            <p id="quantity">Số lượng:
-                                <input type="number" name="quantity" id="quantity-select" min="1" value="1">
-                            </p>
-                            <button id="bt-remove" type="button" name="remove-item"><i class="fa fa-trash-can"></i>
-                                <span>Xoá sản
-                                    phẩm</span></button>
-                        </div>
-                        <p id="cost">Giá: <span class="price">11.790.000đ</span></p>
-                    </div>
-
-                </div>
-
-                <div class="bill">
-                    <h3>Tóm tắt đơn hàng : </h3>
-                    <p>Tạm tính: <span id="first-cost">39.270.000đ</span> </p>
-                    <p>Phí vận chuyển: <span id="ship-cost">Miễn phí</span> </p>
-                    <p>Thuế(VAT): <span id="VAT"> 1.963.500đ</span></p>
-                    <!-- <div class="coupon">
-                        <i class="fa fa-ticket"></i>
-                        <label id="coupon-tag" for="coupon">MÃ GIẢM GIÁ:</label>
-                        <input type="text" id="coupon" name="coupon" placeholder="Nhập mã giảm giá">
-                        <button type="button" name="apply-coupon">ÁP DỤNG</button>
-                    </div> -->
-
-                    <h2>Tổng cộng: <span id="total">41.233.500đ</span></h2>
-                    <div class="block-bt-payment">
-                        <a href="${pageContext.request.contextPath}/payment.jsp" id="bt-payment">TIẾN HÀNH THANH TOÁN <i
-                                class="fa-solid fa-money-check-dollar"></i></a>
-                    </div>
-                    <div class="block-bt-shop-continous">
-                        <a href="${pageContext.request.contextPath}/printer.jsp" id="bt-shop-continous">Tiếp tục mua sắm <i
-                                class="fa-solid fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </main>
     <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 
     <!-- ================= END MAIN===================== -->

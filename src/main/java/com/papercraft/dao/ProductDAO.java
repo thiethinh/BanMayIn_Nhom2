@@ -10,6 +10,7 @@ import java.util.List;
 public class ProductDAO {
     private static final String ROOT_PATH ="images/upload/";
 
+
     // get all product just for present product card in main page
     public List<Product> getAllProducts(String type) {
         List<Product> list = new ArrayList<>();
