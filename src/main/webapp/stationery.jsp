@@ -73,50 +73,59 @@
 
         <div class="product-container">
             <c:if test="${not empty stationery}">
-                <c:forEach items="${stationery} " var="s">
+
+                <c:forEach items="${stationery}" var="s">
                     <div class="product-card swiper-slide">
 
-                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                            class="product-image-placeholder">
-                            <c:if test="${p.discount > 0}">
-                    <span class="badge-discount">
-                        -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
-                    </span>
+                            <c:if test="${s.discount > 0}">
+                        <span class="badge-discount">
+                            -<fmt:formatNumber value="${s.discount * 100}" maxFractionDigits="0"/>%
+                        </span>
                             </c:if>
-                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
-                                 loading="lazy" alt="${p.productName}"/>
+
+                            <img src="${pageContext.request.contextPath}/${s.thumbnail}"
+                                 height="300" width="300" loading="lazy" alt="${s.productName}"/>
                         </a>
 
                         <h3 class="product-name">
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                                style="text-decoration: none; color: inherit;">
-                                    ${p.productName}
+                                    ${s.productName}
                             </a>
                         </h3>
 
                         <ul class="product-details">
-                            <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                            <c:forTokens items="${s.descriptionThumbnail}" delims="#" var="feature">
                                 <li>${feature.trim()}</li>
                             </c:forTokens>
                         </ul>
 
-                        <p class="product-price">
-                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ"
-                                              maxFractionDigits="0"/>
-                        </p>
+<%--                        <p class="product-price">--%>
+<%--                            <fmt:formatNumber value="${s.price}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>--%>
+<%--                        </p>--%>
 
+                        <p class="product-price">
+                            <c:choose>
+                                <c:when test="${s.price > 0}">
+                                    <fmt:formatNumber value="${s.price}" pattern="#,###"/> VNĐ
+                                </c:when>
+                                <c:otherwise>Liên hệ</c:otherwise>
+                            </c:choose>
+                        </p>
                         <div class="action">
-                            <div class="add-cart" onclick="addToCart(${p.id})"><span><i class='bx bx-cart'></i></span>
+                            <div class="add-cart" onclick="addToCart(${s.id})">
+                                <span><i class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
                             </div>
 
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                                style="text-decoration: none;">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
                     </div>
-
                 </c:forEach>
             </c:if>
         </div>
