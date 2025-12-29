@@ -7,11 +7,15 @@ public class Blog implements Serializable {
     public Integer id;
     public Integer userId;
     public String blogTitle;
+    public String blogDescription;
     public String typeBlog;
     public String blogContent;
     public Timestamp createdAt;
 
-    public Blog() {}
+    private String thumbnail;
+
+    public Blog() {
+    }
 
     public Blog(Integer id, Integer userId, String blogTitle, String typeBlog, String blogContent, Timestamp createdAt) {
         this.id = id;
@@ -45,6 +49,10 @@ public class Blog implements Serializable {
     public void setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
     }
+
+    public String getBlogDescription() { return blogDescription; }
+
+    public void setBlogDescription(String blogDescription) { this.blogDescription = blogDescription; }
 
     public String getTypeBlog() {
         return typeBlog;
