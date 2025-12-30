@@ -15,7 +15,7 @@
                     <a class="menu" href="${pageContext.request.contextPath}/printer" id="nav-printer">Máy In</a>
                     <a class="menu" href="${pageContext.request.contextPath}/stationery" id="nav-stationery">Văn Phòng
                         Phẩm</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/blog.jsp" id="nav-blog">Blog</a>
+                    <a class="menu" href="${pageContext.request.contextPath}/blog" id="nav-blog">Blog</a>
                     <a class="menu" href="${pageContext.request.contextPath}/contact.jsp" id="nav-contact">Liên Hệ</a>
                 </div>
             </div>

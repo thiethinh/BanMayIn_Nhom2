@@ -13,6 +13,7 @@ public class Blog implements Serializable {
     public Timestamp createdAt;
 
     private String thumbnail;
+    private String authorName;
 
     public Blog() {
     }
@@ -69,6 +70,14 @@ public class Blog implements Serializable {
     public void setBlogContent(String blogContent) {
         this.blogContent = blogContent;
     }
+
+    public String getThumbnail() { return thumbnail; }
+
+    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
+
+    public String getAuthorName() { return authorName;}
+
+    public void setAuthorName(String authorName) { this.authorName = authorName;}
 
     public Timestamp getCreatedAt() {
         return createdAt;

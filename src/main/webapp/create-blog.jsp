@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tạo Bài Viết Mới | PaperCraft Blog</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -59,7 +59,7 @@
                     <input type="file" name="image" id="thumbnail-input" accept="image/*" hidden>
                 </div>
 
-                <img id="thumbnail-preview" class="thumb-preview" alt="Preview" />
+                <img id="thumbnail-preview" class="thumb-preview" alt="Preview"/>
             </div>
 
             <!-- Short Description -->
@@ -88,8 +88,17 @@
             </div>
 
             <!-- Submit -->
-            <button type="submit" class="submit-blog">Gửi bài viết</button>
-
+            <c:choose>
+                <c:when test="${not empty sessionScope.acc}">
+                    <button type="submit" class="submit-blog">Gửi bài viết</button>
+                </c:when>
+                <c:otherwise>
+                    <a href="javascript:void(0)"
+                       onclick="window.location.href='login.jsp?redirect=' + encodeURIComponent(document.location.href)">
+                        Đăng nhập để tạo bài viết
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </form>
 
     </div>

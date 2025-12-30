@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -23,78 +27,28 @@
             <main class="blog-content">
 
                 <header class="blog-post-header">
-                    <span class="category">Bảo Trì</span>
-                    <h1 class="blog-post-title">Bảo Trì Máy In: 7 Bước Đơn Giản Kéo Dài Tuổi Thọ Thiết Bị</h1>
+                    <span class="category">${blog.typeBlog}</span>
+                    <h1 class="blog-post-title">${blog.blogTitle}</h1>
                     <div class="post-meta">
                         <div class="author-info">
-                            <span class="author-avatar">H</span>
-                            <span>Hoàng Văn Em</span>
+                            <span class="author-avatar">${fn:substring(blog.authorName, 0, 1)}</span>
+                            <span>${blog.authorName}</span>
                         </div>
                         <div class="post-date">
                             <i class="fa-regular fa-calendar"></i>
-                            <span class="date">18 Tháng 10, 2024</span>
+                            <span class="date"><fmt:formatDate value="${blog.createdAt}" pattern="dd 'tháng' MM 'năm' yyyy"/></span>
                         </div>
                     </div>
                 </header>
 
-                <img src="images/about-img-large.webp" class="blog-post-featured-image">
+                <img src="${pageContext.request.contextPath}/images/upload/${blog.thumbnail}" class="blog-post-featured-image">
 
-                <div class="blog-post-body">
-                    <p><strong>Bảo trì máy in định kỳ là yếu tố then chốt để đảm bảo thiết bị của bạn hoạt động ổn định,
-                            cho
-                            ra bản in chất lượng và kéo dài tuổi thọ.</strong></p>
-                    <p>Nhiều doanh nghiệp thường bỏ qua việc này, chỉ gọi kỹ thuật khi máy đã hỏng. Điều này không chỉ
-                        gây
-                        gián đoạn công việc mà còn tốn kém chi phí sửa chữa. Thay vào đó, chỉ với 7 bước đơn giản sau
-                        đây,
-                        bạn có thể tự mình "chăm sóc" chiếc máy in của mình ngay tại văn phòng.</p>
+                <div class="blog-post-body">${blog.blogContent}</div>
 
-                    <h2>1. Vệ sinh bên ngoài thường xuyên</h2>
-                    <p>Bụi bẩn là kẻ thù số một. Sử dụng một chiếc khăn mềm, ẩm (không ướt) để lau sạch bụi bẩn bám trên
-                        vỏ
-                        máy, khay giấy và các khe hở. Đừng bao giờ sử dụng cồn hoặc dung môi mạnh vì chúng có thể làm
-                        hỏng
-                        bề mặt nhựa.</p>
-
-                    <h2>2. Dọn dẹp bên trong máy</h2>
-                    <p>Tắt nguồn và rút phích cắm máy in. Mở nắp máy và cẩn thận lấy hộp mực (cartridge) ra. Sử dụng máy
-                        hút
-                        bụi mini hoặc bình xịt khí nén để loại bỏ bụi giấy, mực vương vãi và các vật thể lạ (như ghim
-                        kẹp)
-                        bên trong máy.</p>
-
-                    <img src="images/blog1.webp">
-
-                    <h2>3. Kiểm tra và làm sạch trục kéo giấy (Roller)</h2>
-                    <p>Trục kéo giấy bẩn hoặc mòn là nguyên nhân chính gây kẹt giấy. Dùng một miếng vải sạch thấm một
-                        chút
-                        cồn isopropyl (cồn y tế) để lau nhẹ các con lăn cao su. Điều này giúp phục hồi độ bám và kéo
-                        giấy
-                        tốt hơn.</p>
-
-                    <blockquote>Trích dẫn: "Một máy in được cập nhật firmware đầy đủ có thể giảm đến 30% nguy cơ lỗi vặt
-                        liên quan đến kết nối." - Chuyên gia từ PaperCraft.
-                    </blockquote>
-
-                    <h2>4. Cập nhật Firmware/Driver</h2>
-                    <p>Các nhà sản xuất (như HP, Canon, Brother) thường xuyên phát hành các bản cập nhật phần mềm
-                        (firmware)
-                        để sửa lỗi và cải thiện hiệu suất. Hãy truy cập trang web của hãng để tải về và cài đặt phiên
-                        bản
-                        mới nhất cho máy in của bạn.</p>
-
-                    <ul>
-                        <li>Lỗi kết nối Wi-Fi.</li>
-                        <li>Vấn đề tương thích với hệ điều hành mới.</li>
-                        <li>Tối ưu hóa tốc độ in.</li>
-                    </ul>
-
-                    <h2>5. Sử dụng mực và giấy chính hãng</h2>
-                    <p>Đây là điều chúng tôi không thể không nhấn mạnh. Sử dụng mực in giả, kém chất lượng có thể làm
-                        hỏng
-                        đầu phun và các bộ phận bên trong. Giấy quá mỏng hoặc quá dày (không đúng khuyến cáo) cũng dễ
-                        gây
-                        kẹt giấy.</p>
+                <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;">
+                    <a href="blog" style="text-decoration: none; color: #333; font-weight: bold;">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+                    </a>
                 </div>
 
                 <footer class="blog-post-footer">
