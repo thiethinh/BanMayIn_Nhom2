@@ -15,8 +15,8 @@ public class EmailService {
     }
 
     public boolean sendEmail(User user, String code) {
-        String fromEmail = "papercraft1972@gmail.com";
-        String password = "sudz dsbo gvpt jobp";
+        String fromEmail = "papercraftmain@gmail.com";
+        String password = "tbgj xkow uatn qtfv";
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");

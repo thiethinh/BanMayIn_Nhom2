@@ -30,8 +30,8 @@
                 <i id="icon" class="fa fa-shopping-basket"></i>
                 <h1>Giỏ Hàng Trống</h1>
                 <p>Thêm một sản phẩm để bắt đầu!</p>
-                <a href="${pageContext.request.contextPath}/printer.jsp">
-                    <button>MUA SẮM NGAY</button>
+                <a href="${pageContext.request.contextPath}/printer">
+                    <button type="button">MUA SẮM NGAY</button>
                 </a>
             </div>
         </main>
@@ -64,8 +64,9 @@
                                                readonly>
                                     </p>
 
-                                    <a href="remove-cart?id=${item.product.id}">
-                                        <button id="bt-remove">
+                                    <a href="${pageContext.request.contextPath}/cart?action=remove&id=${item.product.id}">
+
+                                    <button id="bt-remove">
                                             <i class="fa fa-trash-can"></i> Xoá
                                         </button>
                                     </a>

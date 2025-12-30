@@ -37,10 +37,34 @@ public class CartServlet extends HttpServlet {
             case "clear":
                 clearCart(request, response);
                 break;
+            case "count":
+                getCartCount(request, response);
+                break;
             default:
                 showCart(request, response);
         }
     }
+
+    private void getCartCount(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+
+        HttpSession session = request.getSession();
+        Map<Integer, Integer> cart =
+                (Map<Integer, Integer>) session.getAttribute("cart");
+
+        int total = 0;
+        if (cart != null) {
+            for (int q : cart.values()) {
+                total += q;
+            }
+        }
+
+        response.setContentType("text/plain");
+        response.getWriter().print(total);
+    }
+
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -79,7 +103,8 @@ public class CartServlet extends HttpServlet {
         cart.put(productId, cart.getOrDefault(productId, 0) + quantity);
 
         session.setAttribute("cart", cart);
-        response.sendRedirect("cart");
+        response.setStatus(HttpServletResponse.SC_OK);
+
     }
 
 

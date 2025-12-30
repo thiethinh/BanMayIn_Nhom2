@@ -24,8 +24,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css">
 </head>
 
-<body
+<body data-context="${pageContext.request.contextPath}">
 <jsp:include page="includes/header.jsp"/>
+
 
 <div class="container">
     <div class="content">
@@ -134,7 +135,10 @@
 <jsp:include page="includes/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+
+
 </body>
 
 </html>

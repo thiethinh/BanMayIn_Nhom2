@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
 </head>
 
-<body>
+<body data-context="${pageContext.request.contextPath}">
 <jsp:include page="includes/header.jsp"/>
 
 <div class="main">
