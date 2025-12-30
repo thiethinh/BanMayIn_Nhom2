@@ -7,11 +7,16 @@ public class Blog implements Serializable {
     public Integer id;
     public Integer userId;
     public String blogTitle;
+    public String blogDescription;
     public String typeBlog;
     public String blogContent;
     public Timestamp createdAt;
 
-    public Blog() {}
+    private String thumbnail;
+    private String authorName;
+
+    public Blog() {
+    }
 
     public Blog(Integer id, Integer userId, String blogTitle, String typeBlog, String blogContent, Timestamp createdAt) {
         this.id = id;
@@ -46,6 +51,10 @@ public class Blog implements Serializable {
         this.blogTitle = blogTitle;
     }
 
+    public String getBlogDescription() { return blogDescription; }
+
+    public void setBlogDescription(String blogDescription) { this.blogDescription = blogDescription; }
+
     public String getTypeBlog() {
         return typeBlog;
     }
@@ -61,6 +70,14 @@ public class Blog implements Serializable {
     public void setBlogContent(String blogContent) {
         this.blogContent = blogContent;
     }
+
+    public String getThumbnail() { return thumbnail; }
+
+    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
+
+    public String getAuthorName() { return authorName;}
+
+    public void setAuthorName(String authorName) { this.authorName = authorName;}
 
     public Timestamp getCreatedAt() {
         return createdAt;
