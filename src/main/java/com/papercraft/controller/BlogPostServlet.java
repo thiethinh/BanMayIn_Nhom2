@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "BlogPostServlet", value = "/blog-post")
 public class BlogPostServlet extends HttpServlet {
@@ -23,6 +24,14 @@ public class BlogPostServlet extends HttpServlet {
 
         BlogDao blogDao = new BlogDao();
         Blog blog = blogDao.getBlogById(id);
+
+        if (blog != null) {
+            List<Blog> relatedBlogs = blogDao.getRelatedBlogs(blog.getTypeBlog(), id);
+            request.setAttribute("relatedBlogs", relatedBlogs);
+
+            List<Blog> latestBlogs = blogDao.getLatestBlogs(id);
+            request.setAttribute("latestBlogs", latestBlogs);
+        }
 
         request.setAttribute("blog", blog);
         request.getRequestDispatcher("blog-post.jsp").forward(request, response);

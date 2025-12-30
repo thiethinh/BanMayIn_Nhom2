@@ -156,4 +156,79 @@ public class BlogDao {
         }
         return blogs;
     }
+
+    public List<Blog> getRelatedBlogs(String type, int currentBlogId) {
+        List<Blog> blogs = new ArrayList<>();
+        String sql = """
+                SELECT b.id, b.blog_title, b.blog_description, b.type_blog, b.created_at, i.img_name, u.fullname
+                FROM blog b
+                LEFT JOIN image i ON b.id = i.entity_id
+                AND i.entity_type = 'Blog'
+                AND i.is_thumbnail = 1
+                LEFT JOIN users u ON b.user_id = u.id
+                WHERE b.type_blog = ? AND b.id != ?
+                ORDER BY b.id DESC
+                LIMIT 3
+                """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, type);
+            ps.setInt(2, currentBlogId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Blog blog = new Blog();
+                    blog.setId(rs.getInt("id"));
+                    blog.setBlogTitle(rs.getString("blog_title"));
+                    blog.setBlogDescription(rs.getString("blog_description"));
+                    blog.setTypeBlog(rs.getString("type_blog"));
+                    blog.setCreatedAt(rs.getTimestamp("created_at"));
+                    blog.setThumbnail(rs.getString("img_name"));
+                    blog.setAuthorName(rs.getString("fullname"));
+                    blogs.add(blog);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return blogs;
+    }
+
+    public List<Blog> getLatestBlogs(int currentBlogId) {
+        List<Blog> blogs = new ArrayList<>();
+        String sql = """
+                SELECT b.id, b.blog_title, b.blog_description, b.type_blog, b.created_at, i.img_name, u.fullname
+                FROM blog b
+                LEFT JOIN image i ON b.id = i.entity_id
+                AND i.entity_type = 'Blog'
+                AND i.is_thumbnail = 1
+                LEFT JOIN users u ON b.user_id = u.id
+                WHERE b.id != ?
+                ORDER BY b.created_at DESC
+                LIMIT 3
+                """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, currentBlogId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Blog blog = new Blog();
+                    blog.setId(rs.getInt("id"));
+                    blog.setBlogTitle(rs.getString("blog_title"));
+                    blog.setBlogDescription(rs.getString("blog_description"));
+                    blog.setTypeBlog(rs.getString("type_blog"));
+                    blog.setCreatedAt(rs.getTimestamp("created_at"));
+                    blog.setThumbnail(rs.getString("img_name"));
+                    blog.setAuthorName(rs.getString("fullname"));
+                    blogs.add(blog);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return blogs;
+    }
 }
