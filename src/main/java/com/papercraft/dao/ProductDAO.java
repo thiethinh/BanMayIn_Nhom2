@@ -10,36 +10,52 @@ import java.util.List;
 public class ProductDAO {
     private static final String ROOT_PATH ="images/upload/";
 
+
     // get all product just for present product card in main page
     public List<Product> getAllProducts(String type) {
         List<Product> list = new ArrayList<>();
+
         String sql = """
-                    SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.img_name
-                    FROM product p
-                    JOIN category c ON p.category_id = c.id
-                    JOIN image i ON p.id = i.entity_id
-                    WHERE c.type=? AND i.is_thumbnail =1;
-                """;
+                SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
+                FROM product p
+                JOIN category c ON p.category_id = c.id
+                JOIN image i ON p.id = i.entity_id
+                WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product';
+            """;
 
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
-            ps.setString(1,type);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, type);
+
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Product p = new Product();
-                    // Gán
+
+
                     p.setId(rs.getInt("id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
                     p.setBrand(rs.getString("brand"));
+
+
                     p.setPrice(rs.getDouble("price"));
-                    p.setThumbnail(ROOT_PATH+ rs.getString("img_name"));
+
+
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.trim().isEmpty()) {
+
+                        p.setThumbnail("images/upload/" + rs.getString("img_name"));
+                    } else {
+                        p.setThumbnail("images/logo.webp"); // Ảnh mặc định nếu thiếu
+                    }
+
                     list.add(p);
                 }
             }
-
         } catch (Exception e) {
+            System.err.println("Lỗi tại getAllProducts với type = " + type);
             e.printStackTrace();
         }
 
@@ -49,17 +65,26 @@ public class ProductDAO {
     // getAllImageOfProduct
     public List<String> getAllImageOfProduct(int id) {
         List<String> images = new ArrayList<>();
-        String sql = "SELECT img_name FROM image WHERE entity_id = ? AND entity_type = 'Product'";
+
+        String sql = "SELECT img_name FROM image WHERE entity_id = ? AND entity_type = 'Product' AND img_name IS NOT NULL";
 
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery();) {
+
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    images.add("images/upload/" + rs.getString("img_name"));
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.trim().isEmpty()) {
+
+                        images.add("images/upload/" + imgName.trim());
+                    }
                 }
             }
         } catch (Exception e) {
+
+            System.err.println("Lỗi tại getAllImageOfProduct với Product ID: " + id);
             e.printStackTrace();
         }
         return images;
@@ -69,47 +94,54 @@ public class ProductDAO {
     public List<Product> getFeaturedProductsByType(String type) {
         List<Product> list = new ArrayList<>();
 
-        String sql = """
-                     SELECT p.id, p.product_name,p.category_id, p.description_thumbnail,p.brand, p.price, i.img_name
-                    FROM product p
-                    JOIN category c ON p.category_id = c.id
-                    LEFT JOIN image i ON i.entity_id = p.id
-                    AND i.is_thumbnail = 1
-                    AND entity_type = 'Product'
-                    WHERE c.type = ? 
-                    ORDER BY p.discount DESC
-                    LIMIT 10;
-                    """;
 
+        String sql = """
+                 SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
+                 FROM product p
+                 JOIN category c ON p.category_id = c.id
+                 LEFT JOIN image i ON i.entity_id = p.id
+                 AND i.is_thumbnail = 1
+                 AND i.entity_type = 'Product'
+                 WHERE c.type = ? 
+                 ORDER BY p.discount DESC
+                 LIMIT 10;
+                 """;
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            //  Gán tham số cho PreparedStatement
             ps.setString(1, type);
 
-            // Áp dụng try-with-resources cho ResultSet
             try (ResultSet rs = ps.executeQuery()) {
-
                 while (rs.next()) {
                     Product p = new Product();
-                    int id = rs.getInt("id");
 
-                    //  Gán dữ liệu từ ResultSet vào Product
-                    p.setId(id);
+
                     p.setId(rs.getInt("id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
                     p.setBrand(rs.getString("brand"));
+
+
                     p.setPrice(rs.getDouble("price"));
-                    p.setThumbnail(ROOT_PATH+rs.getString("img_name"));
+
+
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.isEmpty()) {
+
+                        p.setThumbnail("images/upload/" + imgName);
+                    } else {
+
+                        p.setThumbnail("images/logo.webp");
+                    }
 
                     list.add(p);
                 }
             }
-
         } catch (Exception e) {
+
+            System.err.println("Lỗi tại getFeaturedProductsByType: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -168,6 +200,7 @@ public class ProductDAO {
                 while (rs.next()) {
                     Product p = new Product();
 
+                    p.setId(rs.getInt("id"));
                     p.setCategoryId(rs.getInt("category_id"));
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
@@ -269,6 +302,7 @@ public class ProductDAO {
 
                     p.setType(rs.getString("type"));
                     p.setThumbnail("images/upload/" + rs.getString("img_name"));
+//                    p.setThumbnail(rs.getString("img_name"));
                 }
             }
         } catch (Exception e) {

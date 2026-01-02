@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product-details.css">
 </head>
 
-<body>
+<body data-context="${pageContext.request.contextPath}">
 <jsp:include page="includes/header.jsp"/>
 
 <main class="product-details-main">
