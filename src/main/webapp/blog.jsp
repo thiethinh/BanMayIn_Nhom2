@@ -1,4 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,395 +12,113 @@
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
+          onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog.css">
 </head>
 
 <body>
-    <jsp:include page="includes/header.jsp" />
+<jsp:include page="includes/header.jsp"/>
 
-    <div class="search-section">
-        <img src="images/blog-bg.webp" alt="" class="search-section-bg" fetchpriority="high" width="1920" height="1080">
-        <div class="content-container">
-            <h3 class="title">BLOG PAPERCRAFT</h3>
-            <p class="sub-title">Kiến thức, tin tức và mẹo hữu ích về in ấn & văn phòng phẩm</p>
+<div class="search-section">
+    <img src="images/blog-bg.webp" alt="" class="search-section-bg" fetchpriority="high" width="1920" height="1080">
+    <div class="content-container">
+        <h3 class="title">BLOG PAPERCRAFT</h3>
+        <p class="sub-title">Kiến thức, tin tức và mẹo hữu ích về in ấn & văn phòng phẩm</p>
 
-            <div class="search-box">
-                <button><i class="fa-solid fa-magnifying-glass"></i></button>
-                <input type="text" placeholder="Tìm kiếm bài viết">
-            </div>
-        </div>
+        <form action="blog" method="get" class="search-box">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="search" placeholder="Tìm kiếm bài viết" value="${param.search}">
+
+            <c:if test="${not empty param.type}">
+                <input type="hidden" name="type" value="${param.type}">
+            </c:if>
+        </form>
+    </div>
+</div>
+
+<div class="blog-section">
+    <div class="blog-nav">
+        <ul>
+            <li><a href="blog?type=all&search=${param.search}"
+                   class="filter-btn ${empty param.type || param.type == 'all' ? 'active' : ''}">Tất cả</a></li>
+            <li><a href="blog?type=Máy In&search=${param.search}"
+                   class="filter-btn ${param.type == 'Máy In' ? 'active' : ''}">Máy In</a></li>
+            <li><a href="blog?type=Văn Phòng Phẩm&search=${param.search}"
+                   class="filter-btn ${param.type == 'Văn Phòng Phẩm' ? 'active' : ''}">Văn Phòng
+                Phẩm</a></li>
+            <li><a href="blog?type=Hướng Dẫn&search=${param.search}"
+                   class="filter-btn ${param.type == 'Hướng Dẫn' ? 'active' : ''}">Hướng Dẫn</a>
+            </li>
+            <li><a href="blog?type=Bảo Trì&search=${param.search}"
+                   class="filter-btn ${param.type == 'Bảo Trì' ? 'active' : ''}">Bảo Trì</a>
+            </li>
+        </ul>
     </div>
 
-    <div class="blog-section">
-        <div class="blog-nav">
-            <ul>
-                <li><a href="#" class="filter-btn active" data-filter="all">Tất cả</a></li>
-                <li><a href="#" class="filter-btn" data-filter="mayin">Máy In</a></li>
-                <li><a href="#" class="filter-btn" data-filter="vanphongpham">Văn Phòng Phẩm</a></li>
-                <li><a href="#" class="filter-btn" data-filter="huongdan">Hướng Dẫn</a></li>
-                <li><a href="#" class="filter-btn" data-filter="baotri">Bảo Trì</a></li>
-            </ul>
+    <c:if test="${not empty param.search}">
+        <p style="margin-bottom: 20px; margin-top: 40px; font-style: italic; color: #555;">
+            Kết quả tìm kiếm cho từ khóa: <strong>"${param.search}"</strong>
+        </p>
+    </c:if>
+
+    <div class="post-section">
+        <div class="post-container">
+
+            <c:forEach items="${blogs}" var="b">
+                <article class="post-card" data-category="${b.typeBlog}">
+                    <a href="${pageContext.request.contextPath}/blog-post?id=${b.id}">
+                        <div class="post-img">
+                            <img src="${pageContext.request.contextPath}/images/upload/${b.thumbnail}" height="600"
+                                 width="400" loading="lazy"/>
+                        </div>
+                    </a>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <div class="post-date">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span class="date"><fmt:formatDate value="${b.createdAt}" pattern="dd/MM/yyyy"/></span>
+                            </div>
+                            <span class="category">${b.typeBlog}</span>
+                        </div>
+                        <h3>
+                            <a href="${pageContext.request.contextPath}/blog-post?id=${b.id}" class="post-title">
+                                    ${b.blogTitle}
+                            </a>
+                        </h3>
+                        <p>${fn:substring(b.blogDescription, 0, 150)}</p>
+                        <div class="post-footer">
+                            <div class="author-info">
+                                <span class="author-avatar">${fn:substring(b.authorName, 0, 1)}</span>
+                                <span>${b.authorName}</span>
+                            </div>
+                            <div class="read-more">
+                                <a href="${pageContext.request.contextPath}/blog-post?id=${b.id}" class="read-more-btn">Đọc</a>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </c:forEach>
         </div>
 
-        <div class="post-section">
-            <div class="post-container">
+        <c:if test="${empty blogs}">
+            <p style="text-align: center; width: 100%;">Không có bài viết nào.</p>
+        </c:if>
 
-                <article class="post-card" data-category="baotri">
-                    <a href="${pageContext.request.contextPath}/blog-post.jsp">
-                        <div class="post-img">
-                            <img src="images/about-img-large.webp" height="600" width="400" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">18 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Bảo Trì</span>
-                        </div>
-                        <h3>
-                            <a href="${pageContext.request.contextPath}/blog-post.jsp" class="post-title">
-                                Bảo Trì Máy In: 7 Bước Đơn Giản Kéo Dài Tuổi Thọ Thiết Bị
-                            </a>
-                        </h3>
-                        <p>Hướng dẫn chi tiết cách bảo trì máy in định kỳ để đảm bảo máy hoạt động tốt và bền bỉ theo
-                            thời gian.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar">H</span>
-                                <span>Hoàng Văn Em</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="${pageContext.request.contextPath}/blog-post.jsp" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="huongdan">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/BoFolderHoSo(50Cai).webp" height="1620" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">15 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Hướng Dẫn</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Cách Chọn Giấy In Phù Hợp Cho Từng Loại Tài Liệu
-                            </a>
-                        </h3>
-                        <p>Tìm hiểu về các loại giấy in khác nhau và cách chọn loại giấy tối ưu cho mỗi nhu cầu in ấn cụ
-                            thể.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">N</span>
-                                <span>Nguyễn Thị F</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="huongdan">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/about-img-medium.webp" height="600" width="400" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">25 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Hướng Dẫn</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Cách Tối Ưu Hóa Chi Phí In Ấn Cho Doanh Nghiệp Nhỏ
-                            </a>
-                        </h3>
-                        <p>Những mẹo và chiến lược giúp doanh nghiệp nhỏ tiết kiệm chi phí in ấn mà vẫn đảm bảo chất
-                            lượng công việc.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">T</span>
-                                <span>Trần Thị Bình</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="mayin">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/blog1.webp" height="720" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">22 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Máy In</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                So Sánh Máy In Phun vs Máy In Laser: Nên Chọn Loại Nào?
-                            </a>
-                        </h3>
-                        <p>Phân tích chi tiết ưu nhược điểm của từng loại máy in để giúp bạn đưa ra quyết định đúng đắn
-                            cho nhu cầu của mình.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">L</span>
-                                <span>Lê Minh Cường</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="vanphongpham">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/BoDoDungVanPhong.webp" height="761" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">20 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Văn phòng phẩm</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Xu Hướng Văn Phòng Xanh: In Ấn Thân Thiện Môi Trường
-                            </a>
-                        </h3>
-                        <p>Tìm hiểu về các giải pháp in ấn bền vững và cách doanh nghiệp có thể giảm thiểu tác động môi
-                            trường.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">P</span>
-                                <span>Phạm Thị Dung</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="baotri">
-                    <a href="blog-post.html">
-                        <div class="post-img">
-                            <img src="images/about-img-large.webp" height="600" width="400" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">18 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Bảo Trì</span>
-                        </div>
-                        <h3>
-                            <a href="blog-post.html" class="post-title">
-                                Bảo Trì Máy In: 7 Bước Đơn Giản Kéo Dài Tuổi Thọ Thiết Bị
-                            </a>
-                        </h3>
-                        <p>Hướng dẫn chi tiết cách bảo trì máy in định kỳ để đảm bảo máy hoạt động tốt và bền bỉ theo
-                            thời gian.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar">H</span>
-                                <span>Hoàng Văn Em</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="blog-post.html" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="huongdan">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/BoFolderHoSo(50Cai).webp" height="1620" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">15 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Hướng Dẫn</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Cách Chọn Giấy In Phù Hợp Cho Từng Loại Tài Liệu
-                            </a>
-                        </h3>
-                        <p>Tìm hiểu về các loại giấy in khác nhau và cách chọn loại giấy tối ưu cho mỗi nhu cầu in ấn cụ
-                            thể.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">N</span>
-                                <span>Nguyễn Thị F</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="huongdan">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/about-img-medium.webp" height="600" width="400" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">25 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Hướng Dẫn</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Cách Tối Ưu Hóa Chi Phí In Ấn Cho Doanh Nghiệp Nhỏ
-                            </a>
-                        </h3>
-                        <p>Những mẹo và chiến lược giúp doanh nghiệp nhỏ tiết kiệm chi phí in ấn mà vẫn đảm bảo chất
-                            lượng công việc.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">T</span>
-                                <span>Trần Thị Bình</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="mayin">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/blog1.webp" height="720" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">22 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Máy In</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                So Sánh Máy In Phun vs Máy In Laser: Nên Chọn Loại Nào?
-                            </a>
-                        </h3>
-                        <p>Phân tích chi tiết ưu nhược điểm của từng loại máy in để giúp bạn đưa ra quyết định đúng đắn
-                            cho nhu cầu của mình.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">L</span>
-                                <span>Lê Minh Cường</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card" data-category="vanphongpham">
-                    <a href="#">
-                        <div class="post-img">
-                            <img src="images/BoDoDungVanPhong.webp" height="761" width="1080" loading="lazy" />
-                        </div>
-                    </a>
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <div class="post-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span class="date">20 Tháng 10, 2024</span>
-                            </div>
-                            <span class="category">Văn phòng phẩm</span>
-                        </div>
-                        <h3>
-                            <a href="#" class="post-title">
-                                Xu Hướng Văn Phòng Xanh: In Ấn Thân Thiện Môi Trường
-                            </a>
-                        </h3>
-                        <p>Tìm hiểu về các giải pháp in ấn bền vững và cách doanh nghiệp có thể giảm thiểu tác động môi
-                            trường.</p>
-                        <div class="post-footer">
-                            <div class="author-info">
-                                <span class="author-avatar avatar-n">P</span>
-                                <span>Phạm Thị Dung</span>
-                            </div>
-                            <div class="read-more">
-                                <a href="#" class="read-more-btn">Đọc</a>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-
-            <div class="pagination">
-            </div>
-
+        <div class="pagination">
         </div>
+
     </div>
+</div>
 
-    <jsp:include page="includes/footer.jsp" />
+<jsp:include page="includes/footer.jsp"/>
 
-    <a href="${pageContext.request.contextPath}/create-blog.jsp" id="fab-create-post" class="fab-create-post" title="Tạo bài viết mới"
-        aria-label="Tạo bài viết mới">
-        <i class="fa-solid fa-plus"></i>
-    </a>
+<a href="${pageContext.request.contextPath}/create-blog.jsp" id="fab-create-post" class="fab-create-post"
+   title="Tạo bài viết mới"
+   aria-label="Tạo bài viết mới">
+    <i class="fa-solid fa-plus"></i>
+</a>
 
 </body>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>

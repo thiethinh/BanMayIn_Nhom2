@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMap = {
         'home': 'nav-home',
         'login': 'nav-login',
-        'blog.jsp': 'nav-blog',
+        'blog': 'nav-blog',
         'contact.jsp': 'nav-contact',
         'printer': 'nav-printer',
         'stationery': 'nav-stationery'

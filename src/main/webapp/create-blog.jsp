@@ -1,14 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Tạo Bài Viết Mới | PaperCraft Blog</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"> -->
 
     <!-- QuillJS Rich Text -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -27,16 +28,26 @@
     <div class="blog-create-card">
 
         <h1 class="blog-create-title">Viết Blog Mới</h1>
+
         <p class="blog-create-sub">
             Chia sẻ kiến thức của bạn. Bài viết sẽ được Admin duyệt trước khi xuất bản.
         </p>
 
-        <form class="blog-form">
+        <c:if test="${not empty failedMsg}">
+            <p style="color: red; text-align: center;">${failedMsg}</p>
+            <c:remove var="failedMsg" scope="session"/>
+        </c:if>
+        <c:if test="${not empty successMsg}">
+            <p style="color: green; text-align: center;">${succMsg}</p>
+            <c:remove var="succMsg" scope="session"/>
+        </c:if>
+
+        <form class="blog-form" action="add_blog" method="post" enctype="multipart/form-data" id="blog-form">
 
             <!-- Title -->
             <div class="form-group">
                 <label>Tiêu đề bài viết</label>
-                <input type="text" id="blog-title" placeholder="Nhập tiêu đề...">
+                <input type="text" name="title" id="blog-title" placeholder="Nhập tiêu đề..." required>
             </div>
 
             <!-- Thumbnail Upload -->
@@ -45,22 +56,22 @@
 
                 <div class="upload-box">
                     <label for="thumbnail-input" class="upload-label">Chọn ảnh...</label>
-                    <input type="file" id="thumbnail-input" accept="image/*" hidden>
+                    <input type="file" name="image" id="thumbnail-input" accept="image/*" hidden>
                 </div>
 
-                <img id="thumbnail-preview" class="thumb-preview" alt="Preview" />
+                <img id="thumbnail-preview" class="thumb-preview" alt="Preview"/>
             </div>
 
             <!-- Short Description -->
             <div class="form-group">
                 <label>Mô tả ngắn</label>
-                <textarea id="blog-desc" placeholder="Nhập mô tả ..."></textarea>
+                <textarea name="description" id="blog-desc" placeholder="Nhập mô tả ..." required></textarea>
             </div>
 
             <!-- Tags -->
             <div class="form-group">
                 <label>Tags</label>
-                <select id="blog-tags">
+                <select name="type" id="blog-tags" required>
                     <option value="">-- Chọn tag --</option>
                     <option>Máy In</option>
                     <option>Văn Phòng Phẩm</option>
@@ -73,11 +84,21 @@
             <div class="form-group">
                 <label>Nội dung bài viết</label>
                 <div id="blog-editor"></div>
+                <input type="hidden" id="hidden-content" name="content">
             </div>
 
             <!-- Submit -->
-            <button type="submit" class="submit-blog">Gửi bài viết</button>
-
+            <c:choose>
+                <c:when test="${not empty sessionScope.acc}">
+                    <button type="submit" class="submit-blog">Gửi bài viết</button>
+                </c:when>
+                <c:otherwise>
+                    <a href="javascript:void(0)"
+                       onclick="window.location.href='login.jsp?redirect=' + encodeURIComponent(document.location.href)">
+                        Đăng nhập để tạo bài viết
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </form>
 
     </div>

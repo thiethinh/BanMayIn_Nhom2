@@ -72,39 +72,47 @@
 
             <form action="register" method="post" class="two-forms">
                 <c:if test="${not empty errorRegister}">
-                    <p style="color: red; text-align: center; margin-bottom: 5px;">${errorRegister}</p>
+                    <div class="error-box">
+                        <c:forEach items="${errorRegister}" var="err">
+                            <p><i class="fa-solid fa-circle-exclamation"></i> ${err}</p>
+                        </c:forEach>
+                    </div>
                 </c:if>
 
                 <input type="hidden" name="redirect" value="${param.redirect}">
 
                 <div class="two-row">
                     <div class="input-box">
-                        <input type="text" name="firstname" class="input-field" placeholder="Họ" required>
+                        <input type="text" name="firstname" class="input-field" value="${requestScope.valueFName}"
+                               placeholder="Họ" required>
                         <i class="bx bx-user"></i>
                     </div>
 
                     <div class="input-box">
-                        <input type="text" name="lastname" class="input-field" placeholder="Tên" required>
+                        <input type="text" name="lastname" class="input-field" value="${requestScope.valueLName}"
+                               placeholder="Tên" required>
                         <i class="bx bx-user"></i>
                     </div>
                 </div>
 
                 <div class="input-box">
-                    <input type="text" name="email" class="input-field" placeholder="Email" required>
+                    <input type="text" name="email" class="input-field" value="${requestScope.valueEmail}"
+                           placeholder="Email" required>
                     <i class="bx bx-envelope"></i>
                 </div>
 
                 <div class="input-box">
-                    <input type="tel" name="phone" class="input-field" placeholder="Số điện thoại" required>
+                    <input type="tel" name="phone" class="input-field" value="${requestScope.valuePhone}"
+                           placeholder="Số điện thoại" required>
                     <i class="bx bx-phone"></i>
                 </div>
 
                 <div class="input-box select-box">
                     <select name="gender" class="input-field" id="gender-select" required>
-                        <option value="" disabled selected>Giới tính</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="other">Khác</option>
+                        <option value="" disabled ${empty requestScope.valueGender ? 'selected' : ''}>Giới tính</option>
+                        <option value="male" ${requestScope.valueGender == 'male' ? 'selected' : ''}>Nam</option>
+                        <option value="female" ${requestScope.valueGender == 'female' ? 'selected' : ''}>Nữ</option>
+                        <option value="other" ${requestScope.valueGender == 'other' ? 'selected' : ''}>Khác</option>
                     </select>
                     <i class="bx bx-user-check"></i>
                 </div>
@@ -115,7 +123,8 @@
                 </div>
 
                 <div class="input-box">
-                    <input type="password" name="confirmPassword" class="input-field" placeholder="Nhập lại mật khẩu" required>
+                    <input type="password" name="confirmPassword" class="input-field" placeholder="Nhập lại mật khẩu"
+                           required>
                     <i class="bx bx-lock-alt"></i>
                 </div>
 
