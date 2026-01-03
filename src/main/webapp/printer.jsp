@@ -1,38 +1,51 @@
+<%@ page import="com.papercraft.model.Product" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html lang="vn">
 
 <head>
     <meta charset="UTF-8">
     <title>PaperCraft - Trang Chủ</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
-    <link rel="preload" href="${pageContext.request.contextPath}/images/introduce-img.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="${pageContext.request.contextPath}/images/introduce-img.webp" as="image"
+          fetchpriority="high">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css">
 </head>
 
-<body>
-    <jsp:include page="includes/header.jsp"/>
+<body data-context="${pageContext.request.contextPath}">
+<jsp:include page="includes/header.jsp"/>
 
-    <div class="container">
-        <div class="content">
 
-            <div class="top-content">
-                <h1>Tất Cả Máy In</h1>
-                <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
-            </div>
+<div class="container">
+    <div class="content">
 
+        <div class="top-content">
+            <h1>Tất Cả Máy In</h1>
+            <p>Tìm máy in hoàn hảo cho nhu cầu của bạn</p>
+        </div>
+
+        <form action="${pageContext.request.contextPath}/printer" method="get">
             <div class="search-container">
                 <div class="search-box child">
-                    <button class="bt-search"><i class='bx bx-search icon'></i></button>
+                    <button type="submit" class="bt-search">
+                        <i class='bx bx-search icon'></i>
+                    </button>
                     <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
                 </div>
 
+                <input type="hidden" name="category" id="categoryInput" value="0">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
                         <span class="selected-value">Tất Cả Danh Mục</span>
@@ -40,244 +53,115 @@
                     </div>
 
                     <div class="option-value">
-                        <div class="option-item title-dropdown" data-value="Tất Cả Danh Mục">Tất Cả Danh Mục</div>
-                        <div class="option-item" data-value="Máy In Laser">Máy In Laser</div>
-                        <div class="option-item" data-value="Máy In Phun">Máy In Phun</div>
-                        <div class="option-item" data-value="Máy Đa Năng">Máy Đa Năng</div>
-                        <div class="option-item" data-value="Máy In Di Động">Máy In Di Động</div>
+                        <div class="option-item title-dropdown" data-id="0">Tất Cả Danh Mục</div>
+                        <c:forEach items="${categories}" var="category">
+                            <div class="option-item" data-id="${category.id}">${category.categoryName}</div>
+                        </c:forEach>
                     </div>
                 </div>
 
+                <input type="hidden" name="sort" id="sortInput" value="rating">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
                         <span class="selected-value">Đánh giá cao nhất</span>
                         <span class="arrow">▼</span>
                     </div>
 
-                    <div class="option-value">
-                        <div class="option-item title-dropdown" data-value="Đánh giá cao nhất"> Đánh giá cao nhất</div>
-                        <div class="option-item" data-value="Giá: Cao đến Thấp"> Giá: Cao đến Thấp</div>
-                        <div class="option-item" data-value="Giá: Thấp đến Cao"> Giá: Thấp đến Cao</div>
+                    <div class="option-value" name="sortBy">
+                        <div class="option-item title-dropdown" data-value="rating"> Đánh giá cao nhất</div>
+                        <div class="option-item" data-value="priceDesc"> Giá: Cao đến Thấp</div>
+                        <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="product-container">
+        </form>
 
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Epson-L6270.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy In Phun Màu Đa Năng Epson_L6270</p>
-                    <ul>
-                        <li>Tính năng: Đa chức năng Print, Scan, Copy</li>
-                        <li>Tốc độ/Khổ giấy: 33 trang/phút. A4, B5, A5, A6</li>
-                        <li>Bảo hành 2 năm</li>
+        <div class="product-container">
+
+            <c:forEach items="${printers}" var="p">
+                <div class="product-card swiper-slide">
+
+                    <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                       class="product-image-placeholder">
+                        <c:if test="${p.discount > 0}">
+                    <span class="badge-discount">
+                        -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+                    </span>
+                        </c:if>
+                        <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
+                             loading="lazy" alt="${p.productName}"/>
+                    </a>
+
+                    <h3 class="product-name">
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           style="text-decoration: none; color: inherit;">
+                                ${p.productName}
+                        </a>
+                    </h3>
+
+                    <ul class="product-details">
+                        <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                            <li>${feature.trim()}</li>
+                        </c:forTokens>
                     </ul>
-                    <p class="price">8.500.000 VNĐ</p>
+
+
+                    <div class="product-price-box">
+                        <c:if test="${p.discount > 0}">
+                            <span class="old-price" style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+
+                            <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${p.salePrice}" pattern="#,###"/> ₫
+                            </span>
+
+                            <span class="badge-sale"
+                                  style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
+                                -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+                            </span>
+                        </c:if>
+
+                        <c:if test="${p.discount <= 0}">
+                            <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                        </c:if>
+                    </div>
+
                     <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
+                        <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
+                                class='bx bx-cart'></i></span>
                             <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="${pageContext.request.contextPath}/product-details.jsp">
+                        </button>
+
+
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           style="text-decoration: none;">
                             <button class="bt-detail">Xem</button>
                         </a>
                     </div>
                 </div>
 
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Copystar 300ix.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng laser đơn sắc Copystar CS 300ix</p>
-                    <ul>
-                        <li>Tốc độ 30 trang/phút</li>
-                        <li>In 2 mặt tự động</li>
-                        <li>Bảo hành 3 năm</li>
-                    </ul>
-                    <p class="price">12.000.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng HP MFP 135w Printer 4ZB83A.webp " alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng HP MFP 135w Printer 4ZB83A</p>
-                    <ul>
-                        <li>Lên đến 20 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.500.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng HP Neverstop Laser MFP 4RY26A.webp" alt="img"
-                            loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in đa chức năng HP Neverstop Laser MFP 4RY26A</p>
-                    <ul>
-                        <li>Lên đến 20 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">4.900.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in phun màu HP Ink Tank 315 Z4B04A.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in phun màu HP Ink Tank 315 Z4B04A</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>In phun màu</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.500.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in laser Canon LBP 2900.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in laser Canon LASER SHOT LBP 2900</p>
-                    <ul>
-                        <li>Tốc độ 12 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">4.000.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in đa chức năng Canon E410.webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in phun màu đa chức năng Canon PIXMA E410</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>Bản mới nhất</li>
-                        <li>Bảo hành 1 năm</li>
-                    </ul>
-                    <p class="price">1.600.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <div class="product-image">
-                        <img src="images/Máy in laser HP 107a (4ZB77A).webp" alt="img" loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in laser đơn sắc đen trắng HP 107a (4ZB77A)</p>
-                    <ul>
-                        <li>Lên đến 8 trang/phút</li>
-                        <li>In 2 mặt thủ công</li>
-                        <li>Bảo hành 1 năm</li>
-                    </ul>
-                    <p class="price">1.300.000 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-product">
-                    <sapn class="hot-show">Mới</sapn>
-                    <div class="product-image">
-                        <img src="images/HP LaserJet M209DW Wireless Compact Mono Laser Jet Printer.webp" alt="img"
-                            loading="lazy">
-                    </div>
-                    <p class="name-product">Máy in Laser Đơn sắc Không dây HP LaserJet M209DW</p>
-                    <ul>
-                        <li>Tốc độ 30 trang/phút</li>
-                        <li>In 2 mặt tự động</li>
-                        <li>Bảo hành 2 năm</li>
-                    </ul>
-                    <p class="price">3.999.999 VNĐ</p>
-                    <div class="action">
-                        <div class="add-cart">
-                            <span><i class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </div>
-                        <a style="text-decoration: none;" href="product-details.html">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+            </c:forEach>
         </div>
 
-        <div class="pagination"> </div>
+        <div class="swiper-pagination"></div>
+
     </div>
 
-    <jsp:include page="includes/footer.jsp"/>
+    <div class="pagination"></div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+<jsp:include page="includes/footer.jsp"/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/printer-stationery.js"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
+
+
 </body>
 
 </html>

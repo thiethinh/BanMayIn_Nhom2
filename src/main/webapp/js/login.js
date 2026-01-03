@@ -1,55 +1,67 @@
 const formBox = document.querySelector('.form-box');
+const loginForm = document.getElementById('login');
+const registerForm = document.getElementById('register');
+
+function adjustHeight(isRegister) {
+    if (!formBox) return;
+
+    if (isRegister) {
+        const contentHeight = registerForm.scrollHeight + 60;
+        const newHeight = contentHeight > 520 ? contentHeight : 520;
+
+        formBox.style.height = newHeight + 'px';
+    } else {
+        formBox.style.height = '520px';
+    }
+}
 
 function login() {
-    var a = document.getElementById('login');
-    var b = document.getElementById('register');
-    if (!a || !b) return;
+    if (!loginForm || !registerForm) return;
 
-    a.style.left = "40px";
-    b.style.right = "-100%";
-    a.style.opacity = 1;
-    b.style.opacity = 0;
+    loginForm.style.left = "40px";
+    registerForm.style.right = "-100%";
 
-    if(formBox) formBox.style.height = '520px';
+    loginForm.style.opacity = 1;
+    registerForm.style.opacity = 0;
+
+    adjustHeight(false);
 }
 
 function register() {
-    var a = document.getElementById('login');
-    var b = document.getElementById('register');
-    if (!a || !b) return;
+    if (!loginForm || !registerForm) return;
 
-    a.style.left = "-100%";
-    b.style.right = "40px";
-    a.style.opacity = 0;
-    b.style.opacity = 1;
+    loginForm.style.left = "-100%";
+    registerForm.style.right = "40px";
 
-    if(formBox) formBox.style.height = '750px';
+    loginForm.style.opacity = 0;
+    registerForm.style.opacity = 1;
+
+    adjustHeight(true);
 }
 
 export function initializeLogin() {
     const loginTrigger = document.getElementById('login-trigger');
     const registerTrigger = document.getElementById('register-trigger');
-    const loginSubmitButton = document.querySelector('#login .submit');
 
-    if (!loginTrigger || !registerTrigger) {
-        return;
+    if (loginTrigger) {
+        loginTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            login();
+        });
     }
 
-    loginTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        login();
-    });
-
-    registerTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        register();
-    });
-
-    if (loginSubmitButton) {
-        loginSubmitButton.addEventListener('click', (e) => {
+    if (registerTrigger) {
+        registerTrigger.addEventListener('click', (e) => {
             e.preventDefault();
-            localStorage.setItem('loggedIn', 'true');
-            window.location.href = 'home.html';
+            register();
         });
+    }
+
+    const activeTab = document.body.getAttribute('data-active-tab');
+
+    if (activeTab === 'register') {
+        setTimeout(() => {
+            register();
+        }, 50);
     }
 }

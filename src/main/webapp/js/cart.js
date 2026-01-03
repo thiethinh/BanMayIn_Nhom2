@@ -1,22 +1,102 @@
-//List sản phẩm tượng trưng trong giỏ hàng
-let products = [
-    {id: 1, name: "Máy in phun màu Epson L6270", price: 16990000 , quantity: 1},
-    {id: 2, name: "Máy in HP Laser MFP 3303fdn", price: 10490000, quantity: 2},
-    // {id: 3, name: "Máy in Laser DCP-L3560CDW", price: 11790000, quantity: 1}
-    // {id: 4; name: "Máy in Brother HL-L2321D", price: 3000000, quantity: 1},
-    // {id: 5; name: "Máy in Samsung Xpress M2020W", price: 2800000, quantity: 1}
-];
-    // chọn khối 2 khối main
-    const mainList = document.querySelectorAll("main");
-    const mainEmpty = mainList[0];
-    const mainFill = mainList[1];
+// Lấy thẻ input ẩn ở header
+const contextElement = document.getElementById("globalContextPath");
+const contextPath = contextElement ? contextElement.value : "";
 
-    //kiểm tra nếu giỏ hàng rỗng
-    if (products.length === 0) {
-        mainFill.style.display = "none";
-        mainEmpty.style.display = "block";
+// Thêm sản phẩm vào giỏ(AJAX)
+function addToCart(productId) {
+    console.log("Đang thêm sản phẩm ID:", productId);
+
+    fetch(`${contextPath}/cart`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `action=add&id=${productId}&quantity=1`
+    })
+        .then(res => {
+            if (res.ok) {
+                updateCartCount();
+
+                console.log("Đã thêm vào giỏ thành công!");
+            } else {
+                // tb lỗi
+                console.error("Lỗi server khi thêm giỏ hàng");
+                alert("Có lỗi xảy ra, vui lòng thử lại.");
+            }
+        })
+        .catch(err => {
+            console.error("Lỗi kết nối:", err);
+        });
+}
+
+// Lấy tổng số lượng sản phẩm
+function updateCartCount() {
+    fetch(`${contextPath}/cart?action=count`)
+        .then(res => res.text())
+        .then(count => {
+            count = parseInt(count);
+            const badge = document.getElementById("cartCount");
+
+            if (badge) {
+                if (count > 0) {
+                    badge.innerText = count;
+                    badge.style.display = "flex";
+                } else {
+                    badge.style.display = "none";
+                }
+            }
+        })
+        .catch(err => console.error(err));
+}
+
+// Khi load trang thì sync lại icon cart
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+});
+
+
+//============= Cart Quantity edition ===========
+function updateQuantity(productId, change) {
+    const inputElement = document.getElementById(`qty-${productId}`);
+    if (!inputElement) return;
+
+    let currentQty = parseInt(inputElement.value);
+    let newQty = currentQty;
+
+    // Logic tính toán số lượng mới
+    if (change === 0) {
+        // Trường hợp nhập trực tiếp
+        newQty = currentQty;
     } else {
-        mainFill.style.display = "block";
-        mainEmpty.style.display = "none";
-    
+        // Trường hợp bấm nút +/-
+        newQty = currentQty + change;
     }
+
+    //limit = 1
+    if (newQty < 1) {
+        newQty = 1;
+        inputElement.value = 1;
+        return;
+    }
+
+    // Cập nhật lại giá trị hiển thị trên ô input (cho trường hợp bấm nút)
+    inputElement.value = newQty;
+
+    // Gửi AJAX về Server => cập nhật giỏ hàng
+    fetch(`${contextPath}/cart`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `action=update&id=${productId}&quantity=${newQty}`
+    })
+        .then(res => {
+            if (res.ok) {
+                // Load lại trang để Server tính lại Tổng tiền (Total, VAT)
+                location.reload();
+            } else {
+                alert("Lỗi cập nhật giỏ hàng!");
+            }
+        })
+        .catch(err => console.error("Lỗi:", err));
+}

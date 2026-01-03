@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaperCraft - Admin Chỉnh Sửa Sản Phẩm</title>
-    <link rel="icon" href="images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/admin-product-edit.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-product-edit.css">
 
 </head>
 
@@ -20,64 +20,13 @@
 
     <div class="admin-container">
 
-        <aside class="admin-sidebar">
-            <div class="sidebar-header">
-                <img src="images/logo.webp" height="60" width="60" alt="Logo">
-                <h2>PaperCraft Admin</h2>
-            </div>
-
-            <nav class="admin-nav">
-                <ul>
-                    <li>
-                        <a href="admin.html">
-                            <i class="fa-solid fa-gauge"></i> Bảng Điều Khiển
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-products.html" class="active">
-                            <i class="fa-solid fa-box-archive"></i> Quản Lý Sản Phẩm
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-review.html">
-                            <i class="fa-solid fa-file-lines"></i> Quản Lý Đánh Giá
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-order-manage.html">
-                            <i class="fa-solid fa-receipt"></i> Quản Lý Đơn Hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-customer-manage.html">
-                            <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-blog.html">
-                            <i class="fa-solid fa-blog"></i> Quản Lí Blog
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admin-contacts.html">
-                            <i class="fa-solid fa-message"></i> Tin Nhắn Liên Hệ
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <div class="sidebar-footer">
-                <a href="home.html" class="btn-logout">
-                    <i class="fa-solid fa-right-from-bracket"></i> Xem Website
-                </a>
-            </div>
-        </aside>
+        <jsp:include page="includes/admin-sidebar.jsp"/>
 
         <main class="admin-main-content">
 
             <header class="admin-content-header">
                 <h1>Chỉnh Sửa Sản Phẩm</h1>
-                <a href="admin-products.html" class="btn btn-secondary">
+                <a href="${pageContext.request.contextPath}/admin-products.jsp" class="btn btn-secondary">
                     <i class="fa-solid fa-arrow-left"></i> Quay Lại Danh Sách
                 </a>
             </header>
@@ -303,7 +252,7 @@ Máy in phun màu Epson L6270 được thiết kế với khay với giấy lớ
             </div>
         </main>
     </div>
-    <script src="js/admin-product-edit.js"></script>
+    <script src="${pageContext.request.contextPath}/js/admin-product-edit.js"></script>
 </body>
 
 </html>

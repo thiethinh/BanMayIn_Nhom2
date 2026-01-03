@@ -1,39 +1,7 @@
-// Xử lý trạng thái đăng nhập của trang
-function logOut(button) {
-    button.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('loggedIn');
-        window.location.href = 'home.html';
-    });
-}
-
-function changeHeaderWherLoggedIn() {
-    const userActionDiv = document.querySelector('.user-action');
-    const loginBtn = document.getElementById('nav-login');
-
-    if (!userActionDiv || !loginBtn) return;
-
-    loginBtn.remove();
-
-    const accountLink = document.createElement('a');
-    accountLink.href = 'account.html';
-    accountLink.className = 'user-profile-btn';
-    accountLink.innerHTML = '<i class="fa-solid fa-user"></i>';
-
-    userActionDiv.appendChild(accountLink);
-}
-
-function checkLoginStatus() {
-    const loggedIn = localStorage.getItem('loggedIn');
-    if (loggedIn === 'true') {
-        changeHeaderWherLoggedIn();
-    }
-}
-
 // --- HÀM CHÍNH ---
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Khởi tạo Menu Mobile (Giữ nguyên)
+    // Khởi tạo Menu Mobile
     const menuToggle = document.querySelector('.menu-toggle');
     const navWrapper = document.querySelector('.nav-wrapper');
     if (menuToggle && navWrapper) {
@@ -45,12 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentPage = window.location.pathname.split('/').pop() || 'home.html';
     const navMap = {
-        'home.html': 'nav-home',
-        'login.html': 'nav-login',
-        'blog.html': 'nav-blog',
-        'contact.html': 'nav-contact',
-        'printer.html': 'nav-printer',
-        'stationery.html': 'nav-stationery'
+        'home': 'nav-home',
+        'login': 'nav-login',
+        'blog': 'nav-blog',
+        'contact.jsp': 'nav-contact',
+        'printer': 'nav-printer',
+        'stationery': 'nav-stationery'
     };
     document.querySelectorAll('.menu, .login-btn').forEach(link => {
         link.classList.remove('active-menu');
@@ -63,12 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    checkLoginStatus();
-    const accountLogoutBtn = document.getElementById('account-logout');
-    if (accountLogoutBtn) {
-        logOut(accountLogoutBtn);
-    }
-
+    // IMPORT MODULE
     if (document.querySelector('.hero-slider.swiper')) {
         import('./swiper.js')
             .then(module => {
@@ -102,5 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(module => {
                 module.initilizePrinterStationery();
             })
+    }
+
+    if (document.getElementById('review-form')) {
+        import('./review.js').then(module => {
+            module.initializeReview();
+        });
     }
 });

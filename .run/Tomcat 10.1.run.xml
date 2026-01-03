@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Tomcat 10.1" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.49" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="25">
-    <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+  <configuration default="false" name="Tomcat 10.1" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.49" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="$PROJECT_DIR$/../../../../Program Files/Java/jdk-21">
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
       <artifact name="BanMayIn_Nhom2:war exploded">
         <settings>
-          <option name="CONTEXT_PATH" value="/" />
+          <option name="CONTEXT_PATH" value="/papercraft" />
         </settings>
       </artifact>
     </deployment>

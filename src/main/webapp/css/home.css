@@ -171,6 +171,7 @@
 }
 
 .product-image-placeholder {
+    position: relative;
     width: 100%;
     height: 200px;
     background-color: white;
@@ -184,7 +185,27 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+.product-image-placeholder img:hover {
+    scale: 1.1;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.badge-discount {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #d44352;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .product-name {
