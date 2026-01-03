@@ -87,3 +87,5 @@
         </div>
     </nav>
 </header>
+//debug cart
+<input type="hidden" id="globalContextPath" value="${pageContext.request.contextPath}">

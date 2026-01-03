@@ -2,6 +2,7 @@ package com.papercraft.controller;
 
 import com.papercraft.dao.ProductDAO;
 import com.papercraft.model.Product;
+import com.papercraft.service.CartService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -89,8 +90,15 @@ public class CartServlet extends HttpServlet {
     private void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        //debug
+        System.out.println("--- Server đang xử lý thêm giỏ hàng ---");
+
+        try {
         int productId = Integer.parseInt(request.getParameter("id"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+        //debug
+        System.out.println("Product ID: " + productId + " | Qty: " + quantity);
 
         HttpSession session = request.getSession();
         Map<Integer, Integer> cart =
@@ -101,9 +109,17 @@ public class CartServlet extends HttpServlet {
         }
 
         cart.put(productId, cart.getOrDefault(productId, 0) + quantity);
-
         session.setAttribute("cart", cart);
+
+        //debug
+        System.out.println("Cart size hiện tại: " + cart.size());
+
         response.setStatus(HttpServletResponse.SC_OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
 
     }
 
@@ -159,47 +175,22 @@ public class CartServlet extends HttpServlet {
         response.sendRedirect("cart");
     }
 
-    //showCart
+    //showCartp
     private void showCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Map<Integer, Integer> cart =
-                (Map<Integer, Integer>) session.getAttribute("cart");
+        Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
 
-        ProductDAO productDAO = new ProductDAO();
+        // Gọi Service để tính toán
+        CartService cartService = new CartService();
+        CartService.CartResult cartData = cartService.calculateCart(cart);
 
-        List<Map<String, Object>> items = new ArrayList<>();
-        BigDecimal subTotal = BigDecimal.ZERO;
-
-        if (cart != null) {
-            for (Map.Entry<Integer, Integer> entry : cart.entrySet()) {
-
-                Product p = productDAO.getProductById(entry.getKey());
-                if (p == null) continue;
-
-                int qty = entry.getValue();
-                BigDecimal price = BigDecimal.valueOf(p.getPrice());
-                BigDecimal total = price.multiply(BigDecimal.valueOf(qty));
-
-                subTotal = subTotal.add(total);
-
-                Map<String, Object> item = new HashMap<>();
-                item.put("product", p);
-                item.put("quantity", qty);
-                item.put("total", total);
-
-                items.add(item);
-            }
-        }
-
-        BigDecimal vat = subTotal.multiply(new BigDecimal("0.05"));
-        BigDecimal grandTotal = subTotal.add(vat);
-
-        request.setAttribute("items", items);
-        request.setAttribute("subTotal", subTotal);
-        request.setAttribute("vat", vat);
-        request.setAttribute("grandTotal", grandTotal);
+        // Đẩy dữ liệu ra JSP
+        request.setAttribute("items", cartData.items);
+        request.setAttribute("subTotal", cartData.subTotal);
+        request.setAttribute("vat", cartData.vat);
+        request.setAttribute("grandTotal", cartData.grandTotal);
 
         request.getRequestDispatcher("/cart.jsp").forward(request, response);
     }

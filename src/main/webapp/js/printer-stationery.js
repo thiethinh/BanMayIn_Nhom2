@@ -153,12 +153,7 @@ function initPagination() {
     showPage(currentPage);
 }
 
-// Thêm hàm addToCart dummy để không bị lỗi console
-window.addToCart = function(id) {
-    console.log("Add to cart product id: " + id);
-    // Logic gọi API hoặc thêm vào localstorage ở đây
-    alert("Đã thêm sản phẩm " + id + " vào giỏ hàng!");
-}
+
 
 export function initilizePrinterStationery() {
     initDropDown();

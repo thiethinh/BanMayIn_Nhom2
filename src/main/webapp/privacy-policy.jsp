@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/policy.css">
 </head>
 
-<body>
+<body data-context="${pageContext.request.contextPath}">
     <jsp:include page="includes/header.jsp"/>
 
     <main class="page-section">

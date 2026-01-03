@@ -102,23 +102,15 @@
                             </c:forTokens>
                         </ul>
 
-<%--                        <p class="product-price">--%>
-<%--                            <fmt:formatNumber value="${s.price}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>--%>
-<%--                        </p>--%>
+
 
                         <p class="product-price">
-                            <c:choose>
-                                <c:when test="${s.price > 0}">
-                                    <fmt:formatNumber value="${s.price}" pattern="#,###"/> VNĐ
-                                </c:when>
-                                <c:otherwise>Liên hệ</c:otherwise>
-                            </c:choose>
+                            <fmt:formatNumber value="${s.price}" pattern="#,###"/> ₫
                         </p>
                         <div class="action">
-                            <div class="add-cart" onclick="addToCart(${s.id})">
-                                <span><i class='bx bx-cart'></i></span>
+                            <button class="add-cart" type="button" onclick="addToCart(${s.id})"><span><i class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
-                            </div>
+                            </button>
 
                             <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                                style="text-decoration: none;">
@@ -139,6 +131,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/printer-stationery.js"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>
 
 </html>

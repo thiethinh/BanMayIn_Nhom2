@@ -105,15 +105,36 @@
                         </c:forTokens>
                     </ul>
 
-                    <p class="product-price">
-                        <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ"
-                                          maxFractionDigits="0"/>
-                    </p>
+
+                    <div class="product-price-box">
+                        <c:if test="${p.discount > 0}">
+                            <span class="old-price" style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+
+                            <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${p.salePrice}" pattern="#,###"/> ₫
+                            </span>
+
+                            <span class="badge-sale"
+                                  style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
+                                -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+                            </span>
+                        </c:if>
+
+                        <c:if test="${p.discount <= 0}">
+                            <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                        </c:if>
+                    </div>
 
                     <div class="action">
-                        <div class="add-cart" onclick="addToCart(${p.id})"><span><i class='bx bx-cart'></i></span>
+                        <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
+                                class='bx bx-cart'></i></span>
                             <p>Thêm Vào Giỏ</p>
-                        </div>
+                        </button>
+
 
                         <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
                            style="text-decoration: none;">
@@ -135,8 +156,10 @@
 <jsp:include page="includes/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/printer-stationery.js"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 
 
 </body>

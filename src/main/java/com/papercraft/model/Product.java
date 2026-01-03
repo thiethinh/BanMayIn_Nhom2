@@ -174,4 +174,15 @@ public class Product implements Serializable {
     public String toString() {
         return "Product [id=" + id + ", name=" + productName + ", price=" + price + "]";
     }
+
+
+    //xử lý logic tính Price
+    public double getSalePrice() {
+        if (this.originPrice > 0 && this.discount > 0 && this.discount < 1) {
+            return this.originPrice * (1.0 - this.discount);
+        }
+        return (this.originPrice > 0) ? this.originPrice : this.price;
+    }
 }
+
+
