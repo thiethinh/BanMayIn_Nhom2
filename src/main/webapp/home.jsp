@@ -42,7 +42,7 @@
                 cho
                 không gian làm việc hiệu quả. Chất lượng cao, đáng tin cậy và giá cả phải chăng</p>
             <div class="introduce-btn">
-                <a href="${pageContext.request.contextPath}/printer.jsp" class="btn btn-primary">Mua ngay</a>
+                <a href="${pageContext.request.contextPath}/printer" class="btn btn-primary">Mua ngay</a>
                 <a href="${pageContext.request.contextPath}/about.jsp" class="btn btn-secondary">Tìm hiểu thêm</a>
             </div>
         </div>
@@ -239,7 +239,7 @@
                         <li>Nhận báo giá & chiết khấu tốt nhất</li>
                     </ul>
 
-                    <a href="${pageContext.request.contextPath}/contact.jsp" class="btn btn-dark-new">Nhận Tư Vấn Miễn
+                    <a href="${pageContext.request.contextPath}/contact" class="btn btn-dark-new">Nhận Tư Vấn Miễn
                         Phí</a>
                 </div>
 
@@ -252,7 +252,7 @@
             <h2 class="section-title">Sẵn Sàng Nâng Cấp Văn Phòng?</h2>
             <p class="section-subtitle">Mua sắm toàn bộ sản phẩm máy in và văn phòng phẩm ngay hôm nay</p>
 
-            <a href="${pageContext.request.contextPath}/printer.jsp" class="cta-btn">Mua Ngay</a>
+            <a href="${pageContext.request.contextPath}/printer" class="cta-btn">Mua Ngay</a>
         </div>
     </div>
 </div>

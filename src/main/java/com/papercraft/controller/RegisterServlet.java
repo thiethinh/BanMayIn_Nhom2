@@ -12,40 +12,62 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String fname = request.getParameter("firstname");
-        String lname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
+        String fname = request.getParameter("firstname") != null ? request.getParameter("firstname").trim() : "";
+        String lname = request.getParameter("lastname") != null ? request.getParameter("lastname").trim() : "";
+        String email = request.getParameter("email") != null ? request.getParameter("email").trim() : "";
+        String phone = request.getParameter("phone") != null ? request.getParameter("phone").trim() : "";
         String gender = request.getParameter("gender");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String password = request.getParameter("password") != null ? request.getParameter("password") : "";
+        String confirmPassword = request.getParameter("confirmPassword") != null ? request.getParameter("confirmPassword") : "";
 
         UserDAO dao = new UserDAO();
         String error = null;
 
+        List<String> errors = new ArrayList<>();
         // Kiểm tra
-        if (!password.equals(confirmPassword)) {
-            error = "Mật khẩu nhập lại không khớp";
-        }
-        // Kiểm tra độ mạnh mật khẩu bằng Regex
-        // ^(?=.*[0-9]) -> Phải có số
-        // (?=.*[@#$%^&+=!]) -> Phải có ký tự đặc biệt
-        // (?=\S+$) -> Không có khoảng trắng
-        // .{8,} -> Dài ít nhất 8 ký tự
-        else if (!password.matches("^(?=.*[0-9])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$")) {
-            error = "Mật khẩu yếu! Cần phải có 8 kí tự, có số, có kí tự đặc biệt.";
-        } else if (dao.checkEmailExists(email)) {
-            error = "Email đã được sử dụng";
+        if (fname.isEmpty()) errors.add("Họ không được để trống");
+        if (lname.isEmpty()) errors.add("Tên không được để trống");
+
+        // Kiểm tra Giới tính (Bổ sung)
+        if (gender == null || gender.isEmpty()) errors.add("Vui lòng chọn giới tính");
+
+        // Kiểm tra SĐT
+        if (phone.isEmpty() || !phone.matches("^0\\d{9}$")) {
+            errors.add("Số điện thoại không hợp lệ");
         }
 
-        if (error != null) {
-            request.setAttribute("errorRegister", error);
+        // Kiểm tra Email
+        if (email.isEmpty() || !email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            errors.add("Email không hợp lệ");
+        } else if (dao.checkEmailExists(email)) {
+            errors.add("Email đã được sử dụng");
+        }
+
+        // Kiểm tra Password
+        if (!password.equals(confirmPassword)) {
+            errors.add("Mật khẩu nhập lại không khớp");
+        }
+        if (!password.matches("^(?=.*[0-9])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$")) {
+            errors.add("Mật khẩu yếu! Cần tối thiểu 8 kí tự, có số và kí tự đặc biệt");
+        }
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errorRegister", errors);
+
+            request.setAttribute("valueFName", fname);
+            request.setAttribute("valueLName", lname);
+            request.setAttribute("valueEmail", email);
+            request.setAttribute("valuePhone", phone);
+            request.setAttribute("valueGender", gender);
             request.setAttribute("activeTab", "register");
+
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             EmailService es = new EmailService();
@@ -67,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
                 session.setMaxInactiveInterval(300);
 
                 String redirectUrl = request.getParameter("redirect");
-                if(redirectUrl != null && !redirectUrl.isEmpty()){
+                if (redirectUrl != null && !redirectUrl.isEmpty()) {
                     session.setAttribute("redirectAfterRegister", redirectUrl);
                 }
 
@@ -75,8 +97,16 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("activeTab", "register");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                request.setAttribute("errorRegister", "Gửi email thất bại! Vui lòng kiểm tra lại kết nối hoặc email.");
+                errors.add("Gửi email thất bại! Vui lòng kiểm tra lại kết nối hoặc email.");
+                request.setAttribute("errorRegister", errors);
+
+                request.setAttribute("valueFName", fname);
+                request.setAttribute("valueLName", lname);
+                request.setAttribute("valueEmail", email);
+                request.setAttribute("valuePhone", phone);
+                request.setAttribute("valueGender", gender);
                 request.setAttribute("activeTab", "register");
+
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }

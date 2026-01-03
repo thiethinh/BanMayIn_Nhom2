@@ -1,108 +1,62 @@
 export function initializeBlogNavigation() {
-    // Kiếm các phần để gắn chức năng
     const postContainer = document.querySelector('.post-container');
     const paginationContainer = document.querySelector('.pagination');
-    const filterButtons = document.querySelectorAll('.filter-btn');
 
-    if (!postContainer || !paginationContainer || !filterButtons) {
+    if (!postContainer || !paginationContainer) {
         return;
     }
 
     const postsPerPage = 9;
     let currentPage = 1;
-    // Lấy tất cả bài viết
+
+    // Lấy tất cả bài viết đang có
     const allPosts = Array.from(document.querySelectorAll('.post-card'));
-
-    // Lọc bài viết
-    function getFilteredPosts() {
-        const activeFilter = document.querySelector('.filter-btn.active');
-        // Lấy loại để lọc
-        const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
-
-        if (filterValue === 'all') {
-            return allPosts;
-        }
-        return allPosts.filter(post => post.getAttribute('data-category') === filterValue);
-    }
-
-    // Hiển thị bài viết
-    function displayPage(postsToShow, page) {
+    function displayPage(page) {
         allPosts.forEach(post => post.style.display = 'none');
 
         const startIndex = (page - 1) * postsPerPage;
         const endIndex = startIndex + postsPerPage;
-        const pagePosts = postsToShow.slice(startIndex, endIndex);
+        const pagePosts = allPosts.slice(startIndex, endIndex);
 
         pagePosts.forEach(post => {
             post.style.display = 'flex';
         });
     }
 
-    // Tính số lượng phân trang ở cuối trang
-    function setupPagination(filteredPosts) {
-        const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    function setupPagination() {
+        const totalPages = Math.ceil(allPosts.length / postsPerPage);
         paginationContainer.innerHTML = '';
 
-        if (totalPages <= 1) {
-            return;
-        }
+        if (totalPages <= 1) return;
 
-        const prevButton = document.createElement('a');
-        prevButton.href = '#';
-        prevButton.className = 'page-link prev';
-        prevButton.textContent = 'Trước';
-        if (currentPage === 1) {
-            prevButton.classList.add('disabled');
-        }
+        const prevButton = createPageButton('Trước', 'prev', currentPage === 1);
         paginationContainer.appendChild(prevButton);
 
         for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement('a');
-            pageButton.href = '#';
-            pageButton.className = 'page-link';
-            pageButton.textContent = i;
-            if (i === currentPage) {
-                pageButton.classList.add('active-page');
-            }
+            const pageButton = createPageButton(i, '', false);
+            if (i === currentPage) pageButton.classList.add('active-page');
             paginationContainer.appendChild(pageButton);
         }
 
-        const nextButton = document.createElement('a');
-        nextButton.href = '#';
-        nextButton.className = 'page-link next';
-        nextButton.textContent = 'Sau';
-        if (currentPage === totalPages) {
-            nextButton.classList.add('disabled');
-        }
+        const nextButton = createPageButton('Sau', 'next', currentPage === totalPages);
         paginationContainer.appendChild(nextButton);
     }
 
-    // Khi bấm 1 nút trên thanh nav thì lọc lại trang và gọi lại các hàm
-    function handleFilterClick(event) {
-        event.preventDefault();
-        const clickedButton = event.currentTarget;
-
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        clickedButton.classList.add('active');
-
-        currentPage = 1;
-
-        const filteredPosts = getFilteredPosts();
-        displayPage(filteredPosts, currentPage);
-        setupPagination(filteredPosts);
+    function createPageButton(text, type, isDisabled) {
+        const btn = document.createElement('a');
+        btn.href = '#';
+        btn.className = `page-link ${type}`;
+        btn.textContent = text;
+        if (isDisabled) btn.classList.add('disabled');
+        return btn;
     }
 
-    // Xử lý sự kiện khi bấm nút phân trang
-    function handlePaginationClick(event) {
+    paginationContainer.addEventListener('click', (event) => {
         event.preventDefault();
         const clickedLink = event.target.closest('.page-link');
+        if (!clickedLink || clickedLink.classList.contains('disabled') || clickedLink.classList.contains('active-page')) return;
 
-        if (!clickedLink || clickedLink.classList.contains('disabled') || clickedLink.classList.contains('active-page')) {
-            return;
-        }
-
-        const filteredPosts = getFilteredPosts();
-        const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+        const totalPages = Math.ceil(allPosts.length / postsPerPage);
 
         if (clickedLink.classList.contains('prev')) {
             if (currentPage > 1) currentPage--;
@@ -112,22 +66,12 @@ export function initializeBlogNavigation() {
             currentPage = parseInt(clickedLink.textContent);
         }
 
-        displayPage(filteredPosts, currentPage);
-        setupPagination(filteredPosts);
+        displayPage(currentPage);
+        setupPagination();
 
-        const blogHeader = document.querySelector('.blog-section');
-        if (blogHeader) {
-            blogHeader.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-    }
-
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', handleFilterClick);
+        document.querySelector('.blog-section').scrollIntoView({behavior: 'smooth'});
     });
 
-    paginationContainer.addEventListener('click', handlePaginationClick);
-
-    const initialPosts = getFilteredPosts();
-    displayPage(initialPosts, currentPage);
-    setupPagination(initialPosts);
+    displayPage(currentPage);
+    setupPagination();
 }
