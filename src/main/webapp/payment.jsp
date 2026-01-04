@@ -126,7 +126,14 @@
                     <tr>
                         <th class="shiping">Vận chuyển:</th>
                         <th class="shiping" style="text-align: right;">
-                            <p style="color: green;">Miễn phí</p>
+                            <c:choose>
+                                <c:when test="${shippingFee == 0}">
+                                    <p style="color: green;">Miễn phí</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:formatNumber value="${shippingFee}" pattern="#,###"/> ₫
+                                </c:otherwise>
+                            </c:choose>
                         </th>
                     </tr>
                     <tr>
@@ -137,6 +144,7 @@
                             </div>
                         </th>
                     </tr>
+
 
                     <tr id="total">
                         <th>Tổng Đơn Hàng:</th>

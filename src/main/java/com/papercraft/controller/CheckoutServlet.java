@@ -56,6 +56,7 @@ public class CheckoutServlet extends HttpServlet {
         // Gửi các số tiền trong bill
         request.setAttribute("subTotal", cartData.subTotal); // Tạm tính
         request.setAttribute("vat", cartData.vat);           // Thuế
+        request.setAttribute("shippingFee", cartData.shippingFee); //Vận chuyển
         request.setAttribute("grandTotal", cartData.grandTotal); // Tổng cộng
 
         // Gửi danh sách sản phẩm

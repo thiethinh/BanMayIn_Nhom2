@@ -16,12 +16,14 @@ public class CartService {
         public List<Map<String, Object>> items;
         public BigDecimal subTotal;
         public BigDecimal vat;
+        public BigDecimal shippingFee;
         public BigDecimal grandTotal;
 
         public CartResult() {
             this.items = new ArrayList<>();
             this.subTotal = BigDecimal.ZERO;
             this.vat = BigDecimal.ZERO;
+            this.shippingFee = BigDecimal.ZERO;
             this.grandTotal = BigDecimal.ZERO;
         }
     }
@@ -63,13 +65,23 @@ public class CartService {
 
             result.items.add(item);
         }
+        // Tính phí vận chuyển
+        BigDecimal threshold = new BigDecimal("5000000"); // Từ 5 triệu
 
-        // TÍNH TOÁN THUẾ & TỔNG CỘNG
-        // VAT 5%
+        BigDecimal fee = new BigDecimal("50000"); // phí ship 50k
+
+        // Nếu Tạm tính >= 5.000.000 thì Miễn phí, ngược lại là 50.000
+        if (result.subTotal.compareTo(threshold) >= 0) {
+            result.shippingFee = BigDecimal.ZERO;
+        } else {
+            result.shippingFee = fee;
+        }
+
+        // TÍNH TOÁN THUẾ & TỔNG CỘNG (5%)
         result.vat = result.subTotal.multiply(new BigDecimal("0.05"));
 
-        // Tổng cộng = Tạm tính + VAT
-        result.grandTotal = result.subTotal.add(result.vat);
+        // Tổng cộng = Tạm tính + VAT + ShippingFee
+        result.grandTotal = result.subTotal.add(result.vat).add(result.shippingFee);
 
         return result;
     }
