@@ -28,7 +28,7 @@ public class PrinterServlet extends HttpServlet {
         brand  = (brand == null  || brand.isBlank())  ? null : brand.trim();
 
         int categoryId = 0;
-        if (categoryRaw != null) {
+        if (categoryRaw != null && !categoryRaw.isBlank()) {
             try {
                 categoryId = Integer.parseInt(categoryRaw);
             } catch (NumberFormatException ignored) {}

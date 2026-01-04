@@ -346,15 +346,15 @@ public class ProductDAO {
                     FROM product p
                     JOIN category c ON p.category_id = c.id
                     JOIN image i ON p.id = i.entity_id
-                    JOIN review r ON r.product_id = p.id
-                    WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product';
+                    LEFT JOIN review r ON r.product_id = p.id
+                    WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product'
                 """
         );
 
         List<Object> params = new ArrayList<>();
         params.add(type);
-        if (search != null && !search.isBlank()) {
-            sql.append(" AND p.name LIKE ?");
+        if (search != null) {
+            sql.append(" AND p.product_name LIKE ?");
             params.add("%" + search + "%");
         }
 
@@ -362,17 +362,17 @@ public class ProductDAO {
             sql.append(" AND p.category_id = ?");
             params.add(categoryId);
         }
-        if (brand != null && !brand.isBlank()) {
+        if (brand != null) {
             sql.append(" AND p.brand = ?");
             params.add(brand);
         }
 
-        sql.append(" GROUP BY p.id ");
+        sql.append(" GROUP BY p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name");
 
         switch (sort) {
             case "priceAsc" -> sql.append(" ORDER BY p.price ASC");
             case "priceDesc" -> sql.append(" ORDER BY p.price DESC");
-            default -> sql.append(" ORDER BY avg_rating IS NULL, avg_rating DESC");
+            default -> sql.append(" ORDER BY avg_rating IS NULL, avg_rating DESC"); // ORDER BY avg_rating IS NULL,
         }
 
         try (Connection conn = DBConnect.getConnection();
