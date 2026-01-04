@@ -37,12 +37,15 @@
         </div>
 
         <form action="${pageContext.request.contextPath}/printer" method="get">
+
             <div class="search-container">
+                <button type="submit" class="bt-search">
+                    <i class='bx bx-search icon'></i>
+                   Tìm kiếm
+                </button>
+
                 <div class="search-box child">
-                    <button type="submit" class="bt-search">
-                        <i class='bx bx-search icon'></i>
-                    </button>
-                    <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+                    <input type="text" name="search" id="search" value="" placeholder="Tìm kiếm sản phẩm...">
                 </div>
 
                 <input type="hidden" name="category" id="categoryInput" value="0">
@@ -73,8 +76,26 @@
                         <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
                     </div>
                 </div>
+
+                <input type="hidden" name="brand" id="brand" value="">
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value">Tất cả thương hiệu</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value" name="brand">
+                        <div class="option-item title-dropdown" data-brand=""> Tất cả thương hiệu</div>
+                        <c:forEach items="${brands}" var="b">
+                            <div class="option-item" data-brand="${b}"> Máy in ${b}</div>
+                        </c:forEach>
+
+                    </div>
+                </div>
             </div>
         </form>
+    </div>
+
 
         <div class="product-container">
 
@@ -137,6 +158,40 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+<script>
+    document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+        const hiddenInput = dropdown.previousElementSibling;
+        const selectedText = dropdown.querySelector('.selected-value');
+
+        dropdown.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', () => {
+
+                // Lấy tất cả data-* của option
+                const dataset = item.dataset;
+                let value = '';
+
+                // Lấy value đầu tiên trong dataset
+                for (const key in dataset) {
+                    value = dataset[key];
+                    break;
+                }
+
+                // Gán value cho hidden input
+                if (hiddenInput && hiddenInput.type === 'hidden') {
+                    hiddenInput.value = value;
+                }
+
+                // Update text hiển thị
+                if (selectedText) {
+                    selectedText.textContent = item.textContent.trim();
+                }
+
+                // Đóng dropdown (nếu bạn có CSS mở/đóng)
+                dropdown.classList.remove('open');
+            });
+        });
+    });
+</script>
 
 
 </body>

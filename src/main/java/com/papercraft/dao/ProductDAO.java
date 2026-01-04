@@ -6,9 +6,11 @@ import com.papercraft.model.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ProductDAO {
-    private static final String ROOT_PATH ="images/upload/";
+    private static final String ROOT_PATH = "images/upload/";
 
 
     // get all product just for present product card in main page
@@ -16,12 +18,12 @@ public class ProductDAO {
         List<Product> list = new ArrayList<>();
 
         String sql = """
-                SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
-                FROM product p
-                JOIN category c ON p.category_id = c.id
-                JOIN image i ON p.id = i.entity_id
-                WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product';
-            """;
+                    SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
+                    FROM product p
+                    JOIN category c ON p.category_id = c.id
+                    JOIN image i ON p.id = i.entity_id
+                    WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product';
+                """;
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -96,16 +98,16 @@ public class ProductDAO {
 
 
         String sql = """
-                 SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
-                 FROM product p
-                 JOIN category c ON p.category_id = c.id
-                 LEFT JOIN image i ON i.entity_id = p.id
-                 AND i.is_thumbnail = 1
-                 AND i.entity_type = 'Product'
-                 WHERE c.type = ? 
-                 ORDER BY p.discount DESC
-                 LIMIT 10;
-                 """;
+                SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
+                FROM product p
+                JOIN category c ON p.category_id = c.id
+                LEFT JOIN image i ON i.entity_id = p.id
+                AND i.is_thumbnail = 1
+                AND i.entity_type = 'Product'
+                WHERE c.type = ? 
+                ORDER BY p.discount DESC
+                LIMIT 10;
+                """;
 
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -272,14 +274,14 @@ public class ProductDAO {
     public Product getProductById(int id) {
         Product p = null;
         String sql = """
-                     SELECT p.*, i.img_name, c.type
-                     FROM product p
-                     JOIN category c ON p.category_id = c.id
-                     LEFT JOIN image i ON p.id = i.entity_id
-                     AND i.is_thumbnail = 1
-                     AND i.entity_type = 'Product'
-                     WHERE p.id = ?
-                     """;
+                SELECT p.*, i.img_name, c.type
+                FROM product p
+                JOIN category c ON p.category_id = c.id
+                LEFT JOIN image i ON p.id = i.entity_id
+                AND i.is_thumbnail = 1
+                AND i.entity_type = 'Product'
+                WHERE p.id = ?
+                """;
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -310,6 +312,110 @@ public class ProductDAO {
         }
         return p;
     }
+
+    public Set<String> getAllBrandByType(String type) {
+        Set<String> brands = new TreeSet<>();
+        String sql = """
+                SELECT DISTINCT p.brand
+                FROM product p
+                JOIN category c on c.id = p.category_id
+                WHERE c.type = ?
+                """;
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, type);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    brands.add(rs.getString("brand"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return brands;
+    }
+
+    public List<Product> filterProduct(String type, String search, int categoryId, String brand, String sort){
+        List<Product> list = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder(
+                """
+                    SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name, AVG(r.rating) as avg_rating
+                    FROM product p
+                    JOIN category c ON p.category_id = c.id
+                    JOIN image i ON p.id = i.entity_id
+                    JOIN review r ON r.product_id = p.id
+                    WHERE c.type = ? AND i.is_thumbnail = 1 AND i.entity_type = 'Product';
+                """
+        );
+
+        List<Object> params = new ArrayList<>();
+        params.add(type);
+        if (search != null && !search.isBlank()) {
+            sql.append(" AND p.name LIKE ?");
+            params.add("%" + search + "%");
+        }
+
+        if (categoryId > 0) {
+            sql.append(" AND p.category_id = ?");
+            params.add(categoryId);
+        }
+        if (brand != null && !brand.isBlank()) {
+            sql.append(" AND p.brand = ?");
+            params.add(brand);
+        }
+
+        sql.append(" GROUP BY p.id ");
+
+        switch (sort) {
+            case "priceAsc" -> sql.append(" ORDER BY p.price ASC");
+            case "priceDesc" -> sql.append(" ORDER BY p.price DESC");
+            default -> sql.append(" ORDER BY avg_rating IS NULL, avg_rating DESC");
+        }
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+
+            try(ResultSet rs = ps.executeQuery();){
+                while (rs.next()) {
+                    Product p = new Product();
+
+
+                    p.setId(rs.getInt("id"));
+                    p.setCategoryId(rs.getInt("category_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
+                    p.setBrand(rs.getString("brand"));
+                    p.setAvgRating(rs.getDouble("avg_rating"));
+
+                    p.setPrice(rs.getDouble("price"));
+
+
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.trim().isEmpty()) {
+
+                        p.setThumbnail("images/upload/" + rs.getString("img_name"));
+                    } else {
+                        p.setThumbnail("images/logo.webp"); // Ảnh mặc định nếu thiếu
+                    }
+
+                    list.add(p);
+
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+
 }
 
 
