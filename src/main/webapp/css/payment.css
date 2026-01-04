@@ -1,6 +1,6 @@
 
 .payment {
-    margin: 40px auto;
+    margin: 70px auto;
     max-width: 1200px;
     box-sizing: border-box;
     display: flex;
@@ -172,15 +172,20 @@
 /* Line Tổng cộng */
 .payment .view-table tfoot #total th {
     border-top: 2px solid #ccc;
-    padding-top: 15px;
+    padding: 15px 10px;
+    white-space: nowrap;
+    vertical-align: middle;
     font-size: 16px;
-    font-weight: 700;
-    color: #165FF2;
+    font-weight: 600;
+    color: #000;
 }
 
 .payment .view-table tfoot #total th:last-child {
     color: #d70018;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: right;
+    width: 50%;
 }
 
 /* Shipping & VAT */
@@ -338,4 +343,34 @@
     .payment .title h1 {
         font-size: 24px;
     }
+}
+/*====== Payment Method ====*/
+
+
+/*  Mặc định ẩn tất cả nội dung con */
+.method .hidden,
+.method .hidden-content {
+    display: none !important;
+}
+
+/*   KHI CÓ CLASS ACTIVE -> HIỆN RA   */
+.method.active .hidden,
+.method.active .hidden-content {
+    display: block !important;
+    animation: fadeIn 0.5s ease;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+/*  Hiệu ứng hiện dần */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*   Đổi màu nền khi Active  */
+.method.active {
+    background-color: #f0f9ff;
+    border-color: #165FF2;
 }

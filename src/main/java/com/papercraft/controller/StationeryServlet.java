@@ -16,7 +16,7 @@ import java.util.List;
 public class StationeryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Lấy các tham số từ request (dành cho tìm kiếm và lọc)
+        // Lấy các tham số từ request (dành cho tìm kiếm và lọc)
         String keyword = request.getParameter("search");
         String categoryIdParam = request.getParameter("category");
         String sortBy = request.getParameter("sort");
@@ -33,10 +33,8 @@ public class StationeryServlet extends HttpServlet {
         ProductDAO dao = new ProductDAO();
         List<Product> stationery;
 
-        // 2. Logic lấy dữ liệu: Nếu có tìm kiếm/lọc thì dùng searchProducts, ngược lại lấy tất cả
+        //   Nếu có tìm kiếm/lọc thì dùng searchProducts, ngược lại lấy tất cả
         if ((keyword != null && !keyword.trim().isEmpty()) || categoryId > 0 || sortBy != null) {
-            // Lưu ý: Bạn cần đảm bảo đã sửa hàm searchProducts trong DAO tương tự như getAllProducts
-            // Ở đây tôi giả sử bạn dùng các giá trị mặc định cho phân trang (offset=0, limit=100)
             stationery = dao.searchProducts(keyword, categoryId, sortBy, 0, 100);
         } else {
             stationery = dao.getAllProducts("Stationery");
@@ -47,14 +45,14 @@ public class StationeryServlet extends HttpServlet {
             stationery = new ArrayList<>();
         }
 
-        // 3. Lấy danh sách danh mục để hiển thị trong dropdown filter
+        //  Lấy danh sách danh mục để hiển thị trong dropdown filter
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categories = categoryDAO.getAllCategories("Stationery");
         if (categories == null) {
             categories = new ArrayList<>();
         }
 
-        // 4. Gửi dữ liệu sang JSP
+        // Gửi dữ liệu sang JSP
         request.setAttribute("stationery", stationery);
         request.setAttribute("categories", categories);
 
