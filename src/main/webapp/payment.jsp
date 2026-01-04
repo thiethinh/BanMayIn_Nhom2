@@ -1,268 +1,193 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN"/>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
-    <title>PaperCraft</title>
+    <title>Thanh Toán - PaperCraft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
 </head>
 
 <body>
-    <jsp:include page="includes/header.jsp"/>
-    <!-- ===============Main================== -->
-    <section class="payment">
-        <div class="title">
-            <h1>Thanh Toán</h1>
-        </div>
-        <!-- ==========BLOCK VIEW -->
+<jsp:include page="includes/header.jsp"/>
+
+<section class="payment">
+    <div class="title">
+        <h1>Thanh Toán</h1>
+    </div>
+
+    <form action="${pageContext.request.contextPath}/placeOrder" method="POST" id="checkoutForm">
+
         <div class="block-paymentDetails-finalBill">
 
-            <!-- ===========BLOCK PAYMENT-DETAILS -->
             <section class="payment-details">
-                <h2>Chi tiết đơn hàng</h2>
-                <form action="#">
-                    <!-- ==========NATION=========== -->
-                    <div class="block-nation">
-                        <label for="nation">Quốc Gia <span>*</span></label>
-                        <select name="nation" id="nation" required>
-                            <option value="">--Chọn Quốc Gia--</option>
-                            <option value="VN">Việt Nam</option>
-                            <option value="US">Hoa Kỳ</option>
-                            <option value="UK">Vương quốc Anh</option>
-                            <option value="JP">Nhật Bản</option>
-                            <option value="KR">Hàn Quốc</option>
-                            <option value="CN">Trung Quốc</option>
-                            <option value="FR">Pháp</option>
-                            <option value="DE">Đức</option>
-                            <option value="RU">Nga</option>
-                            <option value="IN">Ấn Độ</option>
-                            <option value="CA">Canada</option>
-                            <option value="AU">Úc</option>
-                            <option value="BR">Brazil</option>
-                            <option value="TH">Thái Lan</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="SG">Singapore</option>
-                            <option value="ID">Indonesia</option>
-                            <option value="PH">Philippines</option>
-                            <option value="IT">Ý</option>
-                            <option value="ES">Tây Ban Nha</option>
-                        </select>
+                <h2>Thông tin giao hàng</h2>
+
+                <div class="block-nation">
+                    <label for="nation">Quốc Gia <span>*</span></label>
+                    <select name="nation" id="nation" required>
+                        <option value="VN" ${addr.nation == 'VN' ? 'selected' : ''}>Việt Nam</option>
+                        <option value="US" ${addr.nation == 'US' ? 'selected' : ''}>Hoa Kỳ</option>
+                    </select>
+                </div>
+
+                <div class="block-firstname-lastname">
+                    <div class="block-firstname" style="width: 100%;">
+                        <label for="fullname">Họ và Tên <span>*</span></label>
+                        <input id="fullname" name="fullname" type="text"
+                               value="${not empty addr ? addr.fname += ' ' += addr.lname : sessionScope.acc.fullname}"
+                               placeholder="Nguyễn Văn A" required>
+                    </div>
+                </div>
+
+                <div class="block-address">
+                    <label for="address">Địa chỉ nhận hàng <span>*</span></label>
+                    <input id="address" name="address" type="text"
+                           value="${addr.detailAddress}"
+                           placeholder="Số nhà, tên đường..." required>
+                </div>
+
+                <div class="block-addressCity-postCode">
+                    <div class="block-addressCity">
+                        <label for="addressCity">Tỉnh / Thành phố <span>*</span></label>
+                        <input id="addressCity" name="city" type="text"
+                               value="${addr.city}"
+                               placeholder="TP. Hồ Chí Minh" required>
                     </div>
 
-                    <!-- ============block-firstname-lastname============== -->
-                    <div class="block-firstname-lastname">
-                        <div class="block-firstname">
-                            <label for="firstname">Tên <span>*</span></label>
-                            <input id="firstname" name="firstname" type="text" placeholder="vd: Thai" required>
-                        </div>
-                        <div class="block-lastname">
-                            <label for="lastname">Họ <span>*</span></label>
-                            <input id="lastname" name="lastname" type="text" placeholder="vd: Nguyen Hoang" required>
-                        </div>
+                    <div class="block-postCode">
+                        <label for="postCode">Mã bưu chính</label>
+                        <input id="postCode" name="postCode" type="text"
+                               value="${addr.postcode}"
+                               placeholder="70000">
                     </div>
+                </div>
 
-                    <!-- ============SUB-ADDRESS============= -->
-                    <div class="block-address">
-                        <label for="address">Địa chỉ <span>*</span></label>
-                        <input id="address" name="address" type="text" placeholder="vd: 123 Lê Lợi, phường Đông Hoà"
-                            required>
+                <div class="block-phone-email">
+                    <div class="block-phone">
+                        <label for="phone">Số điện thoại <span>*</span></label>
+                        <input id="phone" name="phone" type="tel"
+                               value="${addr.phone}"
+                               placeholder="0901234567" required>
                     </div>
-
-                    <!--===============ADDRESS + POSTCODE==============  -->
-                    <div class="block-addressCity-postCode">
-                        <div class="block-addressCity">
-                            <label for="addressCity">Thị trấn/ Thành phố <span>*</span></label>
-                            <input id="addressCity" name="addressCity" type="text"
-                                placeholder="vd: TP. Hồ Chí Minh" required>
-                        </div>
-
-                        <div class="block-postCode">
-                            <label for="postCode">Mã bưu chính <span>*</span></label>
-                            <input id="postCode" name="postCode" type="number" placeholder="vd: 710000" min="0"
-                                maxlength="7" required>
-                        </div>
+                    <div class="block-email">
+                        <label for="email">Email <span>*</span></label>
+                        <input id="email" name="email" type="email"
+                               value="${addr.email}"
+                               placeholder="email@example.com" required>
                     </div>
+                </div>
 
-
-                    <!--==============EMAIL + PHONE============  -->
-                    <div class="block-phone-email">
-                        <div class="block-phone">
-                            <label for="phone">Số điện thoại <span>*</span></label>
-                            <input id="phone" name="phone" type="tel"
-                                title="Nhập số điện thoại hợp lệ (10-11 số) bắt đầu bằng 0" placeholder="vd: 0327618372"
-                                maxlength="11" min="0" required>
-                        </div>
-                        <div class="block-email">
-                            <label for="email">Email <span>*</span></label>
-                            <input id="eamil" name="phone" type="email" placeholder="vd: nguyenvana@gmail.com" required>
-                        </div>
-                    </div>
-                    <!-- <div class="block-save-info">
-                        <input type="checkbox" id="saveInfo" name="saveInfo">
-                        <label for="saveInfo">Lưu thông tin cho lần mua sau</label>
-                    </div> -->
-
-                    <!-- ===========NOTE============== -->
-                    <div class="block-note">
-                        <label for="note">Ghi chú đơn hàng</label>
-                        <textarea name="note" id="note" style="resize: none;"
-                            placeholder="Hãy viết ghi chú cho đơn hàng của bạn..."></textarea>
-                    </div>
-
-                </form>
-
+                <div class="block-note">
+                    <label for="note">Ghi chú đơn hàng</label>
+                    <textarea name="note" id="note" style="resize: none;"
+                              placeholder="Ghi chú về thời gian giao hàng, địa điểm..."></textarea>
+                </div>
             </section>
 
-            <!-- ==============BLOCK FINAL-BILL -->
             <section class="final-bill">
                 <h2>Đơn hàng của bạn</h2>
                 <table class="view-table">
                     <thead>
-                        <tr class="row-title">
-                            <th id="block-header-final-bill">Sản Phẩm</th>
-                            <th id="block-header-final-bill">Tổng cộng</th>
-                        </tr>
+                    <tr class="row-title">
+                        <th id="block-header-final-bill">Sản Phẩm</th>
+                        <th id="block-header-final-bill" style="text-align: right;">Thành tiền</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr class="product1">
-                            <th>Máy in phun màu Epson L6270 <strong>x1</strong> </th>
-                            <th>16.990.000đ</th>
+                    <c:forEach items="${items}" var="item">
+                        <tr class="product-row">
+                            <th>
+                                    ${item.product.productName}
+                                <strong style="color: #165FF2;">x${item.quantity}</strong>
+                            </th>
+                            <th style="text-align: right;">
+                                <fmt:formatNumber value="${item.total}" pattern="#,###"/> ₫
+                            </th>
                         </tr>
-                        <tr class="product2">
-                            <th>Máy in HP Laser MFP 3303fdn <strong>x1</strong> </th>
-                            <th>10.490.000đ</th>
-                        </tr>
-                        <tr class="product3">
-                            <th>Máy in Laser DCP-L3560CDW <strong>x1</strong> </th>
-                            <th>11.790.000đ</th>
-                        </tr>
+                    </c:forEach>
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th class="shiping">Vận chuyển: </th>
-                            <th class="shiping">
-                                <!-- <div class="flast-ship">
-                                    <input id="flast-ship" type="radio" name="ship">
-                                    <label for="flast-ship">Giao hàng hỏa tốc</label>
-                                </div> -->
+                    <tr>
+                        <th class="shiping">Tạm tính:</th>
+                        <th class="shiping" style="text-align: right;">
+                            <fmt:formatNumber value="${subTotal}" pattern="#,###"/> ₫
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="shiping">Vận chuyển:</th>
+                        <th class="shiping" style="text-align: right;">
+                            <p style="color: green;">Miễn phí</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Thuế (VAT 5%):</th>
+                        <th class="VAT" style="text-align: right;">
+                            <div class="vat">
+                                <p><fmt:formatNumber value="${vat}" pattern="#,###"/> ₫</p>
+                            </div>
+                        </th>
+                    </tr>
 
-                                <div class="free-ship">
-                                    <!-- <input id="free-ship" type="radio" name="ship">
-                                    <label for="free-ship">Miễn phí vận chuyển</label> -->
-                                    <p>Miễn phí</p>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Thuế(VAT): </th>
-                            <th class="VAT">
-                                <div class="vat">
-                                    
-                                    <p>1.963.500đ</p>
-                                </div>
-                            </th>
-                        </tr>
-
-                        <tr id="total">
-                            <th>Tổng Đơn Hàng: </th>
-                            <th>41.233.500đ</th>
-                        </tr>
+                    <tr id="total">
+                        <th>Tổng Đơn Hàng:</th>
+                        <th style="color: #d70018; font-size: 18px; text-align: right;">
+                            <fmt:formatNumber value="${grandTotal}" pattern="#,###"/> ₫
+                        </th>
+                    </tr>
                     </tfoot>
                 </table>
+
                 <div class="pay-method">
-                    <!-- =============BANK======= -->
+
+                    <div class="method cod-method" style="margin-bottom: 10px;">
+                        <input type="radio" name="paymentMethod" id="cod" value="COD" checked>
+                        <label for="cod" style="font-weight: bold; margin-left: 5px;">Thanh toán khi nhận hàng (COD)</label>
+                    </div>
 
                     <div class="method bank-method">
-                        <input type="radio" name="paymentMethod" id="bankCard" value="BANK" hidden>
-                        <h3>Thanh toán qua thẻ ngân hàng</h3>
-                        <button type="button"><i class="fa-solid fa-plus"></i></button>
+                        <input type="radio" name="paymentMethod" id="bankCard" value="BANK">
+                        <label for="bankCard" style="font-weight: bold; margin-left: 5px;">Chuyển khoản Ngân hàng</label>
 
-                        <div class="hidden">
-                            <p>Vui lòng nhập thông tin thẻ tín dụng hoặc thẻ ghi nợ của bạn.</p>
+                        <button type="button" class="toggle-btn"><i class="fa-solid fa-plus"></i></button>
 
-                            <form action="#">
-                                <div class="bank-info-container">
-                                    <!-- Ngân hàng   -->
-                                    <div class="block-bank-name">
-                                        <label for="bank-name">Ngân hàng <span>*</span></label>
-                                        <select name="bank-name" id="bank-name" required>
-                                            <option value="">--Chọn Ngân Hàng--</option>
-                                            <option value="VCB">Vietcombank</option>
-                                            <option value="BIDV">BIDV</option>
-                                            <option value="ACB">ACB</option>
-                                            <option value="SCB">Sacombank</option>
-                                            <option value="MB">MBBank</option>
-                                            <option value="VTB">VietinBank</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Thông tin thẻ   -->
-
-                                    <div class="card-info">
-                                        <div class="block-card-number">
-                                            <label for="card-number">Số thẻ <span>*</span></label>
-                                            <input type="text" id="card-number" maxlength="16"
-                                                placeholder="1234 5678 9012 3456" required>
-                                        </div>
-
-                                        <div class="block-card-holder">
-                                            <label for="card-holder">Tên chủ thẻ <span>*</span></label>
-                                            <input type="text" id="card-holder" placeholder="NGUYEN VAN A" required>
-                                        </div>
-
-                                        <div class="block-enddate-cvv">
-                                            <div class="block-card-enddate">
-                                                <label for="enddate-date">Ngày hết hạn <span>*</span></label>
-                                                <input type="text" id="enddate-date" maxlength="5" placeholder="MM/YY"
-                                                    required>
-                                            </div>
-
-                                            <div class="block-card-cvv">
-                                                <label for="cvv">CVV <span>*</span></label>
-                                                <input type="password" id="cvv" maxlength="3" placeholder="***"
-                                                    required>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </form>
+                        <div class="hidden-content" style="display: none; margin-top: 10px;">
+                            <p>Vui lòng chuyển khoản đến STK sau:</p>
+                            <p><b>Vietcombank - 0123456789 - PAPER CRAFT</b></p>
+                            <p>Nội dung: <b>SDT_DAT_HANG</b></p>
                         </div>
                     </div>
-                </div>
-                <!-- ========Momo -->
-                <div class="method">
-                    <input type="radio" name="paymentMethod" id="momo" value="Momo" hidden>
-                    <h3>Thanh toán qua momo</h3>
-                    
-                    <button type="button"><i class="fa-solid fa-plus"></i></button>
-                    <div class="hidden">
-                        <p>Vui lòng quét mã QR để thanh toán bằng momo.</p>
-                        <img id="momo_qr" src="${pageContext.request.contextPath}/images\momo_qr.jpg" alt="momo_qr">
-                        
+
+                    <div class="method momo-method">
+                        <input type="radio" name="paymentMethod" id="momo" value="Momo">
+                        <label for="momo" style="font-weight: bold; margin-left: 5px;">Ví MoMo</label>
+
+                        <button type="button" class="toggle-btn"><i class="fa-solid fa-plus"></i></button>
+                        <div class="hidden-content" style="display: none; margin-top: 10px;">
+                            <p>Quét mã QR để thanh toán:</p>
+                            <img id="momo_qr" src="${pageContext.request.contextPath}/images/momo_qr.jpg" alt="momo_qr" style="width: 150px;">
+                        </div>
                     </div>
                 </div>
 
                 <button class="order-btn" type="submit">ĐẶT HÀNG</button>
+            </section>
         </div>
+    </form>
+</section>
 
-    </section>
-    </div>
+<jsp:include page="includes/footer.jsp"/>
 
-    </section>
-
-
-    <!-- ================Main================= -->
-    <jsp:include page="includes/footer.jsp"/>
-
-    <script src="js\payment.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/js/payment.js"></script>
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
-
 </html>

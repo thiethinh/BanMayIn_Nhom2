@@ -89,6 +89,16 @@ public class CartServlet extends HttpServlet {
     //addToCart
     private void addToCart(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        HttpSession session = request.getSession();
+        Map<Integer, Integer> cart =
+                (Map<Integer, Integer>) session.getAttribute("cart");
+
+        //Kiểm tra đăng nhập
+        if (session.getAttribute("acc") == null) {
+            // Trả về mã lỗi 401
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return; // không cho thêm vào giỏ
+        }
 
         //debug
         System.out.println("--- Server đang xử lý thêm giỏ hàng ---");
@@ -100,9 +110,6 @@ public class CartServlet extends HttpServlet {
         //debug
         System.out.println("Product ID: " + productId + " | Qty: " + quantity);
 
-        HttpSession session = request.getSession();
-        Map<Integer, Integer> cart =
-                (Map<Integer, Integer>) session.getAttribute("cart");
 
         if (cart == null) {
             cart = new HashMap<>();

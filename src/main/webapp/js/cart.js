@@ -14,14 +14,52 @@ function addToCart(productId) {
         body: `action=add&id=${productId}&quantity=1`
     })
         .then(res => {
+            // Lỗi 401 =>chua đăng nhập
+            if (res.status === 401) {
+                Swal.fire({
+                    title: 'Bạn chưa đăng nhập!',
+                    text: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#165FF2',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đăng nhập ngay',
+                    cancelButtonText: 'Để sau'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Chuyển hướng sang trang Login
+                        window.location.href = `${contextPath}/login`;
+                    }
+                });
+                return;
+            }
+
+
+            //Xly Thêm thành côcng
             if (res.ok) {
                 updateCartCount();
 
-                console.log("Đã thêm vào giỏ thành công!");
+            // Hiện thông báo nhỏ góc trên bên phải (Toast)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đã thêm vào giỏ hàng!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
             } else {
-                // tb lỗi
-                console.error("Lỗi server khi thêm giỏ hàng");
-                alert("Có lỗi xảy ra, vui lòng thử lại.");
+                // Lỗi khng thêm được vào giỏ hàng khác
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Không thể thêm sản phẩm vào giỏ.',
+                });
             }
         })
         .catch(err => {
@@ -91,6 +129,7 @@ function updateQuantity(productId, change) {
         body: `action=update&id=${productId}&quantity=${newQty}`
     })
         .then(res => {
+            //XLy Thành công
             if (res.ok) {
                 // Load lại trang để Server tính lại Tổng tiền (Total, VAT)
                 location.reload();

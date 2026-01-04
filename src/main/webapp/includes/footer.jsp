@@ -42,4 +42,6 @@
     <div class="footer-bottom">
         <p>&copy; 2025 PaperCraft. All rights reserved.</p>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> //thư viện popup
 </footer>

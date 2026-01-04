@@ -1,12 +1,36 @@
 
-// lấy toàn bộ ptu của class .method
-document.querySelectorAll(".method").forEach((item) => {
-  item.addEventListener("click", (e) => { //gán sự kiện cho method
+document.addEventListener("DOMContentLoaded", () => {
+    //  Lấy tất cả các khối phương thức thanh toán
+    const methods = document.querySelectorAll(".method");
 
-    if (e.target.closest(".hidden")) return; //xử lý khi User bấm bào nội dung con sẽ tự động Un-Choose
+    //  Xử lý sự kiện CLICK cho từng khối
+    methods.forEach((item) => {
+        item.addEventListener("click", (e) => {
 
-    const isActive = item.classList.contains("active"); // check hiện tại đang chọn hay đóng
-    document.querySelectorAll(".method").forEach((m) => m.classList.remove("active"));//khi chọn một khối khác đóng khối còn lại 
-    if (!isActive) item.classList.add("active");// nếu chưa chọn thì mở còn đang mở thì đống lại 
-  });
+            //  Ngăn chặn sự kiện nếu bấm vào vùng nội dung con => (user có thể nhập liệu vào ô input, copy text mà không bị đóng khối lại)
+            if (e.target.closest(".hidden")) return;
+
+            //  Reset: Xóa class 'active' của tất cả các khối khác
+            methods.forEach((m) => m.classList.remove("active"));
+
+            // Active: Thêm class 'active' cho khối vừa bấm vào
+            item.classList.add("active");
+
+            //   Tự động check vào nút Radio ẩn bên trong
+            const radio = item.querySelector("input[type='radio']");
+            if (radio) {
+                radio.checked = true;
+            }
+        });
+    });
+
+    //  Xử lý khi mới load trang
+    const defaultChecked = document.querySelector(".method input[type='radio']:checked");
+    if (defaultChecked) {
+        // Tìm lên thẻ cha => thêm class active
+        const parentMethod = defaultChecked.closest(".method");
+        if (parentMethod) {
+            parentMethod.classList.add("active");
+        }
+    }
 });

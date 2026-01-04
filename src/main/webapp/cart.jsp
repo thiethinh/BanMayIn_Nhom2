@@ -125,11 +125,15 @@
                         </span>
                     </h2>
 
-                    <a href="payment.jsp" id="bt-payment" class="block-bt-payment">
+                    <a href="${pageContext.request.contextPath}/checkout"
+                       id="bt-payment"
+                       class="block-bt-payment">
                         TIẾN HÀNH THANH TOÁN
                     </a>
-                    <a href="printer.jsp" id="bt-shopping-continous" class="block-bt-shopping-continous">
-                        Tiếp Tục Mua Sắm
+                    <a href="#" onclick="history.back(); return false;"
+                       id="bt-shopping-continous"
+                       class="block-bt-shopping-continous">
+                         Tiếp tục mua sắm
                     </a>
                 </div>
             </section>
