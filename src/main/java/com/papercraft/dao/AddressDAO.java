@@ -54,4 +54,41 @@ public class AddressDAO {
         }
     }
 
+    //Tìm địa chỉ mặc định của User để hiển thị lên trang Checkout
+    public Address findDefaultAddress(int userId) {
+        // Query lấy địa chỉ mặc định (is_default = 1) của user
+        String sql = "SELECT * FROM address WHERE user_id = ? AND is_default = 1";
+
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Address addr = new Address();
+                    addr.setId(rs.getInt("id"));
+                    addr.setUserId(rs.getInt("user_id"));
+                    addr.setFname(rs.getString("fname"));
+                    addr.setLname(rs.getString("lname"));
+                    addr.setNation(rs.getString("nation"));
+                    addr.setCity(rs.getString("city"));
+                    addr.setDetailAddress(rs.getString("detail_address"));
+                    addr.setPostcode(rs.getString("postcode"));
+                    addr.setEmail(rs.getString("email"));
+                    addr.setPhone(rs.getString("phone"));
+                    addr.setDefault(rs.getBoolean("is_default"));
+
+                    return addr;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
 }
