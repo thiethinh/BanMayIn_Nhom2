@@ -11,34 +11,36 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @WebServlet(name = "StationeryServlet", value = "/stationery")
 public class StationeryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy các tham số từ request (dành cho tìm kiếm và lọc)
-        String keyword = request.getParameter("search");
-        String categoryIdParam = request.getParameter("category");
-        String sortBy = request.getParameter("sort");
+        String search = request.getParameter("search");
+        String categoryIdRaw = request.getParameter("category");
+        String sort = request.getParameter("sort");
+        String brand = request.getParameter("brand");
 
         int categoryId = 0;
-        if (categoryIdParam != null && !categoryIdParam.isEmpty()) {
+        if (categoryIdRaw != null && !categoryIdRaw.isEmpty()&& !categoryIdRaw.isEmpty()) {
             try {
-                categoryId = Integer.parseInt(categoryIdParam);
+                categoryId = Integer.parseInt(categoryIdRaw);
             } catch (NumberFormatException e) {
                 categoryId = 0;
             }
         }
+        search= (search == null || search.isEmpty() || search.isBlank()) ? null : search;
+        sort = (sort == null || sort.isEmpty() || sort.isBlank()) ? "rating" : sort;
+        brand =(brand == null || brand.isEmpty()||brand.isBlank())? null: brand;
 
         ProductDAO dao = new ProductDAO();
         List<Product> stationery;
 
         //   Nếu có tìm kiếm/lọc thì dùng searchProducts, ngược lại lấy tất cả
-        if ((keyword != null && !keyword.trim().isEmpty()) || categoryId > 0 || sortBy != null) {
-            stationery = dao.searchProducts(keyword, categoryId, sortBy, 0, 100);
-        } else {
-            stationery = dao.getAllProducts("Stationery");
-        }
+        stationery = dao.filterProduct("Stationery",search,categoryId,brand,sort);
 
         // Kiểm tra null an toàn
         if (stationery == null) {
@@ -52,14 +54,21 @@ public class StationeryServlet extends HttpServlet {
             categories = new ArrayList<>();
         }
 
+        Set<String> brands = dao.getAllBrandByType("Stationery");
+        if(brands == null){
+            brands = new TreeSet<>();
+        }
+
         // Gửi dữ liệu sang JSP
         request.setAttribute("stationery", stationery);
         request.setAttribute("categories", categories);
+        request.setAttribute("brands", brands);
 
         // Gửi lại các giá trị cũ để giữ trạng thái cho các ô input trên giao diện
-        request.setAttribute("selectedKeyword", keyword);
-        request.setAttribute("selectedCategory", categoryId);
-        request.setAttribute("selectedSort", sortBy);
+        request.setAttribute("search", search);
+        request.setAttribute("categoryId", categoryId);
+        request.setAttribute("sort", sort);
+        request.setAttribute("brand", brand);
 
         request.getRequestDispatcher("/stationery.jsp").forward(request, response);
     }

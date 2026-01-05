@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/printer-stationery.css?v=1">
 </head>
 
 <body data-context="${pageContext.request.contextPath}">
@@ -41,17 +41,17 @@
             <div class="search-container">
                 <button type="submit" class="bt-search">
                     <i class='bx bx-search icon'></i>
-                   Tìm kiếm
+                    Tìm kiếm
                 </button>
 
                 <div class="search-box child">
-                    <input type="text" name="search" id="search" value="" placeholder="Tìm kiếm sản phẩm...">
+                    <input type="text" name="search" id="search"  value="${search}" placeholder="Tìm kiếm sản phẩm...">
                 </div>
 
-                <input type="hidden" name="category" id="categoryInput" value="0">
+                <input type="hidden" name="category" id="categoryInput" value="${empty categoryId ? 0 : categoryId }">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Tất Cả Danh Mục</span>
+                        <span class="selected-value" id="categoryLabel">Tất Cả Danh Mục</span>
                         <span class="arrow">▼</span>
                     </div>
 
@@ -63,10 +63,10 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="sort" id="sortInput" value="rating">
+                <input type="hidden" name="sort" id="sortInput" value="${empty sort ? "rating" : sort}">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Đánh giá cao nhất</span>
+                        <span class="selected-value" id="sortLabel">Đánh giá cao nhất</span>
                         <span class="arrow">▼</span>
                     </div>
 
@@ -77,10 +77,10 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="brand" id="brand" value="">
+                <input type="hidden" name="brand" id="brand" value="${brand}" >
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Tất cả thương hiệu</span>
+                        <span class="selected-value" id="brandLabel">Tất cả thương hiệu</span>
                         <span class="arrow">▼</span>
                     </div>
 
@@ -97,124 +97,99 @@
     </div>
 
 
-        <div class="product-container">
+    <div class="product-container">
 
-            <c:forEach items="${printers}" var="p">
-                <div class="product-card swiper-slide">
+        <c:forEach items="${printers}" var="p">
+            <div class="product-card swiper-slide">
 
-                    <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
-                       class="product-image-placeholder">
-                        <c:if test="${p.discount > 0}">
+                <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                   class="product-image-placeholder">
+                    <c:if test="${p.discount > 0}">
                     <span class="badge-discount">
                         -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
                     </span>
-                        </c:if>
-                        <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
-                             loading="lazy" alt="${p.productName}"/>
+                    </c:if>
+                    <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
+                         loading="lazy" alt="${p.productName}"/>
+                </a>
+
+                <h3 class="product-name">
+                    <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                       style="text-decoration: none; color: inherit;">
+                            ${p.productName}
                     </a>
+                </h3>
 
-                    <h3 class="product-name">
-                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
-                           style="text-decoration: none; color: inherit;">
-                                ${p.productName}
-                        </a>
-                    </h3>
-
-                    <ul class="product-details">
-                        <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
-                            <li>${feature.trim()}</li>
-                        </c:forTokens>
-                    </ul>
+                <ul class="product-details">
+                    <c:forTokens items="${p.descriptionThumbnail}" delims="#" var="feature">
+                        <li>${feature.trim()}</li>
+                    </c:forTokens>
+                </ul>
 
 
-                    <div class="product-price-box">
-                        <c:if test="${p.discount > 0}">
-                            <span class="old-price" style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                <div class="product-price-box" style="display: flex;margin: 0 0 15px 20px;padding :5px";>
+                    <c:if test="${p.discount > 0.0}">
+                            <span class="old-price"
+                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
                                 <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
                             </span>
 
-                            <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
-                                <fmt:formatNumber value="${p.salePrice}" pattern="#,###"/> ₫
+                        <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
                             </span>
 
-                            <span class="badge-sale"
-                                  style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
+                        <span class="badge-sale"
+                              style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
                                 -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
                             </span>
-                        </c:if>
+                    </c:if>
 
-                        <c:if test="${p.discount <= 0}">
+                    <c:if test="${p.discount <= 0.0}">
                             <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
                                 <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
                             </span>
-                        </c:if>
-                    </div>
-
-                    <div class="action">
-                        <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
-                                class='bx bx-cart'></i></span>
-                            <p>Thêm Vào Giỏ</p>
-                        </button>
-
-
-                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
-                           style="text-decoration: none;">
-                            <button class="bt-detail">Xem</button>
-                        </a>
-                    </div>
+                    </c:if>
                 </div>
 
-            </c:forEach>
-        </div>
+                <div class="action">
+                    <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
+                            class='bx bx-cart'></i></span>
+                        <p>Thêm Vào Giỏ</p>
+                    </button>
 
-        <div class="swiper-pagination"></div>
 
+                    <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                       style="text-decoration: none;">
+                        <button class="bt-detail">Xem</button>
+                    </a>
+                </div>
+            </div>
+
+        </c:forEach>
     </div>
 
-    <div class="pagination"></div>
+    <div class="swiper-pagination"></div>
+
+</div>
+
+<div class="pagination"></div>
 </div>
 
 <jsp:include page="includes/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
-<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 <script>
-    document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
-        const hiddenInput = dropdown.previousElementSibling;
-        const selectedText = dropdown.querySelector('.selected-value');
-
-        dropdown.querySelectorAll('.option-item').forEach(item => {
-            item.addEventListener('click', () => {
-
-                // Lấy tất cả data-* của option
-                const dataset = item.dataset;
-                let value = '';
-
-                // Lấy value đầu tiên trong dataset
-                for (const key in dataset) {
-                    value = dataset[key];
-                    break;
-                }
-
-                // Gán value cho hidden input
-                if (hiddenInput && hiddenInput.type === 'hidden') {
-                    hiddenInput.value = value;
-                }
-
-                // Update text hiển thị
-                if (selectedText) {
-                    selectedText.textContent = item.textContent.trim();
-                }
-
-                // Đóng dropdown (nếu bạn có CSS mở/đóng)
-                dropdown.classList.remove('open');
-            });
-        });
-    });
+    window.FILTER_STATE = {
+        categoryId: "${categoryId}",
+        sort: "${sort}",
+        brand: "${brand}"
+    };
 </script>
 
+<script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/js/printer-stationery.js"></script>
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
+
 
 
 </body>

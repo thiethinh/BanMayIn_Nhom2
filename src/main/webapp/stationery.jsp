@@ -34,20 +34,23 @@
         <form action="${pageContext.request.contextPath}/stationery" method="get">
 
             <div class="search-container">
+                <button type="submit" class="bt-search">
+                    <i class='bx bx-search icon'></i>
+                    Tìm kiếm
+                </button>
+
                 <div class="search-box child">
-                    <button type="submit" class="bt-search"><i class='bx bx-search icon'></i></button>
-                    <input type="text" name="search" id="search" placeholder="Tìm kiếm sản phẩm...">
+                    <input type="text" name="search" id="search"  value="${search}" placeholder="Tìm kiếm sản phẩm...">
                 </div>
 
-                <input type="hidden" name="category" id="categoryInput">
+                <input type="hidden" name="category" id="categoryInput" value="${empty categoryId ? 0 : categoryId }">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Tất Cả Danh Mục</span>
+                        <span class="selected-value" id="categoryLabel">Tất Cả Danh Mục</span>
                         <span class="arrow">▼</span>
                     </div>
 
                     <div class="option-value">
-
                         <div class="option-item title-dropdown" data-id="0">Tất Cả Danh Mục</div>
                         <c:forEach items="${categories}" var="category">
                             <div class="option-item" data-id="${category.id}">${category.categoryName}</div>
@@ -55,17 +58,33 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="sort" id="sortInput">
+                <input type="hidden" name="sort" id="sortInput" value="${empty sort ? "" : sort}">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value">Đánh giá cao nhất</span>
+                        <span class="selected-value" id="sortLabel">Đánh giá cao nhất</span>
                         <span class="arrow">▼</span>
                     </div>
 
-                    <div class="option-value">
+                    <div class="option-value" name="sortBy">
                         <div class="option-item title-dropdown" data-value="rating"> Đánh giá cao nhất</div>
-                        <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
                         <div class="option-item" data-value="priceDesc"> Giá: Cao đến Thấp</div>
+                        <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="brand" id="brand" value="${brand}" >
+                <div class="custom-dropdown child">
+                    <div class="select-trigger">
+                        <span class="selected-value" id="brandLabel">Tất cả thương hiệu</span>
+                        <span class="arrow">▼</span>
+                    </div>
+
+                    <div class="option-value" name="brand">
+                        <div class="option-item title-dropdown" data-brand=""> Tất cả thương hiệu</div>
+                        <c:forEach items="${brands}" var="b">
+                            <div class="option-item" data-brand="${b}"> Thương hiệu ${b}</div>
+                        </c:forEach>
+
                     </div>
                 </div>
             </div>
@@ -80,13 +99,12 @@
                         <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                            class="product-image-placeholder">
                             <c:if test="${s.discount > 0}">
-                        <span class="badge-discount">
-                            -<fmt:formatNumber value="${s.discount * 100}" maxFractionDigits="0"/>%
-                        </span>
+                    <span class="badge-discount">
+                        -<fmt:formatNumber value="${s.discount * 100}" maxFractionDigits="0"/>%
+                    </span>
                             </c:if>
-
-                            <img src="${pageContext.request.contextPath}/${s.thumbnail}"
-                                 height="300" width="300" loading="lazy" alt="${s.productName}"/>
+                            <img src="${pageContext.request.contextPath}/${s.thumbnail}" height="300" width="300"
+                                 loading="lazy" alt="${s.productName}"/>
                         </a>
 
                         <h3 class="product-name">
@@ -103,14 +121,36 @@
                         </ul>
 
 
+                        <div class="product-price-box" style="display: flex;margin: 0 0 15px 20px;padding :5px";>
+                            <c:if test="${s.discount > 0.0}">
+                            <span class="old-price"
+                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                <fmt:formatNumber value="${s.originPrice}" pattern="#,###"/> ₫
+                            </span>
 
-                        <p class="product-price">
-                            <fmt:formatNumber value="${s.price}" pattern="#,###"/> ₫
-                        </p>
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${s.price}" pattern="#,###"/> ₫
+                            </span>
+
+                                <span class="badge-sale"
+                                      style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
+                                -<fmt:formatNumber value="${s.discount * 100}" maxFractionDigits="0"/>%
+                            </span>
+                            </c:if>
+
+                            <c:if test="${s.discount <= 0.0}">
+                            <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
+                                <fmt:formatNumber value="${s.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                            </c:if>
+                        </div>
+
                         <div class="action">
-                            <button class="add-cart" type="button" onclick="addToCart(${s.id})"><span><i class='bx bx-cart'></i></span>
+                            <button class="add-cart" type="button" onclick="addToCart(${s.id})"><span><i
+                                    class='bx bx-cart'></i></span>
                                 <p>Thêm Vào Giỏ</p>
                             </button>
+
 
                             <a href="${pageContext.request.contextPath}/product-detail?productId=${s.id}"
                                style="text-decoration: none;">
@@ -118,6 +158,7 @@
                             </a>
                         </div>
                     </div>
+
                 </c:forEach>
             </c:if>
         </div>
@@ -131,7 +172,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
 <script type="module" src="${pageContext.request.contextPath}/js/main.js"></script>
-
+<script>
+    window.FILTER_STATE = {
+        categoryId: "${categoryId}",
+        sort: "${sort}",
+        brand: "${brand}"
+    };
+</script>
 <script src="${pageContext.request.contextPath}/js/printer-stationery.js"></script>
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>

@@ -342,7 +342,7 @@ public class ProductDAO {
 
         StringBuilder sql = new StringBuilder(
                 """
-                    SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name, AVG(r.rating) as avg_rating
+                    SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand,  p.origin_price,p.discount,p.price, i.img_name, AVG(r.rating) as avg_rating
                     FROM product p
                     JOIN category c ON p.category_id = c.id
                     JOIN image i ON p.id = i.entity_id
@@ -367,7 +367,7 @@ public class ProductDAO {
             params.add(brand);
         }
 
-        sql.append(" GROUP BY p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name");
+        sql.append(" GROUP BY p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.origin_price,p.discount,p.price, i.img_name");
 
         switch (sort) {
             case "priceAsc" -> sql.append(" ORDER BY p.price ASC");
@@ -392,10 +392,10 @@ public class ProductDAO {
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
                     p.setBrand(rs.getString("brand"));
-                    p.setAvgRating(rs.getDouble("avg_rating"));
-
+                    p.setOriginPrice(rs.getDouble("origin_price"));
                     p.setPrice(rs.getDouble("price"));
-
+                    p.setAvgRating(rs.getDouble("avg_rating"));
+                    p.setDiscount(rs.getDouble("discount"));
 
                     String imgName = rs.getString("img_name");
                     if (imgName != null && !imgName.trim().isEmpty()) {

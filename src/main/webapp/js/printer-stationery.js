@@ -153,9 +153,82 @@ function initPagination() {
     showPage(currentPage);
 }
 
+function assignFilterProduct() {
+
+    // assign value for hidden input filter
+    document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+        const hiddenInput = dropdown.previousElementSibling;
+        const selectedText = dropdown.querySelector('.selected-value');
+
+        dropdown.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', () => {
+
+                const dataset = item.dataset;
+                let value = '';
+
+                // lấy data-* đầu tiên
+                for (const key in dataset) {
+                    value = dataset[key];
+                    break;
+                }
+
+                if (hiddenInput && hiddenInput.type === 'hidden') {
+                    hiddenInput.value = value;
+                }
+
+                if (selectedText) {
+                    selectedText.textContent = item.textContent.trim();
+                }
+
+                dropdown.classList.remove('open');
+            });
+        });
+    });
+}
+
+function reassignFilterProduct() {
+
+    const state = window.FILTER_STATE || {};
+    const { categoryId, sort, brand } = state;
+
+    // CATEGORY
+    if (categoryId && categoryId !== "0") {
+        const selected = document.querySelector(
+            `.option-item[data-id="${categoryId}"]`
+        );
+        if (selected) {
+            document.getElementById("categoryLabel").innerText = selected.innerText;
+            document.getElementById("categoryInput").value = categoryId;
+        }
+    }
+
+    // SORT
+    if (sort) {
+        const selected = document.querySelector(
+            `.option-item[data-value="${sort}"]`
+        );
+        if (selected) {
+            document.getElementById("sortLabel").innerText = selected.innerText;
+            document.getElementById("sortInput").value = sort;
+        }
+    }
+
+    // BRAND
+    if (brand !== "") {
+        const selected = document.querySelector(
+            `.option-item[data-brand="${brand}"]`
+        );
+        if (selected) {
+            document.getElementById("brandLabel").innerText = selected.innerText;
+            document.getElementById("brand").value = brand;
+        }
+    }
+}
 
 
 export function initilizePrinterStationery() {
-    initDropDown();
-    initPagination();
+        initDropDown();
+        initPagination();
+        assignFilterProduct();
+        reassignFilterProduct();
 }
