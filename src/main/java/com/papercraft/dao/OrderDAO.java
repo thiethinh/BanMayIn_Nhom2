@@ -3,10 +3,8 @@ package com.papercraft.dao;
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Order;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class OrderDAO {
 
         String sql = "SELECT * FROM `order` WHERE user_id = ? ORDER BY created_at DESC";
 
-         try (
+        try (
                 Connection conn = DBConnect.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
         ) {
@@ -30,7 +28,7 @@ public class OrderDAO {
                 while (rs.next()) {
                     Order order = new Order();
 
-                     order.setId(rs.getInt("id"));
+                    order.setId(rs.getInt("id"));
                     order.setUserId(rs.getInt("user_id"));
                     order.setStatus(rs.getString("status"));
                     order.setTotalPrice(rs.getBigDecimal("total_price"));
@@ -60,13 +58,14 @@ public class OrderDAO {
 
         return orders;
     }
-// updateOrderStatus
+
+    // updateOrderStatus
     public boolean updateOrderStatus(int orderId, String status) {
 
 
         String sql = "UPDATE `order` SET status = ? WHERE id = ?";
 
-         try (
+        try (
                 Connection conn = DBConnect.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
         ) {
@@ -81,35 +80,75 @@ public class OrderDAO {
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-             System.err.println("SQL Error in updateOrderStatus: Could not update order ID " + orderId);
+            System.err.println("SQL Error in updateOrderStatus: Could not update order ID " + orderId);
             e.printStackTrace();
 
             // Ném lại RuntimeException để tầng Service xử lý lỗi hệ thống
             throw new RuntimeException("Database error occurred while updating order status.", e);
         } catch (Exception e) {
-             throw new RuntimeException(e);
-         }
+            throw new RuntimeException(e);
+        }
     }
 
-    public int  totalUnstatusOrder(){
+    public Integer totalPendingOrder() {
 
         String sql = """
                 SELECT SUM(status) AS pending_order FROM order WHERE status ='Chờ Xử Lí';
                 """;
-        try(Connection conn = DBConnect.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)){
-            try (ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                    return  rs.getInt("pending_order");
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("pending_order");
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return 0;
+    }
+
+    public List<Order> getTop10PendingOrder() {
+        List<Order> orders = new ArrayList<>();
+        String sql = """
+                SELECT o.id, o.user_id,o.created_at, o.status, sum( oi.quantity * oi.price) as total_price
+                FROM orders o
+                JOIN users u ON u.id =o.user_id
+                JOIN order_item oi ON o.id = oi.order_id
+                WHERE status ='Chờ Xử Lí'
+                GROUP BY o.id, o.user_id,o.created_at, o.status;
+                """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+
+                    Integer id = rs.getInt("id");
+                    Integer userId = rs.getInt("user_id");
+                    Timestamp orderDate = rs.getTimestamp("created_at");
+                    BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                    String status = rs.getString("status");
+
+                    Order order = new Order();
+                    order.setId(id);
+                    order.setUserId(userId);
+                    order.setCreatedAt(orderDate);
+                    order.setTotalPrice(totalPrice);
+                    order.setStatus(status);
+                    orders.add(order);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
     }
 
 }

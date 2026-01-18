@@ -38,7 +38,7 @@ public class ContactDAO {
         return false;
     }
 
-    public int totalUnrepliedContact(){
+    public Integer totalUnrepliedContact(){
         String sql = """
                 SELECT SUM(rely) AS total_unreplied FROM contact WHERE rely =0;
                 """;

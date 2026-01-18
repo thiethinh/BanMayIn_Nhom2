@@ -147,7 +147,7 @@ public class UserDAO {
         return false;
     }
 
-    public int totalUser(){
+    public Integer totalUser(){
         String sql = """
                 SELECT SUM(id) AS total_user FROM users;
                 """;
