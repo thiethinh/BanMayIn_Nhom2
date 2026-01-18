@@ -7,6 +7,7 @@ import com.papercraft.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,5 +145,25 @@ public class UserDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int totalUser(){
+        String sql = """
+                SELECT SUM(id) AS total_user FROM users;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return  rs.getInt("total_user");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }

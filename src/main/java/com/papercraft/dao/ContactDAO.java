@@ -4,6 +4,7 @@ import com.papercraft.db.DBConnect;
 import com.papercraft.model.Contact;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ContactDAO {
@@ -35,5 +36,25 @@ public class ContactDAO {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    public int totalUnrepliedContact(){
+        String sql = """
+                SELECT SUM(rely) AS total_unreplied FROM contact WHERE rely =0;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return  rs.getInt("total_unreplied");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }

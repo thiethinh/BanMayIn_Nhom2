@@ -90,4 +90,26 @@ public class OrderDAO {
              throw new RuntimeException(e);
          }
     }
+
+    public int  totalUnstatusOrder(){
+
+        String sql = """
+                SELECT SUM(status) AS pending_order FROM order WHERE status ='Chờ Xử Lí';
+                """;
+        try(Connection conn = DBConnect.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return  rs.getInt("pending_order");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }
