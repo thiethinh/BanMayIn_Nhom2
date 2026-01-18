@@ -47,7 +47,7 @@
     </nav>
 
     <div class="sidebar-footer">
-        <a href="${pageContext.request.contextPath}/home.jsp" class="btn-logout">
+        <a href="${pageContext.request.contextPath}/home" class="btn-logout">
             <i class="fa-solid fa-right-from-bracket"></i> Xem Website
         </a>
     </div>

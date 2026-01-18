@@ -52,6 +52,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("orders", orders);
         request.setAttribute("totalRevenue", totalRevenue);
         request.setAttribute("totalpendingOrder", totalpendingOrder);
+        request.setAttribute("totalUnrepliedContact", totalUnrepliedContact);
         request.setAttribute("totalUser", totalUser);
 
         request.getRequestDispatcher("/admin.jsp").forward(request, response);

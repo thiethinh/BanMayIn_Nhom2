@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="vi_VN"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +39,7 @@
                         <i class="fa-solid fa-dollar-sign" style="color: #165FF2;"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-number">125.000.000đ</span>
+                        <span class="stat-number"><fmt:formatNumber value="${totalRevenue}" type="currency"/></span>
                         <span class="stat-label">Tổng Doanh Thu</span>
                     </div>
                 </div>
@@ -46,7 +49,7 @@
                         <i class="fa-solid fa-receipt" style="color: #f5a623;"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-number">32</span>
+                        <span class="stat-number">${totalpendingOrder}</span>
                         <span class="stat-label">Đơn Hàng Chưa Phản Hồi</span>
                     </div>
                 </div>
@@ -56,7 +59,7 @@
                         <i class="fa-solid fa-message" style="color: #2e7d32;"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-number">15</span>
+                        <span class="stat-number">${totalUnrepliedContact}</span>
                         <span class="stat-label">Tin Nhắn Chưa Phản Hồi</span>
                     </div>
                 </div>
@@ -66,7 +69,7 @@
                         <i class="fa-solid fa-users" style="color: #d9534f;"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-number">1,250</span>
+                        <span class="stat-number">${totalUser}</span>
                         <span class="stat-label">Tổng Khách Hàng</span>
                     </div>
                 </div>
@@ -87,6 +90,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach items="${orders}" var="o">
+                            <tr>
+                                <td>${o.id}</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>${o.createdAt}</td>
+                                <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/>đ</td>
+                                <td><span class="status-badge pending">${o.status}</span></td>
+                                <td><a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a></td>
+                            </tr>
+                        </c:forEach>
+
                         <tr>
                             <td>#OD1256</td>
                             <td>Nguyễn Văn A</td>
