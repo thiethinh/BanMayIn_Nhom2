@@ -17,9 +17,23 @@ import java.util.List;
 public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user =(User) request.getAttribute("acc");
-        if(user==null){
-            response.sendRedirect("/papercraft/home");
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("acc");
+
+        if (user == null || !user.getRole().equals("admin")) {
+
+            session.setAttribute("acc", user);
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
+
+        boolean logout = request.getParameter("logout") != null ? true : false;
+        if (logout) {
+            User userReset = null;
+            session.setAttribute("acc", userReset);
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
         }
         PaymentDAO paymentDAO = new PaymentDAO();
         double totalRevenue = paymentDAO.getTotalRevenue();
@@ -45,11 +59,6 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean logout = request.getAttribute("logout") != null ? true: false;
-        if(logout){
-            User user = new User();
-            request.setAttribute("acc", user);
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
-        }
+
     }
 }

@@ -26,7 +26,7 @@
                 <h1>Bảng Điều Khiển</h1>
                 <div class="admin-user-info">
                     <span>Xin chào, ADMIN</span>
-                    <a href="#" class="btn-logout">Đăng Xuất</a>
+                    <a href="${pageContext.request.contextPath}/admin?logout=1" class="btn-logout">Đăng Xuất</a>
                 </div>
             </header>
 
