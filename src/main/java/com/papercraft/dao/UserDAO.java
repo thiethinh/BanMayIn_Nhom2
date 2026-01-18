@@ -166,4 +166,32 @@ public class UserDAO {
 
         return 0;
     }
+
+    public User getBasicInfoById(int userID){
+        String sql = """
+                SELECT id, fullname, email,phone_number
+                FROM users
+                WHERE id =?;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1,userID);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setFullname(rs.getString("fullname"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhoneNumber(String.valueOf(rs.getInt("phone_number")));
+                    return user;
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

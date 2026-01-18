@@ -2,6 +2,7 @@ package com.papercraft.dao;
 
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Order;
+import com.papercraft.model.Product;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -114,12 +115,12 @@ public class OrderDAO {
     public List<Order> getTop10PendingOrder() {
         List<Order> orders = new ArrayList<>();
         String sql = """
-                SELECT o.id, o.user_id,o.created_at, o.status, sum( oi.quantity * oi.price) as total_price
+                SELECT o.id, o.user_id,o.created_at, o.status,u.fullname, sum( oi.quantity * oi.price) as total_price
                 FROM orders o
                 JOIN users u ON u.id =o.user_id
                 JOIN order_item oi ON o.id = oi.order_id
                 WHERE status ='Chờ Xử Lí'
-                GROUP BY o.id, o.user_id,o.created_at, o.status;
+                GROUP BY o.id, o.user_id,o.created_at, o.status,u.fullname;
                 """;
 
         try (Connection conn = DBConnect.getConnection();
@@ -132,6 +133,7 @@ public class OrderDAO {
                     Timestamp orderDate = rs.getTimestamp("created_at");
                     BigDecimal totalPrice = rs.getBigDecimal("total_price");
                     String status = rs.getString("status");
+                    String fullnameUser = rs.getString("fullname");
 
                     Order order = new Order();
                     order.setId(id);
@@ -139,16 +141,49 @@ public class OrderDAO {
                     order.setCreatedAt(orderDate);
                     order.setTotalPrice(totalPrice);
                     order.setStatus(status);
+                    order.setShippingName(fullnameUser);
                     orders.add(order);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return orders;
+    }
+    
+    public Order getOrderByID(int orderId){
+        String sql= """
+                SELECT id, user_id,status, total_price,note,shipping_fee,shipping_name,shipping_phone,shipping_address,created_at
+                FROM order
+                WHERE id =?
+                """;
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.setInt(1, orderId);
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                   Integer id = rs.getInt("id");
+                   Integer userId = rs.getInt("user_id");
+                    String status = rs.getString("status");
+                   BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                   String note = rs.getString("note");
+                   BigDecimal shippingFee = rs.getBigDecimal("shipping_fee");
+                   String shippingPhone = rs.getString("shipping_phone");
+                   String shippingName = rs.getString("shipping_name");
+                   String shippingAddress = rs.getString("shipping_address");
+                   Timestamp createdAt = rs.getTimestamp("created_at");
+                   return new Order(id,userId,status,totalPrice,note,shippingFee,shippingName,shippingPhone,shippingAddress,createdAt);
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

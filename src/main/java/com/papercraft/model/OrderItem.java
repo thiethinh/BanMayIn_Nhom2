@@ -9,8 +9,11 @@ public class OrderItem implements Serializable {
     public Integer productId;
     public Integer quantity;
     public BigDecimal price;
+    public Product product;
+    public BigDecimal total;
 
-    public OrderItem() {}
+    public OrderItem() {
+    }
 
     public OrderItem(Integer id, Integer orderId, Integer productId, Integer quantity, BigDecimal price) {
         this.id = id;
@@ -18,6 +21,8 @@ public class OrderItem implements Serializable {
         this.productId = productId;
         this.quantity = quantity;
         this.price = price;
+        this.product = null;
+        this.total= price.multiply(BigDecimal.valueOf(quantity));
     }
 
     public Integer getId() {
@@ -58,5 +63,13 @@ public class OrderItem implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

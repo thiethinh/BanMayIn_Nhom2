@@ -3,6 +3,8 @@ package com.papercraft.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order implements Serializable {
 
@@ -16,6 +18,8 @@ public class Order implements Serializable {
     public String shippingPhone;
     public String shippingAddress;
     public Timestamp createdAt;
+    public List<OrderItem> orderItems;
+
 
 
 
@@ -30,7 +34,9 @@ public class Order implements Serializable {
         this.shippingPhone = shippingPhone;
         this.shippingAddress = shippingAddress;
         this.createdAt = createdAt;
+        this.orderItems = new ArrayList<>();
     }
+
 
     public Order() {
 
@@ -116,5 +122,13 @@ public class Order implements Serializable {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

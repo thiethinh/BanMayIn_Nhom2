@@ -9,7 +9,7 @@
     <nav class="admin-nav">
         <ul>
             <li>
-                <a href="${pageContext.request.contextPath}/admin.jsp" class="active">
+                <a href="${pageContext.request.contextPath}/admin" class="active">
                     <i class="fa-solid fa-gauge"></i> Bảng Điều Khiển
                 </a>
             </li>

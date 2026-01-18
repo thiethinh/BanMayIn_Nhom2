@@ -93,7 +93,7 @@
                         <c:forEach items="${orders}" var="o">
                             <tr>
                                 <td>${o.id}</td>
-                                <td>Nguyễn Văn A</td>
+                                <td>${o.shippingName}</td>
                                 <td>${o.createdAt}</td>
                                 <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/>đ</td>
                                 <td><span class="status-badge pending">${o.status}</span></td>
