@@ -42,12 +42,6 @@ public class AdminOrderViewServlet extends HttpServlet {
 
         request.getRequestDispatcher("/admin-order-view.jsp").forward(request, response);
 
-
-
-
-
-
-
     }
 
     @Override

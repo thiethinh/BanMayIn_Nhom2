@@ -3,6 +3,7 @@ package com.papercraft.dao;
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Product;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -416,6 +417,108 @@ public class ProductDAO {
     }
 
 
+    public List<Product> getProductForManagement() {
+        List<Product>   products = new ArrayList<>();
+        String sql = """
+                SELECT p.id,  p.product_name,i.img_name, p.price, p.stock_quantity, c.type
+                FROM product p
+                JOIN image i ON i.entity_id = p.id
+                JOIN category c ON c.id = p.category_id
+                WHERE i.is_thumbnail =1;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);){
+            try(ResultSet rs = ps.executeQuery();){
+                while(rs.next()){
+                    Product p = new Product();
+
+                    Integer id = rs.getInt("id");
+                    String img_url = rs.getString("img_name");
+                    String productName = rs.getString("product_name");
+                    double price = rs.getDouble("price");
+                    Integer quantity = rs.getInt("stock_quantity");
+                    String type = rs.getString("type");
+
+                    p.setThumbnail(img_url);
+                    p.setId(id);
+                    p.setPrice(price);
+                    p.setProductName(productName);
+                    p.setType(type);
+                    p.setStockQuantity(quantity);
+
+                    products.add(p);
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  products;
+    }
+
+    public boolean deleteProductById(int id){
+        String sql = """
+                DELETE FROM product
+                WHERE id =?
+                """;
+        try(Connection conn = DBConnect.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql) ){
+            ps.setInt(1, id);
+            int rowDeleted = ps.executeUpdate();
+            return rowDeleted >0;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Product getProductForEditById(int idProduct) {
+        String sql = """
+                SELECT p.id, p.product_name, p.price,p.description_thumbnail,p.product_description,p.product_detail,p.stock_quantity, i.img_name, c.type
+                FROM product p 
+                JOIN image i ON p.id = i.entity_id
+                JOIN category c ON c.id = p.category_id
+                WHERE i.is_thumbnail =1 AND p.id =?;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.setInt(1,idProduct);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    Integer id = rs.getInt("id");
+                    String productName = rs.getString("product_name");
+                    double price = rs.getDouble("price");
+                    String description_thumbnail =rs.getString("description_thumbnail");
+                    String product_description = rs.getString("product_description");
+                    String product_detail = rs.getString("product_detail");
+                    int quantity = rs.getInt(("stock_quantity"));
+                    String img_name = rs.getString("img_name");
+                    String type = rs.getString("type");
+
+                    Product product = new Product();
+                    product.setId(id);
+                    product.setProductName(productName);
+                    product.setProductDescription(product_description);
+                    product.setProductDetail(product_detail);
+                    product.setDescriptionThumbnail(description_thumbnail);
+                    product.setPrice(price);
+                    product.setType(type);
+                    product.setStockQuantity(quantity);
+                    product.setThumbnail(img_name);
+
+
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  null;    }
 }
 
 
