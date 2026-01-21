@@ -186,4 +186,47 @@ public class OrderDAO {
         return null;
     }
 
+    public List<Order> getOrderByState(String statusOrder) {
+        List<Order> orders = new ArrayList<>();
+        String rawSql = """
+                SELECT o.id, u.fullname, o.created_at, o.total_price,o.status
+                FROM order o
+                JOIN users u ON u.id = o.user_id
+                """;
+        StringBuilder sqlBuider= new StringBuilder(rawSql);
+        if(!statusOrder.isEmpty()){
+            sqlBuider.append(" WHERE status = ?");
+        }
+
+        String sql = sqlBuider.toString();
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.setString(1,statusOrder);
+            try(ResultSet rs = ps.executeQuery()){
+                while (rs.next()) {
+                    Integer id = rs.getInt("id");
+                    String shippingName = rs.getString("fullname");
+                    Timestamp createdAt = rs.getTimestamp("created_at");
+                    BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                    String status = rs.getString("status");
+
+                    Order order = new Order();
+                    order.setId(id);
+                    order.setShippingName(shippingName);
+                    order.setStatus(status);
+                    order.setTotalPrice(totalPrice);
+                    order.setCreatedAt(createdAt);
+
+                    orders.add(order);
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  orders;
+
+    }
 }
