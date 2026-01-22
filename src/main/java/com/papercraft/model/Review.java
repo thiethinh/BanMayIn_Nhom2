@@ -12,6 +12,7 @@ public class Review implements Serializable {
     public Timestamp createdAt;
 
     private String authorName;
+    private String productName;
 
     public Review() {
     }
@@ -82,4 +83,11 @@ public class Review implements Serializable {
         this.authorName = authorName;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 }

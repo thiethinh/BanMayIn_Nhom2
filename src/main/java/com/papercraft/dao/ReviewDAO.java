@@ -3,10 +3,7 @@ package com.papercraft.dao;
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Review;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,5 +74,83 @@ public class ReviewDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * get list review by user id, if invalid user id then read all review
+     *
+     * @param idUser user id
+     * @return list review
+     */
+    public List<Review> getReviewByUserID(int idUser) {
+        List<Review> reviews = new ArrayList<>();
+        String sqlRaw = """
+                SELECT r.id,u.fullname, p.product_name, r.rating, r.comment, r.created_at
+                FROM review r
+                JOIN users u ON u.id = r.user_id
+                JOIN product p ON p.id = r.product_id
+                """;
+        StringBuilder sqlBuilder = new StringBuilder(sqlRaw);
+        if (idUser != 0) {
+            sqlBuilder.append(" WHERE r.user_id =?;");
+        } else {
+            sqlBuilder.append(";");
+        }
+        String sql = sqlBuilder.toString();
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+
+            if (idUser != 0) {
+                ps.setInt(1, idUser);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Integer id = rs.getInt("id");
+                    String userName = rs.getString("fullname");
+                    String productName = rs.getString("product_name");
+                    Integer rating = rs.getInt("rating");
+                    String comment = rs.getString("comment");
+                    Timestamp createdAt = rs.getTimestamp("created_at");
+
+                    Review review = new Review();
+                    review.setId(id);
+                    review.setAuthorName(userName);
+                    review.setProductName(productName);
+                    review.setRating(rating);
+                    review.setComment(comment);
+                    review.setCreatedAt(createdAt);
+
+                    reviews.add(review);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+
+    public boolean deleteReviewByID(int idReview) {
+        String sql = """
+                DELETE FROM review
+                WHERE id =?;
+                """;
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setInt(1, idReview);
+
+            return ps.executeUpdate() > 0;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  false;
     }
 }
