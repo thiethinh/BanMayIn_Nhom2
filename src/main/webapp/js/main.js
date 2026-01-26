@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const currentPage = window.location.pathname.split('/').pop() || 'home.html';
+    const currentPage = window.location.pathname.split('/').pop() || 'home';
     const navMap = {
         'home': 'nav-home',
         'login': 'nav-login',
         'blog': 'nav-blog',
-        'contact.jsp': 'nav-contact',
+        'contact': 'nav-contact',
         'printer': 'nav-printer',
         'stationery': 'nav-stationery'
     };

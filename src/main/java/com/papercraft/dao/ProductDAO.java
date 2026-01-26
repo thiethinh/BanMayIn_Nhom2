@@ -99,7 +99,7 @@ public class ProductDAO {
 
 
         String sql = """
-                SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name
+                SELECT p.id, p.product_name, p.category_id, p.description_thumbnail, p.brand, p.price, i.img_name, p.discount, p.origin_price
                 FROM product p
                 JOIN category c ON p.category_id = c.id
                 LEFT JOIN image i ON i.entity_id = p.id
@@ -125,7 +125,8 @@ public class ProductDAO {
                     p.setProductName(rs.getString("product_name"));
                     p.setDescriptionThumbnail(rs.getString("description_thumbnail"));
                     p.setBrand(rs.getString("brand"));
-
+                    p.setDiscount(rs.getDouble("discount"));
+                    p.setOriginPrice(rs.getDouble("origin_price"));
 
                     p.setPrice(rs.getDouble("price"));
 
