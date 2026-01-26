@@ -137,7 +137,6 @@
                         <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
                                 <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
                             </span>
-
                     </c:if>
 
                     <c:if test="${p.discount <= 0.0}">
