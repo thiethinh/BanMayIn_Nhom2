@@ -72,13 +72,20 @@
             <h1 class="product-name">${p.productName}</h1>
 
             <div class="price">
-                    <span class="original-price">
-                        <fmt:formatNumber value="${p.originPrice}" type="number" groupingUsed="true"/>₫
-                    </span>
-                <span id="discount">
-                        -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
-                    </span>
-                <br/>
+                    <span class="current-price" style="color: #d0021b; font-size: 24px; font-weight: bold;">
+        <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>₫
+    </span>
+
+                <c:if test="${p.discount > 0}">
+        <span class="original-price" style="text-decoration: line-through; color: #888; font-size: 16px;">
+            <fmt:formatNumber value="${p.originPrice}" type="number" groupingUsed="true"/>₫
+        </span>
+
+                    <span id="discount"
+                          style="background: #fcebe9; color: #d0021b; padding: 2px 6px; border-radius: 4px; font-size: 14px; font-weight: 600;">
+            -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
+        </span>
+                </c:if>
             </div>
 
             <p class="info-description">
@@ -87,30 +94,32 @@
                 </c:forTokens>
             </p>
 
-            <form action="add-to-cart" method="post">
-                <input type="hidden" name="productId" value="${p.id}">
+            <div class="block-quatity-cart">
+                <input type="hidden" id="detail-product-id" value="${p.id}">
 
-                <div class="block-quatity-cart">
-                    <div class="quantity">
-                        <button type="button" id="bt-down" class="qty-btn minus" onclick="updateQty(-1)">-</button>
-                        <input type="text" name="quantity" class="qty-input" id="qty-input" value="1" min="1"
-                               max="${p.stockQuantity > 0 ? p.stockQuantity : 1}"/>
-                        <button type="button" id="bt-up" class="qty-btn plus" onclick="updateQty(1)">+</button>
-                    </div>
+                <div class="quantity">
+                    <button type="button" id="bt-down" class="qty-btn minus" onclick="updateQtyDetail(-1)">-</button>
 
-                    <c:choose>
-                        <c:when test="${p.stockQuantity > 0}">
-                            <button type="submit" class="bt-add-cart">Thêm Vào Giỏ Hàng <i
-                                    class="fa-solid fa-basket-shopping"></i></button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="button" class="bt-add-cart" disabled
-                                    style="opacity: 0.6; cursor: not-allowed; background-color: #888;">Hết Hàng
-                            </button>
-                        </c:otherwise>
-                    </c:choose>
+                    <input type="text" id="detail-qty-input" class="qty-input" value="1" min="1"
+                           max="${p.stockQuantity > 0 ? p.stockQuantity : 1}" readonly/>
+
+                    <button type="button" id="bt-up" class="qty-btn plus" onclick="updateQtyDetail(1)">+</button>
                 </div>
-            </form>
+
+                <c:choose>
+                    <c:when test="${p.stockQuantity > 0}">
+                        <button type="button" class="bt-add-cart" onclick="addToCartWithQty()">
+                            Thêm Vào Giỏ Hàng <i class="fa-solid fa-basket-shopping"></i>
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" class="bt-add-cart" disabled
+                                style="opacity: 0.6; cursor: not-allowed; background-color: #888;">
+                            Hết Hàng
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
             <div class="product-share">
                 <span>Chia sẻ:</span>
@@ -223,6 +232,8 @@
     </section>
 </main>
 <jsp:include page="includes/footer.jsp"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="${pageContext.request.contextPath}/js/cart.js"></script>
 
 <script>
     function showTab(tabId, btn) {
@@ -237,10 +248,22 @@
         if (btn) btn.classList.add('selected');
     }
 
-    function updateQty(val) {
-        const input = document.getElementById('qty-input');
-        const newVal = parseInt(input.value) + val;
-        if (newVal >= 1 && newVal <= parseInt(input.getAttribute('max'))) input.value = newVal;
+    function updateQtyDetail(val) {
+        const input = document.getElementById('detail-qty-input');
+        const max = parseInt(input.getAttribute('max'));
+        let currentVal = parseInt(input.value);
+        let newVal = currentVal + val;
+
+        if (newVal < 1) newVal = 1;
+        if (newVal > max) newVal = max;
+
+        input.value = newVal;
+    }
+
+    function addToCartWithQty() {
+        const pId = document.getElementById('detail-product-id').value;
+        const qty = document.getElementById('detail-qty-input').value;
+        addToCart(pId, qty);
     }
 </script>
 
