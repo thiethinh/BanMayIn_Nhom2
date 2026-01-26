@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin-blog.jsp">
+                <a href="${pageContext.request.contextPath}/admin-blog?view=pending">
                     <i class="fa-solid fa-blog"></i> Quản Lí Blog
                 </a>
             </li>
