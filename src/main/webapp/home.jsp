@@ -82,21 +82,21 @@
                             </c:forTokens>
                         </ul>
 
-                        <div class="product-price-box" style="display: flex;margin: 0 0 15px 20px;padding :5px" ;>
+                        <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
                             <c:if test="${p.discount > 0.0}">
                             <span class="old-price"
-                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                  style="text-decoration: line-through; color: #888; font-size: 18px; margin-right: 8px;">
                                 <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
                             </span>
 
-                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
                                 <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
                             </span>
 
                             </c:if>
 
                             <c:if test="${p.discount <= 0.0}">
-                            <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
+                            <span class="regular-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
                                 <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
                             </span>
                             </c:if>
@@ -164,10 +164,25 @@
                             </c:forTokens>
                         </ul>
 
-                        <p class="product-price">
-                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ"
-                                              maxFractionDigits="0"/>
-                        </p>
+                        <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
+                            <c:if test="${p.discount > 0.0}">
+                            <span class="old-price"
+                                  style="text-decoration: line-through; color: #888; font-size: 18px; margin-right: 8px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
+                            </span>
+
+                            </c:if>
+
+                            <c:if test="${p.discount <= 0.0}">
+                            <span class="regular-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                            </c:if>
+                        </div>
 
                         <div class="action">
                             <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i

@@ -40,7 +40,7 @@ public class ContactDAO {
 
     public Integer totalUnrepliedContact(){
         String sql = """
-                SELECT SUM(rely) AS total_unreplied FROM contact WHERE rely =0;
+                SELECT COUNT(*) AS total_unreplied FROM contact WHERE rely =0;
                 """;
         try(Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
