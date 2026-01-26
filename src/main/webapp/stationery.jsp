@@ -40,7 +40,7 @@
                 </button>
 
                 <div class="search-box child">
-                    <input type="text" name="search" id="search"  value="${search}" placeholder="Tìm kiếm sản phẩm...">
+                    <input type="text" name="search" id="search" value="${search}" placeholder="Tìm kiếm sản phẩm...">
                 </div>
 
                 <input type="hidden" name="category" id="categoryInput" value="${empty categoryId ? 0 : categoryId }">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="brand" id="brand" value="${brand}" >
+                <input type="hidden" name="brand" id="brand" value="${brand}">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
                         <span class="selected-value" id="brandLabel">Tất cả thương hiệu</span>
@@ -121,25 +121,21 @@
                         </ul>
 
 
-                        <div class="product-price-box" style="display: flex;margin: 0 0 15px 20px;padding :5px";>
+                        <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
                             <c:if test="${s.discount > 0.0}">
                             <span class="old-price"
                                   style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
                                 <fmt:formatNumber value="${s.originPrice}" pattern="#,###"/> ₫
                             </span>
 
-                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 16px;">
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
                                 <fmt:formatNumber value="${s.price}" pattern="#,###"/> ₫
                             </span>
 
-                                <span class="badge-sale"
-                                      style="background: #d70018; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 5px; vertical-align: middle;">
-                                -<fmt:formatNumber value="${s.discount * 100}" maxFractionDigits="0"/>%
-                            </span>
                             </c:if>
 
-                            <c:if test="${s.discount <= 0.0}">
-                            <span class="regular-price" style="color: #165FF2; font-weight: 700; font-size: 16px;">
+                            <c:if test="${p.discount <= 0.0}">
+                            <span class="regular-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
                                 <fmt:formatNumber value="${s.originPrice}" pattern="#,###"/> ₫
                             </span>
                             </c:if>

@@ -55,7 +55,9 @@
 
                     <c:forEach items="${items}" var="item">
                         <div class="product-detail">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${item.product.id}">
                             <img src="${item.product.thumbnail}"/>
+                            </a>
 
                             <div id="info">
                                 <h2>${item.product.productName}</h2>

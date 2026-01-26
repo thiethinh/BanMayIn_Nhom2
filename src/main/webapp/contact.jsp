@@ -24,21 +24,20 @@
         <section class="title">
             <h1>Liên hệ</h1>
             <p>Nếu có câu hỏi, chúng tôi ở đây để giúp bạn! </p>
-        </section>
-        <section class="information">
-
             <c:if test="${not empty ms}">
-                <div style="padding: 15px; background-color: #d4edda; color: #155724; border-radius: 5px; margin-bottom: 20px;">
+                <div style="padding: 15px; background-color: #d4edda; color: #155724; border-radius: 15px; margin: 0 60px 20px 60px;">
                     <i class="fa-solid fa-check-circle"></i> ${ms}
                 </div>
             </c:if>
             <c:if test="${not empty error}">
-                <div style="padding: 15px; background-color: #f8d7da; color: #721c24; border-radius: 5px; margin-bottom: 20px;">
+                <div style="padding: 15px; background-color: #f8d7da; color: #721c24; border-radius: 15px; margin: 0 60px 20px 60px;">
                     <i class="fa-solid fa-triangle-exclamation"></i> ${error}
                 </div>
             </c:if>
+        </section>
+        <section class="information">
 
-            <form action="contact-submit" method="post">
+            <form action="contact" method="post">
                 <h3 id="form-title">Hãy gửi lời nhắn cho chúng tôi!</h3>
 
                 <div class="name-email">

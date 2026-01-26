@@ -14,11 +14,11 @@
             <!-- MENU -->
             <div class="nav-wrapper">
                 <div class="menu-bar">
-                    <a class="menu" href="${pageContext.request.contextPath}/home">Trang Chủ</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/printer">Máy In</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/stationery">Văn Phòng Phẩm</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/blog.jsp">Blog</a>
-                    <a class="menu" href="${pageContext.request.contextPath}/contact.jsp">Liên Hệ</a>
+                    <a class="menu" id="nav-home" href="${pageContext.request.contextPath}/home">Trang Chủ</a>
+                    <a class="menu" id="nav-printer" href="${pageContext.request.contextPath}/printer">Máy In</a>
+                    <a class="menu" id="nav-stationery" href="${pageContext.request.contextPath}/stationery">Văn Phòng Phẩm</a>
+                    <a class="menu" id="nav-blog" href="${pageContext.request.contextPath}/blog">Blog</a>
+                    <a class="menu" id="nav-contact" href="${pageContext.request.contextPath}/contact">Liên Hệ</a>
                 </div>
             </div>
 

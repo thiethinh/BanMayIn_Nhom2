@@ -30,6 +30,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--third-color);
+    margin-bottom: 80px;
 }
 
 .cart-empty-main .container {
@@ -88,6 +89,7 @@
     padding: 30px 0;
     background-color: var(--third-color);
     min-height: 80vh;
+    margin-bottom: 60px;
 }
 
 .cart-fill-main .container {
