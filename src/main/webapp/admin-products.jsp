@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,68 +49,41 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>#P101</td>
-                    <td>
-                        <img src="images/Epson L3250.webp" class="product-table-image">
-                    </td>
-                    <td>Máy in Epson L3250</td>
-                    <td>4.500.000 VNĐ</td>
-                    <td>150</td>
-                    <td>Máy In</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/admin-product-edit.jsp"
-                           class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                <c:forEach items="${products}" var="p">
+                    <tr>
+                        <td>#P${p.id}</td>
 
-                <tr>
-                    <td>#P102</td>
-                    <td>
-                        <img src="images/CANON LBP 6030.webp" class="product-table-image">
-                    </td>
-                    <td>Máy in laser trắng đen CANON LBP 6030</td>
-                    <td>2.690.000 VNĐ</td>
-                    <td>75</td>
-                    <td>Máy In</td>
-                    <td>
-                        <a href="admin-product-edit.html" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>
+                            <img class="product-table-image"
+                                 src="${pageContext.request.contextPath}/${p.thumbnail}"
+                                 alt="${p.productName}">
+                        </td>
 
-                <tr>
-                    <td>#P201</td>
-                    <td>
-                        <img src="images/BoSoTayCaoCap.webp" class="product-table-image">
-                    </td>
-                    <td>Bộ Sổ Tay Cao Cấp</td>
-                    <td>4.500.000 VNĐ</td>
-                    <td>29</td>
-                    <td>Văn Phòng Phẩm</td>
-                    <td>
-                        <a href="admin-product-edit.html" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>${p.productName}</td>
 
-                <tr>
-                    <td>#P202</td>
-                    <td>
-                        <img src="images/BoDoDungVanPhong.webp" class="product-table-image">
-                    </td>
-                    <td>Bộ Đồ Dùng Văn Phòng</td>
-                    <td>4.390.000 VNĐ</td>
-                    <td>119</td>
-                    <td>Văn Phòng Phẩm</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/admin-product-edit.jsp" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>
+                            <fmt:formatNumber value="${p.price}" type="number"/> VNĐ
+                        </td>
 
+                        <td>${p.stockQuantity}</td>
+
+                        <td>
+                            <c:choose>
+                                <c:when test="${p.type == 'Printer'}">Máy In</c:when>
+                                <c:otherwise>Văn Phòng Phẩm</c:otherwise>
+                            </c:choose>
+                        </td>
+
+                        <td>
+                            <a href="${pageContext.request.contextPath}/admin-product-edit?id=${p.id}" class="btn-action edit">Sửa</a>
+
+                            <a href="${pageContext.request.contextPath}/admin-product?delete=${p.id}"
+                               class="btn-action delete">Xóa</a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
+
             </table>
 
         </section>

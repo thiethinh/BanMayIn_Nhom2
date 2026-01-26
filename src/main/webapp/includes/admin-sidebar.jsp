@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+
+
 <aside class="admin-sidebar">
     <div class="sidebar-header">
         <img src="${pageContext.request.contextPath}/images/logo.webp" height="60" width="60" alt="Logo">
@@ -14,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin-products.jsp">
+                <a href="${pageContext.request.contextPath}/admin-product">
                     <i class="fa-solid fa-box-archive"></i> Quản Lý Sản Phẩm
                 </a>
             </li>

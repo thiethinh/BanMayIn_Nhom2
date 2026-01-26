@@ -23,7 +23,7 @@ public class AdminProduct extends HttpServlet {
 
         request.setAttribute("products",products);
         request.setAttribute("isDeleted",isDeleted);
-        request.getRequestDispatcher("/admin-product.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin-products.jsp").forward(request, response);
     }
 
     @Override
