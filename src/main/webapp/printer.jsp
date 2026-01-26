@@ -130,7 +130,7 @@
                 <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
                     <c:if test="${p.discount > 0.0}">
                             <span class="old-price"
-                                  style="text-decoration: line-through; color: #888; font-size: 18px; margin-right: 8px;">
+                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
                                 <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
                             </span>
 
