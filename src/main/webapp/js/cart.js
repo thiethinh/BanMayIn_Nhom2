@@ -3,15 +3,15 @@ const contextElement = document.getElementById("globalContextPath");
 const contextPath = contextElement ? contextElement.value : "";
 
 // Thêm sản phẩm vào giỏ(AJAX)
-function addToCart(productId) {
-    console.log("Đang thêm sản phẩm ID:", productId);
+function addToCart(productId, quantity = 1) {
+    console.log("Đang thêm sản phẩm ID:", productId, 'Số lượng: ' + quantity);
 
     fetch(`${contextPath}/cart`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: `action=add&id=${productId}&quantity=1`
+        body: `action=add&id=${productId}&quantity=${quantity}`
     })
         .then(res => {
             // Lỗi 401 =>chua đăng nhập
