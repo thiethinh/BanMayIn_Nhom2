@@ -23,8 +23,23 @@ function addToCart(productId) {
                     showCancelButton: true,
                     confirmButtonColor: '#165FF2',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Đăng nhập ngay',
-                    cancelButtonText: 'Để sau'
+                    confirmButtonText: 'Đăng nhập',
+                    cancelButtonText: 'Để sau',
+                    didOpen: () => {
+                        const popup = Swal.getPopup();
+                        popup.style.textAlign = 'center';
+
+                        const confirmBtn = Swal.getConfirmButton();
+                        const cancelBtn = Swal.getCancelButton();
+
+                        if (confirmBtn && cancelBtn) {
+                            confirmBtn.style.minWidth = '160px';
+                            cancelBtn.style.minWidth = '160px';
+
+                            confirmBtn.style.margin = '0 10px';
+                            cancelBtn.style.margin = '0 10px';
+                        }
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Chuyển hướng sang trang Login

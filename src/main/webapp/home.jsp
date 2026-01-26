@@ -49,7 +49,7 @@
     </div>
 
     <div class="printer-section">
-        <h2 class="section-title">Máy In Nổi Bật</h2>
+        <h2 class="section-title">Máy In Giá Sốc</h2>
         <p class="section-subtitle">Giải pháp in ấn chuyên nghiệp cho mọi nhu cầu</p>
         <div class="printer-product-section swiper">
 
@@ -58,17 +58,20 @@
                 <c:forEach items="${printers}" var="p">
                     <div class="product-card swiper-slide">
 
-                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" class="product-image-placeholder">
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           class="product-image-placeholder">
                             <c:if test="${p.discount > 0}">
                     <span class="badge-discount">
                         -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
                     </span>
                             </c:if>
-                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300" loading="lazy" alt="${p.productName}"/>
+                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
+                                 loading="lazy" alt="${p.productName}"/>
                         </a>
 
                         <h3 class="product-name">
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none; color: inherit;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                               style="text-decoration: none; color: inherit;">
                                     ${p.productName}
                             </a>
                         </h3>
@@ -79,9 +82,25 @@
                             </c:forTokens>
                         </ul>
 
-                        <p class="product-price">
-                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>
-                        </p>
+                        <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
+                            <c:if test="${p.discount > 0.0}">
+                            <span class="old-price"
+                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
+                            </span>
+
+                            </c:if>
+
+                            <c:if test="${p.discount <= 0.0}">
+                            <span class="regular-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                            </c:if>
+                        </div>
 
                         <div class="action">
                             <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
@@ -89,7 +108,8 @@
                                 <p>Thêm Vào Giỏ</p>
                             </button>
 
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                               style="text-decoration: none;">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
@@ -111,7 +131,7 @@
     </div>
 
     <div class="stationery-section">
-        <h2 class="section-title">Văn Phòng Phẩm</h2>
+        <h2 class="section-title">Xả Kho Văn Phòng Phẩm</h2>
         <p class="section-subtitle">Mọi thứ bạn cần cho không gian làm việc hiệu quả</p>
         <div class="stationery-product-section swiper">
 
@@ -120,17 +140,20 @@
                 <c:forEach items="${stationery}" var="p">
                     <div class="product-card swiper-slide">
 
-                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" class="product-image-placeholder">
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                           class="product-image-placeholder">
                             <c:if test="${p.discount > 0}">
                     <span class="badge-discount">
                         -<fmt:formatNumber value="${p.discount * 100}" maxFractionDigits="0"/>%
                     </span>
                             </c:if>
-                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300" loading="lazy" alt="${p.productName}"/>
+                            <img src="${pageContext.request.contextPath}/${p.thumbnail}" height="300" width="300"
+                                 loading="lazy" alt="${p.productName}"/>
                         </a>
 
                         <h3 class="product-name">
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none; color: inherit;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                               style="text-decoration: none; color: inherit;">
                                     ${p.productName}
                             </a>
                         </h3>
@@ -141,9 +164,25 @@
                             </c:forTokens>
                         </ul>
 
-                        <p class="product-price">
-                            <fmt:formatNumber value="${p.price}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>
-                        </p>
+                        <div class="product-price-box" style="display: flex;margin: 0 25px 10px 10px;padding :5px; justify-content: right;">
+                            <c:if test="${p.discount > 0.0}">
+                            <span class="old-price"
+                                  style="text-decoration: line-through; color: #888; font-size: 14px; margin-right: 8px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+
+                                <span class="sale-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.price}" pattern="#,###"/> ₫
+                            </span>
+
+                            </c:if>
+
+                            <c:if test="${p.discount <= 0.0}">
+                            <span class="regular-price" style="color: #d70018; font-weight: 700; font-size: 20px;">
+                                <fmt:formatNumber value="${p.originPrice}" pattern="#,###"/> ₫
+                            </span>
+                            </c:if>
+                        </div>
 
                         <div class="action">
                             <button class="add-cart" type="button" onclick="addToCart(${p.id})"><span><i
@@ -151,7 +190,8 @@
                                 <p>Thêm Vào Giỏ</p>
                             </button>
 
-                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}" style="text-decoration: none;">
+                            <a href="${pageContext.request.contextPath}/product-detail?productId=${p.id}"
+                               style="text-decoration: none;">
                                 <button class="bt-detail">Xem</button>
                             </a>
                         </div>
@@ -218,11 +258,14 @@
             <div class="about-split-layout">
 
                 <div class="about-images">
-                    <img src="${pageContext.request.contextPath}/images/about-img-large.webp" class="about-img-large" width="800" height="400"
+                    <img src="${pageContext.request.contextPath}/images/about-img-large.webp" class="about-img-large"
+                         width="800" height="400"
                          loading="lazy">
-                    <img src="${pageContext.request.contextPath}/images/about-img-small.webp" class="about-img-small" width="800" height="600"
+                    <img src="${pageContext.request.contextPath}/images/about-img-small.webp" class="about-img-small"
+                         width="800" height="600"
                          loading="lazy">
-                    <img src="${pageContext.request.contextPath}/images/about-img-medium.webp" class="about-img-medium" width="800" height="500"
+                    <img src="${pageContext.request.contextPath}/images/about-img-medium.webp" class="about-img-medium"
+                         width="800" height="500"
                          loading="lazy">
                 </div>
 
