@@ -35,6 +35,34 @@
         </header>
 
         <section class="content-table-card">
+            <div class="action-bar" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+
+                <form action="admin-product" method="get" style="display: flex; gap: 10px;">
+                    <input type="text" name="keyword" value="${keyword}"
+                           placeholder="Tìm theo tên sản phẩm..."
+                           class="form-input" style="padding: 8px; width: 300px;border-radius: 6px">
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    </button>
+
+                    <c:if test="${not empty keyword}">
+                        <a href="admin-product" class="btn btn-secondary"
+                           style="display: flex; align-items: center; justify-content: center; padding: 10px 12px; border-radius: 6px; text-decoration: none; border: 1px solid #ccc; background: white; color: #d9534f;"
+                           title="Xóa bộ lọc">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </c:if>
+                </form>
+
+
+            </div>
+
+            <c:if test="${empty products}">
+                <div style="text-align: center; padding: 20px; color: #666;">
+                    Không tìm thấy sản phẩm nào phù hợp với từ khóa "<b>${keyword}</b>"
+                </div>
+            </c:if>
 
             <table class="content-table product-table">
                 <thead>
@@ -75,7 +103,8 @@
                         </td>
 
                         <td>
-                            <a href="${pageContext.request.contextPath}/admin-product-edit?id=${p.id}" class="btn-action edit">Sửa</a>
+                            <a href="${pageContext.request.contextPath}/admin-product-edit?id=${p.id}"
+                               class="btn-action edit">Sửa</a>
 
                             <a href="${pageContext.request.contextPath}/admin-product?delete=${p.id}"
                                class="btn-action delete">Xóa</a>
@@ -85,6 +114,50 @@
                 </tbody>
 
             </table>
+            <c:if test="${totalPages > 1}">
+                <div class="pagination-container" style="display: flex; justify-content: center; margin-top: 20px; gap: 5px;">
+
+                    <c:if test="${currentPage > 1}">
+                        <a href="admin-product?page=${currentPage - 1}&keyword=${keyword}" class="btn-page">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </c:if>
+
+                    <c:forEach begin="1" end="${totalPages}" var="i">
+                        <a href="admin-product?page=${i}&keyword=${keyword}"
+                           class="btn-page ${currentPage == i ? 'active' : ''}">
+                                ${i}
+                        </a>
+                    </c:forEach>
+
+                    <c:if test="${currentPage < totalPages}">
+                        <a href="admin-product?page=${currentPage + 1}&keyword=${keyword}" class="btn-page">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </c:if>
+                </div>
+
+                <style>
+                    .btn-page {
+                        display: inline-block;
+                        padding: 8px 14px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        text-decoration: none;
+                        color: #333;
+                        background-color: white;
+                        transition: 0.2s;
+                    }
+                    .btn-page:hover {
+                        background-color: #f0f0f0;
+                    }
+                    .btn-page.active {
+                        background-color: #0d6efd;
+                        color: white;
+                        border-color: #0d6efd;
+                    }
+                </style>
+            </c:if>
 
         </section>
 

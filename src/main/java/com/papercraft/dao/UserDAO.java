@@ -147,37 +147,37 @@ public class UserDAO {
         return false;
     }
 
-    public Integer totalUser(){
+    public Integer totalUser() {
         String sql = """
                 SELECT SUM(id) AS total_user FROM users;
                 """;
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)){
-            try (ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                    return  rs.getInt("total_user");
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total_user");
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return 0;
     }
 
-    public User getBasicInfoById(int userID){
+    public User getBasicInfoById(int userID) {
         String sql = """
                 SELECT id, fullname, email,phone_number
                 FROM users
                 WHERE id =?;
                 """;
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setInt(1,userID);
-            try (ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     User user = new User();
                     user.setId(rs.getInt("id"));
                     user.setFullname(rs.getString("fullname"));
@@ -186,12 +186,138 @@ public class UserDAO {
                     return user;
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+
+    //   Đếm số lượng user
+    public int countCustomers(String keyword, String statusFilter) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM users WHERE role != 'admin' ");
+        List<Object> params = new ArrayList<>();
+
+        // Tìm kiếm
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (email LIKE ? OR phone_number LIKE ? OR CONCAT(fname, ' ', lname) LIKE ?) ");
+            String search = "%" + keyword.trim() + "%";
+            params.add(search);
+            params.add(search);
+            params.add(search);
+        }
+
+        // Lọc trạng thái (active/blocked)
+        if ("active".equals(statusFilter)) {
+            sql.append("AND status = 1 ");
+        } else if ("blocked".equals(statusFilter)) {
+            sql.append("AND status = 0 ");
+        }
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    //  Lấy danh sách user phân trang
+    public List<User> getCustomersPagination(String keyword, String statusFilter, int page, int pageSize) {
+        List<User> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("""
+                    SELECT u.*, 
+                           (SELECT COALESCE(SUM(o.total_price), 0) 
+                            FROM `order` o 
+                            WHERE o.user_id = u.id) AS total_spending
+                    FROM users u 
+                    WHERE LOWER(u.role) != 'admin' 
+                """);
+        List<Object> params = new ArrayList<>();
+
+    //SEARCH
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("AND (email LIKE ? OR phone_number LIKE ? OR CONCAT(fname, ' ', lname) LIKE ?) ");
+            String search = "%" + keyword.trim() + "%";
+            params.add(search);
+            params.add(search);
+            params.add(search);
+        }
+//LỌC TRẠNG THÁI
+        if ("active".equals(statusFilter)) {
+            sql.append("AND status = 1 ");
+        } else if ("blocked".equals(statusFilter)) {
+            sql.append("AND status = 0 ");
+        }
+
+        sql.append("ORDER BY id DESC LIMIT ? OFFSET ?");
+
+        // Tính offset
+        int offset = (page - 1) * pageSize;
+        params.add(pageSize);
+        params.add(offset);
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    User u = new User();
+                    u.setId(rs.getInt("id"));
+                    u.setFname(rs.getString("fname"));
+                    u.setLname(rs.getString("lname"));
+
+                    u.setFullname(u.getFname() + " " + u.getLname());
+
+                    u.setEmail(rs.getString("email"));
+                    u.setPhoneNumber(rs.getString("phone_number"));
+                    u.setGender(rs.getString("gender"));
+                    u.setRole(rs.getString("role"));
+                    u.setStatus(rs.getBoolean("status")); // 1: true, 0: false
+                    u.setTotalSpending(rs.getDouble("total_spending"));
+
+
+                    try {
+                        u.setCreatedAt(rs.getTimestamp("created_at"));
+                    } catch (Exception ignore) {
+                    }
+
+                    list.add(u);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //  update trạng thái (Khóa/Mở)
+    public boolean updateUserStatus(int userId, boolean newStatus) {
+        String sql = "UPDATE users SET status = ? WHERE id = ?";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, newStatus ? 1 : 0);
+            ps.setInt(2, userId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }

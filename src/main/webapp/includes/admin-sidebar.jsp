@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin-customer-manage.jsp">
+                <a href="${pageContext.request.contextPath}/admin-customer-manage">
                     <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
                 </a>
             </li>

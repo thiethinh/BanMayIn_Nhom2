@@ -565,6 +565,125 @@ public class ProductDAO {
             return ps.executeUpdate() > 0;
         }
     }
+    //SEARCH
+    public List<Product> searchProductForAdmin(String keyword) {
+        List<Product> list = new ArrayList<>();
+
+
+        String sql = """
+        SELECT p.id, p.product_name, p.price, p.stock_quantity, c.type, i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i 
+               ON i.entity_id = p.id 
+              AND i.entity_type = 'Product'
+              AND i.is_thumbnail = 1
+        WHERE p.product_name LIKE ? 
+        ORDER BY p.id DESC
+    """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Nếu keyword rỗng thì tìm tất cả (%%), ngược lại thì tìm theo từ khóa
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+
+            ps.setString(1, search);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setStockQuantity(rs.getInt("stock_quantity"));
+                    p.setType(rs.getString("type"));
+
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.isEmpty()) {
+                        p.setThumbnail("images/upload/" + imgName);
+                    } else {
+                        p.setThumbnail("images/logo.webp");
+                    }
+                    list.add(p);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    // Thêm vào class ProductDAO
+
+    // Đếm tổng số sản phẩm => số trang
+    public int countProducts(String keyword) {
+        String sql = "SELECT COUNT(*) FROM product WHERE product_name LIKE ?";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+            ps.setString(1, search);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Lấy danh sách sản phẩm có Phân trang & Tìm kiếm
+    public List<Product> getProductsPagination(String keyword, int page, int pageSize) {
+        List<Product> list = new ArrayList<>();
+
+        // Tính vị trí bắt đầu( số sp_trang cần bỏ qua để đến trang cần tìm)
+        int offset = (page - 1) * pageSize; // (page -1): tính từ trang 0
+
+        String sql = """
+        SELECT p.id, p.product_name, p.price, p.stock_quantity, c.type, i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i 
+               ON i.entity_id = p.id 
+              AND i.entity_type = 'Product'
+              AND i.is_thumbnail = 1
+        WHERE p.product_name LIKE ?
+        ORDER BY p.id DESC
+        LIMIT ? OFFSET ?
+    """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+
+            ps.setString(1, search);
+            ps.setInt(2, pageSize); // số dòng lấy
+            ps.setInt(3, offset);   // số dòng bỏ qua
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setStockQuantity(rs.getInt("stock_quantity"));
+                    p.setType(rs.getString("type"));
+
+                    String imgName = rs.getString("img_name");
+                    p.setThumbnail((imgName != null && !imgName.isEmpty()) ? "images/upload/" + imgName.trim() : "images/logo.webp");
+
+                    list.add(p);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 
 
