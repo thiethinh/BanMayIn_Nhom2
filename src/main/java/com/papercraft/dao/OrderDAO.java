@@ -16,7 +16,7 @@ public class OrderDAO {
         List<Order> orders = new ArrayList<>();
 
 
-        String sql = "SELECT * FROM `order` WHERE user_id = ? ORDER BY created_at DESC";
+        String sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC";
 
         try (
                 Connection conn = DBConnect.getConnection();
@@ -64,7 +64,7 @@ public class OrderDAO {
     public boolean updateOrderStatus(int orderId, String status) {
 
 
-        String sql = "UPDATE `order` SET status = ? WHERE id = ?";
+        String sql = "UPDATE orders SET status = ? WHERE id = ?";
 
         try (
                 Connection conn = DBConnect.getConnection();
@@ -94,7 +94,7 @@ public class OrderDAO {
     public Integer totalPendingOrder() {
 
         String sql = """
-                SELECT SUM(status) AS pending_order FROM order WHERE status ='Chờ Xử Lí';
+                SELECT COUNT(*) AS pending_order FROM orders WHERE status ='pending';
                 """;
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -156,7 +156,7 @@ public class OrderDAO {
     public Order getOrderByID(int orderId) {
         String sql = """
                 SELECT id, user_id,status, total_price,note,shipping_fee,shipping_name,shipping_phone,shipping_address,created_at
-                FROM order
+                FROM orders
                 WHERE id =?
                 """;
         try (Connection conn = DBConnect.getConnection();

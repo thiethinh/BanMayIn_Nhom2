@@ -305,7 +305,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <%
-    String msg = (String) session.getAttribute("successMessage");
+    String msg = (String) session.getAttribute("success");
     if (msg != null) {
 %>
 <script>
@@ -321,7 +321,7 @@
     });
 </script>
 <%
-        session.removeAttribute("successMessage");
+        session.removeAttribute("success");
     }
 %>
 
