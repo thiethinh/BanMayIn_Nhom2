@@ -3,12 +3,12 @@ package com.papercraft.controller;
 import com.papercraft.dao.UserDAO;
 import com.papercraft.util.EmailUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/forgot-password")
@@ -28,13 +28,13 @@ public class ForgotPasswordServlet extends HttpServlet {
                 // Tạo và gửi OTP
                 String otp = EmailUtils.generateOTP();
 
-                // Gửi mail (Nên chạy trong Thread riêng để tránh lag web, nhưng code đơn giản thì để thế này cũng được)
+                // Gửi mail
                 EmailUtils.sendEmail(email, otp);
 
                 // Lưu Session
                 HttpSession session = request.getSession();
                 session.setAttribute("OTP_CODE", otp);
-                session.setAttribute("RESET_EMAIL", email); // Lưu email để lát đổi pass
+                session.setAttribute("RESET_EMAIL", email); // Lưu email để đổi pass
                 session.setAttribute("OTP_createTime", System.currentTimeMillis());
 
                 response.getWriter().write("SUCCESS");
@@ -54,10 +54,10 @@ public class ForgotPasswordServlet extends HttpServlet {
 
         if (systemOtp != null && systemOtp.equals(userOtp)) {
             session.setAttribute("IS_VERIFIED", true);
-            response.sendRedirect("reset-password.jsp");
+            response.sendRedirect("reset-password");
         } else {
             request.setAttribute("message", "Mã OTP sai hoặc đã hết hạn!");
-            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
+            request.getRequestDispatcher("forgot-password").forward(request, response);
         }
     }
 }

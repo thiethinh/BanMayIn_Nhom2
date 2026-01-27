@@ -51,11 +51,17 @@ public class UserDAO {
     }
 
     public boolean checkEmailExists(String email) {
+        // In ra log để xem server nhận được chuỗi gì
+        System.out.println("DEBUG CHECK EMAIL: [" + email + "]");
+
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
 
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
-            ps.setString(1, email);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+
+            ps.setString(1, email.trim());
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1) > 0;
@@ -65,7 +71,6 @@ public class UserDAO {
         }
         return false;
     }
-
     public void signup(User user) {
         String sql = "INSERT INTO users (fname, lname, email, phone_number, gender, password_hash, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
 
@@ -345,4 +350,5 @@ public class UserDAO {
         }
         return false;
     }
+
 }
