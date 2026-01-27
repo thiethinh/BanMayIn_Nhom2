@@ -149,7 +149,7 @@ public class UserDAO {
 
     public Integer totalUser() {
         String sql = """
-                SELECT SUM(id) AS total_user FROM users;
+                SELECT COUNT(id) AS total_user FROM users;
                 """;
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

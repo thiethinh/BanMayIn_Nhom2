@@ -14,6 +14,13 @@ import java.io.IOException;
 
 @WebServlet(name = "ChangePasswordServlet", value = "/change-password")
 public class ChangePasswordServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("password-change.jsp").forward(request, response);
+
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();

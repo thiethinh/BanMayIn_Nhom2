@@ -186,22 +186,30 @@ public class OrderDAO {
         return null;
     }
 
-    public List<Order> getOrderByState(String statusOrder) {
+    public List<Order> getOrderByState(String statusOrder,int pageSize, int offset) {
         List<Order> orders = new ArrayList<>();
         String rawSql = """
                 SELECT o.id, u.fullname, o.created_at, o.total_price,o.status
-                FROM order o
+                FROM orders o
                 JOIN users u ON u.id = o.user_id
                 """;
         StringBuilder sqlBuider= new StringBuilder(rawSql);
         if(!statusOrder.isEmpty()){
-            sqlBuider.append(" WHERE status = ?");
+            sqlBuider.append(" WHERE o.status = ? ");
+            sqlBuider.append("ORDER BY o.created_at DESC ");
+            sqlBuider.append(" LIMIT ? OFFSET ?; ");
+
+        }else{
+            sqlBuider.append("ORDER BY o.created_at DESC ");
+            sqlBuider.append(" LIMIT ? OFFSET ? ");
         }
 
         String sql = sqlBuider.toString();
         try(Connection conn = DBConnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);){
             ps.setString(1,statusOrder);
+            ps.setInt(2,pageSize);
+            ps.setInt(3,offset);
             try(ResultSet rs = ps.executeQuery()){
                 while (rs.next()) {
                     Integer id = rs.getInt("id");
@@ -228,5 +236,30 @@ public class OrderDAO {
         }
         return  orders;
 
+    }
+
+    public int getTotalCount(String status) {
+        String sql = """
+                SELECT COUNT(id) as total_order
+                FROM orders
+                WHERE status =?;
+                """;
+        try(Connection conn = DBConnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);){
+            ps.setString(1, status);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()) {
+                    return  rs.getInt("total_order");
+                }
+
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

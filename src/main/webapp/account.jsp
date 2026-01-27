@@ -20,40 +20,14 @@
 <body>
 <jsp:include page="includes/header.jsp"/>
 
+
 <div class="main">
     <div class="account-wrapper">
         <h1 class="account-title">Tài Khoản Của Bạn</h1>
 
         <div class="account-container">
-            <aside class="account-sidebar">
-                <ul>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/account" class="active">
-                            <i class="fa-solid fa-user-edit"></i>
-                            Thông tin cá nhân
-                        </a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/order-history.jsp">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            Lịch sử đơn hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/password-change.jsp">
-                            <i class="fa-solid fa-key"></i>
-                            Đổi mật khẩu
-                        </a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/logout" id="account-logout" class="logout-link">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Đăng xuất
-                        </a>
-                    </li>
-                </ul>
-            </aside>
 
+            <jsp:include page="includes/account-sidebar.jsp"/>
             <section class="account-content">
                 <h2>Thông tin cá nhân</h2>
                 <p>Quản lý thông tin cá nhân của bạn để bảo mật tài khoản.</p>

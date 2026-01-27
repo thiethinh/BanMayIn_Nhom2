@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +19,6 @@
 </head>
 
 
-
-
 <body>
 
 <div class="admin-container">
@@ -32,60 +32,76 @@
         <section class="content-table-view">
             <div class="filter">
                 <label for="statusFilter"><i class="fa fa-filter"></i> Lọc theo trạng thái:</label>
-                <select id="statusFilter">
-                    <option value="all">Tất cả</option>
-                    <option value="pending">Chờ Xử Lý</option>
-                    <option value="shipped">Đã Gửi</option>
-                    <option value="completed">Hoàn Thành</option>
-                    <option value="canceled">Đã Hủy</option>
+                <select id="statusFilter" onchange="location.href='?status=' + this.value;">
+                    <option value="" ${param.status == '' ? 'selected' : ''}>Tất cả</option>
+                    <option value="pending" ${param.status == 'pending' ? 'selected' : ''}>Chờ Xử Lý</option>
+                    <option value="shipped" ${param.status == 'shipped' ? 'selected' : ''}>Đã Gửi</option>
+                    <option value="completed" ${param.status == 'completed' ? 'selected' : ''}>Hoàn Thành</option>
+                    <option value="canceled" ${param.status == 'canceled' ? 'selected' : ''}>Đã Hủy</option>
                 </select>
             </div>
 
 
-            <table class="table-view">
-                <thead>
-                <tr>
-                    <th>Mã ĐH</th>
-                    <th>Khách Hàng</th>
-                    <th>Ngày Đặt</th>
-                    <th>Tổng Tiền</th>
-                    <th>Trạng Thái</th>
-                    <th>Hành Động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:if test="${not empty orders}">
-                    <c:forEach items="${orders}" var="o">
-
+            <c:choose>
+                <c:when test="${empty orders}">
+                    <p style="text-align: center;">Không có đơn hàng nào</p>
+                </c:when>
+                <c:otherwise>
+                    <table class="table-view">
+                        <thead>
                         <tr>
-                            <td>${o.id}</td>
-                            <td>${o.shippingName}</td>
-                            <td>${o.createdAt}</td>
-                            <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/></td>
-                            <td><span class="status-badge ${o.getStatusClass}">${o.status}</span></td>
-                            <td><a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a></td>
+                            <th>Mã ĐH</th>
+                            <th>Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
                         </tr>
-                    </c:forEach>
-                </c:if>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${orders}" var="o">
+                            <tr>
+                                <td>${o.id}</td>
+                                <td>${o.shippingName}</td>
+                                <td>${o.createdAt}</td>
+                                <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/></td>
+                                <td><span class="status-badge ${o.statusClass}">${o.status}</span></td>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:otherwise>
+            </c:choose>
 
-
-
-
-                </tbody>
-
-            </table>
 
             <div class="footer">
                 <nav>
                     <ul class="nav-change-page">
-                        <li><a href="#"><span>«</span> Trang trước</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">Trang tiếp theo <span>»</span></a></li>
+                        <%-- Nút Trang trước --%>
+                        <c:if test="${currentPage > 1}">
+                            <li>
+                                <a href="?status=${param.status}&page=${currentPage - 1}"><span>«</span> Trang trước</a>
+                            </li>
+                        </c:if>
+
+                        <%-- Hiển thị danh sách số trang --%>
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="${currentPage == i ? 'active' : ''}">
+                                <a href="?status=${param.status}&page=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
+
+                        <%-- Nút Trang tiếp theo --%>
+                        <c:if test="${currentPage < totalPages}">
+                            <li>
+                                <a href="?status=${param.status}&page=${currentPage + 1}">Trang tiếp theo <span>»</span></a>
+                            </li>
+                        </c:if>
                     </ul>
                 </nav>
-
             </div>
 
         </section>
