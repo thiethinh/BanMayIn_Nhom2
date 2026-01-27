@@ -101,38 +101,7 @@
                             </tr>
                         </c:forEach>
 
-                        <tr>
-                            <td>#OD1256</td>
-                            <td>Nguyễn Văn A</td>
-                            <td>07/11/2025</td>
-                            <td>4.500.000đ</td>
-                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
-                            <td><a href="${pageContext.request.contextPath}/admin-order-view.jsp" class="btn-action view">Xem</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD1255</td>
-                            <td>Trần Thị Bình</td>
-                            <td>06/11/2025</td>
-                            <td>2.690.000đ</td>
-                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
-                            <td><a href="#" class="btn-action view">Xem</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD1254</td>
-                            <td>Lê Minh Cường</td>
-                            <td>06/11/2025</td>
-                            <td>450.000đ</td>
-                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
-                            <td><a href="#" class="btn-action view">Xem</a></td>
-                        </tr>
-                        <tr>
-                            <td>#OD1253</td>
-                            <td>Phạm Thị Dung</td>
-                            <td>05/11/2025</td>
-                            <td>12.800.000đ</td>
-                            <td><span class="status-badge pending">Chờ Xử Lý</span></td>
-                            <td><a href="#" class="btn-action view">Xem</a></td>
-                        </tr>
+
                     </tbody>
                 </table>
 

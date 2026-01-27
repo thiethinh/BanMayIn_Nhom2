@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-order-manage.css">
 </head>
 
+
+
+
 <body>
 
 <div class="admin-container">
@@ -51,87 +54,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>#OD1256</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>07/11/2025</td>
-                    <td>4.500.000đ</td>
-                    <td><span class="status pending">Chờ Xử Lý</span></td>
-                    <td><a href="${pageContext.request.contextPath}/admin-order-view.jsp" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1255</td>
-                    <td>Trần Thị Bình</td>
-                    <td>06/11/2025</td>
-                    <td>2.690.000đ</td>
-                    <td><span class="status shipped">Đã Gửi</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1254</td>
-                    <td>Lê Minh Cường</td>
-                    <td>06/11/2025</td>
-                    <td>450.000đ</td>
-                    <td><span class="status completed">Hoàn Thành</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1253</td>
-                    <td>Phạm Thị Dung</td>
-                    <td>05/11/2025</td>
-                    <td>12.800.000đ</td>
-                    <td><span class="status pending">Chờ Xử Lý</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <!--  -->
-                <tr>
-                    <td>#OD1252</td>
-                    <td>Ngô Văn Hùng</td>
-                    <td>04/11/2025</td>
-                    <td>1.250.000đ</td>
-                    <td><span class="status canceled">Đã Hủy</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1251</td>
-                    <td>Đặng Thị Hòa</td>
-                    <td>04/11/2025</td>
-                    <td>3.200.000đ</td>
-                    <td><span class="status shipped">Đã Gửi</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1250</td>
-                    <td>Phan Anh Tuấn</td>
-                    <td>03/11/2025</td>
-                    <td>6.750.000đ</td>
-                    <td><span class="status completed">Hoàn Thành</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1249</td>
-                    <td>Vũ Thị Lan</td>
-                    <td>02/11/2025</td>
-                    <td>980.000đ</td>
-                    <td><span class="status canceled">Đã Hủy</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1248</td>
-                    <td>Nguyễn Hữu Tín</td>
-                    <td>01/11/2025</td>
-                    <td>7.300.000đ</td>
-                    <td><span class="status shipped">Đã Gửi</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
-                <tr>
-                    <td>#OD1247</td>
-                    <td>Trần Mỹ Linh</td>
-                    <td>31/10/2025</td>
-                    <td>2.150.000đ</td>
-                    <td><span class="status completed">Hoàn Thành</span></td>
-                    <td><a href="admin-order-view.html" class="btn view">Xem</a></td>
-                </tr>
+                <c:if test="${not empty orders}">
+                    <c:forEach items="${orders}" var="o">
+
+                        <tr>
+                            <td>${o.id}</td>
+                            <td>${o.shippingName}</td>
+                            <td>${o.createdAt}</td>
+                            <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/></td>
+                            <td><span class="status-badge ${o.getStatusClass}">${o.status}</span></td>
+                            <td><a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a></td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+
+
 
 
                 </tbody>

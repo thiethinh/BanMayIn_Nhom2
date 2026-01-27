@@ -59,7 +59,7 @@
 
                     <c:if test="${not empty sessionScope.acc}">
                         <div class="logged-in-user">
-                            <a href="${pageContext.request.contextPath}/account.jsp"
+                            <a href="${pageContext.request.contextPath}/account"
                                class="user-name-link">
                                 <i class="fa-solid fa-circle-user"></i>
                                 <span>Chào, ${sessionScope.acc.lname}</span>
