@@ -332,4 +332,17 @@ public class UserDAO {
         }
         return false;
     }
+    // Hàm cập nhật mật khẩu theo Email
+    public boolean updatePasswordByEmail(String email, String newPasswordHash) {
+        String sql = "UPDATE users SET password_hash = ? WHERE email = ?";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newPasswordHash);
+            ps.setString(2, email);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
