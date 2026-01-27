@@ -15,12 +15,23 @@ import java.util.List;
 public class AdminOrderManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       String status =request.getParameter("state");
+       String status =request.getParameter("status");
         status=(status==null||status.isEmpty())? "":status;
         OrderDAO orderDAO = new OrderDAO();
 
         int pageSize = 15;
-        int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        int currentPage = 1;
+        try {
+            String pageParam = request.getParameter("page");
+            if (pageParam != null) {
+                currentPage = Integer.parseInt(pageParam);
+                if (currentPage < 1) currentPage = 1;
+            }else{
+                currentPage = 1;
+            }
+        } catch (NumberFormatException e) {
+            currentPage = 1;
+        }
 
         int offset = (currentPage-1) *pageSize;
 

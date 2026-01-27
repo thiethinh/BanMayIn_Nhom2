@@ -30,7 +30,7 @@
             <!-- -------------UP--------- -->
             <section class="up">
                 <div clas="back">
-                    <a id="icon-back" href="${pageContext.request.contextPath}/admin-order-manage.jsp"><i class="fa-solid fa-arrow-left"></i></a>
+                    <a id="icon-back" href="${pageContext.request.contextPath}/admin-order-manage"><i class="fa-solid fa-arrow-left"></i></a>
                     <h1> Chi Tiết Đơn Hàng</h1>
                 </div>
                 <div>
@@ -54,15 +54,15 @@
                             </tr>
                             <tr>
                                 <td>SĐT:</td>
-                                <td><span></span>{user.phoneNumber}</td>
+                                <td><span></span>${user.phoneNumber}</td>
                             </tr>
                             <tr>
                                 <td>Email:</td>
-                                <td><span>{user.email}</span></td>
+                                <td><span>${user.email}</span></td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ giao hàng:</td>
-                                <td><span>{order.shippingAddress}</span></td>
+                                <td><span>${order.shippingAddress}</span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -82,7 +82,7 @@
                             </thead>
                             <tbody>
 
-                            <for:forEach items="${order.orderItems}" var="item">
+                            <c:forEach items="${order.orderItems}" var="item">
                                 <tr>
                                     <td><img src="${item.product.thumbnail}" alt="main-img"></td>
                                     <td>
@@ -96,7 +96,7 @@
                                     <td><strong>${item.total} VND</strong></td>
 
                                 </tr>
-                            </for:forEach>
+                            </c:forEach>
 
 
 
