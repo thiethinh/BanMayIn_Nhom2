@@ -48,7 +48,12 @@ public class LoginServlet extends HttpServlet {
             if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
                 response.sendRedirect(redirectUrl);
             } else {
-                response.sendRedirect("home");
+                User acc = (User) session.getAttribute("acc");
+                if("ADMIN".equalsIgnoreCase(acc.getRole())) {
+                    response.sendRedirect("admin");
+                } else {
+                    response.sendRedirect("home");
+                }
             }
         } else {
             request.setAttribute("msg", "Tài khoản hoặc mật khẩu không đúng");

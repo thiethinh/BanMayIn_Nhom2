@@ -242,11 +242,11 @@ public class UserDAO {
                             FROM `order` o 
                             WHERE o.user_id = u.id) AS total_spending
                     FROM users u 
-                    WHERE LOWER(u.role) != 'admin' 
+                    WHERE 1=1 
                 """);
         List<Object> params = new ArrayList<>();
 
-    //SEARCH
+        //SEARCH
         if (keyword != null && !keyword.trim().isEmpty()) {
             sql.append("AND (email LIKE ? OR phone_number LIKE ? OR CONCAT(fname, ' ', lname) LIKE ?) ");
             String search = "%" + keyword.trim() + "%";
