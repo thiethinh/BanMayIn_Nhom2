@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="option-value" name="sortBy">
-                        <div class="option-item title-dropdown" data-value="rating"> Đánh giá cao nhất</div>
+                        <div class="option-item title-dropdown" data-value="rating"> Mức giá</div>
                         <div class="option-item" data-value="priceDesc"> Giá: Cao đến Thấp</div>
                         <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
                     </div>
