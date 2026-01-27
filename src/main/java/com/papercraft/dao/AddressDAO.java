@@ -4,6 +4,7 @@ import com.papercraft.db.DBConnect;
 import com.papercraft.model.Address;
 
 import java.sql.*;
+import java.util.Objects;
 
 public class AddressDAO {
 
@@ -91,4 +92,64 @@ public class AddressDAO {
         return null;
     }
 
+
+    public boolean updateAddress(Address address, int userId){
+        String sql = """
+                UPDATE address
+                set fname =? , lname =?, nation= ? , city =?, detail_address =?, postcode =?, phone =?
+                where user_id =?;
+                """;
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, address.getFname());
+            ps.setString(2, address.getLname());
+            ps.setString(3, address.getNation());
+            ps.setString(4, address.getCity());
+            ps.setString(5, address.getDetailAddress());
+            ps.setString(6,address.getPostcode());
+            ps.setString(7,address.getPhone());
+            ps.setInt(8, userId);
+
+
+            return ps.executeUpdate() >0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public Address getAddresById(Integer id) {
+        Address addr = new Address();
+        String sql = """
+                SELECT lname, fname,nation,city,detail_address,postcode,phone
+                FROM address
+                WHERE user_id =?;
+                """;
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1,id);
+            try(ResultSet rs =ps.executeQuery()) {
+                if (rs.next()) {
+
+                    addr.setFname(Objects.requireNonNullElse(rs.getString("fname"), ""));
+                    addr.setLname(Objects.requireNonNullElse(rs.getString("lname"), ""));
+                    addr.setNation(Objects.requireNonNullElse(rs.getString("nation"), ""));
+                    addr.setCity(Objects.requireNonNullElse(rs.getString("city"), ""));
+                    addr.setDetailAddress(Objects.requireNonNullElse(rs.getString("detail_address"), ""));
+                    addr.setPostcode(Objects.requireNonNullElse(rs.getString("postcode"), ""));
+                    addr.setPhone(Objects.requireNonNullElse(rs.getString("phone"), ""));
+                }
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return addr;
+    }
 }

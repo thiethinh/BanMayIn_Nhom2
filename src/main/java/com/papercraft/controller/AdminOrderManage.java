@@ -19,6 +19,10 @@ public class AdminOrderManage extends HttpServlet {
         status=(status==null||status.isEmpty())? "":status;
         OrderDAO orderDAO = new OrderDAO();
         List<Order> products = orderDAO.getOrderByState(status);
+        List<Order> orders = orderDAO.getOrderByState(status);
+
+        request.setAttribute("orders", orders);
+        request.getRequestDispatcher("/admin-order-manage.jsp").forward(request, response);
     }
 
     @Override
