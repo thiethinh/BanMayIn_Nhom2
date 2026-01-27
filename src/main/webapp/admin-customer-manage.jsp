@@ -1,18 +1,40 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaperCraft - Admin Bảng Điều Khiển</title>
+    <title>PaperCraft - Quản Lý Khách Hàng</title>
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-customer-manage.css">
+
+    <style>
+        /* CSS bổ sung để nút link trông giống button */
+        .btn-action {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+        .btn-lock { background-color: #dc354554; color: white; }
+        .btn-unlock { background-color: #28a745; color: white; }
+
+        .tag-status.active { color: #28a745; background: #d4edda; padding: 4px 8px; border-radius: 4px; font-weight: bold;}
+        .tag-status.blocked { color: #dc3545; background: #f8d7da; padding: 4px 8px; border-radius: 4px; font-weight: bold;}
+    </style>
 </head>
 
 <body>
@@ -25,23 +47,22 @@
 
         <header class="admin-header">
             <h1>Quản Lý Khách Hàng</h1>
-
         </header>
 
         <section class="customer-view">
-            <form action="#" class="block-search">
+            <form action="admin-customer-manage" method="get" class="block-search">
 
                 <input type="text" name="search-customer" id="search-customer"
+                       value="${keyword}"
                        placeholder="Tìm khách hàng theo tên, số điện thoại hoặc email">
 
                 <select name="select-sort" id="select-sort">
-                    <option value="all">Tất cả trạng thái</option>
-                    <option value="active">Hoạt động</option>
-                    <option value="blocked">Bị khóa</option>
+                    <option value="all" ${statusFilter == 'all' ? 'selected' : ''}>Tất cả trạng thái</option>
+                    <option value="active" ${statusFilter == 'active' ? 'selected' : ''}>Hoạt động</option>
+                    <option value="blocked" ${statusFilter == 'blocked' ? 'selected' : ''}>Bị khóa</option>
                 </select>
 
                 <button type="submit" name="bt-search" id="bt-search">Tìm kiếm</button>
-
             </form>
 
             <div class="block-table">
@@ -52,198 +73,108 @@
                         <td>Tên KH</td>
                         <td>SĐT</td>
                         <td>Email</td>
-                        <td>Tổng chi tiêu</td>
-                        <td>Trạng thái</td>
+                        <td>Tổng chi tiêu</td> <td>Trạng thái</td>
                         <td>Thao tác</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- KHÁCH HÀNG 1 -->
-                    <tr>
-                        <td>KH001</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>0905123456</td>
-                        <td>nguyenvana@gmail.com</td>
-                        <td>45.000.000VNĐ</td>
-                        <td class="tag-status active">Hoạt động</td>
-                        <td class="block-action">
-                            <a href="${pageContext.request.contextPath}/admin-customer-details.jsp"
-                               id="link-view">Xem</a>
-                            <a href="${pageContext.request.contextPath}/admin-customer-update.jsp">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-lock"><i class="fa-solid fa-lock"></i>
-                                Khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- KHÁCH HÀNG 2 -->
-                    <tr>
-                        <td>KH002</td>
-                        <td>Nguyễn Văn Hùng</td>
-                        <td>090512085</td>
-                        <td>nguyenvanHung@gmail.com</td>
-                        <td>12.000.000VNĐ</td>
-                        <td class="tag-status blocked">Bị khóa</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-unlock"><i
-                                    class="fa-solid fa-unlock"></i>
-                                Mở khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- KHÁCH HÀNG 3-->
-                    <tr>
-                        <td>KH003</td>
-                        <td>Lê Ngọc Đông Nghi</td>
-                        <td>0386216678</td>
-                        <td>lndnghi09@gmail.com</td>
-                        <td>69.000.000VNĐ</td>
-                        <td class="tag-status active">Hoạt động</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-lock"><i class="fa-solid fa-lock"></i>
-                                Khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- KHÁCH HÀNG 4-->
-                    <tr>
-                        <td>KH004</td>
-                        <td>Phạm Trần Nhật Linh</td>
-                        <td>0397316572</td>
-                        <td>nhatlinh8609@gmail.com</td>
-                        <td>25.000.000VNĐ</td>
-                        <td class="tag-status active">Hoạt động</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-lock"><i class="fa-solid fa-lock"></i>
-                                Khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- KHÁCH HÀNG 5-->
-                    <tr>
-                        <td>KH005</td>
-                        <td>Nguyễn Hùng Anh</td>
-                        <td>0934212422</td>
-                        <td>nguyenhung25@gmail.com</td>
-                        <td>19.000.000VNĐ</td>
-                        <td class="tag-status blocked">Bị khóa</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-unlock"><i
-                                    class="fa-solid fa-unlock"></i>
-                                Mở khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- KHÁCH HÀNG 6-->
-                    <tr>
-                        <td>KH006</td>
-                        <td>Nguyễn Văn Tuấn</td>
-                        <td>0934214963</td>
-                        <td>nguyenvantuan@gmail.com</td>
-                        <td>5.000.000VNĐ</td>
-                        <td class="tag-status blocked">Bị khóa</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-unlock"><i
-                                    class="fa-solid fa-unlock"></i>
-                                Mở khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>KH007</td>
-                        <td>Lê Thị Thu Thảo</td>
-                        <td>0789123456</td>
-                        <td>thuthaole97@company.com</td>
-                        <td>35.500.000VNĐ</td>
-                        <td class="tag-status active">Hoạt động</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-lock"><i class="fa-solid fa-lock"></i>
-                                Khóa
-                            </button>
-                        </td>
-                    </tr>
+                    <c:forEach var="u" items="${userList}">
+                        <tr>
+                            <td>KH${u.id}</td>
 
-                    <tr>
-                        <td>KH008</td>
-                        <td>Trần Minh Quân</td>
-                        <td>0912345678</td>
-                        <td>minhquantran@outlook.com</td>
-                        <td>12.800.000VNĐ</td>
-                        <td class="tag-status active">Hoạt động</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-lock"><i class="fa-solid fa-lock"></i>
-                                Khóa
-                            </button>
-                        </td>
-                    </tr>
+                            <td>${u.fullname}</td>
 
-                    <tr>
-                        <td>KH009</td>
-                        <td>Võ Hoàng Yến</td>
-                        <td>0333222111</td>
-                        <td>hoangyen.vo@yahoo.com</td>
-                        <td>8.000.000VNĐ</td>
-                        <td class="tag-status blocked">Bị khóa</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-unlock"><i
-                                    class="fa-solid fa-unlock"></i>
-                                Mở khóa
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>KH010</td>
-                        <td>Nguyễn Minh Thuận</td>
-                        <td>0386216899</td>
-                        <td>nguyenminhthuan@yahoo.com</td>
-                        <td>15.000.000VNĐ</td>
-                        <td class="tag-status blocked">Bị khóa</td>
-                        <td class="block-action">
-                            <a href="admin-customer-details.html">Xem</a>
-                            <a href="#">Sửa</a>
-                            <button type="button" name="bt-block-unblock" id="bt-unlock"><i
-                                    class="fa-solid fa-unlock"></i>
-                                Mở khóa
-                            </button>
-                        </td>
-                    </tr>
+                            <td>${u.phoneNumber}</td>
 
+                            <td>${u.email}</td>
+
+                            <td>
+                                <fmt:setLocale value="vi_VN"/>
+                                <fmt:formatNumber value="${u.totalSpending}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>
+                            </td>
+
+                            <td>
+                                <c:choose>
+                                    <c:when test="${u.status == true}">
+                                        <span class="tag-status active">Hoạt động</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="tag-status blocked">Bị khóa</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
+                            <td class="block-action">
+                                <a href="admin-customer-details.jsp?id=${u.id}" id="link-view">Xem</a>
+                                <a href="admin-customer-update.jsp?id=${u.id}">Sửa</a>
+
+                                <c:choose>
+                                    <c:when test="${u.status == true}">
+                                        <a href="admin-customer-manage?action=lock&id=${u.id}"
+                                           class="btn-action btn-lock"
+                                           onclick="return confirm('Khóa tài khoản này?');">
+                                            <i class="fa-solid fa-lock"></i> Khóa
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="admin-customer-manage?action=unlock&id=${u.id}"
+                                           class="btn-action btn-unlock"
+                                           onclick="return confirm('Mở khóa tài khoản này?');">
+                                            <i class="fa-solid fa-unlock"></i> Mở
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+                    <c:if test="${empty userList}">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 20px;">
+                                Không tìm thấy khách hàng nào.
+                            </td>
+                        </tr>
+                    </c:if>
                     </tbody>
-
                 </table>
             </div>
-            <div class="footer">
-                <nav>
-                    <ul class="nav-change-page">
-                        <li><a href="#"><span>«</span> Trang trước</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">Trang tiếp theo <span>»</span></a></li>
-                    </ul>
-                </nav>
 
-            </div>
+            <c:if test="${totalPages > 1}">
+                <div class="footer">
+                    <nav>
+                        <ul class="nav-change-page">
+                            <c:if test="${currentPage > 1}">
+                                <li>
+                                    <a href="admin-customer-manage?page=${currentPage - 1}&search-customer=${keyword}&select-sort=${statusFilter}">
+                                        <span>«</span> Trang trước
+                                    </a>
+                                </li>
+                            </c:if>
+
+                            <c:forEach begin="1" end="${totalPages}" var="i">
+                                <li class="${currentPage == i ? 'active' : ''}">
+                                    <a href="admin-customer-manage?page=${i}&search-customer=${keyword}&select-sort=${statusFilter}">
+                                            ${i}
+                                    </a>
+                                </li>
+                            </c:forEach>
+
+                            <c:if test="${currentPage < totalPages}">
+                                <li>
+                                    <a href="admin-customer-manage?page=${currentPage + 1}&search-customer=${keyword}&select-sort=${statusFilter}">
+                                        Trang tiếp theo <span>»</span>
+                                    </a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </c:if>
+
         </section>
 
     </main>
 </div>
 
 </body>
-
 </html>

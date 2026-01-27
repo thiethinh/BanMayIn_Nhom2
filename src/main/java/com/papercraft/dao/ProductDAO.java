@@ -69,8 +69,7 @@ public class ProductDAO {
     public List<String> getAllImageOfProduct(int id) {
         List<String> images = new ArrayList<>();
 
-        String sql = "SELECT img_name FROM image WHERE entity_id = ? AND entity_type = 'Product' AND img_name IS NOT NULL";
-
+        String sql = "SELECT img_name FROM image WHERE entity_id = ? AND entity_type = 'Product' AND is_thumbnail = 0 AND img_name IS NOT NULL";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -419,44 +418,49 @@ public class ProductDAO {
 
 
     public List<Product> getProductForManagement() {
-        List<Product>   products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
+
         String sql = """
-                SELECT p.id,  p.product_name,i.img_name, p.price, p.stock_quantity, c.type
-                FROM product p
-                JOIN image i ON i.entity_id = p.id
-                JOIN category c ON c.id = p.category_id
-                WHERE i.is_thumbnail =1;
-                """;
-        try(Connection conn = DBConnect.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);){
-            try(ResultSet rs = ps.executeQuery();){
-                while(rs.next()){
-                    Product p = new Product();
+        SELECT p.id, p.product_name, p.price, p.stock_quantity, c.type, i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i 
+               ON i.entity_id = p.id 
+              AND i.entity_type = 'Product'
+              AND i.is_thumbnail = 1
+        ORDER BY p.id DESC
+    """;
 
-                    Integer id = rs.getInt("id");
-                    String img_url = rs.getString("img_name");
-                    String productName = rs.getString("product_name");
-                    double price = rs.getDouble("price");
-                    Integer quantity = rs.getInt("stock_quantity");
-                    String type = rs.getString("type");
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-                    p.setThumbnail(img_url);
-                    p.setId(id);
-                    p.setPrice(price);
-                    p.setProductName(productName);
-                    p.setType(type);
-                    p.setStockQuantity(quantity);
+            while (rs.next()) {
+                Product p = new Product();
 
-                    products.add(p);
+                p.setId(rs.getInt("id"));
+                p.setProductName(rs.getString("product_name"));
+                p.setPrice(rs.getDouble("price"));
+                p.setStockQuantity(rs.getInt("stock_quantity"));
+                p.setType(rs.getString("type"));
+
+                String imgName = rs.getString("img_name");
+                if (imgName != null && !imgName.trim().isEmpty()) {
+                    p.setThumbnail("images/upload/" + imgName.trim());
+                } else {
+                    p.setThumbnail("images/logo.webp");
                 }
+
+                products.add(p);
             }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  products;
+
+        return products;
     }
+
 
     public boolean deleteProductById(int id){
         String sql = """
@@ -478,48 +482,208 @@ public class ProductDAO {
 
     public Product getProductForEditById(int idProduct) {
         String sql = """
-                SELECT p.id, p.product_name, p.price,p.description_thumbnail,p.product_description,p.product_detail,p.stock_quantity, i.img_name, c.type
-                FROM product p 
-                JOIN image i ON p.id = i.entity_id
-                JOIN category c ON c.id = p.category_id
-                WHERE i.is_thumbnail =1 AND p.id =?;
-                """;
-        try(Connection conn = DBConnect.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);){
-            ps.setInt(1,idProduct);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                    Integer id = rs.getInt("id");
-                    String productName = rs.getString("product_name");
-                    double price = rs.getDouble("price");
-                    String description_thumbnail =rs.getString("description_thumbnail");
-                    String product_description = rs.getString("product_description");
-                    String product_detail = rs.getString("product_detail");
-                    int quantity = rs.getInt(("stock_quantity"));
-                    String img_name = rs.getString("img_name");
-                    String type = rs.getString("type");
+        SELECT p.id, p.category_id, p.product_name, p.price, p.origin_price, p.discount,
+               p.description_thumbnail, p.product_description, p.product_detail, p.stock_quantity,
+               c.type,
+               i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i ON i.entity_id = p.id
+            AND i.entity_type = 'Product'
+            AND i.is_thumbnail = 1
+        WHERE p.id = ?
+    """;
 
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idProduct);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     Product product = new Product();
-                    product.setId(id);
-                    product.setProductName(productName);
-                    product.setProductDescription(product_description);
-                    product.setProductDetail(product_detail);
-                    product.setDescriptionThumbnail(description_thumbnail);
-                    product.setPrice(price);
-                    product.setType(type);
-                    product.setStockQuantity(quantity);
-                    product.setThumbnail(img_name);
+                    product.setId(rs.getInt("id"));
+                    product.setCategoryId(rs.getInt("category_id"));
+                    product.setProductName(rs.getString("product_name"));
+                    product.setPrice(rs.getDouble("price"));
+                    product.setOriginPrice(rs.getDouble("origin_price"));
+                    product.setDiscount(rs.getDouble("discount"));
+                    product.setDescriptionThumbnail(rs.getString("description_thumbnail"));
+                    product.setProductDescription(rs.getString("product_description"));
+                    product.setProductDetail(rs.getString("product_detail"));
+                    product.setStockQuantity(rs.getInt("stock_quantity"));
+                    product.setType(rs.getString("type"));
 
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.trim().isEmpty()) {
+                        product.setThumbnail("images/upload/" + imgName.trim());
+                    } else {
+                        product.setThumbnail("logo.webp");
+                    }
 
+                    return product;
                 }
             }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  null;    }
+        return null;
+    }
+    public boolean insertImage(Connection conn, int entityId, String entityType, String imgName, boolean isThumbnail) throws Exception {
+        String sql = "INSERT INTO image(entity_id, entity_type, img_name, is_thumbnail) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, entityId);
+            ps.setString(2, entityType);
+            ps.setString(3, imgName);
+            ps.setByte(4, (byte) (isThumbnail ? 1 : 0));
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+
+
+    public boolean updateProduct(Product p) throws Exception {
+        String sql = """
+        UPDATE product
+        SET category_id = ?, product_name = ?, product_description = ?, product_detail = ?,
+            origin_price = ?, price = ?, stock_quantity = ?
+        WHERE id = ?
+    """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, p.getCategoryId());
+            ps.setString(2, p.getProductName());
+            ps.setString(3, p.getProductDescription());
+            ps.setString(4, p.getProductDetail());
+            ps.setDouble(5, p.getOriginPrice());
+            ps.setDouble(6, p.getPrice());
+            ps.setInt(7, p.getStockQuantity());
+            ps.setInt(8, p.getId());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+    //SEARCH
+    public List<Product> searchProductForAdmin(String keyword) {
+        List<Product> list = new ArrayList<>();
+
+
+        String sql = """
+        SELECT p.id, p.product_name, p.price, p.stock_quantity, c.type, i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i 
+               ON i.entity_id = p.id 
+              AND i.entity_type = 'Product'
+              AND i.is_thumbnail = 1
+        WHERE p.product_name LIKE ? 
+        ORDER BY p.id DESC
+    """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Nếu keyword rỗng thì tìm tất cả (%%), ngược lại thì tìm theo từ khóa
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+
+            ps.setString(1, search);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setStockQuantity(rs.getInt("stock_quantity"));
+                    p.setType(rs.getString("type"));
+
+                    String imgName = rs.getString("img_name");
+                    if (imgName != null && !imgName.isEmpty()) {
+                        p.setThumbnail("images/upload/" + imgName);
+                    } else {
+                        p.setThumbnail("images/logo.webp");
+                    }
+                    list.add(p);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    // Thêm vào class ProductDAO
+
+    // Đếm tổng số sản phẩm => số trang
+    public int countProducts(String keyword) {
+        String sql = "SELECT COUNT(*) FROM product WHERE product_name LIKE ?";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+            ps.setString(1, search);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Lấy danh sách sản phẩm có Phân trang & Tìm kiếm
+    public List<Product> getProductsPagination(String keyword, int page, int pageSize) {
+        List<Product> list = new ArrayList<>();
+
+        // Tính vị trí bắt đầu( số sp_trang cần bỏ qua để đến trang cần tìm)
+        int offset = (page - 1) * pageSize; // (page -1): tính từ trang 0
+
+        String sql = """
+        SELECT p.id, p.product_name, p.price, p.stock_quantity, c.type, i.img_name
+        FROM product p
+        JOIN category c ON c.id = p.category_id
+        LEFT JOIN image i 
+               ON i.entity_id = p.id 
+              AND i.entity_type = 'Product'
+              AND i.is_thumbnail = 1
+        WHERE p.product_name LIKE ?
+        ORDER BY p.id DESC
+        LIMIT ? OFFSET ?
+    """;
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String search = (keyword == null || keyword.trim().isEmpty()) ? "%%" : "%" + keyword.trim() + "%";
+
+            ps.setString(1, search);
+            ps.setInt(2, pageSize); // số dòng lấy
+            ps.setInt(3, offset);   // số dòng bỏ qua
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setStockQuantity(rs.getInt("stock_quantity"));
+                    p.setType(rs.getString("type"));
+
+                    String imgName = rs.getString("img_name");
+                    p.setThumbnail((imgName != null && !imgName.isEmpty()) ? "images/upload/" + imgName.trim() : "images/logo.webp");
+
+                    list.add(p);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 
 

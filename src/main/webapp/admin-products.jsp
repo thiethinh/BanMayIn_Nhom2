@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +35,34 @@
         </header>
 
         <section class="content-table-card">
+            <div class="action-bar" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+
+                <form action="admin-product" method="get" style="display: flex; gap: 10px;">
+                    <input type="text" name="keyword" value="${keyword}"
+                           placeholder="Tìm theo tên sản phẩm..."
+                           class="form-input" style="padding: 8px; width: 300px;border-radius: 6px">
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    </button>
+
+                    <c:if test="${not empty keyword}">
+                        <a href="admin-product" class="btn btn-secondary"
+                           style="display: flex; align-items: center; justify-content: center; padding: 10px 12px; border-radius: 6px; text-decoration: none; border: 1px solid #ccc; background: white; color: #d9534f;"
+                           title="Xóa bộ lọc">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </c:if>
+                </form>
+
+
+            </div>
+
+            <c:if test="${empty products}">
+                <div style="text-align: center; padding: 20px; color: #666;">
+                    Không tìm thấy sản phẩm nào phù hợp với từ khóa "<b>${keyword}</b>"
+                </div>
+            </c:if>
 
             <table class="content-table product-table">
                 <thead>
@@ -45,69 +77,87 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>#P101</td>
-                    <td>
-                        <img src="images/Epson L3250.webp" class="product-table-image">
-                    </td>
-                    <td>Máy in Epson L3250</td>
-                    <td>4.500.000 VNĐ</td>
-                    <td>150</td>
-                    <td>Máy In</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/admin-product-edit.jsp"
-                           class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                <c:forEach items="${products}" var="p">
+                    <tr>
+                        <td>#P${p.id}</td>
 
-                <tr>
-                    <td>#P102</td>
-                    <td>
-                        <img src="images/CANON LBP 6030.webp" class="product-table-image">
-                    </td>
-                    <td>Máy in laser trắng đen CANON LBP 6030</td>
-                    <td>2.690.000 VNĐ</td>
-                    <td>75</td>
-                    <td>Máy In</td>
-                    <td>
-                        <a href="admin-product-edit.html" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>
+                            <img class="product-table-image"
+                                 src="${pageContext.request.contextPath}/${p.thumbnail}"
+                                 alt="${p.productName}">
+                        </td>
 
-                <tr>
-                    <td>#P201</td>
-                    <td>
-                        <img src="images/BoSoTayCaoCap.webp" class="product-table-image">
-                    </td>
-                    <td>Bộ Sổ Tay Cao Cấp</td>
-                    <td>4.500.000 VNĐ</td>
-                    <td>29</td>
-                    <td>Văn Phòng Phẩm</td>
-                    <td>
-                        <a href="admin-product-edit.html" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>${p.productName}</td>
 
-                <tr>
-                    <td>#P202</td>
-                    <td>
-                        <img src="images/BoDoDungVanPhong.webp" class="product-table-image">
-                    </td>
-                    <td>Bộ Đồ Dùng Văn Phòng</td>
-                    <td>4.390.000 VNĐ</td>
-                    <td>119</td>
-                    <td>Văn Phòng Phẩm</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/admin-product-edit.jsp" class="btn-action edit">Sửa</a>
-                        <a href="#" class="btn-action delete">Xóa</a>
-                    </td>
-                </tr>
+                        <td>
+                            <fmt:formatNumber value="${p.price}" type="number"/> VNĐ
+                        </td>
 
+                        <td>${p.stockQuantity}</td>
+
+                        <td>
+                            <c:choose>
+                                <c:when test="${p.type == 'Printer'}">Máy In</c:when>
+                                <c:otherwise>Văn Phòng Phẩm</c:otherwise>
+                            </c:choose>
+                        </td>
+
+                        <td>
+                            <a href="${pageContext.request.contextPath}/admin-product-edit?id=${p.id}"
+                               class="btn-action edit">Sửa</a>
+
+                            <a href="${pageContext.request.contextPath}/admin-product?delete=${p.id}"
+                               class="btn-action delete">Xóa</a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
+
             </table>
+            <c:if test="${totalPages > 1}">
+                <div class="pagination-container" style="display: flex; justify-content: center; margin-top: 20px; gap: 5px;">
+
+                    <c:if test="${currentPage > 1}">
+                        <a href="admin-product?page=${currentPage - 1}&keyword=${keyword}" class="btn-page">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    </c:if>
+
+                    <c:forEach begin="1" end="${totalPages}" var="i">
+                        <a href="admin-product?page=${i}&keyword=${keyword}"
+                           class="btn-page ${currentPage == i ? 'active' : ''}">
+                                ${i}
+                        </a>
+                    </c:forEach>
+
+                    <c:if test="${currentPage < totalPages}">
+                        <a href="admin-product?page=${currentPage + 1}&keyword=${keyword}" class="btn-page">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </c:if>
+                </div>
+
+                <style>
+                    .btn-page {
+                        display: inline-block;
+                        padding: 8px 14px;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        text-decoration: none;
+                        color: #333;
+                        background-color: white;
+                        transition: 0.2s;
+                    }
+                    .btn-page:hover {
+                        background-color: #f0f0f0;
+                    }
+                    .btn-page.active {
+                        background-color: #0d6efd;
+                        color: white;
+                        border-color: #0d6efd;
+                    }
+                </style>
+            </c:if>
 
         </section>
 

@@ -15,6 +15,7 @@ public class User implements Serializable {
     public Boolean status;
     public Timestamp createdAt;
     public String fullname;
+    private double totalSpending;
 
     public User() {}
 
@@ -118,5 +119,12 @@ public class User implements Serializable {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
     }
 }

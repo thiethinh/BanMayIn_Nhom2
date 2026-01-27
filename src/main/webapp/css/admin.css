@@ -303,3 +303,18 @@
     color: var(--primary-color);
     font-weight: 500;
 }
+/* Màu xanh khi active   */
+.sidebar-menu li.active {
+    background-color: #0d6efd; /* Màu xanh dương   */
+    border-radius: 8px;
+}
+
+.sidebar-menu li.active a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Hiệu ứng hover cho các mục chưa active */
+.sidebar-menu li:not(.active):hover {
+    background-color: #e9ecef;
+}
