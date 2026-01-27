@@ -2,6 +2,7 @@ package com.papercraft.dao;
 
 import com.papercraft.db.DBConnect;
 import com.papercraft.model.Contact;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,67 +41,77 @@ public class ContactDAO {
         return false;
     }
 
-    public Integer totalUnrepliedContact(){
+    public Integer totalUnrepliedContact() {
         String sql = """
                 SELECT COUNT(*) AS total_unreplied FROM contact WHERE rely =0;
                 """;
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)){
-            try (ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                    return  rs.getInt("total_unreplied");
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total_unreplied");
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return 0;
     }
 
-    public List<Contact> getContactFilter(String userName, int replied) {
+    public List<Contact> getContact(String keyword, int replied) {
         List<Contact> contacts = new ArrayList<>();
         String sqlRaw = """
-                SELECT c.id, c.user_fullname, u.email,c.contact_title c.content, c.rely
+                SELECT c.id, c.user_fullname, u.email ,c.contact_title, c.content, c.rely
                 FROM contact c
-                JOIN users u ON u.id = c.user_id
-                WHERE c.user_fullname = ?
+                LEFT JOIN users u ON u.id = c.user_id
+                WHERE 1=1
                 """;
         StringBuilder sqlBuilder = new StringBuilder(sqlRaw);
-        if(replied!= -1){
-            sqlBuilder.append(" AND rely = ?;");
-        }else{
-            sqlBuilder.append(";");
+
+        if (keyword != null && !keyword.isEmpty()) {
+            sqlBuilder.append(""" 
+                    AND (c.user_fullname LIKE ?
+                    OR u.email LIKE ?
+                    OR c.contact_title LIKE ?
+                    OR c.content LIKE ?)
+                    """);
         }
+
+        if (replied != -1) {
+            sqlBuilder.append(" AND rely = ?");
+        }
+
+        sqlBuilder.append(" ORDER BY c.created_at DESC;");
 
         String sql = sqlBuilder.toString();
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1,"%"+userName+"%");
-            if (replied != -1) {
-                ps.setInt(2, replied);
-            }
-            try(ResultSet rs = ps.executeQuery()){
-                while (rs.next()) {
-                    Integer id = rs.getInt("id");
-                    String userFullname = rs.getString("user_fullname");
-                    String email = rs.getString("email");
-                    String contactTitle = rs.getString("contact_title");
-                    String content = rs.getString("content");
-                    Boolean rely = rs.getBoolean("rely");
+             PreparedStatement ps = conn.prepareStatement(sqlBuilder.toString())) {
+            int index = 1;
 
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                for (int i = 1; i <= 4; i++) {
+                    ps.setString(index++, "%" + keyword.trim() + "%");
+                }
+            }
+
+            if (replied != -1) {
+                ps.setInt(index++, replied);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
                     Contact contact = new Contact();
-                    contact.setId(id);
-                    contact.setUserFullname(userFullname);
-                    contact.setEmail(email);
-                    contact.setContactTitle(contactTitle);
-                    contact.setContent(content);
-                    contact.setRely(rely);
+                    contact.setId(rs.getInt("id"));
+                    contact.setUserFullname(rs.getString("user_fullname"));
+                    contact.setEmail(rs.getString("email")); // Lấy từ bảng contact
+                    contact.setContactTitle(rs.getString("contact_title"));
+                    contact.setContent(rs.getString("content"));
+                    contact.setRely(rs.getBoolean("rely"));
 
                     contacts.add(contact);
-
                 }
 
             }
@@ -109,28 +120,21 @@ public class ContactDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  contacts;
-
+        return contacts;
     }
 
-    public boolean toggleStateContact(int idContact, int state) {
-        state =state==1?0:1;
-        String sql = """
-                UPDATE review              
-                SET rely =?
-                WHERE id = ?;
-                """;
+    public boolean updateStatus(int id, boolean newStatus) {
+        String sql = "UPDATE contact SET rely = ? WHERE id = ?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1,idContact);
-            ps.setInt(2,state);
 
-            return  ps.executeUpdate() > 0;
-        }catch (SQLException e) {
-            e.printStackTrace();
+            ps.setInt(1, newStatus ? 1 : 0);
+            ps.setInt(2, id);
+
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  false;
+        return false;
     }
 }

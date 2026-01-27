@@ -101,7 +101,7 @@ public class ReviewDAO {
              PreparedStatement ps = conn.prepareStatement(sql.toString());) {
 
             if (keyword != null && !keyword.trim().isEmpty()) {
-                for (int i = 1; i < 4; i++) {
+                for (int i = 1; i <= 4; i++) {
                     ps.setString(i, "%" + keyword + "%");
                 }
             }

@@ -103,7 +103,7 @@
                     <tbody>
                     <c:forEach var="u" items="${userList}">
                         <tr>
-                            <td>KH${u.id}</td>
+                            <td>${u.id}</td>
 
                             <td>${u.fullname}</td>
 

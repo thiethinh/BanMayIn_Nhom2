@@ -50,7 +50,7 @@
 
             <div class="search-blog-container">
                 <div class="search-title-blog">
-                    <input type="text" name="keyword" placeholder="Nhập vào tiêu đề blog" value="${searchKeyword}">
+                    <input type="text" name="keyword" placeholder="Nhập vào nội dung để tìm ..." value="${searchKeyword}">
                     <button type="submit" class="search-button">Tìm kiếm</button>
                 </div>
 

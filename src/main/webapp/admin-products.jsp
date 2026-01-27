@@ -79,7 +79,7 @@
                 <tbody>
                 <c:forEach items="${products}" var="p">
                     <tr>
-                        <td>#P${p.id}</td>
+                        <td>${p.id}</td>
 
                         <td>
                             <img class="product-table-image"

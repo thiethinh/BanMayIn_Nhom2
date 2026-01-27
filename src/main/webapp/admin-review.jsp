@@ -25,7 +25,7 @@
             <h1>Quản Lý Đánh Giá</h1>
 
             <form action="admin-review" method="get" class="user-review-searchbox">
-                <input type="text" name="keyword" value="${currentKeyword}" placeholder="Nhập ID người dùng để tìm..."
+                <input type="text" name="keyword" value="${currentKeyword}" placeholder="Nhập nội dung dùng để tìm..."
                        class="search-control">
                 <button type="submit" id="bt-search">Tìm kiếm</button>
             </form>
@@ -63,7 +63,9 @@
                 </c:forEach>
 
                 <c:if test="${empty reviews}">
-                    <p style="text-align: center;">Không có kết quả phù hợp</p>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">Không có kết quả phù hợp</td>
+                    </tr>
                 </c:if>
 
                 </tbody>

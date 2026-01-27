@@ -7,47 +7,54 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @WebServlet(name = "AdminContact", value = "/admin-contacts")
 public class AdminContact extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("username");
-        String repliedStr = request.getParameter("relied");
-
-        userName = (userName == null || userName.isEmpty() || userName.isBlank()) ? "" : userName;
-        int replied = -1;
-        try {
-            replied = (repliedStr == null || (Integer.parseInt(repliedStr) != 1 && Integer.parseInt(repliedStr) != 1)) ? -1 : (Integer.parseInt(repliedStr));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        // status of a contact be prelied or not
-        String stateContactStr = request.getParameter("state");
-        String idContactStr = request.getParameter("id");
-        int state = -1;
-        int idContact = 0;
-        try {
-            state = Integer.parseInt(stateContactStr);
-            idContact = Integer.parseInt(idContactStr);
-        } catch (NumberFormatException e) {
-            System.out.println("format error at admin contact");
-            e.printStackTrace();
-        }
-
+        request.setCharacterEncoding("UTF-8");
         ContactDAO contactDAO = new ContactDAO();
-        boolean toggled = false;
-        if (idContact != 0 && state != -1) {
-            toggled = contactDAO.toggleStateContact(idContact, state);
+
+        String keyword = request.getParameter("keyword");
+        if (keyword == null) keyword = "";
+
+        String reply = request.getParameter("reply");
+        int replied = -1;
+
+        if (reply != null && !reply.isEmpty()) {
+            try {
+                replied = Integer.parseInt(reply);
+            } catch (NumberFormatException e) {
+                System.out.println("format error at admin contact");
+                e.printStackTrace();
+            }
         }
-        List<Contact> contacts = contactDAO.getContactFilter(userName, replied);
+
+        String action = request.getParameter("action");
+        if ("toggle".equals(action)) {
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                boolean currentStatus = Boolean.parseBoolean(request.getParameter("status"));
+                contactDAO.updateStatus(id, !currentStatus);
+
+                String redirectUrl = "admin-contacts?keyword=" + URLEncoder.encode(keyword, "UTF-8");
+                if (replied != -1) {
+                    redirectUrl += "&replied=" + replied;
+                }
+                response.sendRedirect(redirectUrl);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        List<Contact> contacts = contactDAO.getContact(keyword, replied);
 
         request.setAttribute("contacts", contacts);
-        request.setAttribute("toggled", toggled);
-        request.setAttribute("username",userName);
-        request.setAttribute("relied",replied);
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("currentReplied", replied);
         request.getRequestDispatcher("admin-contacts.jsp").forward(request, response);
     }
 
