@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaperCraft - Quản Lý Khách Hàng</title>
+    <title>PaperCraft - Quản Lý Tài Khoản</title>
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -29,11 +29,32 @@
             gap: 5px;
             font-size: 14px;
         }
-        .btn-lock { background-color: #dc354554; color: white; }
-        .btn-unlock { background-color: #28a745; color: white; }
 
-        .tag-status.active { color: #28a745; background: #d4edda; padding: 4px 8px; border-radius: 4px; font-weight: bold;}
-        .tag-status.blocked { color: #dc3545; background: #f8d7da; padding: 4px 8px; border-radius: 4px; font-weight: bold;}
+        .btn-lock {
+            background-color: #dc354554;
+            color: white;
+        }
+
+        .btn-unlock {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .tag-status.active {
+            color: #28a745;
+            background: #d4edda;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-status.blocked {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -73,7 +94,9 @@
                         <td>Tên KH</td>
                         <td>SĐT</td>
                         <td>Email</td>
-                        <td>Tổng chi tiêu</td> <td>Trạng thái</td>
+                        <td>Tổng chi tiêu</td>
+                        <td>Quyền</td>
+                        <td>Trạng thái</td>
                         <td>Thao tác</td>
                     </tr>
                     </thead>
@@ -90,21 +113,41 @@
 
                             <td>
                                 <fmt:setLocale value="vi_VN"/>
-                                <fmt:formatNumber value="${u.totalSpending}" type="currency" currencySymbol="VNĐ" maxFractionDigits="0"/>
+                                <fmt:formatNumber value="${u.totalSpending}" type="currency" currencySymbol="VNĐ"
+                                                  maxFractionDigits="0"/>
+                            </td>
+
+                            <td>
+                                <form action="admin-customer-manage" method="get" style="margin: 0;">
+                                    <input type="hidden" name="action" value="set-role">
+                                    <input type="hidden" name="id" value="${u.id}">
+
+                                    <input type="hidden" name="page" value="${currentPage}">
+                                    <input type="hidden" name="search-customer" value="${keyword}">
+                                    <input type="hidden" name="select-sort" value="${statusFilter}">
+
+                                    <select name="role" onchange="this.form.submit()"
+                                            style=" border-radius: 4px; cursor: pointer; border: none;
+                       ${u.role == 'admin' ? 'color: red' : ''}">
+
+                                        <option value="user" ${u.role == 'user' ? 'selected' : ''}>Khách hàng</option>
+                                        <option value="admin" ${u.role == 'admin' ? 'selected' : ''}>Admin</option>
+                                    </select>
+                                </form>
                             </td>
 
                             <td>
                                 <c:choose>
                                     <c:when test="${u.status == true}">
-                                        <span class="tag-status active">Hoạt động</span>
+                                        <span class="tag-status active" style="text-align: center">Hoạt động</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="tag-status blocked">Bị khóa</span>
+                                        <span class="tag-status blocked" style="text-align: center">Bị khóa</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
 
-                            <td class="block-action">
+                            <td class="block-action" style="white-space: nowrap;">
                                 <a href="admin-customer-details.jsp?id=${u.id}" id="link-view">Xem</a>
                                 <a href="admin-customer-update.jsp?id=${u.id}">Sửa</a>
 

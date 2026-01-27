@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +23,13 @@
     <main class="admin-main-content">
         <div class="admin-header">
             <h1>Quản Lý Đánh Giá</h1>
-            <div class="user-review-searchbox">
-                <input type="text" id="search-input" placeholder="Nhập ID người dùng để tìm..." class="search-control">
-                <button type="submit" name="bt-search" id="bt-search">Tìm kiếm</button>
 
-            </div>
+            <form action="admin-review" method="get" class="user-review-searchbox">
+                <input type="text" name="keyword" value="${currentKeyword}" placeholder="Nhập ID người dùng để tìm..."
+                       class="search-control">
+                <button type="submit" id="bt-search">Tìm kiếm</button>
+            </form>
         </div>
-
 
         <section class="product-review">
             <table>
@@ -40,121 +41,31 @@
                     <th>Số Sao</th>
                     <th>Nội dung</th>
                     <th>Thời Điểm</th>
-                    <th>Chỉnh Sửa</th>
+                    <th>Hành động</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                <tr>
-                    <td>RV01</td>
-                    <td>Nguyễn Nhật Anh</td>
-                    <td>Máy In Epson L3250</td>
-                    <td class="stars">5</td>
-                    <td>Sản phẩm rất tốt, in nhanh, mực xài lâu.</td>
-                    <td>2025-11-10 10:30</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV02</td>
-                    <td>Trần Văn Bình</td>
-                    <td>Máy in Canon LBP 2900</td>
-                    <td class="stars">4</td>
-                    <td>Máy bền, in hơi ồn 1 chút nhưng chấp nhận được.</td>
-                    <td>2025-11-09 15:20</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV03</td>
-                    <td>Lê Thị Cúc</td>
-                    <td>Giấy in A4 Double A (500 tờ)</td>
-                    <td class="stars">5</td>
-                    <td>Giấy trắng, đẹp, không bị kẹt giấy. Sẽ mua lại.</td>
-                    <td>2025-11-09 09:15</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV04</td>
-                    <td>Phạm Hùng Dũng</td>
-                    <td>Hộp mực 12A (Cartridge)</td>
-                    <td class="stars">3</td>
-                    <td>Mực in ra hơi mờ, không đậm bằng hàng chính hãng.</td>
-                    <td>2025-11-08 17:45</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV05</td>
-                    <td>Hoàng Minh</td>
-                    <td>Máy in màu HP Color Laser 150nw</td>
-                    <td class="stars">5</td>
-                    <td>In màu ảnh đẹp, kết nối wifi tiện lợi.</td>
-                    <td>2025-11-08 11:00</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV06</td>
-                    <td>Bùi Kiên</td>
-                    <td>Máy in Brother HL-L2321D</td>
-                    <td class="stars">4</td>
-                    <td>In 2 mặt tự động tốt, giá hợp lý cho văn phòng.</td>
-                    <td>2025-11-07 20:10</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV07</td>
-                    <td>Nguyễn Thu Trang</td>
-                    <td>Bút bi Thiên Long (Hộp 20 cái)</td>
-                    <td class="stars">5</td>
-                    <td>Bút viết êm, ra mực đều. Giao hàng nhanh.</td>
-                    <td>2025-11-07 14:30</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV08</td>
-                    <td>Đặng Văn Lâm</td>
-                    <td>Máy in Epson L3250</td>
-                    <td class="stars">2</td>
-                    <td>Rất hay bị kẹt giấy, cài đặt phức tạp. Thất vọng.</td>
-                    <td>2025-11-06 12:00</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV09</td>
-                    <td>Võ Thị Huyền</td>
-                    <td>Kẹp ghim và ghim bấm Max</td>
-                    <td class="stars">5</td>
-                    <td>Dùng tốt, ghim chắc chắn, không bị rỉ sét.</td>
-                    <td>2025-11-06 08:05</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>RV10</td>
-                    <td>Lý Văn Nam</td>
-                    <td>Máy scan HP ScanJet 200</td>
-                    <td class="stars">4</td>
-                    <td>Scan tài liệu rõ nét, tốc độ chấp nhận được.</td>
-                    <td>2025-11-05 18:55</td>
-                    <td class="actions">
-                        <a href="#" class="delete">Xóa</a>
-                    </td>
-                </tr>
+
+                <c:forEach items="${reviews}" var="r">
+                    <tr>
+                        <td>${r.id}</td>
+                        <td>${r.authorName}</td>
+                        <td>${r.productName}</td>
+                        <td class="stars">${r.rating}</td>
+                        <td>${r.comment}</td>
+                        <td>${r.createdAt}</td>
+                        <td class="actions">
+                            <a href="admin-review?action=delete&id=${r.id}&keyword=${currentKeyword}" class="delete"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa review này không ?')">Xóa</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+                <c:if test="${empty reviews}">
+                    <p style="text-align: center;">Không có kết quả phù hợp</p>
+                </c:if>
+
                 </tbody>
             </table>
         </section>

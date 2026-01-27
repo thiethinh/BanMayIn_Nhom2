@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +15,41 @@ import java.util.List;
 public class AdminReview extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idUserStr = request.getParameter("user");
-        String idReviewStr = request.getParameter("review");
-        int idUser = 0;
-        int idReview = 0;
-        try {
-            idUser = (idUserStr != null || !idUserStr.isEmpty()) ? Integer.parseInt(request.getParameter("user")) : 0;
-            idReview = (idReviewStr != null || !idReviewStr.isEmpty()) ? Integer.parseInt(request.getParameter("review")) : 0;
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
+        request.setCharacterEncoding("UTF-8");
         ReviewDAO reviewDAO = new ReviewDAO();
-        boolean reviewDeleted = false;
-        if (idReview != 0) {
-            reviewDeleted = reviewDAO.deleteReviewByID(idReview);
+
+        String keyword = request.getParameter("keyword");
+        if (keyword == null) keyword = "";
+
+        String action = request.getParameter("action");
+        String idParam = request.getParameter("id");
+
+        if ("delete".equals(action) && idParam != null) {
+            try {
+                int idReview = Integer.parseInt(idParam);
+                boolean isDeleted = reviewDAO.deleteReviewByID(idReview);
+
+                if (isDeleted) {
+                    request.setAttribute("success", "Xóa thành công");
+                } else {
+                    request.setAttribute("error", "Lỗi: Xóa thất bại");
+                }
+
+                String redirectUrl = "admin-review";
+                if (!keyword.isEmpty()) {
+                    redirectUrl += "?keyword=" + URLEncoder.encode(keyword, "UTF-8");
+                }
+                response.sendRedirect(redirectUrl);
+                return;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
         }
 
-        List<Review> reviews = null;
-        reviews = reviewDAO.getReviewByUserID(idUser);
-
+        List<Review> reviews = reviewDAO.getReviews(keyword);
         request.setAttribute("reviews", reviews);
-        request.setAttribute("reviewDeleted", reviewDeleted);
+        request.setAttribute("currentKeyword", keyword);
         request.getRequestDispatcher("/admin-review.jsp").forward(request, response);
-
-
     }
 
     @Override
