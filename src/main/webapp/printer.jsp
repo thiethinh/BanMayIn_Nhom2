@@ -66,12 +66,12 @@
                 <input type="hidden" name="sort" id="sortInput" value="${empty sort ? "rating" : sort}">
                 <div class="custom-dropdown child">
                     <div class="select-trigger">
-                        <span class="selected-value" id="sortLabel">Đánh giá cao nhất</span>
+                        <span class="selected-value" id="sortLabel">Mức giá</span>
                         <span class="arrow">▼</span>
                     </div>
 
                     <div class="option-value" name="sortBy">
-                        <div class="option-item title-dropdown" data-value="rating"> Đánh giá cao nhất</div>
+                        <div class="option-item title-dropdown" data-value="rating"> Mức giá</div>
                         <div class="option-item" data-value="priceDesc"> Giá: Cao đến Thấp</div>
                         <div class="option-item" data-value="priceAsc"> Giá: Thấp đến Cao</div>
                     </div>
