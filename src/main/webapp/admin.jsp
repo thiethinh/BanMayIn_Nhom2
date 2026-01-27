@@ -95,7 +95,7 @@
                                 <td>${o.id}</td>
                                 <td>${o.shippingName}</td>
                                 <td>${o.createdAt}</td>
-                                <td><fmt:formatNumber value="${o.totalPrice}" type="currency"/>đ</td>
+                                <td><fmt:formatNumber value="${o.totalPrice}" pattern="#,###"/> ₫</td>
                                 <td><span class="status-badge pending">${o.status}</span></td>
                                 <td><a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a></td>
                             </tr>

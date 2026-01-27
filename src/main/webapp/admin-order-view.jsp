@@ -1,4 +1,4 @@
-<%@ taglib prefix="for" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,24 +82,6 @@
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${order.orderItems}" var="item">
-                                <tr>
-                                    <td><img src="${item.product.thumbnail}" alt="main-img"></td>
-                                    <td>
-                                        <div class="block-name-product">
-                                            <h3>${item.product.productName}</h3>
-                                            <span>Mã: #P${item.product.id}</span>
-                                        </div>
-                                    </td>
-                                    <td>${item.quantity}</td>
-                                    <td>${item.product.price} VND</td>
-                                    <td><strong>${item.total} VND</strong></td>
-
-                                </tr>
-                            </c:forEach>
-
-
-
                             </tbody>
 
                         </table>
@@ -136,10 +118,37 @@
                         </button>
                         <!-- <button class="btn contact" type="button" name="btn-contact"> Liên hệ khách hàng </button> -->
                         <div id="block-accept-cancel">
-                            <button class="btn-accept" type="button" name="btn-accept">Xác nhận</button>
-                            <button class="btn-cancel" type="button" name="btn-cancel">Hủy đơn</button>
+                            <button
+                                    class="btn-accept"
+                                    type="button"
+                                    onclick="location.href='${pageContext.request.contextPath}/admin-order-view?accept=shipped&orderId=${order.id}'">
+                                Xác nhận
+                            </button>
+
+                            <button
+                                    class="btn-cancel"
+                                    type="button"
+                                    onclick="location.href='${pageContext.request.contextPath}/admin-order-view?cancel=canceled&orderId=${order.id}'">
+                                Hủy đơn
+                            </button>
                         </div>
+
                     </div>
+                    <c:if test="${updated}">
+                        <c:choose>
+                            <c:when test="${isCancel == true}">
+                                <p style="text-align:center;color:red">
+                                    Đơn hàng đã bị hủy
+                                </p>
+                            </c:when>
+
+                            <c:when test="${isAccept == true}">
+                                <p style="text-align:center;color:green">
+                                    Đơn hàng đã giao
+                                </p>
+                            </c:when>
+                        </c:choose>
+                    </c:if>
                     <div class="payment-type">
                         <h4>Thông tin thanh toán: </h4>
                         <p> Phương thức: <span>${payment.paymentMethod}</span></p>
