@@ -137,7 +137,6 @@
 }
 
 
-
 .search-title-blog {
     display: flex;
     width: 50%;
@@ -150,7 +149,7 @@
     border-radius: 4px;
     font-size: 14px;
     outline: none;
-    
+
 }
 
 .search-title-blog .search-button {
@@ -185,11 +184,6 @@
 .search-blog-containerr select:focus {
     border-color: var(--primary-color);
 }
-
-
-
-
-
 
 
 .table-wrapper {
@@ -261,14 +255,49 @@
     text-decoration: underline !important;
 }
 
-.table-wrapper table tbody tr td .actions-accept {
+.table-wrapper table tbody tr td .action-accept, .action-hidden {
     color: #007bff;
     text-decoration: none;
-
-
 }
 
 .table-wrapper table tbody tr td .action-delete {
     color: #dc3545;
     text-decoration: none;
+}
+
+.tab-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    background: #f9f9f9;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+button.search-button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.truncate-text {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

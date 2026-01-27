@@ -48,6 +48,7 @@ public class AddBlogServlet extends HttpServlet {
         blog.setBlogDescription(description);
         blog.setTypeBlog(type);
         blog.setBlogContent(content);
+        blog.setStatus(false);
 
         BlogDao blogDao = new BlogDao();
         boolean result = blogDao.addBlog(blog, fileName);

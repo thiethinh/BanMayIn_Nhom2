@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaperCraft - Admin Quản Lý Sản Phẩm</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
@@ -17,208 +19,113 @@
 
 <body>
 
-    <div class="admin-container">
+<div class="admin-container">
 
-        <jsp:include page="includes/admin-sidebar.jsp"/>
+    <jsp:include page="includes/admin-sidebar.jsp"/>
 
-        <main class="main-content">
+    <main class="main-content">
 
-            <header class="blog-header">
-                <h1>Quản Lý Blog</h1>
+        <header class="blog-header">
+            <h1>Quản Lý Blog</h1>
+        </header>
 
-            </header>
+        <c:if test="${not empty sessionScope.msg}">
+            <div style="padding: 10px; background: #0184af; color: #dff0d8; margin-bottom: 15px; border-radius: 4px;">
+                <i class="fa-solid fa-check-circle"></i> ${sessionScope.msg}
+            </div>
+            <c:remove var="msg" scope="session"/>
+        </c:if>
+
+        <form action="admin-blog" method="GET">
+            <input type="hidden" name="view" value="${currentView}">
+
+            <div class="tab-buttons">
+                <a href="admin-blog?view=pending" class="tab-btn ${currentView == 'pending' ? 'active' : ''}">
+                    <i class="fa-solid fa-hourglass-half"></i> Chờ duyệt
+                </a>
+                <a href="admin-blog?view=approved" class="tab-btn ${currentView == 'approved' ? 'active' : ''}">
+                    <i class="fa-solid fa-check-circle"></i> Đã duyệt
+                </a>
+            </div>
 
             <div class="search-blog-container">
                 <div class="search-title-blog">
-                    <input type="text" placeholder="Nhập vào tiêu đề blog">
-                    <span class="search-button">Tìm kiếm</span>
+                    <input type="text" name="keyword" placeholder="Nhập vào tiêu đề blog" value="${searchKeyword}">
+                    <button type="submit" class="search-button">Tìm kiếm</button>
                 </div>
 
-
-
-                <select name="search-type-blog" id="search-type-blog">
-                    <option value="loai" disabled>Tìm kiếm theo loại</option>
-                    <option value="loai1">Tất cả</option>
-                    <option value="loai1">Bảo trì</option>
-                    <option value="loai2">Hướng dẫn</option>
-                    <option value="loai3">Máy in</option>
-                    <option value="loai4">Văn phòng phẩm</option>
-                    <option value="loai5">Đã duyệt</option>
+                <select name="type" id="search-type-blog" onchange="this.form.submit()">
+                    <option value="all">Tất cả</option>
+                    <option value="Bảo Trì" ${searchType == 'Bảo Trì' ? 'selected' : ''}>Bảo trì</option>
+                    <option value="Hướng Dẫn" ${searchType == 'Hướng Dẫn' ? 'selected' : ''}>Hướng dẫn</option>
+                    <option value="Máy In" ${searchType == 'Máy In' ? 'selected' : ''}>Máy in</option>
+                    <option value="Văn Phòng Phẩm" ${searchType == 'Văn Phòng Phẩm' ? 'selected' : ''}>Văn phòng phẩm
+                    </option>
                 </select>
             </div>
+        </form>
 
+        <div class="table-wrapper">
+            <table class="blog-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên người dùng</th>
+                    <th>Loại</th>
+                    <th>Tiêu đề</th>
+                    <th>Ngày giờ tạo</th>
+                    <th>Mô tả</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
 
-            <div class="table-wrapper">
-                <table class="blog-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên người dùng</th>
-                            <th>Loại</th>
-                            <th>Tiêu đề</th>
-                            <th>Ngày giờ tạo</th>
-                            <th>Mô tả</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
+                <tbody>
+                <c:forEach items="${listBlog}" var="b">
+                    <tr>
+                        <td class="td-id">${b.id}</td>
 
-                    <tbody>
-                        <tr>
-                            <td class="td-id">#B1001</td>
-                            <td>Hoàng Văn Em</td>
-                            <td>
-                                <span class="type-badge type-bao-tri">Bảo trì</span>
-                            </td>
-                            <td class="td-title">Bảo Trì Máy In: 7 Bước Đơn Giản Kéo Dài Tuổi Thọ Thiết Bị</td>
-                            <td>2024-10-18 09:30:00</td>
-                            <td class="td-content">Bảo trì máy in định kỳ là yếu tố then chốt để đảm bảo thiết
-                                bị của bạn hoạt động ổn định, cho ra bản in chất lượng và kéo dài tuổi thọ.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                                 
-                            </td>
-                        </tr>
+                        <td>${b.authorName}</td>
 
-                        <tr>
-                            <td class="td-id">#B1002</td>
-                            <td>Trần Thị Bích</td>
-                            <td>
-                                <span class="type-badge type-may-in">Máy in</span>
-                            </td>
-                            <td class="td-title">Đánh giá 5 mẫu máy in laser trắng đen tốt nhất cho văn phòng
-                                nhỏ</td>
-                            <td>2024-10-17 14:45:00</td>
-                            <td class="td-content">Tìm kiếm một máy in laser hiệu quả cho văn phòng nhỏ? Đây là
-                                5 lựa chọn hàng đầu của chúng tôi, phân tích về tốc độ, chi phí và độ bền.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                             </td>
-                        </tr>
+                        <td>
+                            <span class="type-badge">${b.typeBlog}</span>
+                        </td>
 
+                        <td class="td-title">${b.blogTitle}</td>
 
-                        <tr>
-                            <td class="td-id">#B1003</td>
-                            <td>Nguyễn Văn An</td>
-                            <td>
-                                <span class="type-badge type-vpp">Văn phòng phẩm</span>
-                            </td>
-                            <td class="td-title">Mẹo tổ chức bàn làm việc gọn gàng với văn phòng phẩm thông minh
-                            </td>
+                        <td><fmt:formatDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
 
-                            <td>2024-10-16 11:15:00</td>
-                            <td class="td-content">Một bàn làm việc lộn xộn có thể làm giảm năng suất. Hãy xem
-                                các mẹo này để sử dụng khay đựng, kẹp tài liệu và sổ tay một cách hiệu quả.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
+                        <td class="td-content">
+                            <div class="truncate-text">${b.blogDescription}</div>
+                        </td>
 
+                        <td style="white-space: nowrap;">
+                            <c:if test="${currentView == 'pending'}">
+                                <a href="admin-blog?action=approve&id=${b.id}&view=${currentView}&keyword=${searchKeyword}&type=${searchType}"
+                                   class="action-accept">Duyệt</a>
+                            </c:if>
+                            <c:if test="${currentView == 'approved'}">
+                                <a href="admin-blog?action=hidden&id=${b.id}&view=${currentView}&keyword=${searchKeyword}&type=${searchType}"
+                                   class="action-hidden">Ẩn</a>
+                            </c:if>
+                            <a href="${pageContext.request.contextPath}/blog-post?id=${b.id}">Xem</a>
+                            <a href="admin-blog?action=delete&id=${b.id}&view=${currentView}&keyword=${searchKeyword}&type=${searchType}"
+                               class="action-delete">Xóa</a>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-                        <tr>
-                            <td class="td-id">#B1004</td>
-                            <td>Lê Minh Hùng</td>
-                            <td>
-                                <span class="type-badge type-huong-dan">Hướng dẫn</span>
-                            </td>
-                            <td class="td-title">Hướng dẫn cài đặt driver máy in Canon LBP 2900 trên Windows 11
-                            </td>
-
-                            <td>2024-10-15 16:20:00</td>
-                            <td class="td-content">Nhiều người dùng gặp khó khăn khi cài đặt driver cho dòng máy
-                                in huyền thoại này trên Windows 11. Chúng tôi sẽ chỉ bạn từng bước.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="td-id">#B1005</td>
-                            <td>Phạm Gia Hân</td>
-                            <td>
-                                <span class="type-badge type-bao-tri">Bảo trì</span>
-                            </td>
-                            <td class="td-title">Tại sao máy in báo lỗi 'Paper Jam' và cách khắc phục nhanh</td>
-
-                            <td>2024-10-14 08:05:00</td>
-                            <td class="td-content">Lỗi kẹt giấy (Paper Jam) là một trong những lỗi phổ biến
-                                nhất. Đừng lo lắng, hầu hết các trường hợp bạn có thể tự xử lý trong 5 phút.
-                            </td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td class="td-id">#B1006</td>
-                            <td>Bùi Anh Tuấn</td>
-                            <td>
-                                <span class="type-badge type-may-in">Máy in</span>
-                            </td>
-                            <td class="td-title">So sánh máy in phun và máy in laser: Nên chọn loại nào?</td>
-
-                            <td>2024-10-13 17:50:00</td>
-                            <td class="td-content">Khi quyết định mua máy in, câu hỏi lớn nhất là chọn công nghệ
-                                in phun hay laser. Bài viết này phân tích ưu nhược điểm của từng loại.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td class="td-id">#B1007</td>
-                            <td>Đặng Thu Thảo</td>
-                            <td>
-                                <span class="type-badge type-vpp">Văn phòng phẩm</span>
-                            </td>
-                            <td class="td-title">Top 10 vật dụng văn phòng phẩm không thể thiếu năm 2024</td>
-
-                            <td>2024-10-12 10:00:00</td>
-                            <td class="td-content">Văn phòng phẩm không chỉ là công cụ, chúng còn là nguồn cảm
-                                hứng. Xem ngay top 10 món đồ giúp tăng hiệu suất làm việc của bạn.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td class="td-id">#B1008</td>
-                            <td>Vũ Quang Vinh</td>
-                            <td>
-                                <span class="type-badge type-huong-dan">Hướng dẫn</span>
-                            </td>
-                            <td class="td-title">Cách kết nối máy in qua Wi-Fi cho người mới bắt đầu</td>
-
-                            <td>2024-10-11 13:30:00</td>
-                            <td class="td-content">Việc in ấn không dây mang lại sự tiện lợi lớn. Chúng tôi sẽ
-                                chỉ bạn cách thiết lập máy in Wi-Fi với mạng gia đình hoặc văn phòng.</td>
-                            <td>
-                                <a href="#" class="action-accept">Duyệt</a>
-                                <a href="#" class="action-accept">Xem</a>
-                                <a href="#" class="action-delete">Xóa</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </div>
+                <c:if test="${empty listBlog}">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
+                            Không tìm thấy bài viết nào phù hợp.
+                        </td>
+                    </tr>
+                </c:if>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
 
 </body>
 

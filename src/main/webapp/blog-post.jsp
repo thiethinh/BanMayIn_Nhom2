@@ -27,7 +27,7 @@
         <main class="blog-content">
             <header class="blog-post-header">
                 <div class="back-navigation">
-                    <a href="blog" class="back-btn">
+                    <a href="javascript:history.back()" class="back-btn">
                         <i class="fa-solid fa-arrow-left"></i> Quay lại
                     </a>
                 </div>

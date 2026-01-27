@@ -11,6 +11,7 @@ public class Blog implements Serializable {
     public String typeBlog;
     public String blogContent;
     public Timestamp createdAt;
+    public boolean status;
 
     private String thumbnail;
     private String authorName;
@@ -86,4 +87,8 @@ public class Blog implements Serializable {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+    public boolean getStatus() { return status; }
+
+    public void setStatus(boolean status) { this.status = status; }
 }

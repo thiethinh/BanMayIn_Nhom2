@@ -13,8 +13,8 @@ public class CartService {
 
 
     public static class CartResult {
-        public List<Map<String, Object>> items;
-        public BigDecimal subTotal;
+        public List<Map<String, Object>> items; //Danh sách SP trong giỏ (SP + số lượng + tổng tiền từng dòng)
+        public BigDecimal subTotal; //Tổng tiền hàng
         public BigDecimal vat;
         public BigDecimal shippingFee;
         public BigDecimal grandTotal;
@@ -28,9 +28,10 @@ public class CartService {
         }
     }
 
-
     public CartResult calculateCart(Map<Integer, Integer> sessionCart) {
         CartResult result = new CartResult();
+
+
 
         // Nếu giỏ hàng trống thì trả về kết quả rỗng luôn
         if (sessionCart == null || sessionCart.isEmpty()) {
@@ -48,7 +49,6 @@ public class CartService {
             if (p == null) continue; // Bỏ qua nếu không tìm thấy SP
 
             // LOGIC TÍNH GIÁ
-
             BigDecimal price = BigDecimal.valueOf(p.getSalePrice());
 
             // Tính tổng tiền cho tưngf sản phẩm   (Giá bán * Số lượng)
