@@ -119,7 +119,7 @@ public class OrderDAO {
                 FROM orders o
                 JOIN users u ON u.id =o.user_id
                 JOIN order_item oi ON o.id = oi.order_id
-                WHERE status ='Chờ Xử Lí'
+                WHERE o.status ='pending'
                 GROUP BY o.id, o.user_id,o.created_at, o.status,u.fullname;
                 """;
 

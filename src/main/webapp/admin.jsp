@@ -104,13 +104,14 @@
                         <c:if test="${empty orders}">
                             <tr>
                                 <td colspan="6" style="text-align: center">Không tìm thấy đơn hàng</td>
-                            </td>
+                            </tr>
+
                         </c:if>
                     </tbody>
                 </table>
 
                 <div class="table-footer">
-                    <a href="${pageContext.request.contextPath}/admin-order-manage.jsp">Xem tất cả đơn hàng &rarr;</a>
+                    <a href="${pageContext.request.contextPath}/admin-order-manage">Xem tất cả đơn hàng &rarr;</a>
                 </div>
             </section>
 
