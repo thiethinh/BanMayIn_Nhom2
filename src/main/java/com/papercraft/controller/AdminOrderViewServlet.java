@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminOrderViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String orderID = request.getParameter("id");
+        String orderID = request.getParameter("orderId");
         int id = orderID != null ? Integer.parseInt(orderID) : 0;
 
         OrderDAO orderDAO = new OrderDAO();
@@ -30,13 +30,14 @@ public class AdminOrderViewServlet extends HttpServlet {
         }
         OrderItemDAO orderItemDAO = new OrderItemDAO();
         List<OrderItem> orderItems = orderItemDAO.getItemByOrderId(id);
+        order.setOrderItems(orderItems);
 
         User user = new UserDAO().getBasicInfoById(order.getUserId());
 
         Payment payment = new PaymentDAO().getPaymentByOrderId(id);
 
         request.setAttribute("order", order);
-        request.setAttribute("orderItems", orderItems);
+        //request.setAttribute("orderItems", orderItems);
         request.setAttribute("user", user);
         request.setAttribute("payment", payment);
 

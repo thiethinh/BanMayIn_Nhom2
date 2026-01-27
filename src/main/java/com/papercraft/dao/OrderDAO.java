@@ -119,7 +119,7 @@ public class OrderDAO {
                 FROM orders o
                 JOIN users u ON u.id =o.user_id
                 JOIN order_item oi ON o.id = oi.order_id
-                WHERE status ='Chờ Xử Lí'
+                WHERE o.status ='pending'
                 GROUP BY o.id, o.user_id,o.created_at, o.status,u.fullname;
                 """;
 
@@ -188,54 +188,50 @@ public class OrderDAO {
 
     public List<Order> getOrderByState(String statusOrder, int pageSize, int offset) {
         List<Order> orders = new ArrayList<>();
-        String rawSql = """
-                SELECT o.id, u.fullname, o.created_at, o.total_price,o.status
-                FROM orders o
-                JOIN users u ON u.id = o.user_id
-                """;
-        StringBuilder sqlBuider = new StringBuilder(rawSql);
-        if (!statusOrder.isEmpty()) {
-            sqlBuider.append(" WHERE o.status = ? ");
-            sqlBuider.append("ORDER BY o.created_at DESC ");
-            sqlBuider.append(" LIMIT ? OFFSET ?; ");
+        StringBuilder sqlBuilder = new StringBuilder("""
+            SELECT o.id, u.fullname, o.created_at, o.total_price, o.status
+            FROM orders o
+            JOIN users u ON u.id = o.user_id
+            """);
 
-        } else {
-            sqlBuider.append("ORDER BY o.created_at DESC ");
-            sqlBuider.append(" LIMIT ? OFFSET ? ");
+        // 1. Kiểm tra điều kiện (Handle null & empty)
+        boolean hasStatus = (statusOrder != null && !statusOrder.isEmpty());
+
+        if (hasStatus) {
+            sqlBuilder.append(" WHERE o.status = ? ");
         }
 
-        String sql = sqlBuider.toString();
+        sqlBuilder.append(" ORDER BY o.created_at DESC LIMIT ? OFFSET ? ");
+
         try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
-            ps.setString(1, statusOrder);
-            ps.setInt(2, pageSize);
-            ps.setInt(3, offset);
+             PreparedStatement ps = conn.prepareStatement(sqlBuilder.toString())) {
+
+            int index = 1;
+
+            if (hasStatus) {
+                ps.setString(index++, statusOrder);
+            }
+
+            ps.setInt(index++, pageSize);
+            ps.setInt(index++, offset);
+
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Integer id = rs.getInt("id");
-                    String shippingName = rs.getString("fullname");
-                    Timestamp createdAt = rs.getTimestamp("created_at");
-                    BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                    String status = rs.getString("status");
-
                     Order order = new Order();
-                    order.setId(id);
-                    order.setShippingName(shippingName);
-                    order.setStatus(status);
-                    order.setTotalPrice(totalPrice);
-                    order.setCreatedAt(createdAt);
-
+                    order.setId(rs.getInt("id"));
+                    order.setShippingName(rs.getString("fullname"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    order.setTotalPrice(rs.getBigDecimal("total_price"));
+                    order.setStatus(rs.getString("status"));
                     orders.add(order);
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
         return orders;
-
     }
 
     public int getTotalCount(String status) {
