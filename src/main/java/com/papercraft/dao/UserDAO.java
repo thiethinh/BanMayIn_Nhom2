@@ -332,7 +332,7 @@ public class UserDAO {
         }
         return false;
     }
-    // Hàm cập nhật mật khẩu theo Email (Thay cho Phone)
+    // Hàm cập nhật mật khẩu theo Email
     public boolean updatePasswordByEmail(String email, String newPasswordHash) {
         String sql = "UPDATE users SET password_hash = ? WHERE email = ?";
         try (Connection conn = DBConnect.getConnection();

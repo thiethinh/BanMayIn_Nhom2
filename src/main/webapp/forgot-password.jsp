@@ -26,35 +26,75 @@
             </div>
 
             <div class="two-forms">
+                <form action="forgot-password" method="post" id="forgotForm">
 
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Số điện thoại">
-                    <i class="bx bx-phone"></i>
-                </div>
+                    <div class="input-box">
+                        <input type="email" class="input-field" name="email" id="emailInput" placeholder="Nhập Email đăng ký" required>
+                        <i class="bx bx-envelope"></i> </div>
 
-                <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Nhập mã OTP">
-                    <i class="bx bx-lock"></i>
-                </div>
-
-                <div class="two-col">
-                    <div class="one">
-                        <label><a href="${pageContext.request.contextPath}/contact.jsp">Liên hệ giúp đỡ</a></label>
+                    <div class="input-box">
+                        <input type="text" class="input-field" name="otp" placeholder="Nhập mã OTP trong mail" required>
+                        <i class="bx bx-lock"></i>
                     </div>
 
-                    <div class="two">
-                        <label><a href="#">Gửi mã OTP</a></label>
+                    <div class="two-col">
+                        <div class="one">
+                            <label><a href="${pageContext.request.contextPath}/contact.jsp">Liên hệ giúp đỡ</a></label>
+                        </div>
+                        <div class="two">
+                            <label><a href="#" id="btnSendOTP">Gửi mã OTP</a></label>
+                            <span id="otpMessage" style="color: green; font-size: 12px; display: none;">Đang gửi...</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="input-box">
-                    <input type="submit" class="submit" value="Xác nhận">
-                </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Xác nhận">
+                    </div>
 
-                <div class="bottom">
-                    <span>Quay lại trang <a href="${pageContext.request.contextPath}/login.jsp" id="login-trigger">Đăng nhập</a></span>
-                </div>
+                    <p style="color:red; text-align:center; margin-top:10px;">${message}</p>
+
+                    <div class="bottom">
+                        <span>Quay lại trang <a href="${pageContext.request.contextPath}/login.jsp">Đăng nhập</a></span>
+                    </div>
+                </form>
             </div>
+
+            <script>
+                document.getElementById('btnSendOTP').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var email = document.getElementById('emailInput').value;
+                    var msgSpan = document.getElementById('otpMessage');
+
+                    if(email === "") {
+                        alert("Vui lòng nhập Email!");
+                        return;
+                    }
+
+                    msgSpan.style.display = 'inline';
+                    msgSpan.style.color = '#333';
+                    msgSpan.innerText = "Đang gửi mail...";
+
+                    // Gọi AJAX
+                    fetch('${pageContext.request.contextPath}/forgot-password?action=sendOTP&email=' + email, {
+                        method: 'GET'
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.text();
+                            } else {
+                                throw new Error('Email chưa đăng ký!');
+                            }
+                        })
+                        .then(data => {
+                            msgSpan.style.color = 'green';
+                            msgSpan.innerText = "Đã gửi mã vào email!";
+                        })
+                        .catch(error => {
+                            msgSpan.style.color = 'red';
+                            msgSpan.innerText = "Email không tồn tại!";
+                        });
+                });
+            </script>
         </div>
 
     </div>

@@ -1,4 +1,4 @@
-package com.papercraft.utils;
+package com.papercraft.util;
 
 import java.util.Properties;
 import java.util.Random;
@@ -21,11 +21,9 @@ public class EmailUtils {
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP Host
-        props.put("mail.smtp.port", "587"); // // Cổng kết nối (587 dùng cho giao thức TLS)
         props.put("mail.smtp.auth", "true"); // Bắt buộc phải đăng nhập
         props.put("mail.smtp.starttls.enable", "true"); // Bật mã hóa TLS để bảo mật
 
-        // Tạo Authenticator xác thực
         Authenticator auth = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail, password);
