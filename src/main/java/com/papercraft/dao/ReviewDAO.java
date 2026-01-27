@@ -76,63 +76,55 @@ public class ReviewDAO {
         }
     }
 
-    /**
-     * get list review by user id, if invalid user id then read all review
-     *
-     * @param idUser user id
-     * @return list review
-     */
-    public List<Review> getReviewByUserID(int idUser) {
+    public List<Review> getReviews(String keyword) {
         List<Review> reviews = new ArrayList<>();
-        String sqlRaw = """
-                SELECT r.id,u.fullname, p.product_name, r.rating, r.comment, r.created_at
+        StringBuilder sql = new StringBuilder("""
+                SELECT r.*, u.fullname, p.product_name
                 FROM review r
-                JOIN users u ON u.id = r.user_id
-                JOIN product p ON p.id = r.product_id
-                """;
-        StringBuilder sqlBuilder = new StringBuilder(sqlRaw);
-        if (idUser != 0) {
-            sqlBuilder.append(" WHERE r.user_id =?;");
-        } else {
-            sqlBuilder.append(";");
-        }
-        String sql = sqlBuilder.toString();
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
+                JOIN users u ON r.user_id = u.id
+                JOIN product p ON r.product_id = p.id
+                WHERE 1=1
+                """);
 
-            if (idUser != 0) {
-                ps.setInt(1, idUser);
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            sql.append("""
+                    AND (
+                    r.comment LIKE ?
+                    OR u.fullname LIKE ?
+                    OR p.product_name LIKE ?
+                    OR r.id LIKE ?)
+                    """);
+        }
+        sql.append(" ORDER BY r.created_at DESC");
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString());) {
+
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                for (int i = 1; i < 4; i++) {
+                    ps.setString(i, "%" + keyword + "%");
+                }
             }
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Integer id = rs.getInt("id");
-                    String userName = rs.getString("fullname");
-                    String productName = rs.getString("product_name");
-                    Integer rating = rs.getInt("rating");
-                    String comment = rs.getString("comment");
-                    Timestamp createdAt = rs.getTimestamp("created_at");
-
                     Review review = new Review();
-                    review.setId(id);
-                    review.setAuthorName(userName);
-                    review.setProductName(productName);
-                    review.setRating(rating);
-                    review.setComment(comment);
-                    review.setCreatedAt(createdAt);
-
+                    review.setId(rs.getInt("id"));
+                    review.setUserId(rs.getInt("user_id"));
+                    review.setProductId(rs.getInt("product_id"));
+                    review.setRating(rs.getInt("rating"));
+                    review.setComment(rs.getString("comment"));
+                    review.setCreatedAt(rs.getTimestamp("created_at"));
+                    review.setAuthorName(rs.getString("fullname"));
+                    review.setProductName(rs.getString("product_name"));
                     reviews.add(review);
                 }
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return reviews;
     }
-
 
     public boolean deleteReviewByID(int idReview) {
         String sql = """
@@ -151,6 +143,6 @@ public class ReviewDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  false;
+        return false;
     }
 }
