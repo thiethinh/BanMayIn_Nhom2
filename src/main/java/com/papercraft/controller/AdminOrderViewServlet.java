@@ -20,9 +20,26 @@ public class AdminOrderViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String orderID = request.getParameter("orderId");
-        int id = orderID != null ? Integer.parseInt(orderID) : 0;
 
+        String accept = request.getParameter("accept");
+        String cancel = request.getParameter("cancel");
+        int id = orderID != null ? Integer.parseInt(orderID) : 0;
         OrderDAO orderDAO = new OrderDAO();
+
+        boolean updated = false;
+
+        boolean isAccept = false;
+        boolean isCancel = false;
+
+        if (accept != null) {
+            updated = orderDAO.updateOrderStatus(id, accept);
+            isAccept = true;
+        } else if (cancel != null) {
+            updated = orderDAO.updateOrderStatus(id, cancel);
+            isCancel = true;
+        }
+
+
         Order order = orderDAO.getOrderByID(id);
 
         if(order == null){
@@ -37,9 +54,12 @@ public class AdminOrderViewServlet extends HttpServlet {
         Payment payment = new PaymentDAO().getPaymentByOrderId(id);
 
         request.setAttribute("order", order);
-        //request.setAttribute("orderItems", orderItems);
+        request.setAttribute("orderItems", orderItems);
         request.setAttribute("user", user);
         request.setAttribute("payment", payment);
+        request.setAttribute("updated", updated);
+        request.setAttribute("isAccept", isAccept);
+        request.setAttribute("isCancel", isCancel);
 
         request.getRequestDispatcher("/admin-order-view.jsp").forward(request, response);
 
