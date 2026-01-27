@@ -152,65 +152,65 @@ public class OrderDAO {
         }
         return orders;
     }
-    
-    public Order getOrderByID(int orderId){
-        String sql= """
+
+    public Order getOrderByID(int orderId) {
+        String sql = """
                 SELECT id, user_id,status, total_price,note,shipping_fee,shipping_name,shipping_phone,shipping_address,created_at
                 FROM order
                 WHERE id =?
                 """;
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);){
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setInt(1, orderId);
-            try(ResultSet rs = ps.executeQuery()){
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                   Integer id = rs.getInt("id");
-                   Integer userId = rs.getInt("user_id");
+                    Integer id = rs.getInt("id");
+                    Integer userId = rs.getInt("user_id");
                     String status = rs.getString("status");
-                   BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                   String note = rs.getString("note");
-                   BigDecimal shippingFee = rs.getBigDecimal("shipping_fee");
-                   String shippingPhone = rs.getString("shipping_phone");
-                   String shippingName = rs.getString("shipping_name");
-                   String shippingAddress = rs.getString("shipping_address");
-                   Timestamp createdAt = rs.getTimestamp("created_at");
-                   return new Order(id,userId,status,totalPrice,note,shippingFee,shippingName,shippingPhone,shippingAddress,createdAt);
+                    BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                    String note = rs.getString("note");
+                    BigDecimal shippingFee = rs.getBigDecimal("shipping_fee");
+                    String shippingPhone = rs.getString("shipping_phone");
+                    String shippingName = rs.getString("shipping_name");
+                    String shippingAddress = rs.getString("shipping_address");
+                    Timestamp createdAt = rs.getTimestamp("created_at");
+                    return new Order(id, userId, status, totalPrice, note, shippingFee, shippingName, shippingPhone, shippingAddress, createdAt);
                 }
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public List<Order> getOrderByState(String statusOrder,int pageSize, int offset) {
+    public List<Order> getOrderByState(String statusOrder, int pageSize, int offset) {
         List<Order> orders = new ArrayList<>();
         String rawSql = """
                 SELECT o.id, u.fullname, o.created_at, o.total_price,o.status
                 FROM orders o
                 JOIN users u ON u.id = o.user_id
                 """;
-        StringBuilder sqlBuider= new StringBuilder(rawSql);
-        if(!statusOrder.isEmpty()){
+        StringBuilder sqlBuider = new StringBuilder(rawSql);
+        if (!statusOrder.isEmpty()) {
             sqlBuider.append(" WHERE o.status = ? ");
             sqlBuider.append("ORDER BY o.created_at DESC ");
             sqlBuider.append(" LIMIT ? OFFSET ?; ");
 
-        }else{
+        } else {
             sqlBuider.append("ORDER BY o.created_at DESC ");
             sqlBuider.append(" LIMIT ? OFFSET ? ");
         }
 
         String sql = sqlBuider.toString();
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);){
-            ps.setString(1,statusOrder);
-            ps.setInt(2,pageSize);
-            ps.setInt(3,offset);
-            try(ResultSet rs = ps.executeQuery()){
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, statusOrder);
+            ps.setInt(2, pageSize);
+            ps.setInt(3, offset);
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Integer id = rs.getInt("id");
                     String shippingName = rs.getString("fullname");
@@ -229,12 +229,12 @@ public class OrderDAO {
                 }
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  orders;
+        return orders;
 
     }
 
@@ -244,21 +244,50 @@ public class OrderDAO {
                 FROM orders
                 WHERE status =?;
                 """;
-        try(Connection conn = DBConnect.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);){
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, status);
-            try (ResultSet rs = ps.executeQuery()){
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return  rs.getInt("total_order");
+                    return rs.getInt("total_order");
                 }
 
             }
 
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int insertOrder(Connection conn, Order order) throws SQLException {
+        String sql = """
+                        INSERT INTO orders (user_id, status, total_price, note, shipping_fee, shipping_name, shipping_phone, shipping_address)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+            ps.setInt(1, order.getUserId());
+            ps.setString(2, order.getStatus());
+            ps.setBigDecimal(3, order.getTotalPrice());
+            ps.setString(4, order.getNote());
+            ps.setBigDecimal(5, order.getShippingFee());
+            ps.setString(6, order.getShippingName());
+            ps.setString(7, order.getShippingPhone());
+            ps.setString(8, order.getShippingAddress());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
         }
         return 0;
     }

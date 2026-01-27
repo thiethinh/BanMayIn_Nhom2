@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp" />
+    <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
 </head>
@@ -25,7 +25,13 @@
         <h1>Thanh Toán</h1>
     </div>
 
-    <form action="${pageContext.request.contextPath}/placeOrder" method="POST" id="checkoutForm">
+    <c:if test="${not empty error}">
+        <div style="background-color: #f8d7da; color: #721c24; padding: 15px; margin: 0 auto 20px; max-width: 1200px; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+            <i class="fa-solid fa-triangle-exclamation"></i> ${error}
+        </div>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/checkout" method="POST" id="checkoutForm">
 
         <div class="block-paymentDetails-finalBill">
 
@@ -159,12 +165,14 @@
 
                     <div class="method cod-method" style="margin-bottom: 10px;">
                         <input type="radio" name="paymentMethod" id="cod" value="COD" checked>
-                        <label for="cod" style="font-weight: bold; margin-left: 5px;">Thanh toán khi nhận hàng (COD)</label>
+                        <label for="cod" style="font-weight: bold; margin-left: 5px;">Thanh toán khi nhận hàng
+                            (COD)</label>
                     </div>
 
                     <div class="method bank-method">
                         <input type="radio" name="paymentMethod" id="bankCard" value="BANK">
-                        <label for="bankCard" style="font-weight: bold; margin-left: 5px;">Chuyển khoản Ngân hàng</label>
+                        <label for="bankCard" style="font-weight: bold; margin-left: 5px;">Chuyển khoản Ngân
+                            hàng</label>
 
                         <button type="button" class="toggle-btn"><i class="fa-solid fa-plus"></i></button>
 
@@ -182,7 +190,8 @@
                         <button type="button" class="toggle-btn"><i class="fa-solid fa-plus"></i></button>
                         <div class="hidden-content" style="display: none; margin-top: 10px;">
                             <p>Quét mã QR để thanh toán:</p>
-                            <img id="momo_qr" src="${pageContext.request.contextPath}/images/momo_qr.jpg" alt="momo_qr" style="width: 150px;">
+                            <img id="momo_qr" src="${pageContext.request.contextPath}/images/momo_qr.jpg" alt="momo_qr"
+                                 style="width: 150px;">
                         </div>
                     </div>
                 </div>

@@ -101,7 +101,11 @@
                             </tr>
                         </c:forEach>
 
-
+                        <c:if test="${empty orders}">
+                            <tr>
+                                <td colspan="6" style="text-align: center">Không tìm thấy đơn hàng</td>
+                            </td>
+                        </c:if>
                     </tbody>
                 </table>
 
