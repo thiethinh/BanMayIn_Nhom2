@@ -239,7 +239,7 @@ public class UserDAO {
         StringBuilder sql = new StringBuilder("""
                     SELECT u.*, 
                            (SELECT COALESCE(SUM(o.total_price), 0) 
-                            FROM `order` o 
+                            FROM `orders` o 
                             WHERE o.user_id = u.id) AS total_spending
                     FROM users u 
                     WHERE 1=1 
