@@ -28,7 +28,7 @@
             <aside class="account-sidebar">
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/account.jsp" class="active">
+                        <a href="${pageContext.request.contextPath}/account" class="active">
                             <i class="fa-solid fa-user-edit"></i>
                             Thông tin cá nhân
                         </a>
@@ -65,7 +65,7 @@
                     <p style="color: red; font-weight: bold">${error}</p>
                 </c:if>
 
-                <form action="update-profile" method="post" class="account-form">
+                <form action="account" method="post" class="account-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="first-name">Họ</label>
@@ -105,71 +105,78 @@
                 <h2>Sổ Địa Chỉ (Giao Hàng)</h2>
                 <p>Thông tin địa chỉ để chúng tôi giao hàng cho bạn.</p>
 
-                <form class="account-form address-form">
+                <c:if test="${not empty msgAddr}">
+                    <p style="color: green; font-weight: bold">${msgAddr}</p>
+                </c:if>
+                <c:if test="${not empty errorAddr}">
+                    <p style="color: red; font-weight: bold">${errorAddr}</p>
+                </c:if>
+
+                <form action=" ${pageContext.request.contextPath}/account" class="account-form address-form" method="get">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="addr-firstname">Họ người nhận</label>
-                            <input type="text" id="addr-firstname" placeholder="Nguyễn">
+                            <input type="text" id="addr-firstname" name="lname" value="${address.lname}" placeholder="Nguyễn">
                         </div>
                         <div class="form-group">
                             <label for="addr-lastname">Tên người nhận</label>
-                            <input type="text" id="addr-lastname" placeholder="Văn An">
+                            <input type="text" id="addr-lastname" name="fname" value="${address.fname}" placeholder="Văn An">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="addr-phone">Số điện thoại nhận hàng</label>
-                            <input type="text" id="addr-phone" placeholder="0987...">
+                            <input type="text" id="addr-phone" value="${address.phone}" name="address-phone" placeholder="0987...">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="addr-nation">Quốc Gia</label>
-                            <select name="nation" id="addr-nation" required>
+                            <label for="addr-nation" >Quốc Gia</label>
+                            <select id="addr-nation" name="nation" required>
                                 <option value="">--Chọn Quốc Gia--</option>
-                                <option value="VN">Việt Nam</option>
-                                <option value="US">Hoa Kỳ</option>
-                                <option value="UK">Vương quốc Anh</option>
-                                <option value="JP">Nhật Bản</option>
-                                <option value="KR">Hàn Quốc</option>
-                                <option value="CN">Trung Quốc</option>
-                                <option value="FR">Pháp</option>
-                                <option value="DE">Đức</option>
-                                <option value="RU">Nga</option>
-                                <option value="IN">Ấn Độ</option>
-                                <option value="CA">Canada</option>
-                                <option value="AU">Úc</option>
-                                <option value="BR">Brazil</option>
-                                <option value="TH">Thái Lan</option>
-                                <option value="MY">Malaysia</option>
-                                <option value="SG">Singapore</option>
-                                <option value="ID">Indonesia</option>
-                                <option value="PH">Philippines</option>
-                                <option value="IT">Ý</option>
-                                <option value="ES">Tây Ban Nha</option>
+                                <option value="VN" ${address.nation == 'VN' ? 'selected' : ''}>Việt Nam</option>
+                                <option value="US" ${address.nation == 'US' ? 'selected' : ''}>Hoa Kỳ</option>
+                                <option value="UK" ${address.nation == 'UK' ? 'selected' : ''}>Vương quốc Anh</option>
+                                <option value="JP" ${address.nation == 'JP' ? 'selected' : ''}>Nhật Bản</option>
+                                <option value="KR" ${address.nation == 'KR' ? 'selected' : ''}>Hàn Quốc</option>
+                                <option value="CN" ${address.nation == 'CN' ? 'selected' : ''}>Trung Quốc</option>
+                                <option value="FR" ${address.nation == 'FR' ? 'selected' : ''}>Pháp</option>
+                                <option value="DE" ${address.nation == 'DE' ? 'selected' : ''}>Đức</option>
+                                <option value="RU" ${address.nation == 'RU' ? 'selected' : ''}>Nga</option>
+                                <option value="IN" ${address.nation == 'IN' ? 'selected' : ''}>Ấn Độ</option>
+                                <option value="CA" ${address.nation == 'CA' ? 'selected' : ''}>Canada</option>
+                                <option value="AU" ${address.nation == 'AU' ? 'selected' : ''}>Úc</option>
+                                <option value="BR" ${address.nation == 'BR' ? 'selected' : ''}>Brazil</option>
+                                <option value="TH" ${address.nation == 'TH' ? 'selected' : ''}>Thái Lan</option>
+                                <option value="MY" ${address.nation == 'MY' ? 'selected' : ''}>Malaysia</option>
+                                <option value="SG" ${address.nation == 'SG' ? 'selected' : ''}>Singapore</option>
+                                <option value="ID" ${address.nation == 'ID' ? 'selected' : ''}>Indonesia</option>
+                                <option value="PH" ${address.nation == 'PH' ? 'selected' : ''}>Philippines</option>
+                                <option value="IT" ${address.nation == 'IT' ? 'selected' : ''}>Ý</option>
+                                <option value="ES" ${address.nation == 'ES' ? 'selected' : ''}>Tây Ban Nha</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="addr-city">Tỉnh / Thành phố</label>
-                            <select id="addr-city">
+                            <select id="addr-city" name="city">
                                 <option value="">-- Chọn Tỉnh/Thành --</option>
-                                <option value="hcm">TP. Hồ Chí Minh</option>
-                                <option value="hn">Hà Nội</option>
-                                <option value="dn">Đà Nẵng</option>
+                                <option value="hcm" ${address.city == 'hcm' ? 'selected' : ''}>TP. Hồ Chí Minh</option>
+                                <option value="hn" ${address.city == 'hn' ? 'selected' : ''}>Hà Nội</option>
+                                <option value="dn" ${address.city == 'dn' ? 'selected' : ''}>Đà Nẵng</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="addr-postcode">Mã bưu chính (Postcode)</label>
-                        <input type="text" id="addr-postcode" placeholder="Ví dụ: 700000">
+                        <input type="text" id="addr-postcode" value="${address.postcode}" name="post-code" placeholder="Ví dụ: 700000">
                     </div>
 
                     <div class="form-group">
                         <label for="addr-detail">Địa chỉ chi tiết</label>
-                        <input type="text" id="addr-detail"
+                        <input type="text" id="addr-detail" name="address" value="${address.detailAddress}"
                                placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
                     </div>
 

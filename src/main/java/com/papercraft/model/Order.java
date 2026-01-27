@@ -131,4 +131,21 @@ public class Order implements Serializable {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
+    public String getStatusClass() {
+        if (status == null) return "unknown";
+
+        switch (status.trim()) {
+            case "Chờ Xử Lí":
+                return "pending";
+            case "Đã Gửi":
+                return "shipped";
+            case "Đã Hủy":
+                return "canceled";
+            case "Hoàn Thành":
+                return "completed";
+            default:
+                return "unknown";
+        }
+    }
 }

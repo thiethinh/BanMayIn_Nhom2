@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemDAO {
+    private static final String ROOT_PATH = "images/upload/";
     public List<OrderItem> getItemByOrderId(int orderId){
         List<OrderItem> orderItems = new ArrayList<>();
         String sql = """
@@ -30,7 +31,7 @@ public class OrderItemDAO {
                     Product product = new Product();
                     product.setId(rs.getInt("product_id"));
                     product.setProductName(rs.getString("product_name"));
-                    product.setThumbnail(rs.getString("img_name"));
+                    product.setThumbnail(ROOT_PATH+rs.getString("img_name"));
                     Integer id = rs.getInt("id");
                     Integer quantity = rs.getInt("quantity");
                     BigDecimal price = rs.getBigDecimal("price");

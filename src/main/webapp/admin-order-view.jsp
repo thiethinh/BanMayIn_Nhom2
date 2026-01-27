@@ -1,3 +1,4 @@
+<%@ taglib prefix="for" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +34,7 @@
                     <h1> Chi Tiết Đơn Hàng</h1>
                 </div>
                 <div>
-                    <h2>Mã đơn: <span>#OD1256</span></h2>
+                    <h2>Mã đơn: <span>#OD${order.id}</span></h2>
                     <a href="#">In/Export</a>
                 </div>
             </section>
@@ -49,19 +50,19 @@
                             <tbody>
                             <tr>
                                 <td>Họ Tên KH:</td>
-                                <td><span>Nguyễn Văn A</span></td>
+                                <td><span>${user.fullname}</span></td>
                             </tr>
                             <tr>
                                 <td>SĐT:</td>
-                                <td><span>(+84) 912 612 789 </span></td>
+                                <td><span></span>{user.phoneNumber}</td>
                             </tr>
                             <tr>
                                 <td>Email:</td>
-                                <td><span>nguyenvana@gmail.com</span></td>
+                                <td><span>{user.email}</span></td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ giao hàng:</td>
-                                <td><span>197 Phường Đông Hòa, Dĩ An, TP.HCM</span></td>
+                                <td><span>{order.shippingAddress}</span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -80,52 +81,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><img src="images\Epson-L6270.webp" alt="main-img"></td>
-                                <td>
-                                    <div class="block-name-product">
-                                        <h3>Máy In Epson-L6270</h3>
-                                        <span>Mã: #P101</span>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>4.250.000 VND</td>
-                                <td><strong>4.200.000 VND</strong></td>
 
-                            </tr>
+                            <for:forEach items="${order.orderItems}" var="item">
+                                <tr>
+                                    <td><img src="${item.product.thumbnail}" alt="main-img"></td>
+                                    <td>
+                                        <div class="block-name-product">
+                                            <h3>${item.product.productName}</h3>
+                                            <span>Mã: #P${item.product.id}</span>
+                                        </div>
+                                    </td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.product.price} VND</td>
+                                    <td><strong>${item.total} VND</strong></td>
 
-                            <tr>
-                                <td><img id="img-so-A5" src="images\Sổ bìa da PU A5 (Khóa nam châm).webp"
-                                         alt="main-img"></td>
-                                <td>
-                                    <div class="block-name-product">
-                                        <h3>Sổ bìa da PU A5</h3>
-                                        <span>Mã: #P226</span>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>150.000 VND</td>
-                                <td><strong>150.000 VND</strong></td>
-                            </tr>
-                            <tr>
-                                <td><img src="images\Bút dạ quang Stabilo BOSS Original.webp" alt="main-img">
-                                </td>
-                                <td>
-                                    <div class="block-name-product">
-                                        <h3>Bút Dạ Quang Stabilo BOSS</h3>
-                                        <span>Mã: #P318</span>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>100.000 VND</td>
-                                <td><strong>100.000 VND</strong></td>
-                            </tr>
+                                </tr>
+                            </for:forEach>
+
+
+
                             </tbody>
 
                         </table>
                         <div>
                             <h4>Ghi chú đơn hàng: </h4>
-                            <p>Giao hàng giờ hành chính, hàng dễ vỡ vận chuyển cẩn thận.</p>
+                            <p>${order.note}</p>
                         </div>
                     </div>
                 </div>
@@ -162,8 +142,8 @@
                     </div>
                     <div class="payment-type">
                         <h4>Thông tin thanh toán: </h4>
-                        <p> Phương thức: <span>Thanh toán qua momo</span></p>
-                        <p> Ngày đặt: <span>2025-11-10 14:32</span></p>
+                        <p> Phương thức: <span>${payment.paymentMethod}</span></p>
+                        <p> Ngày thanh toán: <span>${payment.paidAt} </span></p>
                     </div>
                 </div>
 
