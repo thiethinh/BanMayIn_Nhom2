@@ -8,7 +8,6 @@
         <img src="${pageContext.request.contextPath}/images/logo.webp" height="60" width="60" alt="Logo">
         <h2>PaperCraft Admin</h2>
     </div>
-
     <nav class="admin-nav">
         <ul>
             <li>
@@ -32,8 +31,8 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/admin-customer-manage" class="${fn:contains(uri, 'admin-customer-manage') ? 'active' : ''}">
-                    <i class="fa-solid fa-users"></i> Quản Lý Khách Hàng
+                <a href="${pageContext.request.contextPath}/admin-account" class="${fn:contains(uri, 'admin-customer-manage') ? 'active' : ''}">
+                    <i class="fa-solid fa-users"></i> Quản Lý Tài Khoản
                 </a>
             </li>
             <li>

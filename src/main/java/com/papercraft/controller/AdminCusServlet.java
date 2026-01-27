@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "AdminCusServlet", value = "/admin-customer-manage")
+@WebServlet(name = "AdminCusServlet", value = "/admin-account")
 public class AdminCusServlet extends HttpServlet {
 
     @Override
@@ -27,12 +27,17 @@ public class AdminCusServlet extends HttpServlet {
                     userDAO.updateUserStatus(uid, false); // false = Blocked (0)
                 } else if ("unlock".equals(action)) {
                     userDAO.updateUserStatus(uid, true);  // true = Active (1)
+                } else if ("set-role".equals(action)) {
+                    String newRole = request.getParameter("role");
+                    if ("admin".equals(newRole) || "user".equals(newRole)) {
+                        userDAO.updateUserRole(uid, newRole);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             // Redirect lại trang quản lý
-            response.sendRedirect("admin-customer-manage");
+            response.sendRedirect("admin-account");
             return;
         }
 
