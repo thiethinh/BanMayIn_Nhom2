@@ -52,7 +52,7 @@
                                     <td>${o.id}</td>
                                     <td>${o.shippingName}</td>
                                     <td><fmt:formatDate value="${o.createdAt}" pattern="dd/MM/yyyy HH:mm"/></td>
-                                    <td><fmt:formatNumber value="${o.totalPrice}" pattern="#,###"/>VND</td>
+                                    <td><fmt:formatNumber value="${o.totalPrice}" pattern="#,###"/> VNĐ</td>
                                     <td><span class="status ${o.status}">${o.status}</span></td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/order-detail?orderId=${o.id}"

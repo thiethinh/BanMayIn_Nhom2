@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaperCraft - Admin Chỉnh Sửa Sản Phẩm</title>
+    <title>PaperCraft - Admin Chi Tiết Đơn Hàng</title>
     <link rel="icon" href="${pageContext.request.contextPath}/images/logo.webp"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -29,8 +30,9 @@
 
             <!-- -------------UP--------- -->
             <section class="up">
-                <div clas="back">
-                    <a id="icon-back" href="${pageContext.request.contextPath}/admin-order-manage"><i class="fa-solid fa-arrow-left"></i></a>
+                <div class="back">
+                    <a id="icon-back" href="${pageContext.request.contextPath}/admin-order-manage"><i
+                            class="fa-solid fa-arrow-left"></i></a>
                     <h1> Chi Tiết Đơn Hàng</h1>
                 </div>
                 <div>
@@ -54,7 +56,7 @@
                             </tr>
                             <tr>
                                 <td>SĐT:</td>
-                                <td><span></span>${user.phoneNumber}</td>
+                                <td><span>${user.phoneNumber}</span></td>
                             </tr>
                             <tr>
                                 <td>Email:</td>
@@ -81,7 +83,19 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            <c:forEach items="${orderItems}" var="oi">
+                                <tr>
+                                    <td>
+                                        <img class="product-table-image"
+                                             src="${pageContext.request.contextPath}/${oi.product.thumbnail}"
+                                             alt="${oi.product.productName}">
+                                    </td>
+                                    <td>${oi.product.productName}</td>
+                                    <td>${oi.quantity}</td>
+                                    <td><fmt:formatNumber value="${oi.price}" pattern="#,###"/> VNĐ</td>
+                                    <td><fmt:formatNumber value="${oi.price * oi.quantity}" pattern="#,###"/> VNĐ</td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
 
                         </table>
@@ -107,10 +121,10 @@
                         </div> -->
                         <div class="summary-bill">
                             <h4>Tóm tắt thanh toán: </h4>
-                            <p> Tạm tính: <span>4.450.000 VND</span></p>
-                            <p> Phí vận chuyển: <span>50.000 VND</span></p>
-                            <p> Thuế(VAT): <span>445.000 VND</span></p>
-                            <h3>Tổng Cộng: <span>4.945.000 VND</span></h3>
+                            <p> Tạm tính: <span><fmt:formatNumber value="${order.totalPrice  - order.shippingFee}" pattern="#,###"/> VNĐ</span></p>
+                            <p> Phí vận chuyển: <span><fmt:formatNumber value="${order.shippingFee}" pattern="#,###"/> VNĐ</span></p>
+                            <p> Thuế(VAT): <span>Đã bao gồm</span></p>
+                            <h3>Tổng Cộng: <span><fmt:formatNumber value="${order.totalPrice}" pattern="#,###"/> VNĐ</span></h3>
 
                         </div>
                         <button class="btn update-status" type="submit" name="btn-update-status"> Cập nhật trạng
