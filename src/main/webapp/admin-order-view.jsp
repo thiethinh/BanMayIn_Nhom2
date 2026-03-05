@@ -36,7 +36,7 @@
                     <h1> Chi Tiết Đơn Hàng</h1>
                 </div>
                 <div>
-                    <h2>Mã đơn: <span>#OD${order.id}</span></h2>
+                    <h2>Mã đơn: <span>${order.id}</span></h2>
                     <a href="#">In/Export</a>
                 </div>
             </section>
@@ -165,8 +165,11 @@
                     </c:if>
                     <div class="payment-type">
                         <h4>Thông tin thanh toán: </h4>
-                        <p> Phương thức: <span>${payment.paymentMethod}</span></p>
-                        <p> Ngày thanh toán: <span>${payment.paidAt} </span></p>
+                        <p> Phương thức:
+                            <span>${not empty payment.paymentMethod ? payment.paymentMethod : 'Chưa cập nhật'}</span>
+                        </p>
+                        <p> Ngày thanh toán:
+                            <span>${not empty payment.paidAt ? payment.paidAt : 'Chưa thanh toán'} </span></p>
                     </div>
                 </div>
 

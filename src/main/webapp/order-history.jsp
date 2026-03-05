@@ -55,7 +55,7 @@
                                     <td><fmt:formatNumber value="${o.totalPrice}" pattern="#,###"/> VNĐ</td>
                                     <td><span class="status ${o.status}">${o.status}</span></td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/order-detail?orderId=${o.id}"
+                                        <a href="${pageContext.request.contextPath}/order-view?orderId=${o.id}"
                                            class="btn-action view">Xem</a>
                                     </td>
                                 </tr>
