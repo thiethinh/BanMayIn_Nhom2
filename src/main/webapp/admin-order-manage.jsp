@@ -63,10 +63,10 @@
                             <tr>
                                 <td>${o.id}</td>
                                 <td>${o.shippingName}</td>
-                                <td>${o.createdAt}</td>
+                                <td><fmt:formatDate value="${o.createdAt}" pattern="dd/MM/yyyy HH:mm"/></td>
                                 <td><fmt:formatNumber value="${o.totalPrice}" pattern="#,###"/>VND</td>
 
-                                <td><span class="status-badge ${o.statusClass}">${o.status}</span></td>
+                                <td><span class="status-badge ${o.status}">${o.status}</span></td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/admin-order-view?orderId=${o.id}" class="btn-action view">Xem</a>
                                 </td>
