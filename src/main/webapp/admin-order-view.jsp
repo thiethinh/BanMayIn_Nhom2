@@ -86,9 +86,11 @@
                             <c:forEach items="${orderItems}" var="oi">
                                 <tr>
                                     <td>
-                                        <img class="product-table-image"
-                                             src="${pageContext.request.contextPath}/${oi.product.thumbnail}"
-                                             alt="${oi.product.productName}">
+                                        <a href="${pageContext.request.contextPath}/product-detail?productId=${oi.product.id}">
+                                            <img class="product-table-image"
+                                                 src="${pageContext.request.contextPath}/${oi.product.thumbnail}"
+                                                 alt="${oi.product.productName}">
+                                        </a>
                                     </td>
                                     <td>${oi.product.productName}</td>
                                     <td>${oi.quantity}</td>

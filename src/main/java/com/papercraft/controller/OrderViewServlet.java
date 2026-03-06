@@ -60,5 +60,35 @@ public class OrderViewServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Hủy đơn hàng
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("acc");
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        String orderIdStr = request.getParameter("orderId");
+        if ("cancel".equals(action)) {
+            int orderId = Integer.parseInt(orderIdStr);
+            OrderDAO orderDAO = new OrderDAO();
+            Order order = orderDAO.getOrderByID(orderId);
+
+            if (order != null  && order.getUserId() == user.getId() && "pending".equals(order.getStatus())) {
+                boolean isCanceled = orderDAO.updateOrderStatus(orderId, "canceled");
+
+                if (isCanceled) {
+                    session.setAttribute("successMsg", "Đã hủy đơn hàng thành công!");
+                } else {
+                    session.setAttribute("errorMsg", "Hủy đơn hàng thất bại, vui lòng thử lại!");
+                }
+            } else {
+                session.setAttribute("errorMsg", "Không thể hủy đơn hàng");
+            }
+
+            response.sendRedirect(request.getContextPath() + "/order-view?orderId=" + orderId);
+        }
     }
 }

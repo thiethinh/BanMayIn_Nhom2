@@ -41,6 +41,20 @@
                     </div>
                 </section>
 
+                <c:if test="${not empty sessionScope.successMsg}">
+                    <div style="color: green; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                            ${sessionScope.successMsg}
+                    </div>
+                    <c:remove var="successMsg" scope="session"/>
+                </c:if>
+
+                <c:if test="${not empty sessionScope.errorMsg}">
+                    <div style="color: red; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                            ${sessionScope.errorMsg}
+                    </div>
+                    <c:remove var="errorMsg" scope="session"/>
+                </c:if>
+
                 <section class="center">
                     <div class="info">
                         <div class="info-cus">
@@ -82,9 +96,11 @@
                                 <c:forEach items="${orderItems}" var="oi">
                                     <tr>
                                         <td>
-                                            <img class="product-table-image"
-                                                 src="${pageContext.request.contextPath}/${oi.product.thumbnail}"
-                                                 alt="${oi.product.productName}">
+                                            <a href="${pageContext.request.contextPath}/product-detail?productId=${oi.product.id}">
+                                                <img class="product-table-image"
+                                                     src="${pageContext.request.contextPath}/${oi.product.thumbnail}"
+                                                     alt="${oi.product.productName}">
+                                            </a>
                                         </td>
                                         <td>${oi.product.productName}</td>
                                         <td style="text-align: center;">${oi.quantity}</td>
@@ -113,8 +129,9 @@
                                                                             pattern="#,###"/> VNĐ</span>
                                 </p>
                                 <p> Thuế(VAT): <span>Đã bao gồm</span></p>
-                                <h3 style="color: red">Tổng Cộng: <span><fmt:formatNumber value="${order.totalPrice}"
-                                                                       pattern="#,###"/> VNĐ</span></h3>
+                                <h3>Tổng Cộng: <span style="color: red"><fmt:formatNumber value="${order.totalPrice}"
+                                                                                          pattern="#,###"/> VNĐ</span>
+                                </h3>
                             </div>
 
                             <div class="payment-type">
@@ -125,6 +142,20 @@
                                 <p> Ngày thanh toán:
                                     <span>${not empty payment.paidAt ? payment.paidAt : 'Chưa thanh toán'} </span></p>
                             </div>
+
+
+                            <c:if test="${order.status == 'pending'}">
+                                <div style="margin-top: 20px; text-align: center">
+                                    <form class="action" action="${pageContext.request.contextPath}/order-view" method="post">
+                                        <input type="hidden" name="orderId" value="${order.id}">
+                                        <input type="hidden" name="action" value="cancel">
+                                        <button type="submit">
+                                            <i class="fa-solid fa-ban"></i> Hủy Đơn Hàng
+                                        </button>
+                                    </form>
+                                </div>
+                            </c:if>
+
                         </div>
                     </div>
                 </section>
